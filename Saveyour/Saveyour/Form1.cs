@@ -22,13 +22,10 @@ namespace Saveyour
         public Form1()
         {
             InitializeComponent();
-            button1.Click += new EventHandler(login_Click);
-            textBox1.Click += new EventHandler(user_Click);
-            textBox1.KeyDown += new KeyEventHandler(user_Enter);
-            textBox2.Click += new EventHandler(pass_Click);
-            textBox2.KeyDown += new KeyEventHandler(pass_Enter);
-            
+            addListeners();
         }
+
+        /*****************      LOGIN BUTTON        ********************/
 
         /* Adding Listener for Log In Button */
         private void login_Click(object sender, System.EventArgs e)
@@ -50,6 +47,12 @@ namespace Saveyour
                 newForm.ShowDialog();
             }
         }
+
+        /*****************      LOGIN BUTTON        ********************/
+
+
+
+        /*****************      USERNAME FORM        ********************/
 
         /* Adding Listener for Username Click */
 
@@ -73,6 +76,12 @@ namespace Saveyour
             }
         }
 
+        /*****************      USERNAME FORM        ********************/
+
+
+
+        /*****************      PASSWORD FORM        ********************/
+
         /* Adding Listener for Password Click */
 
         private void pass_Click(object sender, System.EventArgs e)
@@ -92,6 +101,8 @@ namespace Saveyour
                 login_Click(sender, null); //Tries to log in using null for System.EventArgs. Hopefully this won't break anything
             }
         }
+
+        /*****************      PASSWORD FORM        ********************/
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -113,6 +124,19 @@ namespace Saveyour
         {
 
         }
+
+        /*****************      LISTENERS        ********************/
+
+        private void addListeners()
+        {
+            button1.Click += new EventHandler(login_Click);
+            textBox1.Click += new EventHandler(user_Click);
+            textBox1.KeyDown += new KeyEventHandler(user_Enter);
+            textBox2.Click += new EventHandler(pass_Click);
+            textBox2.KeyDown += new KeyEventHandler(pass_Enter);
+        }
+
+        /*****************      LISTENERS        ********************/
 
 
     }

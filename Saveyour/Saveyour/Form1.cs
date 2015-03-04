@@ -16,20 +16,24 @@ namespace Saveyour
     {
         static Boolean userClick = true;
         static Boolean passClick = true;
+        
+        public static String username;
 
         public Form1()
         {
             InitializeComponent();
             button1.Click += new EventHandler(login_Click);
             textBox1.Click += new EventHandler(user_Click);
+            textBox1.KeyDown += new KeyEventHandler(user_Enter);
             textBox2.Click += new EventHandler(pass_Click);
+            textBox2.KeyDown += new KeyEventHandler(pass_Enter);
             
         }
 
         /* Adding Listener for Log In Button */
         private void login_Click(object sender, System.EventArgs e)
         {
-            String username = textBox1.Text;
+            username = textBox1.Text;
             String password = textBox2.Text;
 
             //Create a network connection and connect
@@ -37,10 +41,14 @@ namespace Saveyour
             String response = network.Connect(network.getIP(), username + "," + password);
             Debug.WriteLine(response);
 
-            this.Hide();
 
-            Form2 newForm = new Form2(this);
-            newForm.ShowDialog();
+            if (response.Contains("Logged in as"))
+            { 
+                this.Hide();
+
+                Form2 newForm = new Form2(this);
+                newForm.ShowDialog();
+            }
         }
 
         /* Adding Listener for Username Click */
@@ -53,6 +61,17 @@ namespace Saveyour
                 userClick = false;
             }
         }
+        
+        /* Pressing enter or on username form will jump to password form */
+        private void user_Enter(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13)
+            {
+                e.Handled = true;
+                SendKeys.Send("{TAB}");
+                //Debug.WriteLine("Enter pressed");
+            }
+        }
 
         /* Adding Listener for Password Click */
 
@@ -62,6 +81,15 @@ namespace Saveyour
             {
                 textBox2.Text = String.Empty;
                 passClick = false;
+            }
+        }
+
+        private void pass_Enter(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13)
+            {
+                e.Handled = true;
+                login_Click(sender, null); //Tries to log in using null for System.EventArgs. Hopefully this won't break anything
             }
         }
 

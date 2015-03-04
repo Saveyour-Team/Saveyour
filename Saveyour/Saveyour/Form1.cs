@@ -35,7 +35,12 @@ namespace Saveyour
             //Create a network connection and connect
             NetworkControl network = new NetworkControl();
             String response = network.Connect(network.getIP(), username + "," + password);
-            Debug.WriteLine(response); 
+            Debug.WriteLine(response);
+
+            this.Hide();
+
+            Form2 newForm = new Form2(this);
+            newForm.ShowDialog();
         }
 
         /* Adding Listener for Username Click */

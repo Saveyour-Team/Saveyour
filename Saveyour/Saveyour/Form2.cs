@@ -18,10 +18,11 @@ namespace Saveyour
          * For now it will only confirm that you have logged in and nothing more.
          */
 
-        Form parent;
+        Form parent = null;
         public Form2() 
         {
             InitializeComponent();
+            label1.Text = "Invalid Username or \nPassword";
         }
 
         /*
@@ -41,8 +42,15 @@ namespace Saveyour
 
         private void button1_Click(object sender, EventArgs e)
         {
-            parent.Dispose();
-            this.Dispose(); //disposing the parent should make sure that this doesn't run; was unsure if this was needed
+            if (parent != null)
+            {
+                parent.Dispose();
+                this.Dispose(); //disposing the parent should make sure that this doesn't run; was unsure if this was needed
+            }
+            else
+            {
+                this.Dispose();
+            }
         }
 
         private void label1_Click(object sender, EventArgs e)

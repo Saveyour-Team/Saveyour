@@ -46,6 +46,11 @@ namespace Saveyour
                 Form2 newForm = new Form2(this);
                 newForm.ShowDialog();
             }
+            else
+            {
+                Form2 newForm = new Form2();
+                newForm.ShowDialog();
+            }
         }
 
         /*****************      LOGIN BUTTON        ********************/

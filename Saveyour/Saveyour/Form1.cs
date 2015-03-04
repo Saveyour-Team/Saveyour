@@ -23,6 +23,7 @@ namespace Saveyour
         {
             InitializeComponent();
             addListeners();
+            label2.Text = "";
         }
 
         /*****************      LOGIN BUTTON        ********************/
@@ -46,10 +47,13 @@ namespace Saveyour
                 Form2 newForm = new Form2(this);
                 newForm.ShowDialog();
             }
-            else
+            else if (response.Contains("Invalid"))
             {
-                Form2 newForm = new Form2();
-                newForm.ShowDialog();
+                label2.Text = "Invalid Login!";
+            }
+            else 
+            {
+                label2.Text = "Error connecting to server!";
             }
         }
 

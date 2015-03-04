@@ -19,20 +19,7 @@ namespace Saveyour
          */
 
         Form parent = null;
-        public Form2() 
-        {
-            InitializeComponent();
-            label1.Text = "Invalid Username or \nPassword";
-        }
-
-        /*
-         * A specialized constructor was created so that we can destroy the login from this new window.
-         * This may not be relevant later because right now you can think of Form1 as being the parent of Form2
-         * When Form1 is destroyed, Form2 is also destroyed. Right now it just hides Form1 and destroys it when
-         * Form2 is no longer need. 
-         * 
-         * We may want to find a way to create Form2 without making Form1 the parent.
-         * */
+        
         public Form2(Form parent)
         {
             InitializeComponent();

@@ -14,10 +14,9 @@ namespace Saveyour
     {
 
         /*
-         * For now, this class window is just here as a placeholder
-         * This placeholder is to be filled in with the next window that should be created
-         * after logging in. For now it will only confirm that you have logged in and nothing more.
-         * */
+         * For now, this class window is just here as a placeholder that will display data from the database.
+         * For now it will only confirm that you have logged in and nothing more.
+         */
 
         Form parent;
         public Form2() 
@@ -37,6 +36,7 @@ namespace Saveyour
         {
             InitializeComponent();
             this.parent = parent;
+            label1.Text = Form1.username + " has logged in";
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -48,6 +48,11 @@ namespace Saveyour
         private void label1_Click(object sender, EventArgs e)
         {
             
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

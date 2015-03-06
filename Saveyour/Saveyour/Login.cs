@@ -12,14 +12,14 @@ using System.Diagnostics;
 
 namespace Saveyour
 {
-    public partial class Form1 : Form
+    public partial class Login : Form
     {
         static Boolean userClick = true;
         static Boolean passClick = true;
         
         public static String username;
 
-        public Form1()
+        public Login()
         {
             InitializeComponent();
             addListeners();
@@ -44,7 +44,7 @@ namespace Saveyour
             { 
                 this.Hide();
 
-                Form2 newForm = new Form2(this);
+                Feedback newForm = new Feedback(this);
                 newForm.ShowDialog();
             }
             else if (response.Contains("Invalid"))

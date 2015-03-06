@@ -1,6 +1,6 @@
 ﻿namespace Saveyour
 {
-    partial class Form2
+    partial class Feedback
     {
         /// <summary>
         /// Required designer variable.

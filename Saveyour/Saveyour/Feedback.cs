@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Saveyour
 {
-    public partial class Form2 : Form
+    public partial class Feedback : Form
     {
 
         /*
@@ -20,11 +20,11 @@ namespace Saveyour
 
         Form parent = null;
         
-        public Form2(Form parent)
+        public Feedback(Form parent)
         {
             InitializeComponent();
             this.parent = parent;
-            label1.Text = Form1.username + " has logged in";
+            label1.Text = Login.username + " has logged in";
         }
 
         private void button1_Click(object sender, EventArgs e)

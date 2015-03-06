@@ -12,7 +12,7 @@ namespace Saveyour
     class NetworkControl
     {
         String SERVERIP = "127.0.0.1";
-        Int32 SERVERPORT = 80;
+        Int32 SERVERPORT = 3000;
 
         public String getIP()
         {

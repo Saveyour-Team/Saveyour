@@ -14,7 +14,8 @@ namespace Saveyour
         }
 
         public void startApp(){
-            
+            Login loginWindow = new Login();
+
         }
     }
 }

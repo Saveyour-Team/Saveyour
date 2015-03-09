@@ -18,6 +18,7 @@ namespace Saveyour
         static Boolean passClick = true;
         
         public static String username;
+        public static String data;
 
         public Login()
         {
@@ -39,9 +40,21 @@ namespace Saveyour
             String response = network.Connect(network.getIP(), username + "," + password);
             Debug.WriteLine(response);
 
+            char[] delimiters = {',', ':'};
+
+            String[] hold = response.Split(delimiters);
+
+            for (int i = 0; i < hold.Length; i++)
+            {
+                hold[i] = hold[i].Trim();
+                //Debug.WriteLine(hold[i]);
+            }
+
+            data = hold[hold.Length-1];
+
 
             if (response.Contains("Logged in as"))
-            { 
+            {
                 this.Hide();
 
                 Feedback newForm = new Feedback(this);
@@ -51,7 +64,7 @@ namespace Saveyour
             {
                 label2.Text = "Invalid Login!";
             }
-            else 
+            else
             {
                 label2.Text = "Error connecting to server!";
             }

@@ -24,7 +24,7 @@ namespace Saveyour
         {
             InitializeComponent();
             this.parent = parent;
-            //label1.Text = Login.username + " has logged in";
+            label1.Text = Login.username + " has logged in";
         }
 
         private void button1_Click(object sender, EventArgs e)

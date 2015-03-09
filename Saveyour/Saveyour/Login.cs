@@ -18,7 +18,7 @@ namespace Saveyour
         static Boolean userClick = true;
         static Boolean passClick = true;
         
-        private String username;
+        public static String username;
         private String password;
 
         public Login()

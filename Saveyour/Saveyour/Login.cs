@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Sockets;
 using System.Diagnostics;
+using System.Threading;
 
 namespace Saveyour
 {
@@ -17,7 +18,8 @@ namespace Saveyour
         static Boolean userClick = true;
         static Boolean passClick = true;
         
-        public static String username;
+        private String username;
+        private String password;
 
         public Login()
         {
@@ -29,33 +31,26 @@ namespace Saveyour
         /*****************      LOGIN BUTTON        ********************/
 
         /* Adding Listener for Log In Button */
+        public void showform()
+        {
+            Feedback newForm = new Feedback(this);
+            newForm.ShowDialog();
+        }
         private void login_Click(object sender, System.EventArgs e)
         {
-            username = textBox1.Text;
-            String password = textBox2.Text;
+            String[] userInfo = new String[] { username = textBox1.Text, password = textBox2.Text };
 
-            //Create a network connection and connect
-            NetworkControl network = new NetworkControl();
-            String response = network.Connect(network.getIP(), username + "," + password);
-            Debug.WriteLine(response);
-
-
-            if (response.Contains("Logged in as"))
-            { 
-                this.Hide();
-
-                Feedback newForm = new Feedback(this);
-                newForm.ShowDialog();
-            }
-            else if (response.Contains("Invalid"))
+            HandleThreads loginThread = new HandleThreads();
+            loginThread.startProcessing(userInfo);
+            loginThread.getEventHandler().WaitOne();
+            String loginStatus = loginThread.getLoginStatus();
+            Console.WriteLine("In login: " + loginStatus);
+            if (loginStatus.Equals("Invalid"))
             {
-                label2.Text = "Invalid Login!";
-            }
-            else 
-            {
-                label2.Text = "Error connecting to server!";
+                label2.Text = "Invalid";
             }
         }
+
 
         /*****************      LOGIN BUTTON        ********************/
 

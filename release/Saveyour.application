@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xrml="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <assemblyIdentity name="Saveyour.application" version="1.0.0.0" publicKeyToken="1f83d5d9b56493bd" language="neutral" processorArchitecture="msil" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <description asmv2:publisher="Saveyour" asmv2:product="Saveyour" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <deployment install="true" mapFileExtensions="true">
+    <subscription>
+      <update>
+        <beforeApplicationStartup />
+      </update>
+    </subscription>
+    <deploymentProvider codebase="http://jg-pc/Saveyour/Saveyour.application" />
+  </deployment>
+  <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
+    <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
+  </compatibleFrameworks>
+  <dependency>
+    <dependentAssembly dependencyType="install" codebase="Application Files\Saveyour_1_0_0_0\Saveyour.exe.manifest" size="7120">
+      <assemblyIdentity name="Saveyour.exe" version="1.0.0.0" publicKeyToken="1f83d5d9b56493bd" language="neutral" processorArchitecture="msil" type="win32" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>ljLEGb3H8jJ7PzLDdmqSQe/E4ybicY0nuLxG7MK3M1s=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+<publisherIdentity name="CN=JG-PC\JG" issuerKeyHash="99a6f4b315f4ef50fec48f49834b0ae221e33e19" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>AoE7JpAN0PQYh+stcoMdKdSw+6/1oSM6gyQJgsMrqzA=</DigestValue></Reference></SignedInfo><SignatureValue>XdwWy+Li/rc9EtiI7S68el1ySDTJzhp/zHzGFaTTwiU0NgnX9MPFvVaMVuorlu6OrjuY+4Z+0KJNie0i/H4oy5pVjhU2grlCTrS5CQmDM82kKV3LUDIvu/dGKZGov43qJDgr6lxYDC71zBuJJSBl+8a5JH6fByAcNAvydk88a+Y=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>u+MYc2DrBtPUy/3VDqB7EliBCwmQ9ouflrw9HxADDGlANCk+X9uUuF60x2HHLoeQ3ioHesAVQvuiMwYn38/kQR4bSvkvZJTj2p9rz59qHQpLZKLGSi50LKLRsf9GQJv0GcmcPVZMU6gSlBB/Pb6r5aqMjWn3HC0d/DQMkPIb1cU=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="30ab2bc3820924833a23a1f5affbb0d4291d83722deb8718f4d00d90263b8102" Description="" Url=""><as:assemblyIdentity name="Saveyour.application" version="1.0.0.0" publicKeyToken="1f83d5d9b56493bd" language="neutral" processorArchitecture="msil" xmlns="urn:schemas-microsoft-com:asm.v1" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=JG-PC\JG</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>XfBrydgPX5h50f7gwiGcWEgVhmPcb+JXmXJT+odgYDM=</DigestValue></Reference></SignedInfo><SignatureValue>D6xjLlZf9/a/FWXXvXwvOF71EGUU2bDvo6+1hSi70oo40mLhpo+fYl/A1BbW+k4ugQj0SVMjblUlSAqatLJnu72cg5Tuh0gbV4JwMFNNANm4zDrZmNAcXxt3aZyYh1MwY+DmyJWu1PDI7i8lZLHXd4jkROTrJwIfnTs4DcvKyzY=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>u+MYc2DrBtPUy/3VDqB7EliBCwmQ9ouflrw9HxADDGlANCk+X9uUuF60x2HHLoeQ3ioHesAVQvuiMwYn38/kQR4bSvkvZJTj2p9rz59qHQpLZKLGSi50LKLRsf9GQJv0GcmcPVZMU6gSlBB/Pb6r5aqMjWn3HC0d/DQMkPIb1cU=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIBuTCCASKgAwIBAgIQQnwYcqj1h4BB89aH+L512DANBgkqhkiG9w0BAQsFADAbMRkwFwYDVQQDHhAASgBHAC0AUABDAFwASgBHMB4XDTE1MDMwOTAyMDQwNVoXDTE2MDMwODA4MDQwNVowGzEZMBcGA1UEAx4QAEoARwAtAFAAQwBcAEoARzCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAu+MYc2DrBtPUy/3VDqB7EliBCwmQ9ouflrw9HxADDGlANCk+X9uUuF60x2HHLoeQ3ioHesAVQvuiMwYn38/kQR4bSvkvZJTj2p9rz59qHQpLZKLGSi50LKLRsf9GQJv0GcmcPVZMU6gSlBB/Pb6r5aqMjWn3HC0d/DQMkPIb1cUCAwEAATANBgkqhkiG9w0BAQsFAAOBgQC6qDnvT0foBJ1PxMbUa+tzFhlEZAcKakHm0Ro9C/l+iXQ1+3e1Ngd94GLcECeagjckRzFkmw6lTtQZxFk96yarbOK8h1ELd71bWxcMjprObduDV8LvmnwuejkxGUgsyBApu0dCsJkX9MzPCLhXOGkw4D8lvbs++0A2vWdoP3B64g==</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

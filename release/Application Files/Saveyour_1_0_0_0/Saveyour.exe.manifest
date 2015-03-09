@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="Saveyour.exe" version="1.0.0.0" publicKeyToken="1f83d5d9b56493bd" language="neutral" processorArchitecture="msil" type="win32" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="Saveyour" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="Saveyour.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Saveyour.exe" size="12800">
+      <assemblyIdentity name="Saveyour" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>WolNUqjBhPt9N6ZLNP9RBb4knBIci3/aqvc+KaxUBrQ=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="Saveyour.exe.config" size="187">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>xm4bo26HQ0LNVwz1vdPYtzhkpMnp2AI5i+f0b+OahTI=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=JG-PC\JG" issuerKeyHash="99a6f4b315f4ef50fec48f49834b0ae221e33e19" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>eU4WBc5LmKBuLRj2Pa79bcJZpa1X4ulGyxyI0015Lss=</DigestValue></Reference></SignedInfo><SignatureValue>qESWoPMhPsM+XKE+YvO5CskAOng1IHOxJD1uN/hxYByf3oeQ0uDusvDsmrRiVNbk3BUnHmP08N/O+lq349vl+7KGTEQ8xOb63s4cWcEs8m8iN4rDPSbtGId6n6v54cXqJ2tgK3chiJ5h8kR3b6ldA1NMdyxG+uqKC55s4CUMlQ8=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>u+MYc2DrBtPUy/3VDqB7EliBCwmQ9ouflrw9HxADDGlANCk+X9uUuF60x2HHLoeQ3ioHesAVQvuiMwYn38/kQR4bSvkvZJTj2p9rz59qHQpLZKLGSi50LKLRsf9GQJv0GcmcPVZMU6gSlBB/Pb6r5aqMjWn3HC0d/DQMkPIb1cU=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="cb2e794dd3881ccb46e9e257ada559c26dfdae3df6182d6ea0984bce05164e79" Description="" Url=""><as:assemblyIdentity name="Saveyour.exe" version="1.0.0.0" publicKeyToken="1f83d5d9b56493bd" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=JG-PC\JG</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>hBwQySWdw7Dq5GH0ikcD66P9tn86WqsH1qvM1f/9TyI=</DigestValue></Reference></SignedInfo><SignatureValue>REDvGRsuCNfnAoFXY8NtNT7tMIxvbqHrtjQObDya3yuC+t48pUeNCbes6szdRsXfOAtdxH0cLIEYpJ678K2qMprKe6lB1IeFqKUF0/dD2w7942qt2C/XRO8wKbgHLuL6rXg4ZrAvmPMAOBhFWRGzvMuTE8UzpyE07b4lVsreLt0=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>u+MYc2DrBtPUy/3VDqB7EliBCwmQ9ouflrw9HxADDGlANCk+X9uUuF60x2HHLoeQ3ioHesAVQvuiMwYn38/kQR4bSvkvZJTj2p9rz59qHQpLZKLGSi50LKLRsf9GQJv0GcmcPVZMU6gSlBB/Pb6r5aqMjWn3HC0d/DQMkPIb1cU=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIBuTCCASKgAwIBAgIQQnwYcqj1h4BB89aH+L512DANBgkqhkiG9w0BAQsFADAbMRkwFwYDVQQDHhAASgBHAC0AUABDAFwASgBHMB4XDTE1MDMwOTAyMDQwNVoXDTE2MDMwODA4MDQwNVowGzEZMBcGA1UEAx4QAEoARwAtAFAAQwBcAEoARzCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAu+MYc2DrBtPUy/3VDqB7EliBCwmQ9ouflrw9HxADDGlANCk+X9uUuF60x2HHLoeQ3ioHesAVQvuiMwYn38/kQR4bSvkvZJTj2p9rz59qHQpLZKLGSi50LKLRsf9GQJv0GcmcPVZMU6gSlBB/Pb6r5aqMjWn3HC0d/DQMkPIb1cUCAwEAATANBgkqhkiG9w0BAQsFAAOBgQC6qDnvT0foBJ1PxMbUa+tzFhlEZAcKakHm0Ro9C/l+iXQ1+3e1Ngd94GLcECeagjckRzFkmw6lTtQZxFk96yarbOK8h1ELd71bWxcMjprObduDV8LvmnwuejkxGUgsyBApu0dCsJkX9MzPCLhXOGkw4D8lvbs++0A2vWdoP3B64g==</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

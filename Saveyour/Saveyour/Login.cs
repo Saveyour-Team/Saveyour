@@ -38,17 +38,51 @@ namespace Saveyour
         }
         private void login_Click(object sender, System.EventArgs e)
         {
-            String[] userInfo = new String[] { username = textBox1.Text, password = textBox2.Text };
+            username = textBox1.Text;
+            String password = textBox2.Text;
 
+            //Create a network connection and connect
+            NetworkControl network = new NetworkControl();
+            String response = network.Connect(network.getIP(), username + "," + password);
+            Debug.WriteLine(response);
+
+
+            if (response.Contains("Logged in as"))
+            {
+                this.Hide();
+
+                Feedback newForm = new Feedback(this);
+                newForm.ShowDialog();
+            }
+            else if (response.Contains("Invalid"))
+            {
+                label2.Text = "Invalid Login!";
+            }
+            else
+            {
+                label2.Text = "Error connecting to server!";
+            }
+
+            /*
+            String[] userInfo = new String[] { username = textBox1.Text, password = textBox2.Text };
+            
             HandleThreads loginThread = new HandleThreads();
             loginThread.startProcessing(userInfo);
             loginThread.getEventHandler().WaitOne();
             String loginStatus = loginThread.getLoginStatus();
-            Console.WriteLine("In login: " + loginStatus);
-            if (loginStatus.Equals("Invalid"))
+            switch (loginThread.getLoginStatus())
             {
-                label2.Text = "Invalid";
-            }
+                case "Invalid":
+                    label2.Text = "Invalid";
+                    break;
+                case "Error connecting to Server":
+                    label2.Text = "Error connecting to Server";
+                    break;
+                case "Logged in":
+                    label2.Text = "Logged in as " + userInfo[0];
+                    break;
+            }*/
+
         }
 
 

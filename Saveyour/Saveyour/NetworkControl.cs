@@ -11,8 +11,8 @@ namespace Saveyour
 
     class NetworkControl
     {
-        String SERVERIP = "127.0.0.1";
-        Int32 SERVERPORT = 3000;
+        String SERVERIP = "54.173.26.10";
+        Int32 SERVERPORT = 80;
 
         public String getIP()
         {

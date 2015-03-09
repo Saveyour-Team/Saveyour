@@ -13,8 +13,8 @@ namespace Saveyour
         [STAThread]
         static void Main()
         {
-            Shell masterShell = new Shell();
-            masterShell.startApp();
+            Shell shell = new Shell();
+            shell.startApp();
         }
     }
 }

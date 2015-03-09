@@ -63,7 +63,8 @@ namespace Saveyour
                 label2.Text = "Error connecting to server!";
             }
 
-            /*
+            /* MULTI-THREADED LOGIN
+             
             String[] userInfo = new String[] { username = textBox1.Text, password = textBox2.Text };
             
             HandleThreads loginThread = new HandleThreads();
@@ -81,7 +82,9 @@ namespace Saveyour
                 case "Logged in":
                     label2.Text = "Logged in as " + userInfo[0];
                     break;
-            }*/
+            }
+             
+            */
 
         }
 

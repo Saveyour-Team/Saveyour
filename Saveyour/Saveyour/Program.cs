@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Saveyour
 {
@@ -13,8 +15,20 @@ namespace Saveyour
         [STAThread]
         static void Main()
         {
-            Shell shell = new Shell();
-            shell.startApp();
+            String appGuid = "c0a76b5a-12ab-45c5-b9d9-d693faa6e7b9";
+
+            using (Mutex mutex = new Mutex(false, "Global\\" + appGuid))
+            {
+                if (!mutex.WaitOne(0, false))
+                {
+                    MessageBox.Show("Saveyour is already running. Please close that instance before opening a new one.");
+                    return;
+                }
+
+               Shell shell = new Shell();
+               shell.startApp();              
+            }
+            
         }
     }
 }

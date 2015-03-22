@@ -13,13 +13,13 @@ namespace Saveyour
     {
         Login userLogin;
         public Shell()
-        {
+        {            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             userLogin = new Login();
         }
 
-        public void startApp(){
+        public void startApp(){            
 
             Application.Run(userLogin);
             

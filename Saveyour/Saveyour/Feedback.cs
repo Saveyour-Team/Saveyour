@@ -51,5 +51,10 @@ namespace Saveyour
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ReadWrite.write(label2.Text);
+        }
     }
 }

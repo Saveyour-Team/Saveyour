@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Sockets;
 using System.Diagnostics;
+using System.Threading;
 
 namespace Saveyour
 {
@@ -19,6 +20,7 @@ namespace Saveyour
         
         public static String username;
         public static String data;
+        private String password;
 
         public Login()
         {
@@ -30,6 +32,11 @@ namespace Saveyour
         /*****************      LOGIN BUTTON        ********************/
 
         /* Adding Listener for Log In Button */
+        public void showform()
+        {
+            Feedback newForm = new Feedback(this);
+            newForm.ShowDialog();
+        }
         private void login_Click(object sender, System.EventArgs e)
         {
             username = textBox1.Text;
@@ -68,7 +75,32 @@ namespace Saveyour
             {
                 label2.Text = "Error connecting to server!";
             }
+
+            /* MULTI-THREADED LOGIN
+             
+            String[] userInfo = new String[] { username = textBox1.Text, password = textBox2.Text };
+            
+            HandleThreads loginThread = new HandleThreads();
+            loginThread.startProcessing(userInfo);
+            loginThread.getEventHandler().WaitOne();
+            String loginStatus = loginThread.getLoginStatus();
+            switch (loginThread.getLoginStatus())
+            {
+                case "Invalid":
+                    label2.Text = "Invalid";
+                    break;
+                case "Error connecting to Server":
+                    label2.Text = "Error connecting to Server";
+                    break;
+                case "Logged in":
+                    label2.Text = "Logged in as " + userInfo[0];
+                    break;
+            }
+             
+            */
+
         }
+
 
         /*****************      LOGIN BUTTON        ********************/
 

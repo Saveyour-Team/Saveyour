@@ -37,6 +37,10 @@ namespace Saveyour
             Feedback newForm = new Feedback(this);
             newForm.ShowDialog();
         }
+        private void add_certificate_Click(object sender, System.EventArgs e)
+        {
+            NetworkControl.addCertificate();
+        }
         private void login_Click(object sender, System.EventArgs e)
         {
             username = textBox1.Text;
@@ -70,6 +74,10 @@ namespace Saveyour
             else if (response.Contains("Invalid"))
             {
                 label2.Text = "Invalid Login!";
+            }
+            else if (response.Contains("Certificate"))
+            {
+                label2.Text = "You need to add the SaveYour Certificate!";
             }
             else
             {
@@ -184,6 +192,7 @@ namespace Saveyour
         private void addListeners()
         {
             button1.Click += new EventHandler(login_Click);
+            button2.Click += new EventHandler(add_certificate_Click);
             textBox1.Click += new EventHandler(user_Click);
             textBox1.KeyDown += new KeyEventHandler(user_Enter);
             textBox2.Click += new EventHandler(pass_Click);

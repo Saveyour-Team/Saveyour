@@ -56,7 +56,7 @@ namespace Saveyour
                 X509Certificate2Collection collection = new X509Certificate2Collection();
                 collection.Import(certPath);
 
-                stream.AuthenticateAsClient(SERVERIP, collection, SslProtocols.Tls, false);
+                stream.AuthenticateAsClient("SaveYour", collection, SslProtocols.Tls, false);
 
                 // Send the message to the connected TcpServer. 
                 stream.Write(data, 0, data.Length);

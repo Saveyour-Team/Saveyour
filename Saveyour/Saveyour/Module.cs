@@ -7,35 +7,17 @@ using System.Windows.Forms;
 
 namespace Saveyour
 {
-    abstract class Module : Form
+    public interface Module 
     {
-        protected int moduleID;
+        String moduleID();              
 
-        public Module()
-        {
+        Boolean update();
 
-        }
+        String save();
 
-        public Boolean add()
-        {
-            return true;
-        }
+        Boolean load(String data);
 
-        public Boolean delete()
-        {
-            return true;
-        }
-
-        public Boolean update()
-        {
-            return true;
-        }
-
-        public abstract String save();
-
-        public abstract Boolean load(String data);
-
-        abstract public Array getDates();
-
+        String[] getDates();
+   
     }
 }

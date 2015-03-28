@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Saveyour
 {
-    abstract class Parsable : Module
+    abstract class Parsable
     {
         public Parsable()
         {

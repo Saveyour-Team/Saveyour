@@ -1,7 +1,7 @@
-﻿<Window x:Class="Saveyour.MainWindow"
+﻿<Window x:Class="Saveyour.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="438" Width="449">
+        Title="LoginWindow" Height="438" Width="449">
     <Grid Margin="0,0,-8,1">
         <Label Content="Saveyour" HorizontalAlignment="Left" Margin="105,10,0,0" VerticalAlignment="Top" FontSize="60"/>
         <TextBlock HorizontalAlignment="Left" Margin="117,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224"/>

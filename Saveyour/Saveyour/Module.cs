@@ -30,15 +30,9 @@ namespace Saveyour
             return true;
         }
 
-        public Boolean save()
-        {
-            return true;
-        }
+        public abstract String save();
 
-        public Boolean load()
-        {
-            return true;
-        }
+        public abstract Boolean load(String data);
 
         abstract public Array getDates();
 

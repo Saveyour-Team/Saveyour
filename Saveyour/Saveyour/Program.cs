@@ -25,8 +25,8 @@ namespace Saveyour
                     return;
                 }
 
-               Shell shell = new Shell();
-               shell.startApp();              
+               Shell shell = Shell.getShell();
+              // shell.startApp();              
             }
             
         }

@@ -77,5 +77,26 @@ namespace Saveyour
             String data = ReadWrite.read();
             return loadModules(data);
         }
+
+        //Launch all modules that have saved settings
+        public void loadToLaunch()
+        {
+            String input = ReadWrite.read();
+
+            Modlist modList = Shell.getModList();
+            String modID;
+            String modData;
+            String[] splitAt = { "\r\n{" };
+            String[] moduleData = input.Split(splitAt, StringSplitOptions.None);
+
+            for (int i = 0; i < moduleData.Length; i++)
+            {
+                modID = moduleData[i].Substring(0, moduleData[i].IndexOf('}'));
+                modData = moduleData[i].Substring(moduleData[i].IndexOf('{'), moduleData[i].LastIndexOf('}'));
+                Module launched = Shell.launch(modID);
+                launched.load(modData);
+                
+            }
+        }
     }
 }

@@ -13,18 +13,43 @@ namespace Saveyour
     class Shell{
     
         private static Modlist modlist;
-        Login userLogin;
-        public Shell()
+        private static SaveLoader saveLoad;
+        private static Login userLogin;
+        private static Boolean shellLaunched;
+        private static Shell theShell;
+
+        public static Shell getShell()
+        {
+            if (!shellLaunched)
+            {
+                theShell = new Shell();
+                shellLaunched = true;
+            }
+            return theShell;
+        }
+
+        public static Module launch(String modID)
+        {
+            //Run 'modID' + '.exe' in the SaveYour/Modules folder
+            Module newModule = new Quicknotes();
+            modlist.add(newModule);
+            return newModule;
+        }
+        private Shell()
         {            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             userLogin = new Login();
+            modlist = new Modlist();
 
-            Debug.WriteLine("Got here");
             userLogin.ShowDialog();
             if (userLogin.loggedIn())
             {
+                saveLoad = new SaveLoader();
+              //  saveLoad.loadToLaunch();
                 Debug.WriteLine("Booting other modules");
+
+
             }
 
         }

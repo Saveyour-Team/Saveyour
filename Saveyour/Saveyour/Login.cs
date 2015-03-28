@@ -70,6 +70,8 @@ namespace Saveyour
 
                 Feedback newForm = new Feedback(this);
                 newForm.ShowDialog();
+                Quicknotes testModule = new Quicknotes();
+                testModule.ShowDialog();
             }
             else if (response.Contains("Invalid"))
             {

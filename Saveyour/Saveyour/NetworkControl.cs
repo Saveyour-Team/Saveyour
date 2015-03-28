@@ -5,18 +5,33 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Diagnostics;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
+using System.Security.Authentication;
+using System.IO;
 
 namespace Saveyour
 {
-
     class NetworkControl
     {
         String SERVERIP = "54.173.26.10";
-        Int32 SERVERPORT = 80;
+        Int32 SERVERPORT = 1337;
+        String certPath = @"ServerCertificate.pem";
+        // X509Certificate2 clientCert = new X509Certificate2(certPath);
 
         public String getIP()
         {
             return SERVERIP;
+        }
+
+        public static void addCertificate()
+        {
+            String certPath = @"ServerCertificate.pem";
+            X509Store store = new X509Store(StoreName.Root, StoreLocation.CurrentUser);
+            store.Open(OpenFlags.ReadWrite);
+            X509Certificate2 saveyour_certification = new X509Certificate2(certPath);
+            store.Add(saveyour_certification);
+            store.Close();
         }
 
         public String Connect(String server, String message)
@@ -36,7 +51,11 @@ namespace Saveyour
                 // Get a client stream for reading and writing. 
                 //  Stream stream = client.GetStream();
 
-                NetworkStream stream = client.GetStream();
+                SslStream stream = new SslStream(client.GetStream());
+                X509Certificate2Collection collection = new X509Certificate2Collection();
+                collection.Import(certPath);
+
+                stream.AuthenticateAsClient("SaveYour", collection, SslProtocols.Tls, false);
 
                 // Send the message to the connected TcpServer. 
                 stream.Write(data, 0, data.Length);
@@ -71,6 +90,16 @@ namespace Saveyour
             {
                 Console.WriteLine("SocketException: {0}", e);
                 return "";
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine("IOException: {0}", e);
+                return "";
+            }
+            catch (AuthenticationException e)
+            {
+                Console.WriteLine("AuthenticationException: {0}", e);
+                return "Certificate";
             }
 
             Console.WriteLine("\n Press Enter to continue...");

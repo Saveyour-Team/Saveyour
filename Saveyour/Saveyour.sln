@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saveyour", "Saveyour\Saveyour.csproj", "{62625FBD-CAF2-46D7-A4D9-E4BAF2EA2F29}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saveyour", "Saveyour\Saveyour.csproj", "{4B9B4CFB-6CC8-42B8-A22F-5F19090D584E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{62625FBD-CAF2-46D7-A4D9-E4BAF2EA2F29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{62625FBD-CAF2-46D7-A4D9-E4BAF2EA2F29}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{62625FBD-CAF2-46D7-A4D9-E4BAF2EA2F29}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{62625FBD-CAF2-46D7-A4D9-E4BAF2EA2F29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B9B4CFB-6CC8-42B8-A22F-5F19090D584E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B9B4CFB-6CC8-42B8-A22F-5F19090D584E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B9B4CFB-6CC8-42B8-A22F-5F19090D584E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B9B4CFB-6CC8-42B8-A22F-5F19090D584E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

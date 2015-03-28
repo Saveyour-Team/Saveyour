@@ -57,9 +57,8 @@
     <Compile Include="Feedback.Designer.cs">
       <DependentUpon>Feedback.cs</DependentUpon>
     </Compile>
-    <Compile Include="Module.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Modlist.cs" />
+    <Compile Include="Module.cs" />
     <Compile Include="NetworkControl.cs" />
     <Compile Include="Parsable.cs" />
     <Compile Include="Program.cs" />

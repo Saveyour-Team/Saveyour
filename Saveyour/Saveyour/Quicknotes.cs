@@ -18,28 +18,29 @@ namespace Saveyour
         }
 
         public String save()
-        {
+        {      
             return textBox1.Text;
         }
 
         public Boolean load(String data)
         {
-            return false;
-        }
-
-        public String[] getDates()
-        {
-            return null;
-        }
+            textBox1.Text = data;
+            return true;
+        }       
 
         public String moduleID()
         {
-            return null;   
+            return "Quicknotes";   
         }
 
         public Boolean update()
         {
             return false;
+        }
+
+        public Boolean Equals(Module other)
+        {
+            return (moduleID().Equals(other.moduleID()));
         }
 
     }

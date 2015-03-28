@@ -17,7 +17,7 @@ namespace Saveyour
 
         Boolean load(String data);
 
-        String[] getDates();
+        Boolean Equals(Module other);
    
     }
 }

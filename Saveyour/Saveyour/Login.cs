@@ -68,10 +68,11 @@ namespace Saveyour
             {
                 this.Hide();
 
-                Feedback newForm = new Feedback(this);
-                newForm.ShowDialog();
                 Quicknotes testModule = new Quicknotes();
                 testModule.ShowDialog();
+                Feedback newForm = new Feedback(this);
+                newForm.ShowDialog();
+                
             }
             else if (response.Contains("Invalid"))
             {

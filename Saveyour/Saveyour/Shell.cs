@@ -10,8 +10,9 @@ using System.Diagnostics;
 
 namespace Saveyour
 {
-    class Shell
-    {
+    class Shell{
+    
+        private static Modlist modlist;
         Login userLogin;
         public Shell()
         {            
@@ -26,6 +27,11 @@ namespace Saveyour
                 Debug.WriteLine("Booting other modules");
             }
 
+        }
+
+        public static Modlist getModList()
+        {
+            return modlist;
         }
 
         public void startApp(){            

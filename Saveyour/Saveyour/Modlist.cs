@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace Saveyour
 {
-    class Modlist
+    class Modlist : IEnumerable<Module>
     {
         List<Module> modules = new List<Module>();
 
@@ -24,22 +25,14 @@ namespace Saveyour
             if (modules.Contains(input))
                 modules.Remove(input);                                
         }
-        /**
-         * Returns the savedata string for all the modules with format \r\n{\n{\nModuleID}\n{DATA FOR THE MODULE \n} \r\n}
-         * String save() return null if the save output is invalid (because it contains \r\n) 
-         **/
-        public String save()
+ 
+        public IEnumerator<Module> GetEnumerator(){
+            return modules.GetEnumerator();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            String output = "";
-            foreach (Module m in modules){
-                if (m.save().Contains("\r\n"))
-                {
-                    Debug.WriteLine("Error! Module: " + m.moduleID() + " has \\r\\n in its save output!\n");
-                    return null;
-                }
-                output = output + "\r\n{"+m.moduleID()+"}\n" + "{\n" + m.save()+"\n}\r\n}";
-            }
-            return output;
+            return GetEnumerator();
         }
     }
 }

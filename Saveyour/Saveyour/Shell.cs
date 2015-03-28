@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Saveyour
 {
@@ -17,11 +18,19 @@ namespace Saveyour
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             userLogin = new Login();
+
+            Debug.WriteLine("Got here");
+            userLogin.ShowDialog();
+            if (userLogin.loggedIn())
+            {
+                Debug.WriteLine("Booting other modules");
+            }
+
         }
 
         public void startApp(){            
 
-            Application.Run(userLogin);
+            //Application.Run(userLogin);
             
         }
 

@@ -21,6 +21,7 @@ namespace Saveyour
         public static String username;
         public static String data;
         private String password;
+        private Boolean isLoggedIn = false;
 
         public Login()
         {
@@ -36,6 +37,11 @@ namespace Saveyour
         {
             Feedback newForm = new Feedback(this);
             newForm.ShowDialog();
+        }
+
+        public Boolean loggedIn()
+        {
+            return isLoggedIn;
         }
         private void add_certificate_Click(object sender, System.EventArgs e)
         {
@@ -69,9 +75,14 @@ namespace Saveyour
                 this.Hide();
 
                 Quicknotes testModule = new Quicknotes();
+                testModule.load("TEST LOADING THIS STRING");
                 testModule.ShowDialog();
+
+
+
                 Feedback newForm = new Feedback(this);
                 newForm.ShowDialog();
+                isLoggedIn = true;
                 
             }
             else if (response.Contains("Invalid"))

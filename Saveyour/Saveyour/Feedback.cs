@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Timers;
 
 namespace Saveyour
 {
@@ -50,28 +49,12 @@ namespace Saveyour
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            label3.Hide();
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            System.Timers.Timer t = new System.Timers.Timer();
-            t.Interval = 1000;
-            t.AutoReset = false;
-            t.Elapsed += new ElapsedEventHandler(hideSaved);
-            t.Start();
-
             ReadWrite.write(label2.Text);
-            label3.Show();
-            
-        }
-      
-        private void hideSaved(object sender, ElapsedEventArgs e)
-        {
-            this.Invoke((MethodInvoker)delegate
-            {
-                label3.Hide();
-            });
         }
     }
 }

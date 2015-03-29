@@ -21,6 +21,7 @@ namespace Saveyour
     /// </summary>
     public partial class LoginWindow : Window
     {
+        private Boolean isLoggedIn = false;
         public static String username;
         public static String userData;
         public LoginWindow()
@@ -28,6 +29,10 @@ namespace Saveyour
             InitializeComponent();
         }
 
+        public Boolean loggedIn()
+        {
+            return isLoggedIn;
+        }
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
@@ -60,6 +65,7 @@ namespace Saveyour
             {
                 //Feedback newForm = new Feedback(this);
                 //newForm.ShowDialog();
+                isLoggedIn = true;
                 this.Hide();
                 //loginStatusLabel.Content = username + " has logged in!";
                 loggedInWindow loggedIn = new loggedInWindow();

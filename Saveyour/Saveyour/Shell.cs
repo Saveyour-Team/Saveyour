@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Windows;
 
 
 
@@ -13,7 +14,7 @@ namespace Saveyour
     
         private static Modlist modlist;
         private static SaveLoader saveLoad;
-        private static Login userLogin;
+        private static LoginWindow userLogin;
         private static Shell theShell;
 
         static void OnProcessExit(object sender, EventArgs e)
@@ -34,13 +35,9 @@ namespace Saveyour
         public static Module launch(String modID)
         {
             //Run 'modID' + '.exe' in the SaveYour/Modules folder
-            Form newModule;
+            Window newModule;
             if (modID.Equals("Feedback"))
             {
-                newModule = new Feedback();
-            }
-            else{
-                newModule = new Quicknotes();
             }
             Debug.WriteLine("Launching: "+modID);
 
@@ -54,7 +51,8 @@ namespace Saveyour
             Saveyour.App app = new Saveyour.App();
             app.InitializeComponent();
             app.Run();
-            userLogin = new Login();
+            userLogin = new LoginWindow();
+            userLogin.ShowDialog();
             modlist = new Modlist();
 
             userLogin.ShowDialog();

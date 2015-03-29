@@ -58,11 +58,7 @@
     <Compile Include="loggedInWindow.xaml.cs">
       <DependentUpon>loggedInWindow.xaml</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-    <Page Include="MainWindow.xaml">
-=======
     <Page Include="LoginWindow.xaml">
->>>>>>> origin/shell
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -70,13 +66,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-<<<<<<< HEAD
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-=======
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
->>>>>>> origin/shell
       <SubType>Code</SubType>
     </Compile>
     <Page Include="loggedInWindow.xaml">

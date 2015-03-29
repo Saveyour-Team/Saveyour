@@ -102,10 +102,6 @@ namespace Saveyour
                 Console.WriteLine("AuthenticationException: {0}", e);
                 return "Certificate";
             }
-
-            Console.WriteLine("\n Press Enter to continue...");
-            Console.Read();
-            return "";
         }
 
     }

@@ -20,7 +20,6 @@ namespace Saveyour
         
         public static String username;
         public static String data;
-        private String password;
         private Boolean isLoggedIn = false;
 
         public Login()
@@ -35,8 +34,9 @@ namespace Saveyour
         /* Adding Listener for Log In Button */
         public void showform()
         {
-            Feedback newForm = new Feedback(this);
-            newForm.ShowDialog();
+            //Feedback newForm = new Feedback(this);
+           // newForm.Show();
+           // Shell.launch("Feedback");
         }
 
         public Boolean loggedIn()
@@ -73,16 +73,11 @@ namespace Saveyour
             if (response.Contains("Logged in as"))
             {
                 this.Hide();
-
-                Quicknotes testModule = new Quicknotes();
-                testModule.load("TEST LOADING THIS STRING");
-                testModule.ShowDialog();
-
-
-
-                Feedback newForm = new Feedback(this);
-                newForm.ShowDialog();
+                Shell.getSaveLoader().loadToLaunch();
+               // Feedback newForm = new Feedback(this);
+                //Shell.launch("Feedback");
                 isLoggedIn = true;
+                this.Close();
                 
             }
             else if (response.Contains("Invalid"))

@@ -9,16 +9,11 @@ namespace Saveyour
 {
     class SaveLoader
     {
-
+        String saveFile = "saveddata.txt";
 
         /**
         * Returns the savedata string for all the modules with format 
-         * \r\n{
-         * {ModuleID}
-         * {
-         * DATA FOR THE MODULE 
-         * }
-         * }
+        * {ModuleID}{DATA FOR THE MODULE}\r\n
         * String save() return null if the save output is invalid (because it contains \r\n) 
         **/
         private String saveModules()
@@ -29,17 +24,16 @@ namespace Saveyour
             {
                 if (m.save().Contains("\r\n"))
                 {
-                    Debug.WriteLine("Error! Module: " + m.moduleID() + " has \\r\\n in its save output!\n");
-                    return null;
+                    Debug.WriteLine("Error! Module: " + m.moduleID() + " has \\r\\n in its save output! Skipping!\n");
                 }
-                output = output + "\r\n{" + m.moduleID() + "}\n" + "{\n" + m.save() + "\n}\n}";
+                output = output + "{" + m.moduleID() + "}" + "{" + m.save() + "}\r\n";
             }
             return output;
         }
 
         public void save()
         {
-            ReadWrite.write(saveModules());
+            ReadWrite.writeStringTo(saveModules(), saveFile);
         }
 
 
@@ -51,7 +45,12 @@ namespace Saveyour
             String modData;
             String[] splitAt = { "\r\n{" };
             String[] moduleData = input.Split(splitAt, StringSplitOptions.None);
-
+            if (moduleData.Length < 1)
+            {
+                Debug.WriteLine("Invalidly formatted string passed to loadModules in SaveLoader.\n");
+                return false;
+            }
+            //-1 since there's nothing after the last \r\n
             for (int i = 0; i < moduleData.Length; i++)
             {
                 modID = moduleData[i].Substring(0, moduleData[i].IndexOf('}'));
@@ -74,14 +73,15 @@ namespace Saveyour
 
         public Boolean load()
         {
-            String data = ReadWrite.read();
+            String data = ReadWrite.readStringFrom(saveFile);
+            Debug.WriteLine("Loaded: " + data);
             return loadModules(data);
         }
 
         //Launch all modules that have saved settings
         public void loadToLaunch()
         {
-            String input = ReadWrite.read();
+            String input = ReadWrite.readStringFrom(saveFile);
 
             Modlist modList = Shell.getModList();
             String modID;
@@ -91,11 +91,19 @@ namespace Saveyour
 
             for (int i = 0; i < moduleData.Length; i++)
             {
-                modID = moduleData[i].Substring(0, moduleData[i].IndexOf('}'));
-                modData = moduleData[i].Substring(moduleData[i].IndexOf('{'), moduleData[i].LastIndexOf('}'));
-                Module launched = Shell.launch(modID);
-                launched.load(modData);
-                
+                try
+                {
+                    int idx = moduleData[i].IndexOf("}") + 2;
+                    modID = moduleData[i].Substring(1, moduleData[i].IndexOf('}') - 1);
+                    modData = moduleData[i].Substring(idx);
+                    modData = modData.Substring(0, modData.LastIndexOf('}'));
+                    Module launched = Shell.launch(modID);
+                    launched.load(modData);
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    Debug.WriteLine("Invalid saveddata.txt");
+                }
             }
         }
     }

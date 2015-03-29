@@ -11,7 +11,7 @@ using System.Timers;
 
 namespace Saveyour
 {
-    public partial class Feedback : Form
+    public partial class Feedback : Form, Module
     {
 
         /*
@@ -20,11 +20,37 @@ namespace Saveyour
          */
 
         Form parent = null;
-        
-        public Feedback(Form parent)
+
+        public String moduleID()
+        {
+            return "Feedback";
+        }
+
+        public Boolean update()
+        {
+            return false;
+        }
+
+        public String save()
+        {
+            return "";
+        }
+
+        public Boolean load(String data)
+        {
+            return false;
+        }
+
+        public Boolean Equals(Module other)
+        {
+            return (moduleID().Equals(other.moduleID()));
+        }
+   
+
+        public Feedback()
         {
             InitializeComponent();
-            this.parent = parent;
+            //this.parent = parent;
             label1.Text = Login.username + " has logged in";
             label2.Text = Login.username + " likes " + Login.data;
             //ReadWrite.write(Login.username + " likes " + Login.data); Testing for writing data.
@@ -34,7 +60,7 @@ namespace Saveyour
         {
             if (parent != null)
             {
-                parent.Dispose();
+                //parent.Dispose();
                 this.Dispose(); //disposing the parent should make sure that this doesn't run; was unsure if this was needed
             }
             else

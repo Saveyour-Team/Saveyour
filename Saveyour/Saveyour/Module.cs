@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Saveyour
 {
-    public interface Module 
+    public interface Module
     {
         String moduleID();              
 

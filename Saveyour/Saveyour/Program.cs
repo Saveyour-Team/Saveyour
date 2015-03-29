@@ -25,7 +25,9 @@ namespace Saveyour
                     return;
                 }
 
-               Shell shell = Shell.getShell();
+                Shell shell = Shell.getShell();
+                Application.Run();
+                
               // shell.startApp();              
             }
             

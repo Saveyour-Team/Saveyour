@@ -58,6 +58,13 @@ namespace Saveyour
                 return "File not found.";
             }
 
+            exists = System.IO.Directory.Exists(directory + filename);
+
+            if (!exists)
+            {
+                return filename + "not found. However, " + directory + "exists.";
+            }
+
             string text = System.IO.File.ReadAllText(directory + filename);
             return text;
         }

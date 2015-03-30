@@ -13,29 +13,27 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using System.Reflection;
+using SaveyourUpdate;
 
 namespace Saveyour
 {
     /// <summary>
     /// Interaction logic for LoginWindow.xaml
     /// </summary>
-    public partial class LoginWindow : Window{
-        private Boolean isLoggedIn = false;
+    public partial class LoginWindow : Window, SaveyourUpdatable
+    {
         public static String username;
         public static String userData;
-        private Boolean firstUsernameFocus = true;
-        private Boolean firstPasswordFocus = true;
+
+        public SaveyourUpdater updater;
         public LoginWindow()
         {
             InitializeComponent();
+            this.lblVersion.Content = this.ApplicationAssembly.GetName().Version.ToString();
+            updater = new SaveyourUpdater(this);
         }
 
-
-
-        public Boolean loggedIn()
-        {
-            return isLoggedIn;
-        }
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
@@ -68,14 +66,11 @@ namespace Saveyour
             {
                 //Feedback newForm = new Feedback(this);
                 //newForm.ShowDialog();
-                isLoggedIn = true;
-                Shell.getShell(); //Boots the shell
                 this.Hide();
                 //loginStatusLabel.Content = username + " has logged in!";
-                loggedInWindow loggedIn = (loggedInWindow)Shell.launch("loggedInWindow");
-
-                loggedIn.load(username + " likes data!");
-                this.Close();
+                loggedInWindow loggedIn = new loggedInWindow();
+                loggedIn.loggedInLabel.Content = username + " likes data!";
+                loggedIn.Show();
             }
             else if (response.Contains("Invalid"))
             {
@@ -96,34 +91,31 @@ namespace Saveyour
             NetworkControl.addCertificate();
         }
 
-        private void usernameGotFocus(object sender, RoutedEventArgs e)
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            if (!firstUsernameFocus)
-            {
-                return;
-            }
-            firstUsernameFocus = false;
-            usernameField.Text = "";
-
+            updater.doUpdate();
         }
 
-        private void passwordGotFocus(object sender, RoutedEventArgs e)
+        public string ApplicationName
         {
-            if (!firstPasswordFocus)
-            {
-                return;
-            }
-            firstPasswordFocus = false;
-            passwordField.Text = "";
-
+            get { return "Saveyour"; }
         }
 
-        private void onPasswordKeyUp(object sender, KeyEventArgs e)
+        public string ApplicationID
         {
-            if (e.Key == Key.Enter)
-            {
-                loginButton_Click(this, e);
-            }
+            get { return "Saveyour"; }
+        }
+
+        public Assembly ApplicationAssembly
+        {
+            get { return Assembly.GetExecutingAssembly(); }
+        }
+
+        public Uri UpdateXmlLocation
+        {
+            get { return new Uri("https://github.com/Saveyour-Team/Release/raw/master/SaveyourXML.xml"); }
+            //This should be the XML file found on github. This must be the RAW version so that it will start downloading.
+            //This XML file is also in the release repo so it will look for the latest update possible.
         }
     }
 }

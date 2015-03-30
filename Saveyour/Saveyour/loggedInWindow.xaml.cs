@@ -17,37 +17,11 @@ namespace Saveyour
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class loggedInWindow : Window, Module
+    public partial class loggedInWindow : Window
     {
         public loggedInWindow()
         {
             InitializeComponent();
-        }
-
-        public String moduleID()
-        {
-            return "loggedInWindow";
-        }
-
-        public Boolean update()
-        {
-            return false;
-        }
-
-        public String save()
-        {
-            return "";
-        }
-
-        public Boolean load(String data)
-        {
-            loggedInLabel.Content = data;
-            return true;
-        }
-
-        public Boolean Equals(Module other)
-        {
-            return moduleID().Equals(other.moduleID());
         }
     }
 }

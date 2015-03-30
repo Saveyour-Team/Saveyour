@@ -59,6 +59,7 @@ namespace Saveyour
             if (responseData.Length > 1)
             {
                 userData = responseData[1];
+                Debug.WriteLine("UserData: " + userData);
             }
            
 

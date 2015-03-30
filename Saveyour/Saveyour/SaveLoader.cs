@@ -109,7 +109,7 @@ namespace Saveyour
                 }
                 catch (ArgumentOutOfRangeException)
                 {
-                    Debug.WriteLine("Invalid saveddata.txt");
+                    Debug.WriteLine("Invalid saveddata.txt: " + moduleData[i]);
                     foundAll = false;
                 }
 
@@ -142,11 +142,12 @@ namespace Saveyour
 
             String lastModifiedHeader = "";
             String lastModified = "";
-            if (moduleData[0].Length == 34)
+            if (moduleData[0].Length == 35)
             {
                 lastModifiedHeader = moduleData[0].Substring(0, 16);
+                Debug.WriteLine(moduleData[0]);
             }
-           
+            Debug.WriteLine(moduleData[0]);
             int i = 0;
             if (lastModifiedHeader.Equals("[Last Modified: "))
             {
@@ -167,7 +168,7 @@ namespace Saveyour
                 }
                 catch (ArgumentOutOfRangeException)
                 {
-                    Debug.WriteLine("Invalid saveddata.txt");
+                    Debug.WriteLine("Invalid saveddata.txt: " + moduleData[i]);
                 }
             }
         }

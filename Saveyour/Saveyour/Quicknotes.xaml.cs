@@ -53,6 +53,16 @@ namespace Saveyour
 
         private void onKeyUp(object sender, KeyEventArgs e)
         {
+          //  Shell.getSaveLoader().save();
+        }
+
+        private void onClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Shell.getSaveLoader().save();
+        }
+
+        private void lostFocus(object sender, RoutedEventArgs e)
+        {
             Shell.getSaveLoader().save();
         }
     }

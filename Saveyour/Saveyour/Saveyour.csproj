@@ -56,6 +56,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Register.xaml.cs">
+      <DependentUpon>Register.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modlist.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="NetworkControl.cs" />
@@ -68,6 +71,10 @@
     <Compile Include="loggedInWindow.xaml.cs">
       <DependentUpon>loggedInWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Register.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

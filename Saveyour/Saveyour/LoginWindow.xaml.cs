@@ -30,8 +30,6 @@ namespace Saveyour
             InitializeComponent();
         }
 
-
-
         public Boolean loggedIn()
         {
             return isLoggedIn;
@@ -72,9 +70,15 @@ namespace Saveyour
                 Shell.getShell(); //Boots the shell
                 this.Hide();
                 //loginStatusLabel.Content = username + " has logged in!";
-                loggedInWindow loggedIn = (loggedInWindow)Shell.launch("loggedInWindow");
+                loggedInWindow loggedIn = (loggedInWindow) Shell.launch("loggedInWindow");
 
                 loggedIn.load(username + " likes data!");
+
+                Quicknotes quicknotes = (Quicknotes) Shell.launch("Quicknotes");
+                quicknotes.load("Type your notes here!");
+
+                Settings settings = (Settings)Shell.launch("Settings");
+
                 this.Close();
             }
             else if (response.Contains("Invalid"))

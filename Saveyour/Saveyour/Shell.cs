@@ -15,6 +15,7 @@ namespace Saveyour
         private static Modlist modlist;
         private static SaveLoader saveLoad;
         private static Shell theShell;
+        private static Settings settings;
 
         static void OnProcessExit(object sender, EventArgs e)
         {
@@ -42,7 +43,8 @@ namespace Saveyour
             else if (modID.Equals("Quicknotes"))
             {
                 newModule = new Quicknotes();
-            }
+                settings.addQNotes(newModule);
+            }           
             else
             {
                 newModule = new Quicknotes();
@@ -70,10 +72,12 @@ namespace Saveyour
             modlist = new Modlist();
 
  
-           saveLoad = new SaveLoader();
+            saveLoad = new SaveLoader();
+            settings = new Settings();
 
             Debug.WriteLine("Booting other modules");
             saveLoad.loadToLaunch();
+            settings.Show();
 
 
         }

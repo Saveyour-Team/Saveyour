@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Windows;
 
 namespace Saveyour
 {
     class Modlist : IEnumerable<Module>
-    {
+    {       
         List<Module> modules = new List<Module>();
 
         public Boolean add(Module input)

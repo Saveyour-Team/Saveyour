@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Saveyour.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -53,7 +56,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Modlist.cs" />
+    <Compile Include="Module.cs" />
     <Compile Include="NetworkControl.cs" />
+    <Compile Include="Quicknotes.xaml.cs">
+      <DependentUpon>Quicknotes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReadWrite.cs" />
+    <Compile Include="SaveLoader.cs" />
     <Compile Include="Shell.cs" />
     <Compile Include="loggedInWindow.xaml.cs">
       <DependentUpon>loggedInWindow.xaml</DependentUpon>
@@ -71,6 +81,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="loggedInWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Quicknotes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

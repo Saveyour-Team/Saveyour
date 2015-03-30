@@ -50,7 +50,8 @@ namespace Saveyour
             return moduleID().Equals(other.moduleID());
         }
 
-        private void onTextInput(object sender, TextCompositionEventArgs e)
+
+        private void onKeyUp(object sender, KeyEventArgs e)
         {
             Shell.getSaveLoader().save();
         }

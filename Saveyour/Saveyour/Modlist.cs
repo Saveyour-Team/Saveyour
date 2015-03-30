@@ -11,11 +11,15 @@ namespace Saveyour
     {
         List<Module> modules = new List<Module>();
 
-        public void add(Module input)
+        public Boolean add(Module input)
         {
+            Debug.WriteLine("Adding " + input.moduleID());
             if (modules.Contains(input))
-                return;
+            {
+                return false;
+            }
             modules.Add(input);
+            return true;
             
         }
 

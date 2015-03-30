@@ -19,15 +19,18 @@ namespace Saveyour
     /// <summary>
     /// Interaction logic for LoginWindow.xaml
     /// </summary>
-    public partial class LoginWindow : Window
-    {
+    public partial class LoginWindow : Window{
         private Boolean isLoggedIn = false;
         public static String username;
         public static String userData;
+        private Boolean firstUsernameFocus = true;
+        private Boolean firstPasswordFocus = true;
         public LoginWindow()
         {
             InitializeComponent();
         }
+
+
 
         public Boolean loggedIn()
         {
@@ -66,11 +69,13 @@ namespace Saveyour
                 //Feedback newForm = new Feedback(this);
                 //newForm.ShowDialog();
                 isLoggedIn = true;
+                Shell.getShell(); //Boots the shell
                 this.Hide();
                 //loginStatusLabel.Content = username + " has logged in!";
-                loggedInWindow loggedIn = new loggedInWindow();
-                loggedIn.loggedInLabel.Content = username + " likes data!";
-                loggedIn.Show();
+                loggedInWindow loggedIn = (loggedInWindow)Shell.launch("loggedInWindow");
+
+                loggedIn.load(username + " likes data!");
+                this.Close();
             }
             else if (response.Contains("Invalid"))
             {
@@ -89,6 +94,36 @@ namespace Saveyour
         private void addCertificateButton_Click(object sender, RoutedEventArgs e)
         {
             NetworkControl.addCertificate();
+        }
+
+        private void usernameGotFocus(object sender, RoutedEventArgs e)
+        {
+            if (!firstUsernameFocus)
+            {
+                return;
+            }
+            firstUsernameFocus = false;
+            usernameField.Text = "";
+
+        }
+
+        private void passwordGotFocus(object sender, RoutedEventArgs e)
+        {
+            if (!firstPasswordFocus)
+            {
+                return;
+            }
+            firstPasswordFocus = false;
+            passwordField.Text = "";
+
+        }
+
+        private void onPasswordKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                loginButton_Click(this, e);
+            }
         }
     }
 }

@@ -14,7 +14,6 @@ namespace Saveyour
     
         private static Modlist modlist;
         private static SaveLoader saveLoad;
-        private static LoginWindow userLogin;
         private static Shell theShell;
 
         static void OnProcessExit(object sender, EventArgs e)
@@ -34,37 +33,48 @@ namespace Saveyour
 
         public static Module launch(String modID)
         {
-            //Run 'modID' + '.exe' in the SaveYour/Modules folder
+            //Run 'modID' + '.exe' in the SaveYour/Modules folder to be implemented later.
             Window newModule;
-            if (modID.Equals("Feedback"))
+            if (modID.Equals("loggedInWindow"))
             {
+                newModule = new loggedInWindow();
             }
+            else if (modID.Equals("Quicknotes"))
+            {
+                newModule = new Quicknotes();
+            }
+            else
+            {
+                newModule = new Quicknotes();
+                Debug.WriteLine("Shell attempted to launch an invalid moduleID: " + modID);
+                return null;
+            }
+
             Debug.WriteLine("Launching: "+modID);
 
-            modlist.add((Module)newModule);
-            newModule.Show();
+            if (modlist.add((Module)newModule))
+            {
+                newModule.Show();
+            }
+         
             return (Module)newModule;
         }
         private Shell()
         {            
 
-            Saveyour.App app = new Saveyour.App();
-            app.InitializeComponent();
-            app.Run();
-            userLogin = new LoginWindow();
-            userLogin.ShowDialog();
+            //Saveyour.App app = new Saveyour.App();
+            //app.InitializeComponent();
+           // app.Run();
+           // userLogin = new LoginWindow();
+           // userLogin.ShowDialog();
             modlist = new Modlist();
 
-            userLogin.ShowDialog();
-            if (userLogin.loggedIn())
-            {
-                saveLoad = new SaveLoader();
-              //  saveLoad.loadToLaunch();
-                Debug.WriteLine("Booting other modules");
-   
+ 
+           saveLoad = new SaveLoader();
 
+            Debug.WriteLine("Booting other modules");
+            saveLoad.loadToLaunch();
 
-            }
 
         }
 

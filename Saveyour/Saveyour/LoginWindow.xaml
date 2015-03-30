@@ -5,8 +5,8 @@
     <Grid Margin="0,0,-8,1">
         <Label Content="Saveyour" HorizontalAlignment="Left" Margin="105,10,0,0" VerticalAlignment="Top" FontSize="60"/>
         <TextBlock HorizontalAlignment="Left" Margin="117,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224"/>
-        <TextBox x:Name="usernameField" HorizontalAlignment="Left" Height="23" Margin="131,174,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="195" TextChanged="TextBox_TextChanged"/>
-        <TextBox x:Name="passwordField" HorizontalAlignment="Left" Height="23" Margin="131,208,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="195"/>
+        <TextBox x:Name="usernameField" HorizontalAlignment="Left" Height="23" Margin="131,174,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="195" TextChanged="TextBox_TextChanged" GotFocus="usernameGotFocus"/>
+        <TextBox x:Name="passwordField" HorizontalAlignment="Left" Height="23" Margin="131,208,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="195" GotFocus="passwordGotFocus" KeyUp="onPasswordKeyUp"/>
         <Button x:Name="loginButton" Content="Login" HorizontalAlignment="Left" Margin="183,263,0,0" VerticalAlignment="Top" Width="87" Click="loginButton_Click"/>
         <Label x:Name="loginStatusLabel" Content="" HorizontalAlignment="Left" Margin="131,126,0,0" VerticalAlignment="Top" Width="195" HorizontalContentAlignment ="Center"/>
         <Button x:Name="addCertificateButton" Content="Add Certificate" HorizontalAlignment="Left" Margin="183,300,0,0" VerticalAlignment="Top" Width="87" Click="addCertificateButton_Click"/>

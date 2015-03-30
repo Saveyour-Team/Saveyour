@@ -50,21 +50,21 @@ namespace Saveyour
         public static String readStringFrom(String filename)
         {
 
-            bool exists = System.IO.Directory.Exists(directory);
+            bool exists = System.IO.Directory.Exists(directory); //Checks if the directory exists
 
             if (!exists)
             {
                 System.IO.Directory.CreateDirectory(directory);
-                return "File not found.";
+                return "Directory path does not exist. Creating new directory";
             }
-
-            exists = System.IO.Directory.Exists(directory + filename);
+            
+            exists = System.IO.Directory.Exists(directory + filename); //Checks if file exists
 
             if (!exists)
-            {
-                return filename + "not found. However, " + directory + "exists.";
+            {                
+                return "File not found.";
             }
-
+            
             string text = System.IO.File.ReadAllText(directory + filename);
             return text;
         }

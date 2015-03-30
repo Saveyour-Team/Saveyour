@@ -80,7 +80,7 @@ namespace Saveyour
             }
             else if (responseData[0].Contains("Username already exists!"))
             {
-                loginStatusLabel.Content = "Successfully Registered!";
+                loginStatusLabel.Content = "Username already exists!";
             }
             else
             {

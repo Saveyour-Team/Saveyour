@@ -59,18 +59,12 @@ namespace Saveyour
          
             return (Module)newModule;
         }
+
         private Shell()
-        {            
+        {
 
-            //Saveyour.App app = new Saveyour.App();
-            //app.InitializeComponent();
-           // app.Run();
-           // userLogin = new LoginWindow();
-           // userLogin.ShowDialog();
             modlist = new Modlist();
-
- 
-           saveLoad = new SaveLoader();
+            saveLoad = new SaveLoader();
 
             Debug.WriteLine("Booting other modules");
             saveLoad.loadToLaunch();
@@ -84,9 +78,6 @@ namespace Saveyour
         }
 
         public static SaveLoader getSaveLoader(){
-            if (saveLoad == null){
-                saveLoad = new SaveLoader();
-            }
             return saveLoad;
         }
 

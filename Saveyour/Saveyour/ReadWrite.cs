@@ -58,7 +58,7 @@ namespace Saveyour
                 return "Directory path does not exist. Creating new directory";
             }
             
-            exists = System.IO.Directory.Exists(directory + filename); //Checks if file exists
+            exists = System.IO.File.Exists(directory + filename); //Checks if file exists
 
             if (!exists)
             {                

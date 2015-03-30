@@ -45,10 +45,11 @@ namespace Saveyour
         {
             username = usernameField.Text;
             String password = passwordField.Text;
+            String command = "login";
 
             //Create a network connection and connect
             NetworkControl network = new NetworkControl();
-            String response = network.Connect(network.getIP(), username + "," + password);
+            String response = network.Connect(network.getIP(), username + "\r\r\r" + password + "\r\r\r" + command);
             Debug.WriteLine(response);
 
             char[] delimiters = { ',', ':' };
@@ -70,6 +71,7 @@ namespace Saveyour
                 //newForm.ShowDialog();
                 isLoggedIn = true;
                 Shell.getShell(); //Boots the shell
+                Shell.getSaveLoader().setLogin(username, password);
                 this.Hide();
                 //loginStatusLabel.Content = username + " has logged in!";
                 loggedInWindow loggedIn = (loggedInWindow)Shell.launch("loggedInWindow");

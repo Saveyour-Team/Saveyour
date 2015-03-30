@@ -52,7 +52,7 @@ namespace Saveyour
 
             Debug.WriteLine("Launching: "+modID);
 
-            if (modlist.add((Module)newModule))
+            if ((newModule != null) && modlist.add((Module)newModule))
             {
                 newModule.Show();
             }

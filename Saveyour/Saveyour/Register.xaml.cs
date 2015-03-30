@@ -17,18 +17,21 @@ using System.Diagnostics;
 namespace Saveyour
 {
     /// <summary>
-    /// Interaction logic for LoginWindow.xaml
+    /// Interaction logic for Register.xaml
     /// </summary>
-    public partial class LoginWindow : Window{
+    public partial class Register : Window{
         private Boolean isLoggedIn = false;
         public static String username;
         public static String userData;
         private Boolean firstUsernameFocus = true;
         private Boolean firstPasswordFocus = true;
-        public LoginWindow()
+        private Boolean firstPasswordConfirmFocus = true;
+        public Register()
         {
             InitializeComponent();
         }
+
+
 
         public Boolean loggedIn()
         {
@@ -39,11 +42,17 @@ namespace Saveyour
 
         }
 
-        private void loginButton_Click(object sender, RoutedEventArgs e)
+        private void registerButton_Click(object sender, RoutedEventArgs e)
         {
             username = usernameField.Text;
             String password = passwordField.Text;
-            String command = "login";
+            String confirm = confirmPasswordField.Text;
+            if (!password.Equals(confirm))
+            {
+                loginStatusLabel.Content = "Password fields don't match!";
+                return;
+            }
+            String command = "register";
 
             //Create a network connection and connect
             NetworkControl network = new NetworkControl();
@@ -54,40 +63,24 @@ namespace Saveyour
             String[] responseData = response.Split(splitAt, StringSplitOptions.None);
             //userData = responseData[1];
 
-            if (responseData.Length > 1)
-            {
-                userData = responseData[1];
-                Debug.WriteLine("UserData: " + userData);
-            }
-           
 
-            if (response.Contains("Logged in as"))
-            {
-                //Feedback newForm = new Feedback(this);
-                //newForm.ShowDialog();
-                isLoggedIn = true;
-                Shell.getShell(); //Boots the shell
-                Shell.getSaveLoader().setLogin(username, password);
-                this.Hide();
-                //loginStatusLabel.Content = username + " has logged in!";
-                loggedInWindow loggedIn = (loggedInWindow) Shell.launch("loggedInWindow");
 
-                loggedIn.load(username + " likes data!");
-
-                Quicknotes quicknotes = (Quicknotes) Shell.launch("Quicknotes");
-                quicknotes.load("Type your notes here!");
-
-                Settings settings = (Settings)Shell.launch("Settings");
-
-                this.Close();
-            }
-            else if (response.Contains("Invalid"))
+          
+            if (responseData[0].Contains("Invalid"))
             {
                 loginStatusLabel.Content = "Invalid username/password";
             }
-            else if (response.Contains("Certificate"))
+            else if (responseData[0].Contains("Certificate"))
             {
                 loginStatusLabel.Content = "You need to add the SaveYour Certificate!";
+            }
+            else if (responseData[0].Contains("Registered"))
+            {
+                loginStatusLabel.Content = "Successfully Registered!";
+            }
+            else if (responseData[0].Contains("Username already exists!"))
+            {
+                loginStatusLabel.Content = "Username already exists!";
             }
             else
             {
@@ -122,18 +115,23 @@ namespace Saveyour
 
         }
 
+        private void passwordConfirmGotFocus(object sender, RoutedEventArgs e)
+        {
+            if (!firstPasswordConfirmFocus)
+            {
+                return;
+            }
+            firstPasswordConfirmFocus = false;
+            confirmPasswordField.Text = "";
+
+        }
+
         private void onPasswordKeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                loginButton_Click(this, e);
+                registerButton_Click(this, e);
             }
-        }
-
-        private void registerButton_Click(object sender, RoutedEventArgs e)
-        {
-            Register register = new Register();
-            register.Show();
         }
     }
 }

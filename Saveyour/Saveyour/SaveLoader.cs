@@ -10,16 +10,22 @@ namespace Saveyour
     class SaveLoader
     {
         String saveFile = "saveddata.txt";
+        String username = null;
+        String password = null;
 
         /**
         * Returns the savedata string for all the modules with format 
-        * {ModuleID}{DATA FOR THE MODULE}\r\r\n
+        * [Last Modified: DATETIME]\r\r\n{ModuleID}{DATA FOR THE MODULE}\r\r\n{Module2ID}{DATA FOR THE MODULE2}\r\r\n
         * String save() return null if the save output is invalid (because it contains \r\n) 
         **/
         private String saveModules()
         {
             Modlist modList = Shell.getModList();
             String output = "";
+            DateTime date = DateTime.UtcNow;
+            String datePattern = @"yyyyMMddHHmmssffff"; //18 length string of date/time
+            String currentTime = date.ToString(datePattern);
+            output = output + "[Last Modified: " + currentTime + "]\r\r\n";
             foreach (Module m in modList)
             {
                 if (m.save().Contains("\r\r\n"))
@@ -40,7 +46,17 @@ namespace Saveyour
 
         public void save()
         {
-            ReadWrite.writeStringTo(saveModules(), saveFile);
+            String savedata = saveModules();
+            ReadWrite.writeStringTo(savedata, saveFile);
+
+            if ((username == null) || (password == null))
+            {
+                return;
+            }
+            String message = username + "\r\r\r" + password + "\r\r\r" + "upload" + "\r\r\r" +savedata;
+            NetworkControl network = new NetworkControl();
+            String response = network.Connect(network.getIP(), message);
+            Debug.WriteLine(response);
         }
 
 
@@ -57,10 +73,21 @@ namespace Saveyour
                 Debug.WriteLine("Invalidly formatted string passed to loadModules in SaveLoader.\n");
                 return false;
             }
-            //-1 since there's nothing after the last \r\n
-            for (int i = 0; i < moduleData.Length; i++)
+            String lastModifiedHeader = "";
+            String lastModified = "";
+            if (moduleData[0].Length == 34){
+                 lastModifiedHeader = moduleData[0].Substring(0, 16);
+            }
+            
+            int i = 0;
+            if (lastModifiedHeader.Equals("[Last Modified: "))
             {
-   
+                i = 1;
+                lastModified = moduleData[0].Substring(16, 18);
+            }
+            for (; i < moduleData.Length; i++)
+            {
+
                 try
                 {
                     int idx = moduleData[i].IndexOf('}');
@@ -82,10 +109,10 @@ namespace Saveyour
                 }
                 catch (ArgumentOutOfRangeException)
                 {
-                    Debug.WriteLine("Invalid saveddata.txt");
+                    Debug.WriteLine("Invalid saveddata.txt: " + moduleData[i]);
                     foundAll = false;
                 }
-               
+
             }
             return foundAll;
 
@@ -102,6 +129,10 @@ namespace Saveyour
         public void loadToLaunch()
         {
             String input = ReadWrite.readStringFrom(saveFile);
+            if (input.Equals("File not found.")){
+                Debug.WriteLine("Couldn't find saveddata.txt!");
+                return;
+            }
 
             Modlist modList = Shell.getModList();
             String modID;
@@ -109,10 +140,26 @@ namespace Saveyour
             String[] splitAt = { "\r\r\n" };
             String[] moduleData = input.Split(splitAt, StringSplitOptions.None);
 
-            for (int i = 0; i < moduleData.Length; i++)
+            String lastModifiedHeader = "";
+            String lastModified = "";
+            if (moduleData[0].Length == 35)
+            {
+                lastModifiedHeader = moduleData[0].Substring(0, 16);
+                Debug.WriteLine(moduleData[0]);
+            }
+            Debug.WriteLine(moduleData[0]);
+            int i = 0;
+            if (lastModifiedHeader.Equals("[Last Modified: "))
+            {
+                i = 1;
+                lastModified = moduleData[0].Substring(16, 18);
+
+            }
+            for (; i < moduleData.Length; i++)
             {
                 try
                 {
+                    Debug.WriteLine(moduleData[i]);
                     int idx = moduleData[i].IndexOf('}');
                     modID = moduleData[i].Substring(1, moduleData[i].IndexOf('}')-1);
                     modData = moduleData[i].Substring(idx+2, moduleData[i].LastIndexOf('}') - idx -2);
@@ -121,9 +168,15 @@ namespace Saveyour
                 }
                 catch (ArgumentOutOfRangeException)
                 {
-                    Debug.WriteLine("Invalid saveddata.txt");
+                    Debug.WriteLine("Invalid saveddata.txt: " + moduleData[i]);
                 }
             }
+        }
+
+        public void setLogin(String user, String pwd)
+        {
+            username = user;
+            password = pwd;
         }
     }
 }

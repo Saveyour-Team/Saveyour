@@ -43,7 +43,7 @@ namespace Saveyour
             else if (modID.Equals("Quicknotes"))
             {
                 newModule = new Quicknotes();
-                settings.addQNotes(newModule);
+                
             }           
             else
             {
@@ -56,6 +56,9 @@ namespace Saveyour
 
             if ((newModule != null) && modlist.add((Module)newModule))
             {
+                if (modID.Equals("Quicknotes")){
+                    settings.addQNotes(newModule);
+                }
                 newModule.Show();
             }
          

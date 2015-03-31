@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Saveyour
 {
-    public interface Module
+    public interface Module : IEquatable<Module>
     {
         String moduleID();              
 

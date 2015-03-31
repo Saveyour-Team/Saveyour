@@ -74,6 +74,9 @@
     <Compile Include="loggedInWindow.xaml.cs">
       <DependentUpon>loggedInWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WeeklyToDo.xaml.cs">
+      <DependentUpon>WeeklyToDo.xaml</DependentUpon>
+    </Compile>
     <Page Include="Register.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -99,6 +102,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Settings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WeeklyToDo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

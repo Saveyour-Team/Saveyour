@@ -16,7 +16,7 @@ namespace Saveyour
 
         Boolean load(String data);
 
-        Boolean Equals(Module other);
+        //Boolean Equals(Module other);
    
     }
 }

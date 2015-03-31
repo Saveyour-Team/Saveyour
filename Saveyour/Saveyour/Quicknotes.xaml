@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Quicknotes" Height="300" Width="300" Closing="onClosing" LostFocus="lostFocus">
     <Grid>
-        <TextBox x:Name="QuicknotesText" HorizontalAlignment="Left" Height="249" Margin="10,10,0,0" TextWrapping="Wrap" Text="Type notes here!&#xD;&#xA;" VerticalAlignment="Top" Width="272" AcceptsReturn="True" AcceptsTab="True" KeyUp="onKeyUp"/>
+        <TextBox x:Name="QuicknotesText" Margin="0" TextWrapping="Wrap" Text="Type notes here!&#xD;&#xA;" AcceptsReturn="True" AcceptsTab="True" KeyUp="onKeyUp"/>
 
     </Grid>
 </Window>

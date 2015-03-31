@@ -31,11 +31,12 @@ namespace SaveyourUpdate
             this.lblVersions.Content = String.Format("Current Version: {0}\nUpdate Version: {1}",
                 applicationInfo.ApplicationAssembly.GetName().Version.ToString(), updateInfo.Version.ToString());
 
-            FlowDocument ObjFdoc = new FlowDocument();
-            Paragraph ObjPara1 = new Paragraph();
-            ObjPara1.Inlines.Add(new Run(updateInfo.Description));
+            FlowDocument flowDoc = new FlowDocument();
+            Paragraph paragraph1 = new Paragraph();
+            paragraph1.Inlines.Add(new Run(updateInfo.Description));
+            flowDoc.Blocks.Add(paragraph1);
 
-            this.txtDescription.Document = ObjFdoc;
+            txtDescription.Document = flowDoc;
         }
     }
 }

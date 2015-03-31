@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Xml;
+using System.Diagnostics;
 
 namespace SaveyourUpdate
 {
@@ -33,6 +34,7 @@ namespace SaveyourUpdate
             try
             {
                 HttpWebRequest req = (HttpWebRequest)WebRequest.Create(location.AbsoluteUri);
+                //req.Timeout = 10; //Set time out to 10ms. This is not working as intended and is breaking the functionality so it is commented out for Beta.
                 HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
                 resp.Close();
 

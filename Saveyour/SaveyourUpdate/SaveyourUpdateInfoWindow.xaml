@@ -4,10 +4,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="SaveyourUpdateInfoWindow" Height="300" Width="300">
     <Grid>
-        <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" RenderTransformOrigin="-0.03,-0.07" Source="pack://siteoforigin:,,,/update.GIF"/>
-        <Label x:Name="lblVersions" Content="" HorizontalAlignment="Left" Margin="105,10,0,0" VerticalAlignment="Top" Height="79" Width="168"/>
+        <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" RenderTransformOrigin="-0.03,-0.07" Source="Images/update.GIF"/>
+        <Label x:Name="lblVersions" Content="" HorizontalAlignment="Left" Margin="105,10,0,0" VerticalAlignment="Top" Height="79" Width="168" FontSize="14"/>
         <Label x:Name="lblDescription" Content="Description:" HorizontalAlignment="Left" Margin="10,105,0,0" VerticalAlignment="Top"/>
-        <RichTextBox x:Name="txtDescription" HorizontalAlignment="Left" Height="128" Margin="10,131,0,0" VerticalAlignment="Top" Width="272" AcceptsReturn="False" AutoWordSelection="False" IsReadOnly="True" IsUndoEnabled="False">
+        <RichTextBox x:Name="txtDescription" HorizontalAlignment="Left" Height="128" Margin="10,131,0,0" VerticalAlignment="Top" Width="263" AcceptsReturn="False" AutoWordSelection="False" IsReadOnly="True" IsUndoEnabled="False">
             <FlowDocument>
                 <Paragraph>
                     <Run Text="RichTextBox"/>

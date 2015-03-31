@@ -28,6 +28,8 @@ namespace SaveyourUpdate
         {
             InitializeComponent();
 
+            
+
             this.applicationInfo = applicationInfo;
             this.updateInfo = updateInfo;
 

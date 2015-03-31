@@ -181,6 +181,7 @@ namespace Saveyour
         {
             username = user;
             password = pwd;
+            saveFile = username + ".txt";
         }
     }
 }

@@ -66,8 +66,8 @@ namespace Saveyour
                 //Feedback newForm = new Feedback(this);
                 //newForm.ShowDialog();
                 isLoggedIn = true;
-                Shell.getShell(); //Boots the shell
-                Shell.getSaveLoader().setLogin(username, password);
+                Shell.getShell(username, password); //Boots the shell (which sets up SaveLoader)
+                //Shell.getSaveLoader().setLogin(username, password);
                 this.Hide();
                 //loginStatusLabel.Content = username + " has logged in!";
                 loggedInWindow loggedIn = (loggedInWindow) Shell.launch("loggedInWindow");

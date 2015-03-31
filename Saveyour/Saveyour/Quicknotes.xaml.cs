@@ -58,7 +58,7 @@ namespace Saveyour
 
         private void onClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Shell.getSaveLoader().save();
+            //Shell.getSaveLoader().save();
         }
 
         private void lostFocus(object sender, RoutedEventArgs e)

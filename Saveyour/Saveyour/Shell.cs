@@ -32,6 +32,15 @@ namespace Saveyour
             return theShell;
         }
 
+        public static Shell getShell(String username, String password)
+        {
+            if (theShell == null)
+            {
+                theShell = new Shell(username, password);
+            }
+            return theShell;
+        }
+
         public static Module launch(String modID)
         {
             //Run 'modID' + '.exe' in the SaveYour/Modules folder to be implemented later.
@@ -65,7 +74,7 @@ namespace Saveyour
             return (Module)newModule;
         }
 
-        private Shell()
+        private Shell() : this(null,null)
         {
 
             modlist = new Modlist();
@@ -77,6 +86,20 @@ namespace Saveyour
             saveLoad.loadToLaunch();
             settings.Show();
 
+
+        }
+        private Shell(String username, String password)
+        {
+
+            modlist = new Modlist();
+
+            saveLoad = new SaveLoader();
+            saveLoad.setLogin(username, password);
+            settings = new Settings();
+
+            Debug.WriteLine("Booting other modules");
+            saveLoad.loadToLaunch();
+            settings.Show();
 
         }
 

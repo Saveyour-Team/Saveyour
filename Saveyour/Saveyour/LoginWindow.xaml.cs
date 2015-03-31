@@ -22,7 +22,6 @@ namespace Saveyour
     public partial class LoginWindow : Window{
         private Boolean isLoggedIn = false;
         public static String username;
-        public static String userData;
         private Boolean firstUsernameFocus = true;
         private Boolean firstPasswordFocus = true;
         public LoginWindow()
@@ -53,6 +52,7 @@ namespace Saveyour
             String[] splitAt = { "\r\r\n" };
             String[] responseData = response.Split(splitAt, StringSplitOptions.None);
             //userData = responseData[1];
+            String userData = null;
 
             if (responseData.Length > 1)
             {
@@ -76,6 +76,11 @@ namespace Saveyour
 
                 Quicknotes quicknotes = (Quicknotes) Shell.launch("Quicknotes");
                 quicknotes.load("Type your notes here!");
+                if (userData != null)
+                {
+                    Shell.getSaveLoader().loadToLaunch(userData);
+                    Shell.getSaveLoader().loadModules(userData);
+                }
 
                 Settings settings = (Settings)Shell.launch("Settings");
 

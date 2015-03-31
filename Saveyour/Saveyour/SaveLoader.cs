@@ -60,7 +60,7 @@ namespace Saveyour
         }
 
 
-        private Boolean loadModules(String input)
+        public Boolean loadModules(String input)
         {
             Boolean foundAll = true;
             Modlist modList = Shell.getModList();
@@ -125,10 +125,14 @@ namespace Saveyour
             return loadModules(data);
         }
 
+        public void loadToLaunch(){
+            loadToLaunch(ReadWrite.readStringFrom(saveFile));
+        }
+
         //Launch all modules that have saved settings
-        public void loadToLaunch()
+        public void loadToLaunch(String input)
         {
-            String input = ReadWrite.readStringFrom(saveFile);
+            String local = ReadWrite.readStringFrom(saveFile);
             if (input.Equals("File not found.")){
                 Debug.WriteLine("Couldn't find saveddata.txt!");
                 return;

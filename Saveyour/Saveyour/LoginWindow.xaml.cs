@@ -74,8 +74,8 @@ namespace Saveyour
 
                 loggedIn.load(username + " likes data!");
 
-                //Quicknotes quicknotes = (Quicknotes) Shell.launch("Quicknotes");
-                //quicknotes.load("Type your notes here!");
+                Quicknotes quicknotes = (Quicknotes) Shell.launch("Quicknotes");
+                quicknotes.load("Type your notes here!");
 
                 Settings settings = (Settings)Shell.launch("Settings");
 

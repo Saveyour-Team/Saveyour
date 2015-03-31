@@ -30,7 +30,7 @@ namespace Saveyour
         {
             if (qnotes.IsVisible)
                 qnotes.Hide();
-            else
+            else if (qnotes.IsActive)
                 qnotes.Show();
         }
 

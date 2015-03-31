@@ -61,5 +61,24 @@ namespace Saveyour
         {
             return moduleID().Equals(other.moduleID());
         }
+
+        private void addTaskButton(object sender, RoutedEventArgs e)
+        {
+            AddTaskWindow addTaskWin = new AddTaskWindow();
+            addTaskWin.ShowInTaskbar = false;
+            addTaskWin.Owner = Application.Current.MainWindow;
+            Boolean result = (Boolean) addTaskWin.ShowDialog();
+            DateTime newTaskDate;
+            String newTaskDescription;
+            if ( (result == null) || (!result))
+            {
+
+            }
+            newTaskDate = addTaskWin.getTaskDate();
+            newTaskDescription = addTaskWin.getTaskDescription();
+            //Do stuff!
+
+            
+        }
     }
 }

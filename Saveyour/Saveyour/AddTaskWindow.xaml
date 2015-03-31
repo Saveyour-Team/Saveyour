@@ -1,0 +1,15 @@
+﻿<Window x:Class="Saveyour.AddTaskWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AddTaskWindow" Height="300" Width="560">
+    <Grid Margin="0,0,2,0">
+        <TextBlock x:Name="Title" Margin="10,5,10,0" TextWrapping="Wrap" Text="Add Task " HorizontalAlignment="Center" Width="111" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
+        <Calendar x:Name="TaskCalendar" HorizontalAlignment="Left" Margin="20,61,0,0" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Height="24" Margin="19,37,0,0" TextWrapping="Wrap" Text="Select Date for the Task" VerticalAlignment="Top" Width="179" TextAlignment="Center" FontSize="14"/>
+        <TextBox x:Name="TaskDescription" Height="128" Margin="234,61,20,0" TextWrapping="Wrap" Text="Enter a description of your task here!" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Height="24" Margin="234,37,0,0" TextWrapping="Wrap" Text="Enter Task Description" VerticalAlignment="Top" Width="282" TextAlignment="Center" FontSize="14"/>
+        <Button x:Name="ConfirmButton" Content="Confirm Task" HorizontalAlignment="Center" Height="30" Margin="169,229,291,0" VerticalAlignment="Top" Width="90" Click="ConfirmButton_Click"/>
+        <Button x:Name="ConfirmButton_Copy" Content="Cancel" HorizontalAlignment="Center" Height="30" Margin="299,229,161,0" VerticalAlignment="Top" Width="90" Click="ConfirmButton_Click"/>
+
+    </Grid>
+</Window>

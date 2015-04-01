@@ -15,7 +15,7 @@ namespace Saveyour
         public Boolean add(Module input)
         {
             Debug.WriteLine("Adding " + input.moduleID());
-            if (modules.Contains(input))
+            if (modules.Contains(input)) 
             {
                 return false;
             }

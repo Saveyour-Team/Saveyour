@@ -10,7 +10,7 @@ using System.Windows;
 
 namespace Saveyour
 {
-    class Shell{
+    public class Shell{
     
         private static Modlist modlist;
         private static SaveLoader saveLoad;

@@ -17,7 +17,6 @@ namespace Saveyour
         String SERVERIP = "54.173.26.10";
         Int32 SERVERPORT = 1337;
         String certPath = @"ServerCertificate.pem";
-        // X509Certificate2 clientCert = new X509Certificate2(certPath);
 
         public String getIP()
         {
@@ -101,10 +100,6 @@ namespace Saveyour
                 Console.WriteLine("AuthenticationException: {0}", e);
                 return "Certificate";
             }
-
-            Console.WriteLine("\n Press Enter to continue...");
-            Console.Read();
-            return "";
         }
 
     }

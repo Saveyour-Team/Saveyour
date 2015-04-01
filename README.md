@@ -87,4 +87,4 @@ If one wishes to connect to their own server, please change the ip address in th
   Official steps provided by Microsoft on how to run unit tests in Visual Studio can be found [here](https://msdn.microsoft.com/en-us/library/hh270865.aspx#BKMK_Run_tests_in_Test_Explorer).
   
 #### 3.2.4 Reporting Failed Unit Tests
-  If when you run the tests from the unit test project and Saveyour happens to fail one or more of the tests, please feel free to log your findings using the GitHub issue tracking system [here](https://github.com/Saveyour-Team/Saveyour/issues). Again, you can learn how to create and log a new issue in section 2.2 above.
+  If you run the tests from the unit test project and Saveyour happens to fail one or more of the tests, please feel free to log your findings using the GitHub issue tracking system [here](https://github.com/Saveyour-Team/Saveyour/issues). Again, you can learn how to create and log a new issue in section 2.2 above.

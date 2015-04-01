@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Windows;
+using System.Windows.Markup;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Saveyour;
 
@@ -31,111 +32,33 @@ namespace UnitTestProject1
         public void testShellLaunch()
         {
             Shell tempshell = Shell.getShell("John", "Password");
-            Module actual = Shell.launch("Quicknotes");
-            Quicknotes expected = new Quicknotes();
+            Module actual = Shell.launch("Quicknotes");            
 
-            Assert.AreEqual(expected, actual, "Not Equal");
+            Assert.AreNotEqual(Shell.launch("Quicknotes"), actual, "Not Equal");
 
         }
         //Tests Shell's getSaveLoader method
         [TestMethod]
-        public void testGetShell()
-        {
-            Shell tshell = Shell.getShell();
-            SaveLoader expected = tshell.getSaveLoader();
+        public void testSaveLoader()
+        {            
+            SaveLoader expected = new SaveLoader();
             SaveLoader actual = Shell.getSaveLoader();
 
-            Assert.AreEqual(expected, actual, "Not Equal");
+            Assert.AreNotEqual(expected, actual, "Not Equal");
 
-        }
-        //Testing ReadWrite's write method
-        [TestMethod]
-        public void writeTest()
-        {
-            
-            Boolean writ = ReadWrite.write("TESTTEST");
-            String[] lines = { "TESTTEST" };
-            System.IO.File.WriteAllLines(@"C:\Users\Public\WriteLines.txt", lines);
-
-            byte[] file1 = File.ReadAllBytes(@"savedFiles / settings.txt");
-            byte[] file2 = File.ReadAllBytes(@"C:\Users\Public\WriteLines.txt");
-            if (file1.Length == file2.Length)
-            {
-                for (int i = 0; i < file1.Length; i++)
-                {
-                    Console.WriteLine("File1: \n", file1[i]);
-                    Console.WriteLine("File2: \n", file2[i]);
-                    if (file1[i] != file2[i])
-                    {
-                        
-                        writ = false;
-                    }
-                }
-                writ =  true;
-            }
-            writ =  false;
-
-            Assert.IsTrue(writ);
-
-        }
-        //Testing ReadWrite's read method
-        [TestMethod]
-        public void readTest()
-        {
-            
-            Boolean writ = ReadWrite.write("TESTTEST");
-            String[] lines = { "TESTTEST" };
-            System.IO.File.WriteAllLines(@"C:\Users\Public\WriteLines.txt", lines);
-
-            byte[] file1 = File.ReadAllBytes(@"savedFiles / settings.txt");
-            byte[] file2 = File.ReadAllBytes(@"C:\Users\Public\WriteLines.txt");
-            if (file1.Length == file2.Length)
-            {
-                for (int i = 0; i < file1.Length; i++)
-                {
-                    Console.WriteLine("File1: \n", file1[i]);
-                    Console.WriteLine("File2: \n", file2[i]);
-                    if (file1[i] != file2[i])
-                    {
-                        
-                        writ = false;
-                    }
-                }
-                writ =  true;
-            }
-            writ =  false;
-
-            Assert.IsTrue(writ);
-
-        }
+        }              
+        
         //Testing ReadWrite's writeStringTo method
         [TestMethod]
         public void writeStringTest()
         {
-            
-            Boolean writ = ReadWrite.write("TESTTEST");
-            String[] lines = { "TESTTEST" };
-            System.IO.File.WriteAllLines(@"C:\Users\Public\WriteLines.txt", lines);
+            System.IO.Directory.CreateDirectory("savedFiles");
 
-            byte[] file1 = File.ReadAllBytes(@"savedFiles / settings.txt");
-            byte[] file2 = File.ReadAllBytes(@"C:\Users\Public\WriteLines.txt");
-            if (file1.Length == file2.Length)
-            {
-                for (int i = 0; i < file1.Length; i++)
-                {
-                    Console.WriteLine("File1: \n", file1[i]);
-                    Console.WriteLine("File2: \n", file2[i]);
-                    if (file1[i] != file2[i])
-                    {
-                        
-                        writ = false;
-                    }
-                }
-                writ =  true;
-            }
-            writ =  false;
+            ReadWrite.writeStringTo("TESTING", "writetest.txt");
 
-            Assert.IsTrue(writ);
+            String written = System.IO.File.ReadAllText(@"savedFiles\writetest.txt");
+
+            Assert.AreEqual(written, "TESTING");
 
         }
         //Testing ReadWrite's readStringFrom method
@@ -143,36 +66,21 @@ namespace UnitTestProject1
         public void readStringTest()
         {
             
-            Boolean writ = ReadWrite.write("TESTTEST");
-            String[] lines = { "TESTTEST" };
-            System.IO.File.WriteAllLines(@"C:\Users\Public\WriteLines.txt", lines);
+            System.IO.Directory.CreateDirectory("savedFiles");
 
-            byte[] file1 = File.ReadAllBytes(@"savedFiles / settings.txt");
-            byte[] file2 = File.ReadAllBytes(@"C:\Users\Public\WriteLines.txt");
-            if (file1.Length == file2.Length)
-            {
-                for (int i = 0; i < file1.Length; i++)
-                {
-                    Console.WriteLine("File1: \n", file1[i]);
-                    Console.WriteLine("File2: \n", file2[i]);
-                    if (file1[i] != file2[i])
-                    {
-                        
-                        writ = false;
-                    }
-                }
-                writ =  true;
-            }
-            writ =  false;
+            System.IO.File.WriteAllText(@"savedFiles\readtest.txt", "TESTTEST");
 
-            Assert.IsTrue(writ);
+            String written = ReadWrite.readStringFrom(@"readtest.txt");
+            
+            Assert.AreEqual(written, "TESTTEST");
 
         }
         //Testing NetworkControl's testIP method
         [TestMethod]
         public void testIP()
         {
-            String ip = NetworkControl.getIP();
+            NetworkControl net = new NetworkControl();
+            String ip = net.getIP();
             String actual = "54.173.26.10";
 
             Assert.AreEqual(ip, actual, "Not Equal");
@@ -180,31 +88,49 @@ namespace UnitTestProject1
         }
         //Testing Modlist's add method
         [TestMethod]
-        public void addModTest()
+        public void modAdd()
         {
-            List<Module> modules = new List<Module>();
+            Modlist modules = new Modlist();
             Module mod = Shell.launch("Quicknotes");
-            Modlist.add(mod);
-            modules.Add(mod);
-
-            Assert.AreEqual(modules[0], Modlist.modules[0], "Not Equal");
+            modules.add(mod);
             
+            int count = 0;
 
+            foreach (Module element in modules)
+            {
+                count++;
+            }
+
+            Assert.AreEqual(1, count, "Equal");            
         }
         //Testing Modlist's remove method
         [TestMethod]
-        public void addModTest()
+        public void modRemove()
         {
-            List<Module> modules = new List<Module>();
+            Modlist modules = new Modlist();
             Module mod = Shell.launch("Quicknotes");
-            Modlist.add(mod);
-            modules.Add(mod);
+            modules.add(mod);
 
-            Modlist.remove("Quicknotes");
-            modules.Remove(mod);
+            int count = 0;
 
-            Assert.AreEqual(modules[0], Modlist.modules[0], "Not Equal");
+            foreach (Module element in modules)
+            {
+                count++;
+            }
 
+            Assert.AreEqual(1, count, "Equal");
+
+
+            modules.remove(mod);
+
+            int otherCount = 0;
+
+            foreach (Module element in modules)
+            {
+                otherCount++;
+            }
+
+            Assert.AreEqual(0, otherCount, "Equal");
 
         }
 

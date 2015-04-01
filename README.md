@@ -68,3 +68,23 @@ If one wishes to connect to their own server, please change the ip address in th
 
 ## 3.2 Integration/System Tests  
   For the Client unit tests can be found on https://github.com/Saveyour-Team/Saveyour/tree/unittests/Saveyour/UnitTestProject1 which is under the unittests branch. There are tests on here that test for the functionality of the quicknotes and login use case outlined in the Beta release SRS document. They are added as another project in the Saveyour.sln.
+
+  If you would like to run the unit tests currently available (or even write your own), you can do so by means of the test project mentioned immediately above. Once you have successfully built the Saveyour solution in Visual Studio, you should then open the UnitTestProject1 project. 
+  
+#### 3.2.1 Opening the Unit Test Project
+  Do this by navigating to Saveyour\UnitTestProject1\ and right-clicking on UnitTestProject1. Choose to "Open With" Microsoft Visual Studio 2013. The project should then load in a new instance of Visual Studio.
+
+#### 3.2.2 Viewing Unit Test Source Code
+  Once open in Visual Studio, view UnitTest1.cs by double clicking it in the Solution Explorer. There you will see the existing source code for our tests and you can choose to add new tests should you wish to do so.
+  
+  Should you decide you would like to write your own Unit Tests but are unfamiliar with how to do this in Visual Studio, a broad overview of unit testing with Visual Studio can be found at [this link to Microsoft's documentation](https://msdn.microsoft.com/en-us/library/dd264975.aspx).
+  
+#### 3.2.3 Running the Unit Tests
+  Now that you have had a chance to view the unit tests and write any of your own, you can run these tests by clicking on the TEST menu option of Visual Studio. Hover over "Windows" and then choose "Test Explorer" which will appear in the resulting sub-menu.
+  
+  The Test Explorer window should appear on the left side of Visual Studio. At first, it might not have any tests listed. This is because it hasn't discovered any yet. To discover and run tests for the first time, click the "Run All" option. The Test Explorer should populate itself with the tests found in UnitTest1.cs and, after a small amount of time, determine whether Saveyour passes or fails those tests.
+  
+  Official steps provided by Microsoft on how to run unit tests in Visual Studio can be found [here](https://msdn.microsoft.com/en-us/library/hh270865.aspx#BKMK_Run_tests_in_Test_Explorer).
+  
+#### 3.2.4 Reporting Failed Unit Tests
+  If when you run the tests from the unit test project and Saveyour happens to fail one or more of the tests, please feel free to log your findings using the GitHub issue tracking system [here](https://github.com/Saveyour-Team/Saveyour/issues). Again, you can learn how to create and log a new issue in section 2.2 above.

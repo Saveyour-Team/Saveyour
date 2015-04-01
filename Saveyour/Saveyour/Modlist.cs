@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace Saveyour
 {
-    class Modlist : IEnumerable<Module>
+    public class Modlist : IEnumerable<Module>
     {       
         List<Module> modules = new List<Module>();
 

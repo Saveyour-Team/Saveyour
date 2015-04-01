@@ -77,7 +77,7 @@ namespace Saveyour
 
                 if (userData != null)
                 {
-                    Shell.getSaveLoader().loadToLaunch(userData);
+                    //Shell.getSaveLoader().loadToLaunch(userData);
                 }
                 Quicknotes quicknotes = (Quicknotes)Shell.launch("Quicknotes");
                 quicknotes.load("Type your notes here!");

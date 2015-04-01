@@ -12,7 +12,7 @@ using System.IO;
 
 namespace Saveyour
 {
-    class NetworkControl
+    public class NetworkControl
     {
         String SERVERIP = "54.173.26.10";
         Int32 SERVERPORT = 1337;

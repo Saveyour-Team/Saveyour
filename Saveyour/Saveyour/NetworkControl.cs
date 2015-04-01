@@ -15,7 +15,7 @@ namespace Saveyour
     public class NetworkControl
     {
         String SERVERIP = "54.173.26.10";
-        Int32 SERVERPORT = 1337;
+        Int32 SERVERPORT = 13388;
         String certPath = @"ServerCertificate.pem";
 
         public String getIP()

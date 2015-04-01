@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace Saveyour
 {
-    class SaveLoader
+    public class SaveLoader
     {
         String saveFile = "saveddata.txt";
         String username = null;

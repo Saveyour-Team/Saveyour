@@ -70,19 +70,19 @@ namespace Saveyour
                 //Shell.getSaveLoader().setLogin(username, password);
                 this.Hide();
                 //loginStatusLabel.Content = username + " has logged in!";
-                loggedInWindow loggedIn = (loggedInWindow) Shell.launch("loggedInWindow");
+               // loggedInWindow loggedIn = (loggedInWindow) Shell.launch("loggedInWindow");
 
-                loggedIn.load(username + " likes data!");
+                //loggedIn.load(username + " likes data!");
 
-                Quicknotes quicknotes = (Quicknotes) Shell.launch("Quicknotes");
-                quicknotes.load("Type your notes here!");
+
                 if (userData != null)
                 {
                     Shell.getSaveLoader().loadToLaunch(userData);
-                    Shell.getSaveLoader().loadModules(userData);
                 }
+                Quicknotes quicknotes = (Quicknotes)Shell.launch("Quicknotes");
+                quicknotes.load("Type your notes here!");
 
-                Settings settings = (Settings)Shell.launch("Settings");
+                //Settings settings = (Settings)Shell.launch("Settings");
 
                 this.Close();
             }

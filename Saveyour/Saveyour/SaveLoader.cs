@@ -38,7 +38,7 @@ namespace Saveyour
                 }
                 else
                 {
-                    output = output + "{" + m.moduleID() + "}" + "{" + m.save() + "}\r\n";
+                    output = output + "{" + m.moduleID() + "}" + "{" + m.save() + "}\r\r\n";
                 }
             }
             return output;
@@ -60,7 +60,7 @@ namespace Saveyour
         }
 
 
-        public Boolean loadModules(String input)
+        private Boolean loadModules(String input)
         {
             Boolean foundAll = true;
             Modlist modList = Shell.getModList();
@@ -90,11 +90,14 @@ namespace Saveyour
 
                 try
                 {
+                    Debug.WriteLine(moduleData[i]);
                     int idx = moduleData[i].IndexOf('}');
                     modID = moduleData[i].Substring(1, moduleData[i].IndexOf('}') - 1);
-                    modData = moduleData[i].Substring(idx + 2, moduleData[i].LastIndexOf('}') - idx - 2);
+                    Debug.WriteLine(modID + "++");
+                    modData = moduleData[i].Substring(idx + 2, moduleData[i].Length - (idx + 3));
+                    Debug.WriteLine("Moddata: " + modData);
                     Module launched = Shell.launch(modID);
-                    launched.load(modData);
+                    //launched.load(modData);
                     Boolean found = false;
                     foreach (Module m in modList)
                     {
@@ -143,15 +146,25 @@ namespace Saveyour
             String modData;
             String[] splitAt = { "\r\r\n" };
             String[] moduleData = input.Split(splitAt, StringSplitOptions.None);
+            String[] diskData = local.Split(splitAt, StringSplitOptions.None);
 
             String lastModifiedHeader = "";
             String lastModified = "";
+            String lastModifiedHeaderLocal = "";
+            String lastModifiedLocal = "";
+
             if (moduleData[0].Length == 35)
             {
                 lastModifiedHeader = moduleData[0].Substring(0, 16);
                 Debug.WriteLine(moduleData[0]);
             }
-            Debug.WriteLine(moduleData[0]);
+
+            if (diskData[0].Length == 35)
+            {
+                lastModifiedHeaderLocal = diskData[0].Substring(0, 16);
+               Debug.WriteLine(diskData[0]);
+            }
+
             int i = 0;
             if (lastModifiedHeader.Equals("[Last Modified: "))
             {
@@ -159,6 +172,30 @@ namespace Saveyour
                 lastModified = moduleData[0].Substring(16, 18);
 
             }
+            if (lastModifiedHeaderLocal.Equals("[Last Modified: "))
+            {
+                i = 1;
+                lastModifiedLocal = diskData[0].Substring(16, 18);
+
+            }
+
+            if (lastModifiedHeader.Equals(""))
+            {
+                input = local;
+                moduleData = diskData;
+                Debug.WriteLine("Local write is more recent, using it instead.");
+            }
+            else if (lastModifiedHeaderLocal.Equals(""))
+            {
+                //Do nothing.
+            }
+            else if (Convert.ToInt64(lastModified) < Convert.ToInt64(lastModifiedLocal)){
+                input = local;
+                Debug.WriteLine("Local write is more recent, using it instead.");
+                moduleData = diskData;
+            }
+
+
             for (; i < moduleData.Length; i++)
             {
                 try
@@ -166,7 +203,9 @@ namespace Saveyour
                     Debug.WriteLine(moduleData[i]);
                     int idx = moduleData[i].IndexOf('}');
                     modID = moduleData[i].Substring(1, moduleData[i].IndexOf('}')-1);
-                    modData = moduleData[i].Substring(idx+2, moduleData[i].LastIndexOf('}') - idx -2);
+                    Debug.WriteLine(modID+ "++");
+                    modData = moduleData[i].Substring(idx + 2, moduleData[i].Length - (idx+3));
+                    Debug.WriteLine("Moddata: "+modData);
                     Module launched = Shell.launch(modID);
                     launched.load(modData);
                 }

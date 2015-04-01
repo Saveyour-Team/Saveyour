@@ -22,9 +22,11 @@ namespace Saveyour
 
         private DateTime taskDate;
         private String taskDescription;
-        public AddTaskWindow()
+        public AddTaskWindow(Window parent)
         {
+            this.Owner = parent;
             InitializeComponent();
+            TaskCalendar.SelectedDate = DateTime.Today;
         }
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)

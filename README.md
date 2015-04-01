@@ -1,29 +1,46 @@
 # Saveyour
 
+## What is Saveyour?
+  Saveyour is an organizational, productive application that contains weekly to-do’s, calendars, agendas, notes, etc. into one tool. Its target in particular is the college student; however, entreprenuers, professors, and busy individuals will find the tool useful as well! It supports modularized togglable windows that can be customized by other developers. There are certain macros for quick task management such as parsing highlighted text to add to one's weekly to-do module or to add to one's homework module. There is a button to quickly hide and unhide Saveyour as a reference to one's schedule in a glance. Saveyour is able to take ones tasks and look through one's weekly to-do in order to find an available time to assign those tasks to do. 
+
+Saveyour is extendable and the software written takes into account other developers who may want to add customizations to Saveyour through modules. Saveyour implements these core modules as base features:
+
+#### Quicknotes - Quickly add text to save to local disk and the cloud
+#### Homework - Add subjects with tasks and due dates for homework! Parsing will allow for automatic task adding for this module.
+#### Weekly To-Do - Displays days of the week as well as tasks that are required throughout that week. Color-coded analysis will allow for one to look through one's day (red - busy, yellow - somewhat busy, green - plenty of freedom).
+#### Google Calendar - Displays one's Google Calendar for quick reference incase Weekly To-Do itself does not do the job!
+
+
 # 1. Source control and build process instructions:
 
 Version control of repository for SaveYour is stored on github. To access repository, follow the link: https://github.com/Saveyour-Team
 
 ## 1.1 Client Build and Updates
 ### 1.1.1 Build Process Instructions
+  The client for this project was built on Visual Studio 2013 Ultimate.
   The code can be found at https://github.com/Saveyour-Team/Saveyour. This repository can be cloned by typing in a terminal with git installed: 
 “git clone https://github.com/Saveyour-Team/Saveyour.git”. 
-  There is a Saveyour.sln in the Saveyour folder that will open Visual Studio. Visual Studio 2013 Ultimate was used for this project. Clicking “Start” near the top of Visual Studio will build a debug version of the application and run the application. Additionally, selecting the Build tab and then clicking Build Solution will create a executable (.exe) file in Saveyour/Saveyour/bin/Debug.
+  There is a Saveyour.sln in the Saveyour folder that will open Visual Studio. Clicking “Start” near the top of Visual Studio will build a debug version of the application and run the application. Additionally, selecting the Build tab and then clicking Build Solution will create a executable (.exe) file in Saveyour/Saveyour/bin/Debug.
+
+Before logging in, one must click on the "Add Certificate" button in order to authenticate oneself to the server to establish a secure TLS connection. In the future, an installer will be created to automatically create the certificate for the consumer. From there one can then use the following information to login or click the register button to add a new user:
+
+If one wishes to connect to their own server, please change the ip address in the NetworkControl class to the corresponding server ip.
 
   Some current mockups of usernames/passwords on the database are: 
   Brendan / ih8slackbot 
   John / mongoDBisDaBest 
   Simran / pyth0n
-  Using any of these pairs should allow you to login using the Saveyour client, and using the wrong password will not.
+ 
+  Using any of these pairs should allow you to login using the Saveyour client. Invalid credentials will not allow for login.
 
-  For client mockup data stored on the database, Brendan has “data2”, John has “data6”, and Simran has “i like rocks”, which will also be fetched and displayed when the user logs in.
+  After logging in, a user's module windows will open up for use.
 
 ### 1.1.2 Updating and Obtaining Saveyour
   The Client release can be downloaded in the Saveyour-Team Release repository, or directly at https://github.com/Saveyour-Team/Release/raw/master/Saveyour.exe. 
   The latest version of the Saveyour client will be built and pushed to this repository. For now, the client must download the newest version of Saveyour from the release repository. Users should frequently monitor GitHub for updates and releases. 
 
 ### 1.1.3 Future Ways of Updating and Obtaining Saveyour
-  Releasing updates to GitHub is a preliminary design. In future releases, there will be an in-client update function that will allow the user to either set automatic updates or manually update from within the client. This feature is currently in development and is unfinished. Additionally, if time allows, a website to download the Saveyour client will be created. This website will have the latest version of Saveyour at all times.
+  An updater branch has been created for future use in updating without having to pull/download the newest release from GitHub. Releasing updates to GitHub is a preliminary design. In future releases, there will be an in-client update function that will allow the user to either set automatic updates or manually update from within the client. This feature has already been prototyped, but needs to become more robust before integrating it in the application. Additionally, if time allows, a website to download the Saveyour client will be created. This website will have the latest version of Saveyour at all times.
 
 ## 1.2 Deploying Server Updates
   The AWS server automatically pulls, compiles, and deploys the latest version of the SaveYourServer repository whenever changes are pushed to the Master Branch by using a configuration of the “Git Play” addon, which is available at “https://github.com/stewartpark/git-play”

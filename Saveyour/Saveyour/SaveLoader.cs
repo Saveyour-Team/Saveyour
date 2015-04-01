@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
-
 namespace Saveyour
 {
     class SaveLoader
@@ -12,11 +11,10 @@ namespace Saveyour
         String saveFile = "saveddata.txt";
         String username = null;
         String password = null;
-
         /**
-        * Returns the savedata string for all the modules with format 
+        * Returns the savedata string for all the modules with format
         * [Last Modified: DATETIME]\r\r\n{ModuleID}{DATA FOR THE MODULE}\r\r\n{Module2ID}{DATA FOR THE MODULE2}\r\r\n
-        * String save() return null if the save output is invalid (because it contains \r\n) 
+        * String save() return null if the save output is invalid (because it contains \r\n)
         **/
         private String saveModules()
         {
@@ -43,23 +41,19 @@ namespace Saveyour
             }
             return output;
         }
-
         public void save()
         {
             String savedata = saveModules();
             ReadWrite.writeStringTo(savedata, saveFile);
-
             if ((username == null) || (password == null))
             {
                 return;
             }
-            String message = username + "\r\r\r" + password + "\r\r\r" + "upload" + "\r\r\r" +savedata;
+            String message = username + "\r\r\r" + password + "\r\r\r" + "upload" + "\r\r\r" + savedata;
             NetworkControl network = new NetworkControl();
             String response = network.Connect(network.getIP(), message);
             Debug.WriteLine(response);
         }
-
-
         public Boolean loadModules(String input)
         {
             Boolean foundAll = true;
@@ -75,10 +69,10 @@ namespace Saveyour
             }
             String lastModifiedHeader = "";
             String lastModified = "";
-            if (moduleData[0].Length == 34){
-                 lastModifiedHeader = moduleData[0].Substring(0, 16);
+            if (moduleData[0].Length == 34)
+            {
+                lastModifiedHeader = moduleData[0].Substring(0, 16);
             }
-            
             int i = 0;
             if (lastModifiedHeader.Equals("[Last Modified: "))
             {
@@ -87,7 +81,6 @@ namespace Saveyour
             }
             for (; i < moduleData.Length; i++)
             {
-
                 try
                 {
                     int idx = moduleData[i].IndexOf('}');
@@ -112,38 +105,33 @@ namespace Saveyour
                     Debug.WriteLine("Invalid saveddata.txt: " + moduleData[i]);
                     foundAll = false;
                 }
-
             }
             return foundAll;
-
         }
-
         public Boolean load()
         {
             String data = ReadWrite.readStringFrom(saveFile);
             Debug.WriteLine("Loaded: " + data);
             return loadModules(data);
         }
-
-        public void loadToLaunch(){
+        public void loadToLaunch()
+        {
             loadToLaunch(ReadWrite.readStringFrom(saveFile));
         }
-
         //Launch all modules that have saved settings
         public void loadToLaunch(String input)
         {
             String local = ReadWrite.readStringFrom(saveFile);
-            if (input.Equals("File not found.")){
+            if (input.Equals("File not found."))
+            {
                 Debug.WriteLine("Couldn't find saveddata.txt!");
                 return;
             }
-
             Modlist modList = Shell.getModList();
             String modID;
             String modData;
             String[] splitAt = { "\r\r\n" };
             String[] moduleData = input.Split(splitAt, StringSplitOptions.None);
-
             String lastModifiedHeader = "";
             String lastModified = "";
             if (moduleData[0].Length == 35)
@@ -157,7 +145,6 @@ namespace Saveyour
             {
                 i = 1;
                 lastModified = moduleData[0].Substring(16, 18);
-
             }
             for (; i < moduleData.Length; i++)
             {
@@ -165,8 +152,8 @@ namespace Saveyour
                 {
                     Debug.WriteLine(moduleData[i]);
                     int idx = moduleData[i].IndexOf('}');
-                    modID = moduleData[i].Substring(1, moduleData[i].IndexOf('}')-1);
-                    modData = moduleData[i].Substring(idx+2, moduleData[i].LastIndexOf('}') - idx -2);
+                    modID = moduleData[i].Substring(1, moduleData[i].IndexOf('}') - 1);
+                    modData = moduleData[i].Substring(idx + 2, moduleData[i].LastIndexOf('}') - idx - 2);
                     Module launched = Shell.launch(modID);
                     launched.load(modData);
                 }
@@ -176,7 +163,6 @@ namespace Saveyour
                 }
             }
         }
-
         public void setLogin(String user, String pwd)
         {
             username = user;

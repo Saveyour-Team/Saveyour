@@ -11,7 +11,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
 namespace Saveyour
 {
     /// <summary>
@@ -23,28 +22,23 @@ namespace Saveyour
         {
             InitializeComponent();
         }
-
         public String moduleID()
         {
             return "loggedInWindow";
         }
-
         public Boolean update()
         {
             return false;
         }
-
         public String save()
         {
             return "";
         }
-
         public Boolean load(String data)
         {
             loggedInLabel.Content = data;
             return true;
         }
-
         public Boolean Equals(Module other)
         {
             return moduleID().Equals(other.moduleID());

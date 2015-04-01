@@ -3,7 +3,7 @@
 ## What is Saveyour?
   Saveyour is an organizational, productive application that contains weekly to-do’s, calendars, agendas, notes, etc. into one tool. Its target in particular is the college student; however, entreprenuers, professors, and busy individuals will find the tool useful as well! It supports modularized togglable windows that can be customized by other developers. There are certain macros for quick task management such as parsing highlighted text to add to one's weekly to-do module or to add to one's homework module. There is a button to quickly hide and unhide Saveyour as a reference to one's schedule in a glance. Saveyour is able to take ones tasks and look through one's weekly to-do in order to find an available time to assign those tasks to do. 
 
-Saveyour is extendable and the software written takes into account other developers who may want to add customizations to Saveyour through modules. Saveyour implements these core modules as base features:
+Saveyour is extensible and the software written takes into account other developers who may want to add customizations to Saveyour through modules. Saveyour implements these core modules as base features:
 
 #### Quicknotes - Quickly add text to save to local disk and the cloud
 #### Homework - Add subjects with tasks and due dates for homework! Parsing will allow for automatic task adding for this module.

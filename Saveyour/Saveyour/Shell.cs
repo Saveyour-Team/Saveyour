@@ -53,7 +53,11 @@ namespace Saveyour
             {
                 newModule = new Quicknotes();
                 
-            }           
+            }
+            else if (modID.Equals("WeeklyToDo"))
+            {
+                newModule = new WeeklyToDo();
+            }
             else
             {
                 newModule = new Quicknotes();
@@ -99,6 +103,7 @@ namespace Saveyour
 
             Debug.WriteLine("Booting other modules");
             saveLoad.loadToLaunch();
+            launch("WeeklyToDo");
             settings.Show();
 
         }

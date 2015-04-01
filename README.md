@@ -60,3 +60,11 @@ If one wishes to connect to their own server, please change the ip address in th
   To file a bug, click on the “New Issue” button on the top right. Provide the issue with a title and description. An issue can have a label added to it, e.g. “bug” for further classification. An issue can also be assigned milestones, i.e. completion date, and developers assigned to the task. 
 	
   For a step-by-step demonstration, with pictures, of how to create an issue on Github, please see Github’s documentation here: https://help.github.com/articles/creating-an-issue/
+  
+# 3. Testing
+
+## 3.1 Unit Tests
+  Unit tests have been added for the Client, Server, and Database. Server and database unit tests can be found in https://github.com/Saveyour-Team/SaveYourServer on the "test" branch. The files are listed as ServerTest.py and TestDB.py. Substantial testing has been done on the server and databse. By running each python file each of which rely on the unittest python library, the python files will start the test suites for each respective component of the system. 
+
+## 3.2 Integration/System Tests  
+  For the Client unit tests can be found on https://github.com/Saveyour-Team/Saveyour/tree/unittests/Saveyour/UnitTestProject1 which is under the unittests branch. There are tests on here that test for the functionality of the quicknotes and login use case outlined in the Beta release SRS document. They are added as another project in the Saveyour.sln.

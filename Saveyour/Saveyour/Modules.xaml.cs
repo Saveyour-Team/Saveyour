@@ -17,16 +17,17 @@ namespace Saveyour
     /// <summary>
     /// Interaction logic for Settings.xaml
     /// </summary>
-    public partial class Settings : Window, Module
+    public partial class Modules : Window, Module
     {
         Window qnotes;
+        Window weeklytd;
 
-        public Settings()
+        public Modules()
         {
             InitializeComponent();            
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void QN_Click(object sender, RoutedEventArgs e)
         {
             if (qnotes.IsVisible)
                 qnotes.Hide();
@@ -34,9 +35,22 @@ namespace Saveyour
                 qnotes.Show();
         }
 
+        private void WTD_Click(object sender, RoutedEventArgs e)
+        {
+            if (weeklytd.IsVisible)
+                weeklytd.Hide();
+            else if (weeklytd.IsLoaded)
+                weeklytd.Show();
+        }
+
         public void addQNotes(Window module)
         {
             qnotes = module;
+        }
+
+        public void addWTD(Window module)
+        {
+            weeklytd = module;
         }
 
         public String moduleID()

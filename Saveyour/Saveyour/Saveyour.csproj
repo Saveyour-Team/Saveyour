@@ -70,8 +70,8 @@
     </Compile>
     <Compile Include="ReadWrite.cs" />
     <Compile Include="SaveLoader.cs" />
-    <Compile Include="Settings.xaml.cs">
-      <DependentUpon>Settings.xaml</DependentUpon>
+    <Compile Include="Modules.xaml.cs">
+      <DependentUpon>Modules.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shell.cs" />
     <Compile Include="loggedInWindow.xaml.cs">
@@ -108,7 +108,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Settings.xaml">
+    <Page Include="Modules.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

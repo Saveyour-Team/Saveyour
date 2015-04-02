@@ -77,5 +77,10 @@ namespace Saveyour
         {
             return false;
         }
+
+        private void GC_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

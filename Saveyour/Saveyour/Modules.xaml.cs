@@ -21,6 +21,7 @@ namespace Saveyour
     {
         Window qnotes;
         Window weeklytd;
+        Window gcalendar;
 
         public Modules()
         {
@@ -43,6 +44,14 @@ namespace Saveyour
                 weeklytd.Show();
         }
 
+        private void GC_Click(object sender, RoutedEventArgs e)
+        {
+            if (gcalendar.IsVisible)
+                gcalendar.Hide();
+            else if (gcalendar.IsLoaded)
+                gcalendar.Show();
+        }
+
         public void addQNotes(Window module)
         {
             qnotes = module;
@@ -51,6 +60,11 @@ namespace Saveyour
         public void addWTD(Window module)
         {
             weeklytd = module;
+        }
+
+        public void addGC(Window module)
+        {
+            gcalendar = module;
         }
 
         public String moduleID()
@@ -78,9 +92,6 @@ namespace Saveyour
             return false;
         }
 
-        private void GC_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
     }
 }

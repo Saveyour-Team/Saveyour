@@ -58,7 +58,11 @@ namespace Saveyour
             {
                 newModule = new WeeklyToDo();
             }
-            else
+            else if (modID.Equals("Google Calendar"))
+            {
+                newModule = new GoogleCalendar();
+            }
+            else 
             {
                 newModule = new Quicknotes();
                 Debug.WriteLine("Shell attempted to launch an invalid moduleID: " + modID);
@@ -75,6 +79,10 @@ namespace Saveyour
                 else if (modID.Equals("WeeklyToDo"))
                 {
                     settings.addWTD(newModule);
+                }
+                else if (modID.Equals("Google Calendar"))
+                {
+                    settings.addGC(newModule);
                 }
                 newModule.Show();
             }

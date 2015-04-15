@@ -38,6 +38,13 @@ namespace Saveyour
         public WeeklyToDo()
         {
             InitializeComponent();
+
+            //this.Height = (System.Windows.SystemParameters.PrimaryScreenHeight * 1);
+            //this.Width = (System.Windows.SystemParameters.PrimaryScreenWidth * 0.2);
+
+            Left = System.Windows.SystemParameters.PrimaryScreenWidth - Width;
+            Top = 0;
+
             nextWeek = DateTime.Today.AddDays(7);
             nextWeek = new DateTime(nextWeek.Year, nextWeek.Month, nextWeek.Day);
 

@@ -4,7 +4,7 @@
         xmlns:tools="clr-namespace:MyApp.Tools"
         Title="WeeklyToDo" 
         Height="{x:Static SystemParameters.PrimaryScreenHeight}"
-        Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={tools:RatioConverter}, ConverterParameter='0.9' }"         
+        Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={tools:RatioConverter}, ConverterParameter='0.2' }"
         LostFocus="onLostFocus">
     <Grid>
         <Grid x:Name="WeekGrid" Margin="0" IsEnabled="False">

@@ -3,7 +3,8 @@
 ## What is Saveyour?
   Saveyour is an organizational, productive application that contains weekly to-do’s, calendars, agendas, notes, etc. into one tool. Its target in particular is the college student; however, entreprenuers, professors, and busy individuals will find the tool useful as well! It supports modularized togglable windows that can be customized by other developers. There are certain macros for quick task management such as parsing highlighted text to add to one's weekly to-do module or to add to one's homework module. There is a button to quickly hide and unhide Saveyour as a reference to one's schedule in a glance. Saveyour is able to take ones tasks and look through one's weekly to-do in order to find an available time to assign those tasks to do. 
 
-Saveyour is extensible and the software written takes into account other developers who may want to add customizations to Saveyour through modules. Saveyour implements these core modules as base features:
+### What can Saveyour do?
+Saveyour is extensible and the software written takes into account other developers who may want to add customizations to Saveyour through modules. In its final release, Saveyour will implement these core modules as base features:
 
 #### Quicknotes - Quickly add text to save to local disk and the cloud
 #### Homework - Add subjects with tasks and due dates for homework! Parsing will allow for automatic task adding for this module.
@@ -41,6 +42,10 @@ If one wishes to connect to their own server, please change the ip address in th
 
 ### 1.1.3 Future Ways of Updating and Obtaining Saveyour
   An updater branch has been created for future use in updating without having to pull/download the newest release from GitHub. Releasing updates to GitHub is a preliminary design. In future releases, there will be an in-client update function that will allow the user to either set automatic updates or manually update from within the client. This feature has already been prototyped, but needs to become more robust before integrating it in the application. Additionally, if time allows, a website to download the Saveyour client will be created. This website will have the latest version of Saveyour at all times.
+  
+### 1.1.4 Release Notes
+  To see the current release notes, please refer to our document titled 'releasenotes.md'. This path to this document is Saveyour/releasenotes.md. It can also be viewed on GitHub [here](https://github.com/Saveyour-Team/Saveyour/blob/release-notes/releasenotes.md).
+  
 
 ## 1.2 Deploying Server Updates
   The AWS server automatically pulls, compiles, and deploys the latest version of the SaveYourServer repository whenever changes are pushed to the Master Branch by using a configuration of the “Git Play” addon, which is available at “https://github.com/stewartpark/git-play”
@@ -91,3 +96,4 @@ If one wishes to connect to their own server, please change the ip address in th
   
 #### 3.2.5 Reporting Failed Unit Tests
   If you run the tests from the unit test project and Saveyour happens to fail one or more of the tests, please feel free to log your findings using the GitHub issue tracking system [here](https://github.com/Saveyour-Team/Saveyour/issues). Again, you can learn how to create and log a new issue in section 2.2 above.
+

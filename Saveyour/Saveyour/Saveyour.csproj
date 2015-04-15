@@ -63,6 +63,9 @@
     <Compile Include="GoogleCalendar.xaml.cs">
       <DependentUpon>GoogleCalendar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Homework.xaml.cs">
+      <DependentUpon>Homework.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
     </Compile>
@@ -91,6 +94,10 @@
     <Page Include="GoogleCalendar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Homework.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Register.xaml">
       <Generator>MSBuild:Compile</Generator>

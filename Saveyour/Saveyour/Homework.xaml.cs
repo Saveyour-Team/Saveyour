@@ -19,9 +19,18 @@ namespace Saveyour
     /// </summary>
     public partial class Homework : Window, Module
     {
+
+        GroupBox first = null;
+        Window parent = null;
+
         public Homework()
         {
             InitializeComponent();
+
+            first = (GroupBox)FindName("subject1");
+            parent = (Window)FindName("hWindow");
+
+
         }
 
         public String moduleID()

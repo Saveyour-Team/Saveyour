@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Homework" Height="325.628" Width="1041.841">
     <Grid>
-        <GroupBox x:Name="subject1" Header="Subject 1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="278" Width="300"/>
+        <GroupBox x:Name="subject1" Header="Subject 1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="278" Width="300">
+            <ListBox HorizontalAlignment="Left" Height="239" Margin="10,10,0,0" VerticalAlignment="Top" Width="267"/>
+        </GroupBox>
         <GroupBox Header="Subject 2" HorizontalAlignment="Left" Margin="343,10,0,0" VerticalAlignment="Top" Height="278" Width="300"/>
         <GroupBox Header="Subject 3" HorizontalAlignment="Left" Margin="672,10,0,0" VerticalAlignment="Top" Height="278" Width="300"/>
         <Button Content="+" HorizontalAlignment="Left" Margin="995,259,0,0" VerticalAlignment="Top" Width="32" Height="29"/>

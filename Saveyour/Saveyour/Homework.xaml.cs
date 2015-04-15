@@ -57,5 +57,10 @@ namespace Saveyour
         {
             return moduleID().Equals(other.moduleID());
         }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

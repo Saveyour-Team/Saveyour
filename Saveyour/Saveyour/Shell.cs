@@ -62,6 +62,10 @@ namespace Saveyour
             {
                 newModule = new GoogleCalendar();
             }
+            else if (modID.Equals("Homework"))
+            {
+                newModule = new Homework();
+            }
             else 
             {
                 newModule = new Quicknotes();

@@ -42,6 +42,7 @@ namespace Saveyour
         {
             return isLoggedIn;
         }
+
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
@@ -49,6 +50,8 @@ namespace Saveyour
 
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
+            loginStatusLabel.Content = "Logging into Saveyour..";
+
             username = usernameField.Text;
             String password = passwordField.Text;
             String command = "login";
@@ -92,6 +95,8 @@ namespace Saveyour
                 //quicknotes.load("Type your notes here!");
 
                 GoogleCalendar gcalendar = (GoogleCalendar)Shell.launch("Google Calendar");
+
+                Homework homework = (Homework)Shell.launch("Homework");
 
                 //Settings settings = (Settings)Shell.launch("Settings");
 

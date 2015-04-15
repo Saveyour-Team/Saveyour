@@ -89,7 +89,9 @@ namespace Saveyour
                     //Shell.getSaveLoader().loadToLaunch(userData);
                 }
                 Quicknotes quicknotes = (Quicknotes)Shell.launch("Quicknotes");
-                quicknotes.load("Type your notes here!");
+                //quicknotes.load("Type your notes here!");
+
+                GoogleCalendar gcalendar = (GoogleCalendar)Shell.launch("Google Calendar");
 
                 //Settings settings = (Settings)Shell.launch("Settings");
 

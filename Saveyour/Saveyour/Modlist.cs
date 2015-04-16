@@ -8,14 +8,14 @@ using System.Windows;
 
 namespace Saveyour
 {
-    class Modlist : IEnumerable<Module>
+    public class Modlist : IEnumerable<Module>
     {       
         List<Module> modules = new List<Module>();
 
         public Boolean add(Module input)
         {
             Debug.WriteLine("Adding " + input.moduleID());
-            if (modules.Contains(input))
+            if (modules.Contains(input)) 
             {
                 return false;
             }

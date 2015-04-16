@@ -7,11 +7,11 @@ using System.Diagnostics;
 
 namespace Saveyour
 {
-    class SaveLoader
+    public class SaveLoader
     {
         String saveFile = "saveddata.txt";
-        String username = null;
-        String password = null;
+        String username = "";
+        String password = "";
 
         /**
         * Returns the savedata string for all the modules with format 
@@ -49,7 +49,7 @@ namespace Saveyour
             String savedata = saveModules();
             ReadWrite.writeStringTo(savedata, saveFile);
 
-            if ((username == null) || (password == null))
+            if ((username == "") || (password == ""))
             {
                 return;
             }
@@ -129,12 +129,17 @@ namespace Saveyour
         }
 
         public void loadToLaunch(){
-            loadToLaunch(ReadWrite.readStringFrom(saveFile));
+            NetworkControl network = new NetworkControl();
+            String response = network.Connect(network.getIP(), username + "\r\r\r" + password + "\r\r\r" + "login");
+            String[] splitAt = { "\r\r\r" };
+            String[] moduleData = response.Split(splitAt, StringSplitOptions.None);
+            loadToLaunch(moduleData[1]);
         }
 
         //Launch all modules that have saved settings
-        public void loadToLaunch(String input)
+        private void loadToLaunch(String input)
         {
+            Debug.WriteLine("Input server: " + input);
             String local = ReadWrite.readStringFrom(saveFile);
             if (input.Equals("File not found.")){
                 Debug.WriteLine("Couldn't find saveddata.txt!");
@@ -153,6 +158,8 @@ namespace Saveyour
             String lastModifiedHeaderLocal = "";
             String lastModifiedLocal = "";
 
+            Debug.WriteLine("Length: " + moduleData[0].Length);
+            Debug.WriteLine(moduleData[0]);
             if (moduleData[0].Length == 35)
             {
                 lastModifiedHeader = moduleData[0].Substring(0, 16);
@@ -183,7 +190,7 @@ namespace Saveyour
             {
                 input = local;
                 moduleData = diskData;
-                Debug.WriteLine("Local write is more recent, using it instead.");
+                Debug.WriteLine("Local write is more recent, using it instead. Blank");
             }
             else if (lastModifiedHeaderLocal.Equals(""))
             {

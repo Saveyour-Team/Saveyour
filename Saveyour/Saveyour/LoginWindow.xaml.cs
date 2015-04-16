@@ -13,20 +13,29 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using System.Reflection;
+using SaveyourUpdate;
 
 namespace Saveyour
 {
     /// <summary>
     /// Interaction logic for LoginWindow.xaml
     /// </summary>
-    public partial class LoginWindow : Window{
+    public partial class LoginWindow : Window, SaveyourUpdatable{
         private Boolean isLoggedIn = false;
         public static String username;
         private Boolean firstUsernameFocus = true;
         private Boolean firstPasswordFocus = true;
+        public SaveyourUpdater updater;
+
         public LoginWindow()
         {
             InitializeComponent();
+
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+
+            this.lblVersion.Content = this.ApplicationAssembly.GetName().Version.ToString();
+            updater = new SaveyourUpdater(this);
         }
 
         public Boolean loggedIn()
@@ -77,10 +86,12 @@ namespace Saveyour
 
                 if (userData != null)
                 {
-                    Shell.getSaveLoader().loadToLaunch(userData);
+                    //Shell.getSaveLoader().loadToLaunch(userData);
                 }
                 Quicknotes quicknotes = (Quicknotes)Shell.launch("Quicknotes");
-                quicknotes.load("Type your notes here!");
+                //quicknotes.load("Type your notes here!");
+
+                GoogleCalendar gcalendar = (GoogleCalendar)Shell.launch("Google Calendar");
 
                 //Settings settings = (Settings)Shell.launch("Settings");
 
@@ -139,6 +150,33 @@ namespace Saveyour
         {
             Register register = new Register();
             register.Show();
+        }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            updater.doUpdate();
+        }
+
+        public string ApplicationName
+        {
+            get { return "Saveyour"; }
+        }
+
+        public string ApplicationID
+        {
+            get { return "Saveyour"; }
+        }
+
+        public Assembly ApplicationAssembly
+        {
+            get { return Assembly.GetExecutingAssembly(); }
+        }
+
+        public Uri UpdateXmlLocation
+        {
+            get { return new Uri("https://github.com/Saveyour-Team/Release/raw/master/SaveyourXML.xml"); }
+            //This should be the XML file found on github. This must be the RAW version so that it will start downloading.
+            //This XML file is also in the release repo so it will look for the latest update possible.
         }
     }
 }

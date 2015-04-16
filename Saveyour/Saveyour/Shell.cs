@@ -10,12 +10,12 @@ using System.Windows;
 
 namespace Saveyour
 {
-    class Shell{
+    public class Shell{
     
         private static Modlist modlist;
         private static SaveLoader saveLoad;
         private static Shell theShell;
-        private static Settings settings;
+        private static Modules settings;
 
         static void OnProcessExit(object sender, EventArgs e)
         {
@@ -58,7 +58,11 @@ namespace Saveyour
             {
                 newModule = new WeeklyToDo();
             }
-            else
+            else if (modID.Equals("Google Calendar"))
+            {
+                newModule = new GoogleCalendar();
+            }
+            else 
             {
                 newModule = new Quicknotes();
                 Debug.WriteLine("Shell attempted to launch an invalid moduleID: " + modID);
@@ -72,6 +76,14 @@ namespace Saveyour
                 if (modID.Equals("Quicknotes")){
                     settings.addQNotes(newModule);
                 }
+                else if (modID.Equals("WeeklyToDo"))
+                {
+                    settings.addWTD(newModule);
+                }
+                else if (modID.Equals("Google Calendar"))
+                {
+                    settings.addGC(newModule);
+                }
                 newModule.Show();
             }
          
@@ -84,7 +96,7 @@ namespace Saveyour
             modlist = new Modlist();
  
             saveLoad = new SaveLoader();
-            settings = new Settings();
+            settings = new Modules();
 
             Debug.WriteLine("Booting other modules");
             saveLoad.loadToLaunch();
@@ -99,7 +111,7 @@ namespace Saveyour
 
             saveLoad = new SaveLoader();
             saveLoad.setLogin(username, password);
-            settings = new Settings();
+            settings = new Modules();
 
             Debug.WriteLine("Booting other modules");
             saveLoad.loadToLaunch();

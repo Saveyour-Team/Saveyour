@@ -11,6 +11,8 @@
         <Label x:Name="loginStatusLabel" Content="" HorizontalAlignment="Left" Margin="131,126,0,0" VerticalAlignment="Top" Width="195" HorizontalContentAlignment ="Center"/>
         <Button x:Name="addCertificateButton" Content="Add Certificate" HorizontalAlignment="Left" Margin="183,300,0,0" VerticalAlignment="Top" Width="87" Click="addCertificateButton_Click"/>
         <Button x:Name="Register" Content="Register" HorizontalAlignment="Left" Margin="183,337,0,0" VerticalAlignment="Top" Width="87" Click="registerButton_Click"/>
+        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="183,376,0,0" VerticalAlignment="Top" Width="87" Click="btnUpdate_Click"/>
+        <Label x:Name="lblVersion" Content="Version" HorizontalAlignment="Left" Margin="383,370,0,0" VerticalAlignment="Top" Width="56"/>
 
     </Grid>
 </Window>

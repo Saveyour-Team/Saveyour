@@ -79,30 +79,66 @@ namespace Saveyour
             nextWeek = DateTime.Today.AddDays(7);
             nextWeek = new DateTime(nextWeek.Year, nextWeek.Month, nextWeek.Day);
 
+            TextBlock today = null;
+            Border todayBorder = null;
+            List<TextBlock> days = new List<TextBlock>();
+            days.Add(MondayTitle);
+            days.Add(TuesdayTitle);
+            days.Add(WednesdayTitle);
+            days.Add(ThursdayTitle);
+            days.Add(FridayTitle);
+            days.Add(SaturdayTitle);
+            days.Add(SundayTitle);
+
+            int numToday = 0;
+
             switch (DateTime.Today.DayOfWeek)
             {
                 case DayOfWeek.Monday:
-                    MondayTitle.Text = MondayTitle.Text + " (TODAY)";
+                    today = MondayTitle;
+                    todayBorder = MondayTitleBorder;
+                    numToday = 1;
                     break;
                 case DayOfWeek.Tuesday:
-                    TuesdayTitle.Text = TuesdayTitle.Text + " (TODAY)";
+                    today = TuesdayTitle;
+                    todayBorder = TuesdayTitleBorder;
+                    numToday = 2;
                     break;
                 case DayOfWeek.Wednesday:
-                    WednesdayTitle.Text = WednesdayTitle.Text + " (TODAY)";
+                    today = WednesdayTitle;
+                    todayBorder = WednesdayTitleBorder;
+                    numToday = 3;
                     break;
                 case DayOfWeek.Thursday:
-                    ThursdayTitle.Text = ThursdayTitle.Text + " (TODAY)";
+                    today = ThursdayTitle;
+                    todayBorder = ThursdayTitleBorder;
+                    numToday = 4;
                     break;
                 case DayOfWeek.Friday:
-                    FridayTitle.Text = FridayTitle.Text + " (TODAY)";
+                    today = FridayTitle;
+                    todayBorder = FridayTitleBorder;
+                    numToday = 5;
                     break;
                 case DayOfWeek.Saturday:
-                SaturdayTitle.Text = SaturdayTitle.Text + " (TODAY)";
+                    today = SaturdayTitle;
+                    todayBorder = SaturdayTitleBorder;
+                    numToday = 6;
                     break;
                 case DayOfWeek.Sunday:
-                    SundayTitle.Text = SundayTitle.Text + " (TODAY)";
+                    today = SundayTitle;
+                    todayBorder = SundayTitleBorder;
+                    numToday = 7;
                     break;
             }
+
+            foreach (TextBlock day in days) {
+                numToday--;
+                day.Text += " " + DateTime.Today.AddDays(numToday * -1).ToString("d");
+            }
+            today.Text += " (TODAY)";
+            //COLORS ARE SUBJECT TO CHANGE (someone change them if they have a good color scheme!)
+            today.Foreground = new SolidColorBrush(Colors.Green); //Changes text color
+            todayBorder.Background = new SolidColorBrush(Colors.Cyan); //Changes background color
         }
 
         public String moduleID()

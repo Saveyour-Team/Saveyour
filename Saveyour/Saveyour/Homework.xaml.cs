@@ -54,6 +54,12 @@ namespace Saveyour
             };
             
             testWindow.Show();
+
+            wholeGrid.Children.Add(new GroupBox()
+            {
+                //Name = "SUBJECT TEST"
+                Header = "SUBJECT TEST"
+            });
             
             
         }

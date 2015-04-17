@@ -24,6 +24,7 @@ namespace Saveyour
 
         GroupBox first = null;
         Window parent = null;
+        Grid wholeGrid = null;
 
         GroupBox[] subjects = new GroupBox[MAX_SUBJECTS];
 
@@ -33,6 +34,7 @@ namespace Saveyour
 
             first = (GroupBox)FindName("subject1");
             parent = (Window)FindName("hWindow");
+            wholeGrid = (Grid)FindName("HGrid");
 
             //We need to load the information for the subjects here.
 
@@ -41,6 +43,17 @@ namespace Saveyour
             //Load the GroupBox, then the Grid, then each task in Task, then each date in Date
 
             //
+
+            //wholeGrid.Height = 30;
+
+            Window testWindow = new Window()
+            {
+                Title = "TESTING WINDOW",
+                Height = 300,
+                Width = 300                                
+            };
+            
+            testWindow.Show();
             
             
         }
@@ -57,11 +70,20 @@ namespace Saveyour
 
         public String save()
         {
+            String returnThis = "";
+
+            for (int i = 0; i < numSubjects; i++)
+            {
+                returnThis += "{" + subjects[i].Name + "}";
+                //returnThis += "{" + subjects[i].TextInput + "}";
+            }
+               
             return "";
         }
 
         public Boolean load(String data)
         {
+
             return false;
         }
 

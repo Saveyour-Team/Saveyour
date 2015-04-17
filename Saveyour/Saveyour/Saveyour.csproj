@@ -81,6 +81,7 @@
     <Compile Include="loggedInWindow.xaml.cs">
       <DependentUpon>loggedInWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Task.cs" />
     <Compile Include="WeeklyToDo.xaml.cs">
       <DependentUpon>WeeklyToDo.xaml</DependentUpon>
     </Compile>

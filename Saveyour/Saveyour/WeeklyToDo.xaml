@@ -71,7 +71,7 @@
             </Border>
 
         </Grid>
-        <Button x:Name="AddTaskButton_Copy" Content="Add Task" HorizontalAlignment="Center" Margin="138,10,152,0" VerticalAlignment="Top" Width="86" Click="addTaskButton"/>
+        <Button x:Name="AddTaskButton_Copy" Content="Add Task" HorizontalAlignment="Center" Margin="86,10,93,0" VerticalAlignment="Top" Width="86" Click="addTaskButton"/>
 
 
     </Grid>

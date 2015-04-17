@@ -51,9 +51,6 @@ namespace Saveyour
     /// </summary>
     /// 
 
-
-
-  
     public partial class WeeklyToDo : Window, Module
     {
         private class DateTask
@@ -289,7 +286,6 @@ namespace Saveyour
 
         private void addTaskButton(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine("Clicked!");
             AddTaskWindow addTaskWin = new AddTaskWindow(this);
             addTaskWin.ShowInTaskbar = false;
             Nullable<bool> result =  addTaskWin.ShowDialog();
@@ -299,13 +295,14 @@ namespace Saveyour
             {
                 return;
             }
-            newTaskDate = addTaskWin.getTaskDate();
-            newTaskDescription = addTaskWin.getTaskDescription();
+
+            //newTaskDate = addTaskWin.getTaskDate();
+            //newTaskDescription = addTaskWin.getTaskDescription();
             DateTask newTask = new DateTask();
-            newTask.date = newTaskDate;
-            newTask.task = newTaskDescription;
-            dates.Add(newTask);
-            display(newTask);
+            //newTask.date = newTaskDate;
+            //newTask.task = newTaskDescription;
+            //dates.Add(newTask);
+            //display(newTask);
 
             
         }

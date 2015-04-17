@@ -65,6 +65,7 @@ namespace Saveyour
         private List<DateTask> dates = new List<DateTask>();
 
         private DateTime nextWeek;
+        private DateTime yesterday;
 
         public WeeklyToDo()
         {
@@ -79,6 +80,9 @@ namespace Saveyour
             nextWeek = DateTime.Today.AddDays(7);
             nextWeek = new DateTime(nextWeek.Year, nextWeek.Month, nextWeek.Day);
 
+            yesterday = DateTime.Today.AddDays(-1);
+            yesterday = new DateTime(yesterday.Year, yesterday.Month, yesterday.Day);
+
             TextBlock today = null;
             Border todayBorder = null;
             List<TextBlock> days = new List<TextBlock>();
@@ -90,6 +94,21 @@ namespace Saveyour
             days.Add(SaturdayTitle);
             days.Add(SundayTitle);
 
+            Border[] borders = new Border[14];
+            borders[0] = MondayTitleBorder;
+            borders[1] = MondayTaskBorder;
+            borders[2] = TuesdayTitleBorder;
+            borders[3] = TuesdayTaskBorder;
+            borders[4] = WednesdayTitleBorder;
+            borders[5] = WednesdayTaskBorder;
+            borders[6] = ThursdayTitleBorder;
+            borders[7] = ThursdayTaskBorder;
+            borders[8] = FridayTitleBorder;
+            borders[9] = FridayTaskBorder;
+            borders[10] = SaturdayTitleBorder;
+            borders[11] = SaturdayTaskBorder;
+            borders[12] = SundayTitleBorder;
+            borders[13] = SundayTaskBorder;
             int numToday = 0;
 
             switch (DateTime.Today.DayOfWeek)
@@ -130,10 +149,29 @@ namespace Saveyour
                     numToday = 7;
                     break;
             }
+            //Reorder the days so that the current day of the week is at the top.
+            int startDay = numToday - 1; //Monday = 0... Sunday = 6.
+            int order = 0;
+            Debug.WriteLine("Before the reordering loop!");
+            for (int i = 0; i <= 13; i= i+2)
+            {
+                //Order specifies where in the ordering of days a given day should go.
+                order = (i/2 - startDay + 7)%7; //So if the startDay is 1, day 0 goes to place -1%7 = 6, and day 3 goes to (3 - 2)%7 = place 1.
+                //The +7 above is needed because apparently c# uses % as remainder and not modulo.
+                //Debug.WriteLine("Order: " + order +", i: " + i);
+                //Since there are 2 rows per day, we put each "order" at row 2*order and 2*order+1.
+                Grid.SetRow(borders[i], 2*order + 1); //Moves the Title border and everything in it to the given row.
+                Grid.SetRow(borders[i + 1], 2*order + 2); //Moves the Task border and everything in it to the given row.
+                
+            }
 
-            foreach (TextBlock day in days) {
-                numToday--;
-                day.Text += " " + DateTime.Today.AddDays(numToday * -1).ToString("d");
+            int j = 0;
+            foreach (TextBlock day in days)
+            {
+                    numToday--;
+                   // day.Text += " " + DateTime.Today.AddDays(numToday * -1).ToString("d");
+                   day.Text += " " + DateTime.Today.AddDays((j - startDay + 7)%7).ToString("d");
+                   j++;
             }
             today.Text += " (TODAY)";
             //COLORS ARE SUBJECT TO CHANGE (someone change them if they have a good color scheme!)
@@ -218,7 +256,7 @@ namespace Saveyour
 
         private void display(DateTask task)
         {
-            if (task.date.CompareTo(nextWeek) > 0)
+            if (task.date.CompareTo(nextWeek) > 0 || task.date.CompareTo(yesterday) <= 0)
             {
                 return;
             }

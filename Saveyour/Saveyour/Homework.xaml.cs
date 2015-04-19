@@ -84,5 +84,19 @@ namespace Saveyour
         {
 
         }
+
+        private void addSubjectButton_Click(object sender, RoutedEventArgs e)
+        {
+            hWindow.Width += 300;
+            homeworkPanel.Width += 300;
+            double marginLeft = addSubjectButton.Margin.Left;
+            addSubjectButton.Margin = new Thickness(marginLeft+= 300, 10, 0, 0);
+
+            GroupBox newSubject = new GroupBox();
+            newSubject.Height = subjectBox.Height;
+            newSubject.Width = subjectBox.Width;
+            newSubject.Header = subjectBox.Header;
+            homeworkPanel.Children.Add(newSubject);
+        }
     }
 }

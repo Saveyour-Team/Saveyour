@@ -69,11 +69,21 @@
             <Border x:Name="SundayTaskBorder" BorderBrush="Black" BorderThickness="1" Height="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={tools:RatioConverter}, ConverterParameter='0.06' }" Margin="0" VerticalAlignment="Top" Grid.Row="14">
                 <TextBlock x:Name="SundayTasks" TextWrapping="Wrap" FontFamily="Calibri" Margin="10,0,0,0" FontSize="14" />
             </Border>
-            <Border x:Name="ButtonBorder" BorderBrush="Black" BorderThickness="1" Height="45" Margin="0" VerticalAlignment="Top" Grid.Row="0">
-            </Border>
+            <Border x:Name="ButtonBorder" BorderBrush="Black" BorderThickness="1" Height="45" VerticalAlignment="Top" Grid.Row="0"/>
 
         </Grid>
         <Button x:Name="AddTaskButton_Copy" Content="Add Task" HorizontalAlignment="Center" Margin="146,10,144,0" VerticalAlignment="Top" Width="86" Click="addTaskButton"/>
+        <Button x:Name="backWeek" Content="backWeek" HorizontalAlignment="Left" VerticalAlignment="Top" Width="42" Style="{DynamicResource backWeek}" Height="42" Margin="6,3,0,0" Click="backWeek_Click"/>
+        <Button x:Name="forwardWeek" Content="forwardWeek" HorizontalAlignment="Left" VerticalAlignment="Top" Width="42" Style="{DynamicResource backWeek}" Height="42" Margin="322,2,0,0" RenderTransformOrigin="0.5,0.5" Click="forwardWeek_Click">
+        	<Button.RenderTransform>
+        		<TransformGroup>
+        			<ScaleTransform/>
+        			<SkewTransform/>
+        			<RotateTransform Angle="-180.509"/>
+        			<TranslateTransform/>
+        		</TransformGroup>
+        	</Button.RenderTransform>
+        </Button>
 
 
     </Grid>

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace Saveyour
 {
@@ -22,6 +23,7 @@ namespace Saveyour
 
         private DateTime taskDate;
         private String taskDescription;
+        private Task theTask;
         public AddTaskWindow(Window parent)
         {
             this.Owner = parent;
@@ -32,8 +34,9 @@ namespace Saveyour
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
             taskDate = (DateTime)TaskCalendar.SelectedDate;
-            taskDescription = TaskDescription.Text;
             this.DialogResult = true;
+
+            //theTask = new Task(taskTitle.Text, TaskDescription.Text, 0, )
 
         }
 
@@ -42,13 +45,15 @@ namespace Saveyour
             this.DialogResult = false;
         }
 
-        public DateTime getTaskDate()
+        public Task getTask()
         {
-            return taskDate;
+            return theTask;
         }
-        public String getTaskDescription()
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            return taskDescription;
+            lblWeight.Content = weightSlider.Value.ToString();
         }
+
     }
 }

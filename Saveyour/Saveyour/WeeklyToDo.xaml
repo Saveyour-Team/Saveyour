@@ -73,8 +73,8 @@
 
         </Grid>
         <Button x:Name="AddTaskButton_Copy" Content="Add Task" HorizontalAlignment="Center" Margin="146,10,144,0" VerticalAlignment="Top" Width="86" Click="addTaskButton"/>
-        <Button x:Name="backWeek" Content="backWeek" HorizontalAlignment="Left" VerticalAlignment="Top" Width="42" Style="{DynamicResource backWeek}" Height="42" Margin="6,3,0,0" Click="backWeek_Click"/>
-        <Button x:Name="forwardWeek" Content="forwardWeek" HorizontalAlignment="Left" VerticalAlignment="Top" Width="42" Style="{DynamicResource backWeek}" Height="42" Margin="322,2,0,0" RenderTransformOrigin="0.5,0.5" Click="forwardWeek_Click">
+        <Button x:Name="backWeek" Content="backWeek" HorizontalAlignment="Left" VerticalAlignment="Top" Width="42" Style="{DynamicResource backWeek}" Height="42" Margin="6,1.5,0,0" Click="backWeek_Click"/>
+        <Button x:Name="forwardWeek" Content="forwardWeek" HorizontalAlignment="Left" VerticalAlignment="Top" Width="42" Style="{DynamicResource backWeek}" Height="42" Margin="322,1.5,0,0" RenderTransformOrigin="0.5,0.5" Click="forwardWeek_Click">
         	<Button.RenderTransform>
         		<TransformGroup>
         			<ScaleTransform/>

@@ -114,44 +114,44 @@ namespace Saveyour
 
             switch (DateTime.Today.DayOfWeek)
             {
+                case DayOfWeek.Sunday:
+                    today = SundayTitle;
+                    todayBorder = SundayTitleBorder;
+                    numToday = 1;
+                    break;
                 case DayOfWeek.Monday:
                     today = MondayTitle;
                     todayBorder = MondayTitleBorder;
-                    numToday = 1;
+                    numToday = 2;
                     break;
                 case DayOfWeek.Tuesday:
                     today = TuesdayTitle;
                     todayBorder = TuesdayTitleBorder;
-                    numToday = 2;
+                    numToday = 3;
                     break;
                 case DayOfWeek.Wednesday:
                     today = WednesdayTitle;
                     todayBorder = WednesdayTitleBorder;
-                    numToday = 3;
+                    numToday = 4;
                     break;
                 case DayOfWeek.Thursday:
                     today = ThursdayTitle;
                     todayBorder = ThursdayTitleBorder;
-                    numToday = 4;
+                    numToday = 5;
                     break;
                 case DayOfWeek.Friday:
                     today = FridayTitle;
                     todayBorder = FridayTitleBorder;
-                    numToday = 5;
+                    numToday = 6;
                     break;
                 case DayOfWeek.Saturday:
                     today = SaturdayTitle;
                     todayBorder = SaturdayTitleBorder;
-                    numToday = 6;
-                    break;
-                case DayOfWeek.Sunday:
-                    today = SundayTitle;
-                    todayBorder = SundayTitleBorder;
                     numToday = 7;
                     break;
             }
             //Reorder the days so that the current day of the week is at the top.
-            int startDay = numToday - 1; //Monday = 0... Sunday = 6.
+            int startDay = numToday - 1; //Sunday = 0... Saturday = 6.
             int order = 0;
             Debug.WriteLine("Before the reordering loop!");
             for (int i = 0; i <= 13; i= i+2)
@@ -322,7 +322,8 @@ namespace Saveyour
             foreach (TextBlock day in days)
             {
                 day.Text = "";
-                day.Text = curTopDay.AddDays(count).ToString("d");
+                day.Text = curTopDay.AddDays(count).ToString("dddd");
+                day.Text += " " + curTopDay.AddDays(count).ToString("d");
                 count++;
             }
 
@@ -336,7 +337,8 @@ namespace Saveyour
             foreach (TextBlock day in days)
             {
                 day.Text = "";
-                day.Text = curTopDay.AddDays(count).ToString("d");
+                day.Text = curTopDay.AddDays(count).ToString("dddd");
+                day.Text += " " + curTopDay.AddDays(count).ToString("d");
                 count++;
             }
         }

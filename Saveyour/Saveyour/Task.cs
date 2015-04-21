@@ -9,14 +9,13 @@ namespace Saveyour
     public class Task
     {
         private String title, description;
-        private int taskID, weight;
+        private int weight;
         private DateTime date;
 
-        public Task(String Title, String Description, int TaskID, int Weight, DateTime Date)
+        public Task(String Title, String Description, int Weight, DateTime Date)
         {
             title = Title;
             description = Description;
-            taskID = TaskID;
             weight = Weight;
             date = Date;
         }
@@ -36,10 +35,6 @@ namespace Saveyour
             return description;
         }
 
-        public int getTaskID()
-        {
-            return taskID;
-        }
 
         public int getWeight()
         {
@@ -54,11 +49,6 @@ namespace Saveyour
         public void setDescription(String newDescription)
         {
             description = newDescription;
-        }
-
-        public void setTaskID(int newTaskID)
-        {
-            taskID = newTaskID;
         }
 
         public void setWeight(int newWeight)

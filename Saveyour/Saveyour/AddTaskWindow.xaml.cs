@@ -36,7 +36,7 @@ namespace Saveyour
             taskDate = (DateTime)TaskCalendar.SelectedDate;
             this.DialogResult = true;
 
-            //theTask = new Task(taskTitle.Text, TaskDescription.Text, 0, )
+            theTask = new Task(taskTitle.Text, TaskDescription.Text, Convert.ToInt32(lblWeight.Content), taskDate);
 
         }
 

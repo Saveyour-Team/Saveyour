@@ -14,6 +14,9 @@ using System.Windows.Shapes;
 using System.Diagnostics;
 using System.Windows.Markup;
 using System.Globalization;
+using System.IO;
+using System.Collections;
+using System.Runtime.Serialization.Formatters.Binary; 
 
 namespace MyApp.Tools
 {
@@ -64,7 +67,9 @@ namespace Saveyour
         private DateTime nextWeek;
         private DateTime yesterday;
         private List<TextBlock> days = new List<TextBlock>();
+        private List<TextBlock> taskDays = new List<TextBlock>();
         private DateTime curTopDay;
+        private Hashtable hashTasks;
 
 
         public WeeklyToDo()
@@ -76,6 +81,8 @@ namespace Saveyour
 
             Left = System.Windows.SystemParameters.PrimaryScreenWidth - Width;
             Top = 0;
+
+            hashTasks = new Hashtable();
 
             curTopDay = DateTime.Today;
 
@@ -95,21 +102,30 @@ namespace Saveyour
             days.Add(FridayTitle);
             days.Add(SaturdayTitle);
 
+            taskDays.Add(SundayTasks);
+            taskDays.Add(MondayTasks);
+            taskDays.Add(TuesdayTasks);
+            taskDays.Add(WednesdayTasks);
+            taskDays.Add(ThursdayTasks);
+            taskDays.Add(FridayTasks);
+            taskDays.Add(SaturdayTasks);
+
             Border[] borders = new Border[14];
-            borders[0] = MondayTitleBorder;
-            borders[1] = MondayTaskBorder;
-            borders[2] = TuesdayTitleBorder;
-            borders[3] = TuesdayTaskBorder;
-            borders[4] = WednesdayTitleBorder;
-            borders[5] = WednesdayTaskBorder;
-            borders[6] = ThursdayTitleBorder;
-            borders[7] = ThursdayTaskBorder;
-            borders[8] = FridayTitleBorder;
-            borders[9] = FridayTaskBorder;
-            borders[10] = SaturdayTitleBorder;
-            borders[11] = SaturdayTaskBorder;
-            borders[12] = SundayTitleBorder;
-            borders[13] = SundayTaskBorder;
+            borders[0] = SundayTitleBorder;
+            borders[1] = SundayTaskBorder;
+            borders[2] = MondayTitleBorder;
+            borders[3] = MondayTaskBorder;
+            borders[4] = TuesdayTitleBorder;
+            borders[5] = TuesdayTaskBorder;
+            borders[6] = WednesdayTitleBorder;
+            borders[7] = WednesdayTaskBorder;
+            borders[8] = ThursdayTitleBorder;
+            borders[9] = ThursdayTaskBorder;
+            borders[10] = FridayTitleBorder;
+            borders[11] = FridayTaskBorder;
+            borders[12] = SaturdayTitleBorder;
+            borders[13] = SaturdayTaskBorder;
+
             int numToday = 0;
 
             switch (DateTime.Today.DayOfWeek)
@@ -239,7 +255,7 @@ namespace Saveyour
                     }
                     catch(FormatException e)
                     {
-                        Debug.WriteLine("Invalid WeeklyTodDo Task Format!");
+                        Debug.WriteLine("Invalid WeeklyToDo Task Format!");
                     }
 
                 }
@@ -300,16 +316,23 @@ namespace Saveyour
                 return;
             }
 
+            Task task = addTaskWin.getTask();
+
             //newTaskDate = addTaskWin.getTaskDate();
             //newTaskDescription = addTaskWin.getTaskDescription();
             DateTask newTask = new DateTask();
-            //newTask.date = newTaskDate;
-            //newTask.task = newTaskDescription;
-            //dates.Add(newTask);
-            //display(newTask);
+            newTask.date = task.getDate();
+            newTask.task = task.getTitle();
+            dates.Add(newTask);
 
-            
+            Debug.WriteLine(task.getDate().GetHashCode());
+            hashTasks.Add(task.getDate().GetHashCode(), task);
+
+
+            display(newTask);
         }
+
+
         private void onLostFocus(object sender, RoutedEventArgs e)
         {
             Shell.getSaveLoader().save();
@@ -319,6 +342,8 @@ namespace Saveyour
         {
             int count = 0;
             curTopDay = curTopDay.AddDays(-7);
+            clearDisplay();
+
             foreach (TextBlock day in days)
             {
                 day.Text = "";
@@ -333,6 +358,7 @@ namespace Saveyour
         {
             int count = 0;
             curTopDay = curTopDay.AddDays(7);
+            clearDisplay();
 
             foreach (TextBlock day in days)
             {
@@ -341,6 +367,19 @@ namespace Saveyour
                 day.Text += " " + curTopDay.AddDays(count).ToString("d");
                 count++;
             }
+        }
+
+        private void clearDisplay()
+        {
+            foreach (TextBlock day in taskDays)
+            {
+                day.Text = "";
+            }
+        }
+
+        private void loadDisplayTasks()
+        {
+
         }
 
     }

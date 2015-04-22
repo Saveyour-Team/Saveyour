@@ -69,7 +69,7 @@ namespace Saveyour
         private List<TextBlock> days = new List<TextBlock>();
         private List<TextBlock> taskDays = new List<TextBlock>();
         private DateTime curTopDay;
-        private Dictionary<DateTime,Task> hashTasks;
+        private Dictionary<DateTime,List<Task>> hashTasks;
         private Border[] borders;
 
 
@@ -84,7 +84,7 @@ namespace Saveyour
             Left = System.Windows.SystemParameters.PrimaryScreenWidth - Width;
             Top = 0;
 
-            hashTasks = new Dictionary<DateTime,Task>();
+            hashTasks = new Dictionary<DateTime,List<Task>>();
 
             curTopDay = DateTime.Today;
 
@@ -299,7 +299,17 @@ namespace Saveyour
             newTask.task = task.getTitle();
             dates.Add(newTask);
 
-            hashTasks.Add(task.getDate(), task);
+            //Try to add a new list containing the task.
+            try
+            {
+                List<Task> temp = new List<Task>();
+                temp.Add(task);
+                hashTasks.Add(task.getDate(), temp);
+            }
+            //If the key already exists, add the task to the list.
+            catch(ArgumentException err){
+                hashTasks[task.getDate()].Add(task);
+            }
 
 
             display(newTask);

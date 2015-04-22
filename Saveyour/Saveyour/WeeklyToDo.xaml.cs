@@ -152,7 +152,6 @@ namespace Saveyour
             //Reorder the days so that the current day of the week is at the top.
             int startDay = (int)DateTime.Today.DayOfWeek; //Sunday = 0... Saturday = 6.
             int order = 0;
-            Debug.WriteLine("Before the reordering loop!");
             for (int i = 0; i <= 13; i = i + 2)
             {
                 //Order specifies where in the ordering of days a given day should go.
@@ -251,31 +250,6 @@ namespace Saveyour
 
             int taskDay = (int)task.date.DayOfWeek;
             taskDays[taskDay].Text = taskDays[taskDay].Text + task.task + "\n";
-            /*
-            switch (task.date.DayOfWeek)
-            {
-                case DayOfWeek.Monday:
-                    MondayTasks.Text = MondayTasks.Text +task.task + "\n";
-                    break;
-                case DayOfWeek.Tuesday:
-                    TuesdayTasks.Text = TuesdayTasks.Text + task.task + "\n";
-                    break;
-                case DayOfWeek.Wednesday:
-                    WednesdayTasks.Text = WednesdayTasks.Text + task.task + "\n";
-                    break;
-                case DayOfWeek.Thursday:
-                    ThursdayTasks.Text = ThursdayTasks.Text + task.task + "\n";
-                    break;
-                case DayOfWeek.Friday:
-                    FridayTasks.Text = FridayTasks.Text + task.task + "\n";
-                    break;
-                case DayOfWeek.Saturday:
-                    SaturdayTasks.Text = SaturdayTasks.Text + task.task + "\n";
-                    break;
-                case DayOfWeek.Sunday:
-                    SundayTasks.Text = SundayTasks.Text + task.task + "\n";
-                    break;
-            }*/
         }
 
         private void addTaskButton(object sender, RoutedEventArgs e)
@@ -283,8 +257,6 @@ namespace Saveyour
             AddTaskWindow addTaskWin = new AddTaskWindow(this);
             addTaskWin.ShowInTaskbar = false;
             Nullable<bool> result =  addTaskWin.ShowDialog();
-            DateTime newTaskDate;
-            String newTaskDescription;
             if ( !result.HasValue || !result.Value)
             {
                 return;
@@ -313,16 +285,18 @@ namespace Saveyour
 
 
             display(newTask);
+            Shell.getSaveLoader().save();
         }
 
 
         private void onLostFocus(object sender, RoutedEventArgs e)
         {
-            Shell.getSaveLoader().save();
+            //Shell.getSaveLoader().save();
         }
 
         private void backWeek_Click(object sender, RoutedEventArgs e)
         {
+            int numToday = (int)DateTime.Today.DayOfWeek;
             int count = 0;
             curTopDay = curTopDay.AddDays(-7);
             clearDisplay();
@@ -330,15 +304,21 @@ namespace Saveyour
             foreach (TextBlock day in days)
             {
                 day.Text = "";
-                day.Text = curTopDay.AddDays(count).ToString("dddd");
-                day.Text += " " + curTopDay.AddDays(count).ToString("d");
+                day.Text = curTopDay.AddDays(count - numToday).ToString("dddd");
+                day.Text += " " + curTopDay.AddDays(count - numToday).ToString("d");
                 count++;
+            }
+            if (curTopDay.CompareTo(nextWeek) < 0 && curTopDay.CompareTo(yesterday) > 0)
+            {
+                reOrderDays();
+                days[numToday].Text += " (TODAY)";
             }
 
         }
 
         private void forwardWeek_Click(object sender, RoutedEventArgs e)
         {
+            int numToday = (int)DateTime.Today.DayOfWeek;
             int count = 0;
             curTopDay = curTopDay.AddDays(7);
             clearDisplay();
@@ -346,9 +326,14 @@ namespace Saveyour
             foreach (TextBlock day in days)
             {
                 day.Text = "";
-                day.Text = curTopDay.AddDays(count).ToString("dddd");
-                day.Text += " " + curTopDay.AddDays(count).ToString("d");
+                day.Text = curTopDay.AddDays(count - numToday).ToString("dddd");
+                day.Text += " " + curTopDay.AddDays(count - numToday).ToString("d");
                 count++;
+            }
+            if (curTopDay.CompareTo(nextWeek) < 0 && curTopDay.CompareTo(yesterday) > 0)
+            {
+                reOrderDays();
+                days[numToday].Text += " (TODAY)";
             }
         }
 

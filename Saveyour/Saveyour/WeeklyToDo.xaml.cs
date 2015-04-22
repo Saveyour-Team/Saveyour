@@ -69,7 +69,9 @@ namespace Saveyour
         private List<TextBlock> days = new List<TextBlock>();
         private List<TextBlock> taskDays = new List<TextBlock>();
         private DateTime curTopDay;
-        private Hashtable hashTasks;
+        private Dictionary<DateTime,Task> hashTasks;
+        private Border[] borders;
+
 
 
         public WeeklyToDo()
@@ -82,7 +84,7 @@ namespace Saveyour
             Left = System.Windows.SystemParameters.PrimaryScreenWidth - Width;
             Top = 0;
 
-            hashTasks = new Hashtable();
+            hashTasks = new Dictionary<DateTime,Task>();
 
             curTopDay = DateTime.Today;
 
@@ -110,7 +112,7 @@ namespace Saveyour
             taskDays.Add(FridayTasks);
             taskDays.Add(SaturdayTasks);
 
-            Border[] borders = new Border[14];
+            borders = new Border[14];
             borders[0] = SundayTitleBorder;
             borders[1] = SundayTaskBorder;
             borders[2] = MondayTitleBorder;
@@ -126,74 +128,43 @@ namespace Saveyour
             borders[12] = SaturdayTitleBorder;
             borders[13] = SaturdayTaskBorder;
 
-            int numToday = 0;
-
-            switch (DateTime.Today.DayOfWeek)
-            {
-                case DayOfWeek.Sunday:
-                    today = SundayTitle;
-                    todayBorder = SundayTitleBorder;
-                    numToday = 1;
-                    break;
-                case DayOfWeek.Monday:
-                    today = MondayTitle;
-                    todayBorder = MondayTitleBorder;
-                    numToday = 2;
-                    break;
-                case DayOfWeek.Tuesday:
-                    today = TuesdayTitle;
-                    todayBorder = TuesdayTitleBorder;
-                    numToday = 3;
-                    break;
-                case DayOfWeek.Wednesday:
-                    today = WednesdayTitle;
-                    todayBorder = WednesdayTitleBorder;
-                    numToday = 4;
-                    break;
-                case DayOfWeek.Thursday:
-                    today = ThursdayTitle;
-                    todayBorder = ThursdayTitleBorder;
-                    numToday = 5;
-                    break;
-                case DayOfWeek.Friday:
-                    today = FridayTitle;
-                    todayBorder = FridayTitleBorder;
-                    numToday = 6;
-                    break;
-                case DayOfWeek.Saturday:
-                    today = SaturdayTitle;
-                    todayBorder = SaturdayTitleBorder;
-                    numToday = 7;
-                    break;
-            }
-            //Reorder the days so that the current day of the week is at the top.
-            int startDay = numToday - 1; //Sunday = 0... Saturday = 6.
-            int order = 0;
-            Debug.WriteLine("Before the reordering loop!");
-            for (int i = 0; i <= 13; i= i+2)
-            {
-                //Order specifies where in the ordering of days a given day should go.
-                order = (i/2 - startDay + 7)%7; //So if the startDay is 1, day 0 goes to place -1%7 = 6, and day 3 goes to (3 - 2)%7 = place 1.
-                //The +7 above is needed because apparently c# uses % as remainder and not modulo.
-                //Debug.WriteLine("Order: " + order +", i: " + i);
-                //Since there are 2 rows per day, we put each "order" at row 2*order and 2*order+1.
-                Grid.SetRow(borders[i], 2*order + 1); //Moves the Title border and everything in it to the given row.
-                Grid.SetRow(borders[i + 1], 2*order + 2); //Moves the Task border and everything in it to the given row.
-                
-            }
+            int numToday = (int)DateTime.Today.DayOfWeek;
+            today = days[numToday];
+            todayBorder = borders[numToday * 2];
+            reOrderDays();
 
             int j = 0;
             foreach (TextBlock day in days)
             {
                     numToday--;
                    // day.Text += " " + DateTime.Today.AddDays(numToday * -1).ToString("d");
-                   day.Text += " " + DateTime.Today.AddDays((j - startDay + 7)%7).ToString("d");
+                   day.Text += " " + DateTime.Today.AddDays((j - numToday + 7)%7).ToString("d");
                    j++;
             }
             today.Text += " (TODAY)";
             //COLORS ARE SUBJECT TO CHANGE (someone change them if they have a good color scheme!)
             today.Foreground = new SolidColorBrush(Colors.Green); //Changes text color
             todayBorder.Background = new SolidColorBrush(Colors.Cyan); //Changes background color
+        }
+
+        private void reOrderDays()
+        {
+            //Reorder the days so that the current day of the week is at the top.
+            int startDay = (int)DateTime.Today.DayOfWeek; //Sunday = 0... Saturday = 6.
+            int order = 0;
+            Debug.WriteLine("Before the reordering loop!");
+            for (int i = 0; i <= 13; i = i + 2)
+            {
+                //Order specifies where in the ordering of days a given day should go.
+                order = (i / 2 - startDay + 7) % 7; //So if the startDay is 1, day 0 goes to place -1%7 = 6, and day 3 goes to (3 - 2)%7 = place 1.
+                //The +7 above is needed because apparently c# uses % as remainder and not modulo.
+                //Debug.WriteLine("Order: " + order +", i: " + i);
+                //Since there are 2 rows per day, we put each "order" at row 2*order and 2*order+1.
+                Grid.SetRow(borders[i], 2 * order + 1); //Moves the Title border and everything in it to the given row.
+                Grid.SetRow(borders[i + 1], 2 * order + 2); //Moves the Task border and everything in it to the given row.
+
+            }
+
         }
 
         public String moduleID()
@@ -278,6 +249,9 @@ namespace Saveyour
                 return;
             }
 
+            int taskDay = (int)task.date.DayOfWeek;
+            taskDays[taskDay].Text = taskDays[taskDay].Text + task.task + "\n";
+            /*
             switch (task.date.DayOfWeek)
             {
                 case DayOfWeek.Monday:
@@ -301,7 +275,7 @@ namespace Saveyour
                 case DayOfWeek.Sunday:
                     SundayTasks.Text = SundayTasks.Text + task.task + "\n";
                     break;
-            }
+            }*/
         }
 
         private void addTaskButton(object sender, RoutedEventArgs e)
@@ -325,8 +299,7 @@ namespace Saveyour
             newTask.task = task.getTitle();
             dates.Add(newTask);
 
-            Debug.WriteLine(task.getDate().GetHashCode());
-            hashTasks.Add(task.getDate().GetHashCode(), task);
+            hashTasks.Add(task.getDate(), task);
 
 
             display(newTask);

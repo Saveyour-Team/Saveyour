@@ -4,13 +4,16 @@
 
         Title="Homework" Height="396" Width="350">
     <Grid x:Name="windowGrid">
-        <Button x:Name="addSubjectButton" Content="Button" HorizontalAlignment="Left" Margin="246,10,0,0" VerticalAlignment="Top" Width="75" Click="addSubjectButton_Click"/>
+        <Button x:Name="addSubjectButton" Content="Add Subject" HorizontalAlignment="Left" Margin="230,10,0,0" VerticalAlignment="Top" Width="80" Click="addSubjectButton_Click"/>
         <StackPanel x:Name="homeworkPanel" HorizontalAlignment="Left" Height="295" Margin="20,50,0,0" VerticalAlignment="Top" Width="300" Orientation="Horizontal">
             <Grid x:Name="panelGrid" Height="295">
-                <RichTextBox x:Name="leftTextBox" HorizontalAlignment="Left" Height="234" Margin="10,61,0,0" VerticalAlignment="Top" Width="215">
+                <RichTextBox x:Name="leftTextBox" HorizontalAlignment="Left" Height="234" Margin="10,61,0,0" VerticalAlignment="Top" Width="215" TextChanged="leftTextBox_TextChanged">
                     <FlowDocument>
                         <Paragraph>
                             <Run Text="RichTextBox"/>
+                        </Paragraph>
+                        <Paragraph>
+                            <Run Text="Testing to se eh owth isworks"/>
                         </Paragraph>
                     </FlowDocument>
                 </RichTextBox>
@@ -23,8 +26,9 @@
                 </RichTextBox>
                 <Label x:Name="assignmentLabel" Content="Assignment" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="215"/>
                 <Label x:Name="dateLabel" Content="Date" HorizontalAlignment="Left" Margin="230,35,0,0" VerticalAlignment="Top" Width="60"/>
-                <Label x:Name="subjectLabel" Content ="New Subject" HorizontalContentAlignment ="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Width="280" Height="35" Margin="10,0"/>
+                <TextBox x:Name="subjectBox" Text ="Change Subject Title Here!" VerticalContentAlignment="Center" HorizontalContentAlignment ="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Width="280" Height="35" Margin="10,0"/>
             </Grid>
         </StackPanel>
+        <Label x:Name="maxWarning" Content="Maximum Subjects Reached!" HorizontalAlignment="Center" Margin="0,7,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

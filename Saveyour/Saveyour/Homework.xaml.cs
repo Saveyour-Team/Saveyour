@@ -19,22 +19,20 @@ namespace Saveyour
     /// </summary>
     public partial class Homework : Window, Module
     {
-        private const int MAX_SUBJECTS = 7;
-        private int numSubjects = 0;
+        private class Subject
+        {
 
-        GroupBox first = null;
-        Window parent = null;
-        Grid wholeGrid = null;
+        }
+
+        private const int MAX_SUBJECTS = 5;
+        private int numSubjects = 1;
 
         GroupBox[] subjects = new GroupBox[MAX_SUBJECTS];
 
         public Homework()
         {
             InitializeComponent();
-
-            first = (GroupBox)FindName("subject1");
-            parent = (Window)FindName("hWindow");
-            wholeGrid = (Grid)FindName("HGrid");
+            maxWarning.Visibility = Visibility.Hidden;
 
             //We need to load the information for the subjects here.
 
@@ -42,25 +40,7 @@ namespace Saveyour
 
             //Load the GroupBox, then the Grid, then each task in Task, then each date in Date
 
-            //
-
-            //wholeGrid.Height = 30;
-
-            Window testWindow = new Window()
-            {
-                Title = "TESTING WINDOW",
-                Height = 300,
-                Width = 300                                
-            };
-            
-            testWindow.Show();
-
-            wholeGrid.Children.Add(new GroupBox()
-            {
-                //Name = "SUBJECT TEST"
-                Header = "SUBJECT TEST"
-            });
-            
+            //            
             
         }
 
@@ -115,13 +95,22 @@ namespace Saveyour
 
         private void addSubjectButton_Click(object sender, RoutedEventArgs e)
         {
-            hWindow.Width += 300;
-            homeworkPanel.Width += 310;
-            windowGrid.Width = hWindow.Width;
-            double marginLeft = addSubjectButton.Margin.Left;
-            addSubjectButton.Margin = new Thickness(marginLeft+= 300, 10, 0, 0);
+            if (numSubjects < MAX_SUBJECTS)
+            {
+                hWindow.Width += 300;
+                homeworkPanel.Width += 310;
 
-            homeworkPanel.Children.Add(createSubject());
+                windowGrid.Width = hWindow.Width;
+                double marginLeft = addSubjectButton.Margin.Left;
+                addSubjectButton.Margin = new Thickness(marginLeft += 300, 10, 0, 0);
+
+                homeworkPanel.Children.Add(createSubject());
+                numSubjects++;
+            }
+            else
+            {
+                maxWarning.Visibility = Visibility.Visible;
+            }
         }
 
         private void RichTextBox_TextChanged_1(object sender, TextChangedEventArgs e)
@@ -137,7 +126,7 @@ namespace Saveyour
             
             Label newAssignmentLabel = new Label();
             Label newDateLabel = new Label();
-            Label newSubjectLabel = new Label();
+            TextBox newSubjectBox = new TextBox();
 
             newAssignmentLabel.Content = assignmentLabel.Content;
             newAssignmentLabel.HorizontalAlignment = assignmentLabel.HorizontalAlignment;
@@ -152,14 +141,15 @@ namespace Saveyour
             newDateLabel.Width = dateLabel.Width;
             newDateLabel.Height = dateLabel.Height;
             newDateLabel.Margin = new Thickness(dateLabel.Margin.Left,dateLabel.Margin.Top,dateLabel.Margin.Bottom,dateLabel.Margin.Right);
-            
-            newSubjectLabel.Content = "New Subject";
-            newSubjectLabel.HorizontalAlignment = subjectLabel.HorizontalAlignment;
-            newSubjectLabel.VerticalAlignment = subjectLabel.VerticalAlignment;
-            newSubjectLabel.Width = subjectLabel.Width;
-            newSubjectLabel.Height = subjectLabel.Height;
-            newSubjectLabel.HorizontalContentAlignment = subjectLabel.HorizontalContentAlignment;
-            newSubjectLabel.Margin = new Thickness(subjectLabel.Margin.Left,subjectLabel.Margin.Top,subjectLabel.Margin.Bottom,subjectLabel.Margin.Right);
+
+            newSubjectBox.Text = subjectBox.Text;
+            newSubjectBox.HorizontalAlignment = subjectBox.HorizontalAlignment;
+            newSubjectBox.VerticalAlignment = subjectBox.VerticalAlignment;
+            newSubjectBox.VerticalContentAlignment = subjectBox.VerticalContentAlignment;
+            newSubjectBox.Width = subjectBox.Width;
+            newSubjectBox.Height = subjectBox.Height;
+            newSubjectBox.HorizontalContentAlignment = subjectBox.HorizontalContentAlignment;
+            newSubjectBox.Margin = new Thickness(subjectBox.Margin.Left, subjectBox.Margin.Top, subjectBox.Margin.Bottom, subjectBox.Margin.Right);
 
             RichTextBox leftBox = new RichTextBox();
             RichTextBox rightBox = new RichTextBox();
@@ -179,8 +169,18 @@ namespace Saveyour
             newGrid.Children.Add(rightBox);
             newGrid.Children.Add(newAssignmentLabel);
             newGrid.Children.Add(newDateLabel);
-            newGrid.Children.Add(newSubjectLabel);
+            newGrid.Children.Add(newSubjectBox);
+
+            /******* Adding logic for saving each subject into data structure *******/
+
+
             return newGrid;
         }
+
+        private void leftTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
     }
 }

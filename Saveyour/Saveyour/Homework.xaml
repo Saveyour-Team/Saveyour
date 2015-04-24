@@ -29,6 +29,6 @@
                 <TextBox x:Name="subjectBox" Text ="Change Subject Title Here!" VerticalContentAlignment="Center" HorizontalContentAlignment ="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Width="280" Height="35" Margin="10,0"/>
             </Grid>
         </StackPanel>
-        <Label x:Name="maxWarning" Content="Maximum Subjects Reached!" HorizontalAlignment="Center" Margin="0,7,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="maxWarning" Content="Maximum Number of Subjects Reached!" HorizontalAlignment="Center" Margin="0,7,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

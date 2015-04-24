@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
+using System.Windows.Markup;
+using System.Diagnostics;
 
 namespace Saveyour
 {
@@ -19,15 +22,17 @@ namespace Saveyour
     /// </summary>
     public partial class Homework : Window, Module
     {
+        
         private class Subject
         {
-
+            public FlowDocument dates, assignments;
+            public TextBox subject;            
         }
-
+        
         private const int MAX_SUBJECTS = 5;
         private int numSubjects = 1;
 
-        GroupBox[] subjects = new GroupBox[MAX_SUBJECTS];
+        Subject[] subjects = new Subject[MAX_SUBJECTS];
 
         public Homework()
         {
@@ -40,7 +45,7 @@ namespace Saveyour
 
             //Load the GroupBox, then the Grid, then each task in Task, then each date in Date
 
-            //            
+            //                        
             
         }
 
@@ -56,21 +61,46 @@ namespace Saveyour
 
         public String save()
         {
-            String returnThis = "";
+            String subjNames = "";
 
-            for (int i = 0; i < numSubjects; i++)
+            /****** SAVE FLOW DOCUMENT *******/
+
+            for (int i = 0; i < numSubjects; i++) 
             {
-                returnThis += "{" + subjects[i].Name + "}";
-                //returnThis += "{" + subjects[i].TextInput + "}";
+                subjNames += (subjects[i].subject.Text + ",");
+
+                // Open or create the output file.
+                FileStream xamlFile = new FileStream(@"savedFiles\" + subjects[i].subject.Text + "-assignments.xaml", FileMode.Create, FileAccess.ReadWrite);
+                // Save the contents of the FlowDocumentReader to the file stream that was just opened.
+                XamlWriter.Save(subjects[i].assignments, xamlFile);
+
+                // Also need to save dates
+                xamlFile = new FileStream(@"savedFiles\" + subjects[i].subject.Text + "-dates.xaml", FileMode.Create, FileAccess.ReadWrite);
+                // Save the contents of the FlowDocumentReader to the file stream that was just opened.
+                XamlWriter.Save(subjects[i].dates, xamlFile);
+
+                xamlFile.Close();
             }
-               
-            return "";
+
+            return subjNames;
         }
 
         public Boolean load(String data)
         {
+            //Need to de-tokenize based on String given for subject names. Delimiter is ','.
 
-            return false;
+            /****** LOAD FLOW DOCUMENT *******/
+
+            FileStream xamlFile = new FileStream(@"savedFiles\test.xaml", FileMode.Open, FileAccess.Read);
+            // and parse the file with the XamlReader.Load method.
+            FlowDocument content = XamlReader.Load(xamlFile) as FlowDocument;
+            // Finally, set the Document property to the FlowDocument object that was
+            // parsed from the input file.            
+            rightBox.Document = content;
+
+            xamlFile.Close();          
+
+            return true;
         }
 
         public Boolean Equals(Module other)
@@ -153,17 +183,23 @@ namespace Saveyour
 
             RichTextBox leftBox = new RichTextBox();
             RichTextBox rightBox = new RichTextBox();
+
+            if (leftBox.Document == null)
+            {
+                Debug.WriteLine("NULL");
+            }
+
             leftBox.HorizontalAlignment = leftTextBox.HorizontalAlignment;
             leftBox.VerticalAlignment = leftTextBox.VerticalAlignment;
             leftBox.Height = leftTextBox.Height;
             leftBox.Width = leftTextBox.Width;
-            leftBox.Margin = new Thickness(leftTextBox.Margin.Left,leftTextBox.Margin.Top,leftTextBox.Margin.Bottom,leftTextBox.Margin.Right);
-            
+            leftBox.Margin = new Thickness(leftTextBox.Margin.Left,leftTextBox.Margin.Top,leftTextBox.Margin.Bottom,leftTextBox.Margin.Right);                                                
+
             rightBox.HorizontalAlignment = rightTextBox.HorizontalAlignment;
             rightBox.VerticalAlignment = rightTextBox.VerticalAlignment;
             rightBox.Height = rightTextBox.Height;
             rightBox.Width = rightTextBox.Width;
-            rightBox.Margin = new Thickness(rightTextBox.Margin.Left,rightTextBox.Margin.Top,rightTextBox.Margin.Bottom,rightTextBox.Margin.Right);
+            rightBox.Margin = new Thickness(rightTextBox.Margin.Left,rightTextBox.Margin.Top,rightTextBox.Margin.Bottom,rightTextBox.Margin.Right);                         
 
             newGrid.Children.Add(leftBox);
             newGrid.Children.Add(rightBox);
@@ -173,6 +209,12 @@ namespace Saveyour
 
             /******* Adding logic for saving each subject into data structure *******/
 
+            Subject newSubject = new Subject();
+            newSubject.subject = newSubjectBox;
+            newSubject.assignments = leftBox.Document;
+            newSubject.dates = rightBox.Document;
+
+            subjects[numSubjects - 1] = newSubject;
 
             return newGrid;
         }

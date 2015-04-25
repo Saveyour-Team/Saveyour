@@ -62,7 +62,7 @@ namespace Saveyour
             public String task;
         }
 
-        private List<DateTask> dates = new List<DateTask>();
+        //private List<DateTask> dates = new List<DateTask>();
 
         private DateTime nextWeek;
         private DateTime yesterday;
@@ -179,9 +179,13 @@ namespace Saveyour
         public String save()
         {
             String output = "";
-            foreach (DateTask task in dates)
+            foreach (KeyValuePair<DateTime, List<Task>> pair in hashTasks)
             {
-                output = output + task.date.ToString() + "\t\t" + task.task + "\r\t\r"; 
+                List<Task> taskList = pair.Value;
+                foreach (Task task in taskList)
+                {
+                    output = output + task.getTitle() + "\t\t" + task.getDescription() + "\t\t" + task.getWeight() + "\t\t" + task.getDate().ToString() + "\r\t\r"; 
+                }
             }
             return output;
         }
@@ -202,32 +206,39 @@ namespace Saveyour
 
             Debug.WriteLine("WklyTDLoading: " + data);
             String[] splitAt = { "\r\t\r" };
-            String[] moduleData = data.Split(splitAt, StringSplitOptions.None);
-            DateTask newDate;
-            String[] dateTaskString;
+            //This array contains one string of task data at each index.
+            String[] loadedTaskStrings = data.Split(splitAt, StringSplitOptions.None);
+            //This array contains {"Title","Description",Weight,Date}
+            String[] taskParameters;
 
             String[] splitAt2 = { "\t\t" };
 
-            for (int i = 0; i < moduleData.Length; i++)
+            for (int i = 0; i < loadedTaskStrings.Length; i++)
             {
-                Debug.WriteLine("ModuleDat: " + moduleData[i]);
-                dateTaskString = moduleData[i].Split(splitAt2, StringSplitOptions.None);
-                if (moduleData.Length > 1)
+               // Debug.WriteLine("ModuleDat: " + moduleData[i]);
+                taskParameters = loadedTaskStrings[i].Split(splitAt2, StringSplitOptions.None);
+                if (taskParameters.Length == 4)
                 {
                     try
                     {
-                        newDate = new DateTask();
-                        Debug.WriteLine("!:" + dateTaskString[0]);
-                        newDate.date = DateTime.Parse(dateTaskString[0]);
-                        newDate.task = dateTaskString[1];
-                        dates.Add(newDate);
-                        display(newDate);
+                        Task newTask = new Task(taskParameters[0], taskParameters[1], Convert.ToInt32(taskParameters[2]), DateTime.Parse(taskParameters[3]));
+                       // Debug.WriteLine("!:" + dateTaskString[0]);
+                        addTask(newTask);
+                        //If the task is in the current week, display it now.
+                        if (newTask.getDate().CompareTo(nextWeek) < 0 && newTask.getDate().CompareTo(yesterday) > 0)
+                        {
+                            displayTask(newTask);
+                        }
                     }
                     catch(FormatException e)
                     {
                         Debug.WriteLine("Invalid WeeklyToDo Task Format!");
                     }
 
+                }
+                else
+                {
+                    Debug.WriteLine("Invalid WeeklyToDo Task Format!");
                 }
 
             }
@@ -241,15 +252,45 @@ namespace Saveyour
             return moduleID().Equals(other.moduleID());
         }
 
-        private void display(DateTask task)
-        {
-            if (task.date.CompareTo(nextWeek) > 0 || task.date.CompareTo(yesterday) <= 0)
-            {
-                return;
-            }
 
-            int taskDay = (int)task.date.DayOfWeek;
-            taskDays[taskDay].Text = taskDays[taskDay].Text + task.task + "\n";
+
+        /*Always displays the task given as input.*/
+        private void displayTask(Task task)
+        {
+            int taskDay = (int)task.getDate().DayOfWeek;
+            taskDays[taskDay].Text = taskDays[taskDay].Text + task.getTitle() + "\n";
+        }
+        private void displayDaysTasks(DateTime day)
+        {
+            try
+            {
+                List<Task> taskList = hashTasks[day];
+                foreach (Task task in taskList)
+                {
+                    displayTask(task);
+                }
+            }
+            catch (KeyNotFoundException e)
+            {
+                //If key's not there we don't need to do anything.
+            }
+        }
+
+
+        private void addTask(Task task)
+        {
+            try
+            {
+                //Try to add the new date and task to the Dictionary
+                List<Task> temp = new List<Task>();
+                temp.Add(task);
+                hashTasks.Add(task.getDate(), temp);
+            }
+            //If the key already exists, add the task to the list.
+            catch (ArgumentException err)
+            {
+                hashTasks[task.getDate()].Add(task);
+            }
         }
 
         private void addTaskButton(object sender, RoutedEventArgs e)
@@ -266,25 +307,21 @@ namespace Saveyour
 
             //newTaskDate = addTaskWin.getTaskDate();
             //newTaskDescription = addTaskWin.getTaskDescription();
-            DateTask newTask = new DateTask();
+            /*DateTask newTask = new DateTask();
             newTask.date = task.getDate();
             newTask.task = task.getTitle();
-            dates.Add(newTask);
+            dates.Add(newTask);*/
 
             //Try to add a new list containing the task.
-            try
+            addTask(task);
+
+            //If the task is in the current week, display it.
+            if (task.getDate().CompareTo(nextWeek) < 0 && task.getDate().CompareTo(yesterday) > 0)
             {
-                List<Task> temp = new List<Task>();
-                temp.Add(task);
-                hashTasks.Add(task.getDate(), temp);
-            }
-            //If the key already exists, add the task to the list.
-            catch(ArgumentException err){
-                hashTasks[task.getDate()].Add(task);
+                displayTask(task);
             }
 
-
-            display(newTask);
+            
             Shell.getSaveLoader().save();
         }
 
@@ -301,6 +338,8 @@ namespace Saveyour
             curTopDay = curTopDay.AddDays(-7);
             clearDisplay();
 
+
+            //Label the dates of the days of the week.
             foreach (TextBlock day in days)
             {
                 day.Text = "";
@@ -308,10 +347,19 @@ namespace Saveyour
                 day.Text += " " + curTopDay.AddDays(count - numToday).ToString("d");
                 count++;
             }
+
+            //If the week is the week containing Today, label Today.
             if (curTopDay.CompareTo(nextWeek) < 0 && curTopDay.CompareTo(yesterday) > 0)
             {
                 reOrderDays();
                 days[numToday].Text += " (TODAY)";
+            }
+
+            //Display the tasks for the current week
+            for (int i = 0; i < 7; i++)
+            {
+                DateTime day = curTopDay.AddDays(i);
+                displayDaysTasks(day);
             }
 
         }
@@ -323,6 +371,7 @@ namespace Saveyour
             curTopDay = curTopDay.AddDays(7);
             clearDisplay();
 
+            //Label the dates of the days of the week.
             foreach (TextBlock day in days)
             {
                 day.Text = "";
@@ -330,10 +379,19 @@ namespace Saveyour
                 day.Text += " " + curTopDay.AddDays(count - numToday).ToString("d");
                 count++;
             }
+
+            //If the week is the week containing Today, label Today.
             if (curTopDay.CompareTo(nextWeek) < 0 && curTopDay.CompareTo(yesterday) > 0)
             {
                 reOrderDays();
                 days[numToday].Text += " (TODAY)";
+            }
+
+            //Display the tasks for the current week
+            for (int i = 0; i < 7; i++)
+            {
+                DateTime day = curTopDay.AddDays(i);
+                displayDaysTasks(day);
             }
         }
 

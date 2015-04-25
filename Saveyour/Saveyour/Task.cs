@@ -12,7 +12,7 @@ namespace Saveyour
         private int weight;
         private DateTime date;
 
-        public Task(String Title, String Description, int Weight, DateTime Date)
+        public Task(String Title, String Description, int Weight, System.DateTime Date)
         {
             title = Title;
             description = Description;

@@ -200,6 +200,12 @@ namespace Saveyour
         }
 
 
+
+        private void removeTask(Task task)
+        {
+            //To be implemented.
+        }
+
         /*Create everything needed to display the tasks on the weekly calendar.*/
         private void createTaskLabel(Task task, StackPanel daysTasks){
             //A stackpanel to contain the task title and description textblocks

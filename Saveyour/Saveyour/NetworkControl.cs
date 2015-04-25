@@ -15,7 +15,7 @@ namespace Saveyour
     public class NetworkControl
     {
         String SERVERIP = "54.173.26.10";
-        Int32 SERVERPORT = 13388;
+        Int32 SERVERPORT = 1337;
         String certPath = @"ServerCertificate.pem";
 
         public String getIP()
@@ -64,7 +64,7 @@ namespace Saveyour
                 // Receive the TcpServer.response. 
 
                 // Buffer to store the response bytes.
-                data = new Byte[256];
+                data = new Byte[1048576];
 
                 // String to store the response ASCII representation.
                 String responseData = String.Empty;

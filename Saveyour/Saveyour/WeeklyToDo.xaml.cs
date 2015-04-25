@@ -14,6 +14,9 @@ using System.Windows.Shapes;
 using System.Diagnostics;
 using System.Windows.Markup;
 using System.Globalization;
+using System.IO;
+using System.Collections;
+using System.Runtime.Serialization.Formatters.Binary; 
 
 namespace MyApp.Tools
 {
@@ -51,21 +54,21 @@ namespace Saveyour
     /// </summary>
     /// 
 
-
-
-  
     public partial class WeeklyToDo : Window, Module
     {
-        private class DateTask
-        {
-            public DateTime date;
-            public String task;
-        }
 
-        private List<DateTask> dates = new List<DateTask>();
+        //private List<DateTask> dates = new List<DateTask>();
 
         private DateTime nextWeek;
         private DateTime yesterday;
+        private List<TextBlock> days = new List<TextBlock>();
+        private List<StackPanel> taskDays = new List<StackPanel>();
+        private DateTime curTopDay;
+        private Dictionary<DateTime,List<Task>> hashTasks;
+        private Border[] borders;
+
+
+
 
         public WeeklyToDo()
         {
@@ -77,6 +80,10 @@ namespace Saveyour
             Left = System.Windows.SystemParameters.PrimaryScreenWidth - Width;
             Top = 0;
 
+            hashTasks = new Dictionary<DateTime,List<Task>>();
+
+            curTopDay = DateTime.Today;
+
             nextWeek = DateTime.Today.AddDays(7);
             nextWeek = new DateTime(nextWeek.Year, nextWeek.Month, nextWeek.Day);
 
@@ -85,98 +92,74 @@ namespace Saveyour
 
             TextBlock today = null;
             Border todayBorder = null;
-            List<TextBlock> days = new List<TextBlock>();
+            days.Add(SundayTitle);
             days.Add(MondayTitle);
             days.Add(TuesdayTitle);
             days.Add(WednesdayTitle);
             days.Add(ThursdayTitle);
             days.Add(FridayTitle);
             days.Add(SaturdayTitle);
-            days.Add(SundayTitle);
 
-            Border[] borders = new Border[14];
-            borders[0] = MondayTitleBorder;
-            borders[1] = MondayTaskBorder;
-            borders[2] = TuesdayTitleBorder;
-            borders[3] = TuesdayTaskBorder;
-            borders[4] = WednesdayTitleBorder;
-            borders[5] = WednesdayTaskBorder;
-            borders[6] = ThursdayTitleBorder;
-            borders[7] = ThursdayTaskBorder;
-            borders[8] = FridayTitleBorder;
-            borders[9] = FridayTaskBorder;
-            borders[10] = SaturdayTitleBorder;
-            borders[11] = SaturdayTaskBorder;
-            borders[12] = SundayTitleBorder;
-            borders[13] = SundayTaskBorder;
-            int numToday = 0;
+            taskDays.Add(SundayTasks);
+            taskDays.Add(MondayTasks);
+            taskDays.Add(TuesdayTasks);
+            taskDays.Add(WednesdayTasks);
+            taskDays.Add(ThursdayTasks);
+            taskDays.Add(FridayTasks);
+            taskDays.Add(SaturdayTasks);
 
-            switch (DateTime.Today.DayOfWeek)
-            {
-                case DayOfWeek.Monday:
-                    today = MondayTitle;
-                    todayBorder = MondayTitleBorder;
-                    numToday = 1;
-                    break;
-                case DayOfWeek.Tuesday:
-                    today = TuesdayTitle;
-                    todayBorder = TuesdayTitleBorder;
-                    numToday = 2;
-                    break;
-                case DayOfWeek.Wednesday:
-                    today = WednesdayTitle;
-                    todayBorder = WednesdayTitleBorder;
-                    numToday = 3;
-                    break;
-                case DayOfWeek.Thursday:
-                    today = ThursdayTitle;
-                    todayBorder = ThursdayTitleBorder;
-                    numToday = 4;
-                    break;
-                case DayOfWeek.Friday:
-                    today = FridayTitle;
-                    todayBorder = FridayTitleBorder;
-                    numToday = 5;
-                    break;
-                case DayOfWeek.Saturday:
-                    today = SaturdayTitle;
-                    todayBorder = SaturdayTitleBorder;
-                    numToday = 6;
-                    break;
-                case DayOfWeek.Sunday:
-                    today = SundayTitle;
-                    todayBorder = SundayTitleBorder;
-                    numToday = 7;
-                    break;
-            }
-            //Reorder the days so that the current day of the week is at the top.
-            int startDay = numToday - 1; //Monday = 0... Sunday = 6.
-            int order = 0;
-            Debug.WriteLine("Before the reordering loop!");
-            for (int i = 0; i <= 13; i= i+2)
-            {
-                //Order specifies where in the ordering of days a given day should go.
-                order = (i/2 - startDay + 7)%7; //So if the startDay is 1, day 0 goes to place -1%7 = 6, and day 3 goes to (3 - 2)%7 = place 1.
-                //The +7 above is needed because apparently c# uses % as remainder and not modulo.
-                //Debug.WriteLine("Order: " + order +", i: " + i);
-                //Since there are 2 rows per day, we put each "order" at row 2*order and 2*order+1.
-                Grid.SetRow(borders[i], 2*order + 1); //Moves the Title border and everything in it to the given row.
-                Grid.SetRow(borders[i + 1], 2*order + 2); //Moves the Task border and everything in it to the given row.
-                
-            }
+            borders = new Border[14];
+            borders[0] = SundayTitleBorder;
+            borders[1] = SundayTaskBorder;
+            borders[2] = MondayTitleBorder;
+            borders[3] = MondayTaskBorder;
+            borders[4] = TuesdayTitleBorder;
+            borders[5] = TuesdayTaskBorder;
+            borders[6] = WednesdayTitleBorder;
+            borders[7] = WednesdayTaskBorder;
+            borders[8] = ThursdayTitleBorder;
+            borders[9] = ThursdayTaskBorder;
+            borders[10] = FridayTitleBorder;
+            borders[11] = FridayTaskBorder;
+            borders[12] = SaturdayTitleBorder;
+            borders[13] = SaturdayTaskBorder;
+
+            int numToday = (int)DateTime.Today.DayOfWeek;
+            today = days[numToday];
+            todayBorder = borders[numToday * 2];
+            reOrderDays();
 
             int j = 0;
             foreach (TextBlock day in days)
             {
                     numToday--;
                    // day.Text += " " + DateTime.Today.AddDays(numToday * -1).ToString("d");
-                   day.Text += " " + DateTime.Today.AddDays((j - startDay + 7)%7).ToString("d");
+                   day.Text += " " + DateTime.Today.AddDays((j - numToday + 7)%7).ToString("d");
                    j++;
             }
             today.Text += " (TODAY)";
             //COLORS ARE SUBJECT TO CHANGE (someone change them if they have a good color scheme!)
             today.Foreground = new SolidColorBrush(Colors.Green); //Changes text color
             todayBorder.Background = new SolidColorBrush(Colors.Cyan); //Changes background color
+        }
+
+        private void reOrderDays()
+        {
+            //Reorder the days so that the current day of the week is at the top.
+            int startDay = (int)DateTime.Today.DayOfWeek; //Sunday = 0... Saturday = 6.
+            int order = 0;
+            for (int i = 0; i <= 13; i = i + 2)
+            {
+                //Order specifies where in the ordering of days a given day should go.
+                order = (i / 2 - startDay + 7) % 7; //So if the startDay is 1, day 0 goes to place -1%7 = 6, and day 3 goes to (3 - 2)%7 = place 1.
+                //The +7 above is needed because apparently c# uses % as remainder and not modulo.
+                //Debug.WriteLine("Order: " + order +", i: " + i);
+                //Since there are 2 rows per day, we put each "order" at row 2*order and 2*order+1.
+                Grid.SetRow(borders[i], 2 * order + 1); //Moves the Title border and everything in it to the given row.
+                Grid.SetRow(borders[i + 1], 2 * order + 2); //Moves the Task border and everything in it to the given row.
+
+            }
+
         }
 
         public String moduleID()
@@ -189,16 +172,95 @@ namespace Saveyour
             return false;
         }
 
+        /**
+         * Saves the WeeklyToDo data in the format:
+         * taskTitle \t\t TaskDescription \t\t taskWeight \t\t taskDateString \t\r\t (next task info...)
+         **/
         public String save()
         {
             String output = "";
-            foreach (DateTask task in dates)
+            foreach (KeyValuePair<DateTime, List<Task>> pair in hashTasks)
             {
-                output = output + task.date.ToString() + "\t\t" + task.task + "\r\t\r"; 
+                List<Task> taskList = pair.Value;
+                foreach (Task task in taskList)
+                {
+                    if (output == "")
+                    {
+                        output = task.getTitle() + "\t\t" + task.getDescription() + "\t\t" + task.getWeight() + "\t\t" + task.getDate().ToString(); 
+                    }
+                    else
+                    {
+                        output = output + "\r\t\r" + task.getTitle() + "\t\t" + task.getDescription() + "\t\t" + task.getWeight() + "\t\t" + task.getDate().ToString(); 
+                    }
+                
+                }
             }
+            Debug.WriteLine("Saving: " + output);
             return output;
         }
 
+
+        /*Create everything needed to display the tasks on the weekly calendar.*/
+        private void createTaskLabel(Task task, StackPanel daysTasks){
+            //A stackpanel to contain the task title and description textblocks
+            StackPanel taskStack = new StackPanel();
+
+
+            //Task Title TextBlock
+            TextBlock taskLabel = new TextBlock();
+            taskLabel.Text = task.getTitle();
+
+            //Task Description TextBlock
+            TextBlock taskDescriptLabel = new TextBlock();
+            //Sets margin to be (Left, Top, Right, Bottom)
+            taskDescriptLabel.Margin = new Thickness(10,0,0,0);
+            taskDescriptLabel.Text = task.getDescription();
+
+            //Add these to the stackpanel
+            taskStack.Children.Add(taskLabel);
+            taskStack.Children.Add(taskDescriptLabel);
+
+            //Add listener for when the Title Label is clicked.
+            taskLabel.MouseLeftButtonDown += new MouseButtonEventHandler(taskLabel_Click);
+
+            //Adds the task information to the days list of tasks.
+            daysTasks.Children.Add(taskStack);
+
+            taskLabel.Visibility = Visibility.Visible;
+            taskStack.Visibility = Visibility.Visible;
+            taskDescriptLabel.Visibility = Visibility.Collapsed;
+
+        }
+
+        /* This method is called when a TaskTitle textblock is clicked! */
+        private void taskLabel_Click(object sender, RoutedEventArgs e)
+        {
+            //Debug.WriteLine("Sender: " + sender.ToString() + "E: " + e.ToString());
+            //Get the stackpanel that the textblock is in and search its children
+            StackPanel taskStack = (StackPanel)((TextBlock)sender).Parent;
+            IEnumerable children = LogicalTreeHelper.GetChildren(taskStack);
+            foreach (DependencyObject child in children)
+            {
+                //If it's not the title textblock, then it must be the description textblock
+                //So we toggle its visibility.
+                if (child != sender)
+                {
+                    if (! ((TextBlock)child).IsVisible)
+                    {
+                        ((TextBlock)child).Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        ((TextBlock)child).Visibility = Visibility.Collapsed;
+                    }
+                }
+            }
+
+        }
+
+        /**Loads in the tasks from the WeeklyToDo save string and displays them.
+         * 
+         **/
         public Boolean load(String data)
         {
             //load stuff from data...
@@ -215,32 +277,39 @@ namespace Saveyour
 
             Debug.WriteLine("WklyTDLoading: " + data);
             String[] splitAt = { "\r\t\r" };
-            String[] moduleData = data.Split(splitAt, StringSplitOptions.None);
-            DateTask newDate;
-            String[] dateTaskString;
+            //This array contains one string of task data at each index.
+            String[] loadedTaskStrings = data.Split(splitAt, StringSplitOptions.None);
+            //This array contains {"Title","Description",Weight,Date}
+            String[] taskParameters;
 
             String[] splitAt2 = { "\t\t" };
 
-            for (int i = 0; i < moduleData.Length; i++)
+            for (int i = 0; i < loadedTaskStrings.Length; i++)
             {
-                Debug.WriteLine("ModuleDat: " + moduleData[i]);
-                dateTaskString = moduleData[i].Split(splitAt2, StringSplitOptions.None);
-                if (moduleData.Length > 1)
+               // Debug.WriteLine("ModuleDat: " + moduleData[i]);
+                taskParameters = loadedTaskStrings[i].Split(splitAt2, StringSplitOptions.None);
+                if (taskParameters.Length == 4)
                 {
                     try
                     {
-                        newDate = new DateTask();
-                        Debug.WriteLine("!:" + dateTaskString[0]);
-                        newDate.date = DateTime.Parse(dateTaskString[0]);
-                        newDate.task = dateTaskString[1];
-                        dates.Add(newDate);
-                        display(newDate);
+                        Task newTask = new Task(taskParameters[0], taskParameters[1], Convert.ToInt32(taskParameters[2]), DateTime.Parse(taskParameters[3]));
+                       // Debug.WriteLine("!:" + dateTaskString[0]);
+                        addTask(newTask);
+                        //If the task is in the current week, display it now.
+                        if (newTask.getDate().CompareTo(nextWeek) < 0 && newTask.getDate().CompareTo(yesterday) > 0)
+                        {
+                            displayTask(newTask);
+                        }
                     }
                     catch(FormatException e)
                     {
-                        Debug.WriteLine("Invalid WeeklyTodDo Task Format!");
+                        Debug.WriteLine("Invalid WeeklyToDo Task Format!");
                     }
 
+                }
+                else
+                {
+                    Debug.WriteLine("Invalid WeeklyToDo Task Format!");
                 }
 
             }
@@ -254,64 +323,164 @@ namespace Saveyour
             return moduleID().Equals(other.moduleID());
         }
 
-        private void display(DateTask task)
-        {
-            if (task.date.CompareTo(nextWeek) > 0 || task.date.CompareTo(yesterday) <= 0)
-            {
-                return;
-            }
 
-            switch (task.date.DayOfWeek)
+
+        /*Always displays the task given as input.*/
+        private void displayTask(Task task)
+        {
+            int taskDay = (int)task.getDate().DayOfWeek;
+            //taskDays[taskDay].Text = taskDays[taskDay].Text + task.getTitle() + "\n";
+            StackPanel daysTasks = taskDays[taskDay];
+            createTaskLabel(task, daysTasks);
+        }
+        private void displayDaysTasks(DateTime day)
+        {
+            try
             {
-                case DayOfWeek.Monday:
-                    MondayTasks.Text = MondayTasks.Text +task.task + "\n";
-                    break;
-                case DayOfWeek.Tuesday:
-                    TuesdayTasks.Text = TuesdayTasks.Text + task.task + "\n";
-                    break;
-                case DayOfWeek.Wednesday:
-                    WednesdayTasks.Text = WednesdayTasks.Text + task.task + "\n";
-                    break;
-                case DayOfWeek.Thursday:
-                    ThursdayTasks.Text = ThursdayTasks.Text + task.task + "\n";
-                    break;
-                case DayOfWeek.Friday:
-                    FridayTasks.Text = FridayTasks.Text + task.task + "\n";
-                    break;
-                case DayOfWeek.Saturday:
-                    SaturdayTasks.Text = SaturdayTasks.Text + task.task + "\n";
-                    break;
-                case DayOfWeek.Sunday:
-                    SundayTasks.Text = SundayTasks.Text + task.task + "\n";
-                    break;
+                List<Task> taskList = hashTasks[day];
+                foreach (Task task in taskList)
+                {
+                    displayTask(task);
+                }
+            }
+            catch (KeyNotFoundException e)
+            {
+                //If key's not there we don't need to do anything.
+            }
+        }
+
+
+        private void addTask(Task task)
+        {
+            try
+            {
+                //Try to add the new date and task to the Dictionary
+                List<Task> temp = new List<Task>();
+                temp.Add(task);
+                hashTasks.Add(task.getDate(), temp);
+            }
+            //If the key already exists, add the task to the list.
+            catch (ArgumentException err)
+            {
+                hashTasks[task.getDate()].Add(task);
             }
         }
 
         private void addTaskButton(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine("Clicked!");
             AddTaskWindow addTaskWin = new AddTaskWindow(this);
             addTaskWin.ShowInTaskbar = false;
             Nullable<bool> result =  addTaskWin.ShowDialog();
-            DateTime newTaskDate;
-            String newTaskDescription;
             if ( !result.HasValue || !result.Value)
             {
                 return;
             }
-            newTaskDate = addTaskWin.getTaskDate();
-            newTaskDescription = addTaskWin.getTaskDescription();
-            DateTask newTask = new DateTask();
-            newTask.date = newTaskDate;
-            newTask.task = newTaskDescription;
-            dates.Add(newTask);
-            display(newTask);
+
+            Task task = addTaskWin.getTask();
+
+            //newTaskDate = addTaskWin.getTaskDate();
+            //newTaskDescription = addTaskWin.getTaskDescription();
+            /*DateTask newTask = new DateTask();
+            newTask.date = task.getDate();
+            newTask.task = task.getTitle();
+            dates.Add(newTask);*/
+
+            //Try to add a new list containing the task.
+            addTask(task);
+
+            //If the task is in the current week, display it.
+            if (task.getDate().CompareTo(nextWeek) < 0 && task.getDate().CompareTo(yesterday) > 0)
+            {
+                displayTask(task);
+            }
 
             
-        }
-        private void onLostFocus(object sender, RoutedEventArgs e)
-        {
             Shell.getSaveLoader().save();
         }
+
+
+        private void onLostFocus(object sender, RoutedEventArgs e)
+        {
+            //Shell.getSaveLoader().save();
+        }
+
+        private void backWeek_Click(object sender, RoutedEventArgs e)
+        {
+            int numToday = (int)DateTime.Today.DayOfWeek;
+            int count = 0;
+            curTopDay = curTopDay.AddDays(-7);
+            clearDisplay();
+
+
+            //Label the dates of the days of the week.
+            foreach (TextBlock day in days)
+            {
+                day.Text = "";
+                day.Text = curTopDay.AddDays(count - numToday).ToString("dddd");
+                day.Text += " " + curTopDay.AddDays(count - numToday).ToString("d");
+                count++;
+            }
+
+            //If the week is the week containing Today, label Today.
+            if (curTopDay.CompareTo(nextWeek) < 0 && curTopDay.CompareTo(yesterday) > 0)
+            {
+                reOrderDays();
+                days[numToday].Text += " (TODAY)";
+            }
+
+            //Display the tasks for the current week
+            for (int i = 0; i < 7; i++)
+            {
+                DateTime day = curTopDay.AddDays(i);
+                displayDaysTasks(day);
+            }
+
+        }
+
+        private void forwardWeek_Click(object sender, RoutedEventArgs e)
+        {
+            int numToday = (int)DateTime.Today.DayOfWeek;
+            int count = 0;
+            curTopDay = curTopDay.AddDays(7);
+            clearDisplay();
+
+            //Label the dates of the days of the week.
+            foreach (TextBlock day in days)
+            {
+                day.Text = "";
+                day.Text = curTopDay.AddDays(count - numToday).ToString("dddd");
+                day.Text += " " + curTopDay.AddDays(count - numToday).ToString("d");
+                count++;
+            }
+
+            //If the week is the week containing Today, label Today.
+            if (curTopDay.CompareTo(nextWeek) < 0 && curTopDay.CompareTo(yesterday) > 0)
+            {
+                reOrderDays();
+                days[numToday].Text += " (TODAY)";
+            }
+
+            //Display the tasks for the current week
+            for (int i = 0; i < 7; i++)
+            {
+                DateTime day = curTopDay.AddDays(i);
+                displayDaysTasks(day);
+            }
+        }
+
+        private void clearDisplay()
+        {
+            foreach (StackPanel day in taskDays)
+            {
+                //Removes all the tasks on each day.
+                day.Children.Clear();
+            }
+        }
+
+        private void loadDisplayTasks()
+        {
+
+        }
+
     }
 }

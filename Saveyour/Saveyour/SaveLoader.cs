@@ -196,7 +196,7 @@ namespace Saveyour
             {
                 //Do nothing.
             }
-            else if (Convert.ToInt64(lastModified) < Convert.ToInt64(lastModifiedLocal)){
+            else if (Convert.ToInt64(lastModified) <= Convert.ToInt64(lastModifiedLocal)){
                 input = local;
                 //Debug.WriteLine("Local write is more recent, using it instead.");
                 moduleData = diskData;

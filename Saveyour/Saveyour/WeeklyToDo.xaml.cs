@@ -56,21 +56,17 @@ namespace Saveyour
 
     public partial class WeeklyToDo : Window, Module
     {
-        private class DateTask
-        {
-            public DateTime date;
-            public String task;
-        }
 
         //private List<DateTask> dates = new List<DateTask>();
 
         private DateTime nextWeek;
         private DateTime yesterday;
         private List<TextBlock> days = new List<TextBlock>();
-        private List<TextBlock> taskDays = new List<TextBlock>();
+        private List<StackPanel> taskDays = new List<StackPanel>();
         private DateTime curTopDay;
         private Dictionary<DateTime,List<Task>> hashTasks;
         private Border[] borders;
+
 
 
 
@@ -176,6 +172,10 @@ namespace Saveyour
             return false;
         }
 
+        /**
+         * Saves the WeeklyToDo data in the format:
+         * taskTitle \t\t TaskDescription \t\t taskWeight \t\t taskDateString \t\r\t (next task info...)
+         **/
         public String save()
         {
             String output = "";
@@ -184,12 +184,83 @@ namespace Saveyour
                 List<Task> taskList = pair.Value;
                 foreach (Task task in taskList)
                 {
-                    output = output + task.getTitle() + "\t\t" + task.getDescription() + "\t\t" + task.getWeight() + "\t\t" + task.getDate().ToString() + "\r\t\r"; 
+                    if (output == "")
+                    {
+                        output = task.getTitle() + "\t\t" + task.getDescription() + "\t\t" + task.getWeight() + "\t\t" + task.getDate().ToString(); 
+                    }
+                    else
+                    {
+                        output = output + "\r\t\r" + task.getTitle() + "\t\t" + task.getDescription() + "\t\t" + task.getWeight() + "\t\t" + task.getDate().ToString(); 
+                    }
+                
                 }
             }
+            Debug.WriteLine("Saving: " + output);
             return output;
         }
 
+
+        /*Create everything needed to display the tasks on the weekly calendar.*/
+        private void createTaskLabel(Task task, StackPanel daysTasks){
+            //A stackpanel to contain the task title and description textblocks
+            StackPanel taskStack = new StackPanel();
+
+
+            //Task Title TextBlock
+            TextBlock taskLabel = new TextBlock();
+            taskLabel.Text = task.getTitle();
+
+            //Task Description TextBlock
+            TextBlock taskDescriptLabel = new TextBlock();
+            //Sets margin to be (Left, Top, Right, Bottom)
+            taskDescriptLabel.Margin = new Thickness(10,0,0,0);
+            taskDescriptLabel.Text = task.getDescription();
+
+            //Add these to the stackpanel
+            taskStack.Children.Add(taskLabel);
+            taskStack.Children.Add(taskDescriptLabel);
+
+            //Add listener for when the Title Label is clicked.
+            taskLabel.MouseLeftButtonDown += new MouseButtonEventHandler(taskLabel_Click);
+
+            //Adds the task information to the days list of tasks.
+            daysTasks.Children.Add(taskStack);
+
+            taskLabel.Visibility = Visibility.Visible;
+            taskStack.Visibility = Visibility.Visible;
+            taskDescriptLabel.Visibility = Visibility.Collapsed;
+
+        }
+
+        /* This method is called when a TaskTitle textblock is clicked! */
+        private void taskLabel_Click(object sender, RoutedEventArgs e)
+        {
+            //Debug.WriteLine("Sender: " + sender.ToString() + "E: " + e.ToString());
+            //Get the stackpanel that the textblock is in and search its children
+            StackPanel taskStack = (StackPanel)((TextBlock)sender).Parent;
+            IEnumerable children = LogicalTreeHelper.GetChildren(taskStack);
+            foreach (DependencyObject child in children)
+            {
+                //If it's not the title textblock, then it must be the description textblock
+                //So we toggle its visibility.
+                if (child != sender)
+                {
+                    if (! ((TextBlock)child).IsVisible)
+                    {
+                        ((TextBlock)child).Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        ((TextBlock)child).Visibility = Visibility.Collapsed;
+                    }
+                }
+            }
+
+        }
+
+        /**Loads in the tasks from the WeeklyToDo save string and displays them.
+         * 
+         **/
         public Boolean load(String data)
         {
             //load stuff from data...
@@ -258,7 +329,9 @@ namespace Saveyour
         private void displayTask(Task task)
         {
             int taskDay = (int)task.getDate().DayOfWeek;
-            taskDays[taskDay].Text = taskDays[taskDay].Text + task.getTitle() + "\n";
+            //taskDays[taskDay].Text = taskDays[taskDay].Text + task.getTitle() + "\n";
+            StackPanel daysTasks = taskDays[taskDay];
+            createTaskLabel(task, daysTasks);
         }
         private void displayDaysTasks(DateTime day)
         {
@@ -397,9 +470,10 @@ namespace Saveyour
 
         private void clearDisplay()
         {
-            foreach (TextBlock day in taskDays)
+            foreach (StackPanel day in taskDays)
             {
-                day.Text = "";
+                //Removes all the tasks on each day.
+                day.Children.Clear();
             }
         }
 

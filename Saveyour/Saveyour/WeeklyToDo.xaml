@@ -7,7 +7,7 @@
         Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={tools:RatioConverter}, ConverterParameter='0.2' }"
         LostFocus="onLostFocus">
     <Grid>
-        <Grid x:Name="WeekGrid" Margin="0" IsEnabled="False">
+        <Grid x:Name="WeekGrid" Margin="0" IsEnabled="True">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -29,50 +29,50 @@
                 <TextBlock x:Name="MondayTitle" TextWrapping="Wrap" Text="Monday" FontFamily="Calibri" FontSize="20" FontWeight="Bold" Margin="10,0,0,0"/>
             </Border>
             <Border x:Name="MondayTaskBorder" BorderBrush="Black" BorderThickness="1" Height="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={tools:RatioConverter}, ConverterParameter='0.06' }" Margin="0" VerticalAlignment="Top" Grid.Row="2">
-                <TextBlock x:Name="MondayTasks" TextWrapping="Wrap" FontFamily="Calibri" Margin="10,0,0,0" FontSize="14"/>
+                <StackPanel x:Name="MondayTasks" Margin="10,0,0,0" />
             </Border>
             <Border x:Name="TuesdayTitleBorder" BorderBrush="Black" BorderThickness="1" Height="29" Margin="0" VerticalAlignment="Top" Grid.Row="3">
                 <TextBlock x:Name="TuesdayTitle" TextWrapping="Wrap" Text="Tuesday" FontFamily="Calibri" FontSize="20" FontWeight="Bold" Margin="10,0,0,0"/>
             </Border>
             <Border x:Name="TuesdayTaskBorder" BorderBrush="Black" BorderThickness="1" Height="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={tools:RatioConverter}, ConverterParameter='0.06' }" Margin="0" VerticalAlignment="Top" Grid.Row="4">
-                <TextBlock x:Name="TuesdayTasks" TextWrapping="Wrap" FontFamily="Calibri" Margin="10,0,0,0" FontSize="14"/>
+                <StackPanel x:Name="TuesdayTasks" Margin="10,0,0,0" />
             </Border>
             <Border x:Name="WednesdayTitleBorder" BorderBrush="Black" BorderThickness="1" Height="29" Margin="0" VerticalAlignment="Top" Grid.Row="5">
                 <TextBlock x:Name="WednesdayTitle" TextWrapping="Wrap" Text="Wednesday" FontFamily="Calibri" FontSize="20" FontWeight="Bold" Margin="10,0,0,0"/>
             </Border>
             <Border x:Name="WednesdayTaskBorder" BorderBrush="Black" BorderThickness="1" Height="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={tools:RatioConverter}, ConverterParameter='0.06' }" Margin="0" VerticalAlignment="Top" Grid.Row="6">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Width="500" HorizontalScrollBarVisibility="Disabled" Grid.Column="0">
-                    <TextBlock x:Name="WednesdayTasks" TextWrapping="Wrap" FontFamily="Calibri" Margin="10,0,0,0" FontSize="14"/>
+                    <StackPanel x:Name="WednesdayTasks" Margin="10,0,0,0" />
                 </ScrollViewer>
             </Border>
             <Border x:Name="ThursdayTitleBorder" BorderBrush="Black" BorderThickness="1" Height="29" Margin="0" VerticalAlignment="Top" Grid.Row="7">
                 <TextBlock x:Name="ThursdayTitle" TextWrapping="Wrap" Text="Thursday" FontFamily="Calibri" FontSize="20" FontWeight="Bold" Margin="10,0,0,0"/>
             </Border>
             <Border x:Name="ThursdayTaskBorder" BorderBrush="Black" BorderThickness="1" Height="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={tools:RatioConverter}, ConverterParameter='0.06' }" Margin="0" VerticalAlignment="Top" Grid.Row="8">
-                <TextBlock x:Name="ThursdayTasks" TextWrapping="Wrap" FontFamily="Calibri" Margin="10,0,0,0" FontSize="14"/>
+                <StackPanel x:Name="ThursdayTasks" Margin="10,0,0,0" />
             </Border>
             <Border x:Name="FridayTitleBorder" BorderBrush="Black" BorderThickness="1" Height="29" Margin="0" VerticalAlignment="Top" Grid.Row="9">
                 <TextBlock x:Name="FridayTitle" TextWrapping="Wrap" Text="Friday" FontFamily="Calibri" FontSize="20" FontWeight="Bold" Margin="10,0,0,0"/>
             </Border>
             <Border x:Name="FridayTaskBorder" BorderBrush="Black" BorderThickness="1" Height="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={tools:RatioConverter}, ConverterParameter='0.06' }" Margin="0" VerticalAlignment="Top" Grid.Row="10">
-                <TextBlock x:Name="FridayTasks" TextWrapping="Wrap" FontFamily="Calibri" Margin="10,0,0,0" FontSize="14" />
+                <StackPanel x:Name="FridayTasks" Margin="10,0,0,0" />
             </Border>
             <Border x:Name="SaturdayTitleBorder" BorderBrush="Black" BorderThickness="1" Height="29" Margin="0" VerticalAlignment="Top" Grid.Row="11">
                 <TextBlock x:Name="SaturdayTitle" TextWrapping="Wrap" Text="Saturday" FontFamily="Calibri" FontSize="20" FontWeight="Bold" Margin="10,0,0,0"/>
             </Border>
             <Border x:Name="SaturdayTaskBorder" BorderBrush="Black" BorderThickness="1" Height="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={tools:RatioConverter}, ConverterParameter='0.06' }" Margin="0" VerticalAlignment="Top" Grid.Row="12">
-                <TextBlock x:Name="SaturdayTasks" TextWrapping="Wrap" FontFamily="Calibri" Margin="10,0,0,0" FontSize="14" />
+                <StackPanel x:Name="SaturdayTasks" Margin="10,0,0,0" />
             </Border>
             <Border x:Name="SundayTitleBorder" BorderBrush="Black" BorderThickness="1" Height="29" Margin="0" VerticalAlignment="Top" Grid.Row="13">
                 <TextBlock x:Name="SundayTitle" TextWrapping="Wrap" Text="Sunday" FontFamily="Calibri" FontSize="20" FontWeight="Bold" Margin="10,0,0,0"/>
             </Border>
             <Border x:Name="SundayTaskBorder" BorderBrush="Black" BorderThickness="1" Height="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={tools:RatioConverter}, ConverterParameter='0.06' }" Margin="0" VerticalAlignment="Top" Grid.Row="14">
-                <TextBlock x:Name="SundayTasks" TextWrapping="Wrap" FontFamily="Calibri" Margin="10,0,0,0" FontSize="14" />
+                <StackPanel x:Name="SundayTasks" Margin="10,0,0,0" />
             </Border>
             <Border x:Name="ButtonBorder" BorderBrush="Black" BorderThickness="1" Height="45" VerticalAlignment="Top" Grid.Row="0"/>
 
         </Grid>
-        <Button x:Name="AddTaskButton_Copy" Content="Add Task" HorizontalAlignment="Center" Margin="146,10,144,0" VerticalAlignment="Top" Width="86" Click="addTaskButton"/>
+        <Button x:Name="AddTaskButton" Content="Add Task" HorizontalAlignment="Center" Margin="146,10,144,0" VerticalAlignment="Top" Width="86" Click="addTaskButton"/>
         <Button x:Name="backWeek" Content="backWeek" HorizontalAlignment="Left" VerticalAlignment="Top" Width="42" Style="{DynamicResource backWeek}" Height="42" Margin="6,1.5,0,0" Click="backWeek_Click"/>
         <Button x:Name="forwardWeek" Content="forwardWeek" HorizontalAlignment="Left" VerticalAlignment="Top" Width="42" Style="{DynamicResource backWeek}" Height="42" Margin="322,1.5,0,0" RenderTransformOrigin="0.5,0.5" Click="forwardWeek_Click">
         	<Button.RenderTransform>

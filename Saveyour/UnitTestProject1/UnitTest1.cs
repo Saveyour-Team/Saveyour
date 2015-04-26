@@ -31,7 +31,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void testShellLaunch()
         {
-            Shell tempshell = Shell.getShell("John", "Password");
+            Shell tempshell = Shell.getShell("TestUser", "password");
             Module actual = Shell.launch("Quicknotes");            
 
             Assert.AreNotEqual(Shell.launch("Quicknotes"), actual, "Not Equal");

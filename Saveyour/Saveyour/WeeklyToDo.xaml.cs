@@ -147,7 +147,7 @@ namespace Saveyour
 	/*Recolors the given day of the week (0=Sunday ... 6 = Saturday) based upon the weights of all the tasks in that day. */
 	private void colorByWeights(int dayOfWeek){ //Currently only adds in today.
 		// Converts the int for the dayOfWeek to the date that it corrsponds to
-		DateTime day = curTopDay.AddDays(((int)(curTopDay.DayOfWeek) - dayOfWeek + 7)%7 );
+		DateTime day = curTopDay.AddDays((dayOfWeek + 7 - (int)(curTopDay.DayOfWeek) )%7 );
 		int weight = sumOfTaskWeights(day);
 		if (weight < 5){
             		borders[dayOfWeek*2].Background = new SolidColorBrush(Colors.Green); //changes background color of title
@@ -185,7 +185,7 @@ namespace Saveyour
         }
         catch (KeyNotFoundException e)
         {
-
+		//No tasks for this day, weight should stay at 0.
         }
 		return sum;
 	}
@@ -307,6 +307,10 @@ namespace Saveyour
             //Removes all the elements displaying the task on the WeeklyToDo GUI
             StackPanel taskStack = (StackPanel)((Button)sender).Parent;
             taskStack.Children.Clear();
+	    
+	    //Update the colors based upon the new list of tasks for that day.
+	    int dayOfWeek = (int)task.getDate().DayOfWeek;
+	    colorByWeights(dayOfWeek);
         }
 
         /* This method is called when a TaskTitle textblock is clicked! */

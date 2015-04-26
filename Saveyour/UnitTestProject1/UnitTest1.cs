@@ -14,6 +14,18 @@ namespace UnitTestProject1
     [TestClass]
     public class UnitTest1
     {
+        private TestContext testContextInstance;
+        public TestContext TestContext
+        {
+            get
+            {
+                return testContextInstance;
+            }
+            set
+            {
+                testContextInstance = value;
+            }
+        }
         //Tests Shell's getShell method
         [TestMethod]
         public void testGetShell()
@@ -31,10 +43,17 @@ namespace UnitTestProject1
         [TestMethod]
         public void testShellLaunch()
         {
-            Shell tempshell = Shell.getShell("TestUser", "password");
-            Module actual = Shell.launch("Quicknotes");            
+            try
+            {
+                Shell tempshell = Shell.getShell("TestUser", "password");
+                Module actual = Shell.launch("Quicknotes");
 
-            Assert.AreNotEqual(Shell.launch("Quicknotes"), actual, "Not Equal");
+                Assert.AreEqual(Shell.launch("Quicknotes"), actual, "Not Equal");
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine("Error with hotkey. " + e.Message);
+            }
 
         }
         //Tests Shell's getSaveLoader method
@@ -107,25 +126,25 @@ namespace UnitTestProject1
         [TestMethod]
         public void modRemove()
         {
-            Modlist modules = new Modlist();
-            Module mod = Shell.launch("Quicknotes");
-            modules.add(mod);
+            Modlist mods = Shell.getModList();
+            Module mod = Shell.launch("QuickNotes");
+            mods.add(mod);
 
             int count = 0;
 
-            foreach (Module element in modules)
+            foreach (Module element in mods)
             {
                 count++;
             }
 
-            Assert.AreEqual(1, count, "Equal");
+            Assert.AreEqual(1, count, "Equal");  
 
 
-            modules.remove(mod);
+            mods.remove(mod);
 
             int otherCount = 0;
 
-            foreach (Module element in modules)
+            foreach (Module element in mods)
             {
                 otherCount++;
             }
@@ -134,7 +153,26 @@ namespace UnitTestProject1
 
         }
 
+        //Testing the creation of a new task
+        [TestMethod]
+        public void newTask()
+        {
+            DateTime today = new DateTime(2015, 4, 26);
+            Saveyour.Task task = new Saveyour.Task("Project", "All Problems", 10, today);
 
+            String project = "Project";
+            String desc = "All Problems";
+            int w = 10;
+
+            Assert.AreEqual(task.getTitle(), project, "Titles Not Equal");
+            Assert.AreEqual(task.getDescription(), desc, "Descriptions Not Equal");
+            Assert.AreEqual(task.getWeight(), w, "Weights Not Equal");
+            Assert.AreEqual(task.getDate(), today, "Dates Not Equal");
+            
+        }
+
+
+        
     }
  }
    

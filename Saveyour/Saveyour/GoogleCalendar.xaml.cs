@@ -60,6 +60,8 @@ namespace Saveyour
             return other == this;
         }
 
+        
+        //Code below suppresses script warning
         public void HideScriptErrors(WebBrowser wb, bool Hide)
         {
             FieldInfo fiComWebBrowser = typeof(WebBrowser)

@@ -145,7 +145,7 @@ namespace Saveyour
         }
 	
 	/*Recolors the given day of the week (0=Sunday ... 6 = Saturday) based upon the weights of all the tasks in that day. */
-	private void colorByWeights(int dayOfWeek){
+	private void colorByWeights(int dayOfWeek){ //Currently only adds in today.
 		// Converts the int for the dayOfWeek to the date that it corrsponds to
 		DateTime day = curTopDay.AddDays(((int)(curTopDay.DayOfWeek) - dayOfWeek + 7)%7 );
 		int weight = sumOfTaskWeights(day);

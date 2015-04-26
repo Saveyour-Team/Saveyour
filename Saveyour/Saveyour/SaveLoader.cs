@@ -222,7 +222,10 @@ namespace Saveyour
                     modData = moduleData[i].Substring(idx + 2, moduleData[i].Length - (idx+3));
                    // Debug.WriteLine("Moddata: "+modData);
                     Module launched = Shell.launch(modID);
-                    launched.load(modData);
+                    if (launched != null) {
+                        launched.load(modData);
+                    }
+                    
                 }
                 catch (ArgumentOutOfRangeException)
                 {

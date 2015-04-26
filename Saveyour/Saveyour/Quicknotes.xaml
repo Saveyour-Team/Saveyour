@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Quicknotes" Height="300" Width="300" Closing="onClosing" LostFocus="lostFocus">
     <Grid>
-        <TextBox x:Name="QuicknotesText" Margin="0" TextWrapping="Wrap" Text="Type notes here!&#xD;&#xA;" AcceptsReturn="True" AcceptsTab="True" KeyUp="onKeyUp"/>
+        <TextBox x:Name="QuicknotesText" Margin="0,30,0,0" TextWrapping="Wrap" Text="Type notes here!&#xD;&#xA;" AcceptsReturn="True" AcceptsTab="True" KeyUp="onKeyUp"/>
+        <Button x:Name="RemoveQN" Content="X" HorizontalAlignment="Left" Margin="262,0,0,252.5" Width="33" Click="RemoveQN_Click"/>
+        <Button x:Name="AddQN" Content="+" HorizontalAlignment="Left" Margin="225,0,0,252.5" VerticalAlignment="Bottom" Width="32" Click="AddQN_Click"/>
 
     </Grid>
 </Window>

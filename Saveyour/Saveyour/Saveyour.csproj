@@ -69,6 +69,7 @@
       <DependentUpon>Homework.xaml</DependentUpon>
     </Compile>
     <Compile Include="KeyBoardListener.cs" />
+    <Compile Include="QuicknotesControl.cs" />
     <Compile Include="Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
     </Compile>

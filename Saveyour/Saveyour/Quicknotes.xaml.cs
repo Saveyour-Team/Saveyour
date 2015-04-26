@@ -19,9 +19,13 @@ namespace Saveyour
     /// </summary>
     public partial class Quicknotes : Window, Module
     {
-        public Quicknotes()
+
+	private QuicknotesControl qnControl;
+
+        public Quicknotes(QuicknotesControl control)
         {
             InitializeComponent();
+		    qnControl = control;
         }
 
         public String moduleID()
@@ -51,6 +55,8 @@ namespace Saveyour
         }
 
 
+	
+
         private void onKeyUp(object sender, KeyEventArgs e)
         {
           //  Shell.getSaveLoader().save();
@@ -64,6 +70,16 @@ namespace Saveyour
         private void lostFocus(object sender, RoutedEventArgs e)
         {
             Shell.getSaveLoader().save();
+        }
+
+        private void AddQN_Click(object sender, RoutedEventArgs e)
+        {
+		    qnControl.addQuickNote();            
+        }
+
+        private void RemoveQN_Click(object sender, RoutedEventArgs e)
+        {
+		    qnControl.removeQuickNote(this);
         }
     }
 }

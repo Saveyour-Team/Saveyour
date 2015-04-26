@@ -39,5 +39,8 @@
                 <Button Content="Button" Click ="addTask" Margin="237,37,14,250"/>
             </Grid>
         </StackPanel>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="20,4.985,0,0" VerticalAlignment="Top" Width="16" Height="20" Style="{DynamicResource DeleteStyle}"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="49.667,4.985,0,0" VerticalAlignment="Top" Width="16" Height="20" Style="{DynamicResource ArchiveStyle}"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="20" Margin="77.667,4.985,0,0" VerticalAlignment="Top" Width="16" Style="{DynamicResource AddStyle}"/>
     </Grid>
 </Window>

@@ -118,13 +118,10 @@ namespace Saveyour
             //launch("Quicknotes");
             launch("WeeklyToDo");
             launch("Google Calendar");
-<<<<<<< HEAD
+
             launch("Homework");
-=======
             launch("QuicknotesControl");
 
- 
->>>>>>> master
              
             
             settings.Show();

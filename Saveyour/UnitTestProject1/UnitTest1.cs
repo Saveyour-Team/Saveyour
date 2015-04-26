@@ -19,7 +19,7 @@ namespace UnitTestProject1
         public void testGetShell()
         {
             Boolean val = false;
-            Shell tempshell = Shell.getShell("John","Password");
+            Shell tempshell = Shell.getShell("TestUser","password");
 
             if (tempshell != null)
                 val = true;
@@ -34,7 +34,7 @@ namespace UnitTestProject1
             Shell tempshell = Shell.getShell("John", "Password");
             Module actual = Shell.launch("Quicknotes");            
 
-            Assert.AreEqual(Shell.launch("Quicknotes"), actual, "Not Equal");
+            Assert.AreNotEqual(Shell.launch("Quicknotes"), actual, "Not Equal");
 
         }
         //Tests Shell's getSaveLoader method

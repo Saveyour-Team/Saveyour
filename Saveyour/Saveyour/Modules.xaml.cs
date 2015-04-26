@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using PluginContracts;
 
 namespace Saveyour
 {
@@ -25,7 +26,36 @@ namespace Saveyour
 
         public Modules()
         {
-            InitializeComponent();            
+            InitializeComponent();
+
+            Dictionary<string, IPlugin> dict = Shell.getPlugins();
+
+            int currentVertical = 0;
+            StackPanel stack = new StackPanel();
+
+            PluginGrid.Children.Add(stack);
+
+            foreach (KeyValuePair<string, IPlugin> module in dict)
+            {
+                if (module.Value != null)
+                {
+                    Label plugin = new Label();
+                    plugin.Width = 295;
+                    plugin.Content = module.Value.Name;
+                    plugin.FontSize = 16;
+                    plugin.BorderBrush = Brushes.Black;
+                    plugin.BorderThickness = new Thickness(3);
+                    plugin.HorizontalAlignment = HorizontalAlignment.Left;
+                    plugin.HorizontalContentAlignment = HorizontalAlignment.Center;
+                    plugin.Margin = new Thickness(0, currentVertical, 0, 0);
+                    currentVertical += 48;
+                    //plugin.VerticalAlignment = VerticalAlignment.Top; //86 down each time
+
+                    stack.Children.Add(plugin);
+                }
+            }
+            stack.Visibility = Visibility.Visible;
+
         }
 
         private void QN_Click(object sender, RoutedEventArgs e)

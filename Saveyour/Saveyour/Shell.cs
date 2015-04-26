@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Windows;
-
+using System.Windows.Controls;
+using PluginContracts;
+using System.IO;
 
 
 namespace Saveyour
@@ -16,6 +18,30 @@ namespace Saveyour
         private static SaveLoader saveLoad;
         private static Shell theShell;
         private static Modules settings;
+        private static Dictionary<string, IPlugin> _Plugins;
+
+        public static bool loadPluginModules()
+        {
+            //ICollection<IPlugin> plugins = PluginLoader.LoadPlugins("Plugins");
+            string path = Directory.GetCurrentDirectory();
+
+            Debug.WriteLine("PATH: " + path);
+            try
+            {
+                ICollection<IPlugin> plugins = GenericPluginLoader<IPlugin>.LoadPlugins("Modules");
+                foreach (var item in plugins)
+                {
+                    _Plugins.Add(item.Name, item);
+                    Debug.WriteLine("Added" + item.Name);
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
         static void OnProcessExit(object sender, EventArgs e)
         {
@@ -86,6 +112,7 @@ namespace Saveyour
                 }
                 newModule.Show();
             }
+
          
             return (Module)newModule;
         }
@@ -106,6 +133,21 @@ namespace Saveyour
         }
         private Shell(String username, String password)
         {
+
+            Shell._Plugins = new Dictionary<string, IPlugin>();
+
+            bool hasPlugins = loadPluginModules();
+
+            if (hasPlugins)
+            {
+                foreach (KeyValuePair<string, IPlugin> module in _Plugins)
+                {
+                    if (module.Value != null)
+                    {
+                        module.Value.Do();
+                    }
+                }
+            }
 
             modlist = new Modlist();
 
@@ -129,11 +171,17 @@ namespace Saveyour
             return saveLoad;
         }
 
+        public static Dictionary<string, IPlugin> getPlugins()
+        {
+            return _Plugins;
+        }
+
         public void startApp(){            
 
             //Application.Run(userLogin);
             
         }
+
 
     }
 }

@@ -34,7 +34,7 @@ namespace UnitTestProject1
             Shell tempshell = Shell.getShell("John", "Password");
             Module actual = Shell.launch("Quicknotes");            
 
-            Assert.AreNotEqual(Shell.launch("Quicknotes"), actual, "Not Equal");
+            Assert.AreEqual(Shell.launch("Quicknotes"), actual, "Not Equal");
 
         }
         //Tests Shell's getSaveLoader method

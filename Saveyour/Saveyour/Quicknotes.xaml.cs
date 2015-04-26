@@ -25,7 +25,7 @@ namespace Saveyour
         public Quicknotes(QuicknotesControl control)
         {
             InitializeComponent();
-		qnControl = control;
+		    qnControl = control;
         }
 
         public String moduleID()
@@ -74,12 +74,12 @@ namespace Saveyour
 
         private void AddQN_Click(object sender, RoutedEventArgs e)
         {
-		qnControl.addQuickNote();            
+		    qnControl.addQuickNote();            
         }
 
         private void RemoveQN_Click(object sender, RoutedEventArgs e)
         {
-		qnControl.removeQuickNote(this);
+		    qnControl.removeQuickNote(this);
         }
     }
 }

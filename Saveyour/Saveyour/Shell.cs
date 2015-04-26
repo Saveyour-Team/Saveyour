@@ -44,7 +44,7 @@ namespace Saveyour
         public static Module launch(String modID)
         {
             //Run 'modID' + '.exe' in the SaveYour/Modules folder to be implemented later.
-            Window newModule;
+            Module newModule;
             if (modID.Equals("QuicknotesControl") && !modlist.hasName("QuicknotesControl"))
             {
                 newModule = new QuicknotesControl();
@@ -73,13 +73,13 @@ namespace Saveyour
                 }
                 else if (modID.Equals("WeeklyToDo"))
                 {
-                    settings.addWTD(newModule);
+                    settings.addWTD((Window) newModule);
                 }
                 else if (modID.Equals("Google Calendar"))
                 {
-                    settings.addGC(newModule);
+                    settings.addGC((Window) newModule);
                 }
-                newModule.Show();
+                ((Window)newModule).Show();
             }
          
             return (Module)newModule;

@@ -27,16 +27,16 @@ namespace Saveyour
         }
 
 
-	protected void addQuickNote(){
-		Quicknotes qn = new Quicknotes();
+	public void addQuickNote(){
+		Quicknotes qn = new Quicknotes(this);
 		qnList.Add(qn);
 		qn.Show();
 	}
 
 
-	protected void removeQuickNote(Quicknote note){
+	public void removeQuickNote(Quicknotes note){
 		qnList.Remove(note);
-		note.Dispose();
+        ((Window)note).Close();
 	
 
 	}
@@ -82,7 +82,7 @@ namespace Saveyour
 
         public String save()
         {
-		String saveString "";
+		String saveString = "";
 		bool firstNote = true;
 		foreach (Quicknotes qn in qnList){
 			if (firstNote){
@@ -101,17 +101,18 @@ namespace Saveyour
         public Boolean load(String data)
         {
             
-		String[] splitAt = { "\r\t\r" };
-            	//This array contains one quicknotes text contents at each index.
-            	String[] qnStrings = data.Split(splitAt, StringSplitOptions.None);
+		    String[] splitAt = { "\r\t\r" };
+            	    //This array contains one quicknotes text contents at each index.
+            	    String[] qnStrings = data.Split(splitAt, StringSplitOptions.None);
 		
-		//For each saved quicknotes string create a new instance of quicknotes initialized with that string.
-		for(int i = 0; i < qnStrings.Length; i++){
-			Quicknotes qn = new Quicknotes();
-			qn.load(qnStrings[i]);
-			qnList.Add(qn);
-		}
+		    //For each saved quicknotes string create a new instance of quicknotes initialized with that string.
+		    for(int i = 0; i < qnStrings.Length; i++){
+			    Quicknotes qn = new Quicknotes(this);
+			    qn.load(qnStrings[i]);
+			    qnList.Add(qn);
+		    }
 
+            return true;
         }
 
         public Boolean Equals(Module other)

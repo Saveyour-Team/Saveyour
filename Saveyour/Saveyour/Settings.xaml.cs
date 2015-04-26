@@ -20,7 +20,7 @@ namespace Saveyour
     /// </summary>
     public partial class Settings : Window, Module
     {
-        Window qnotes;
+        QuicknotesControl qnotes;
         Window weeklytd;
         Window gcalendar;
 	
@@ -81,7 +81,7 @@ namespace Saveyour
 
         private void QN_Click(object sender, RoutedEventArgs e)
         {
-            qnotes.toggleVisibility;
+            qnotes.ToggleVisibility();
         }
 
         private void WTD_Click(object sender, RoutedEventArgs e)
@@ -100,9 +100,9 @@ namespace Saveyour
                 gcalendar.Show();
         }
 
-        public void addQNotes(QuicknotesControl qnc)
+        public void addQNotes(Module qnc)
         {
-            qnotes = qnc;
+            qnotes = (QuicknotesControl) qnc;
         }
 
         public void addWTD(Window module)

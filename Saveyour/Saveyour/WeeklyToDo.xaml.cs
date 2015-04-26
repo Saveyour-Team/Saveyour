@@ -546,7 +546,8 @@ namespace Saveyour
             for (int i = 0; i < 7; i++)
             {
                 DateTime day = curTopDay.AddDays(i);
-                displayDaysTasks(day);
+                displayDaysTasks(day);	
+		colorByWeights(i);
             }
         }
 

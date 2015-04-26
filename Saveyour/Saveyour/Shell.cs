@@ -79,7 +79,7 @@ namespace Saveyour
                 {
                     settings.addGC((Window) newModule);
                 }
-                ((Window)newModule).Show();
+                newModule.Show();
             }
          
             return (Module)newModule;
@@ -111,9 +111,12 @@ namespace Saveyour
             Debug.WriteLine("Booting other modules");
             saveLoad.loadToLaunch();
 
-            launch("Quicknotes");
+            //launch("Quicknotes");
             launch("WeeklyToDo");
-            launch("Google Calendar");           
+            launch("Google Calendar");
+            launch("QuicknotesControl");
+
+ 
              
             
             settings.Show();

@@ -14,6 +14,8 @@ namespace Saveyour
 
         String save();
 
+        void Show();
+
         Boolean load(String data);
 
         Boolean Equals(Module other);

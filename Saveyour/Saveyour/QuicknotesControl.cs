@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace Saveyour
 {
@@ -24,6 +25,7 @@ namespace Saveyour
         public QuicknotesControl()
         {
             qnList = new List<Quicknotes>();
+            addQuickNote();
         }
 
 
@@ -91,7 +93,7 @@ namespace Saveyour
 			}
 			else{
 
-				saveString+="\r\t\t"+qn.save();
+				saveString+="\r\t\r"+qn.save();
 			}
 		
 		}
@@ -107,10 +109,27 @@ namespace Saveyour
 		
 		    //For each saved quicknotes string create a new instance of quicknotes initialized with that string.
 		    for(int i = 0; i < qnStrings.Length; i++){
-			    Quicknotes qn = new Quicknotes(this);
-			    qn.load(qnStrings[i]);
-			    qnList.Add(qn);
+                Quicknotes qn;
+			    if (i == 0){
+                    qn = qnList[0];
+                    qn.load(qnStrings[0]);
+                    qn.Show();
+                }
+                else
+                {
+                    Debug.WriteLine("Added new quicknotes...");
+                    qn = new Quicknotes(this);
+                    qn.load(qnStrings[i]);
+                    qnList.Add(qn);
+                    qn.Show();
+                }
+		
 		    }
+
+            if (!qnList.Any())
+            {
+                addQuickNote();
+            }
 
             return true;
         }

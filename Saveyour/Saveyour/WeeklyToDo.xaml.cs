@@ -150,35 +150,43 @@ namespace Saveyour
 		DateTime day = curTopDay.AddDays(((int)(curTopDay.DayOfWeek) - dayOfWeek + 7)%7 );
 		int weight = sumOfTaskWeights(day);
 		if (weight < 5){
-            		borders[dayOfWeek*2].background = new solidcolorbrush(Colors.Green); //changes background color of title
-            		borders[dayOfWeek*2 + 1].background = new solidcolorbrush(Colors.Green); //changes background color of tasks list
+            		borders[dayOfWeek*2].Background = new SolidColorBrush(Colors.Green); //changes background color of title
+            		borders[dayOfWeek*2 + 1].Background = new SolidColorBrush(Colors.Green); //changes background color of tasks list
 		}
 		else if(weight >=5 && weight < 8){		
-            		borders[dayOfWeek*2].background = new solidcolorbrush(Colors.Yellow); //changes background color of title
-            		borders[dayOfWeek*2 + 1].background = new solidcolorbrush(Colors.Yellow); //changes background color of tasks list
+            		borders[dayOfWeek*2].Background = new SolidColorBrush(Colors.Yellow); //changes background color of title
+            		borders[dayOfWeek*2 + 1].Background = new SolidColorBrush(Colors.Yellow); //changes background color of tasks list
 		}
 
 				
 		else if(weight >=8 && weight < 10){		
-            		borders[dayOfWeek*2].background = new solidcolorbrush(Colors.Orange); //changes background color of title
-            		borders[dayOfWeek*2 + 1].background = new solidcolorbrush(Colors.Orange); //changes background color of tasks list
+            		borders[dayOfWeek*2].Background = new SolidColorBrush(Colors.Orange); //changes background color of title
+            		borders[dayOfWeek*2 + 1].Background = new SolidColorBrush(Colors.Orange); //changes background color of tasks list
 		}
 
 						
 		else if(weight >=10){		
-            		borders[dayOfWeek*2].background = new solidcolorbrush(Colors.Red); //changes background color of title
-            		borders[dayOfWeek*2 + 1].background = new solidcolorbrush(Colors.Red); //changes background color of tasks list
+            		borders[dayOfWeek*2].Background = new SolidColorBrush(Colors.Red); //changes background color of title
+                    borders[dayOfWeek * 2 + 1].Background = new SolidColorBrush(Colors.Red); //changes background color of tasks list
 		}
 	}
 
 
 	/*Calculates the sum of the weights of all tasks on a given day */
-	private void sumOfTaskWeights(DateTime day){
+	private int sumOfTaskWeights(DateTime day){
 		int sum = 0;
-		List<Task> taskList = hashTasks[day];
-		foreach (Task task in taskList){
-			sum+= task.getWeight();
-		}
+        try
+        {
+            List<Task> taskList = hashTasks[day];
+            foreach (Task task in taskList)
+            {
+                sum += task.getWeight();
+            }
+        }
+        catch (KeyNotFoundException e)
+        {
+
+        }
 		return sum;
 	}
 

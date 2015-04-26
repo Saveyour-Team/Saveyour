@@ -150,24 +150,24 @@ namespace Saveyour
 		DateTime day = curTopDay.AddDays((dayOfWeek + 7 - (int)(curTopDay.DayOfWeek) )%7 );
 		int weight = sumOfTaskWeights(day);
 		if (weight < 5){
-            		borders[dayOfWeek*2].Background = new SolidColorBrush(Colors.Green); //changes background color of title
+            		//borders[dayOfWeek*2].Background = new SolidColorBrush(Colors.Green); //changes background color of title
             		borders[dayOfWeek*2 + 1].Background = new SolidColorBrush(Colors.Green); //changes background color of tasks list
 		}
 		else if(weight >=5 && weight < 8){		
-            		borders[dayOfWeek*2].Background = new SolidColorBrush(Colors.Yellow); //changes background color of title
+            		//borders[dayOfWeek*2].Background = new SolidColorBrush(Colors.Yellow); //changes background color of title
             		borders[dayOfWeek*2 + 1].Background = new SolidColorBrush(Colors.Yellow); //changes background color of tasks list
 		}
 
 				
 		else if(weight >=8 && weight < 10){		
-            		borders[dayOfWeek*2].Background = new SolidColorBrush(Colors.Orange); //changes background color of title
+            		//borders[dayOfWeek*2].Background = new SolidColorBrush(Colors.Orange); //changes background color of title
             		borders[dayOfWeek*2 + 1].Background = new SolidColorBrush(Colors.Orange); //changes background color of tasks list
 		}
 
 						
 		else if(weight >=10){		
-            		borders[dayOfWeek*2].Background = new SolidColorBrush(Colors.Red); //changes background color of title
-                    borders[dayOfWeek * 2 + 1].Background = new SolidColorBrush(Colors.Red); //changes background color of tasks list
+            		//borders[dayOfWeek*2].Background = new SolidColorBrush(Colors.Red); //changes background color of title
+                    	borders[dayOfWeek * 2 + 1].Background = new SolidColorBrush(Colors.Red); //changes background color of tasks list
 		}
 	}
 

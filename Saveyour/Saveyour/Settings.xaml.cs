@@ -45,7 +45,7 @@ namespace Saveyour
 
 	private void exitBtn_clicked(object sender, RoutedEventArgs e){
 		Shell.getSaveLoader().save();
-		Application.Current.Shutdown();
+		System.Windows.Application.Current.Shutdown();
 
 	}
 

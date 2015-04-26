@@ -127,7 +127,7 @@ namespace Saveyour
 
         public bool Equals(GoogleCalendar other)
         {
-            return true; //Since there are no private fields. All Google Calendar modules will be the same.
+            return moduleID().Equals(other.moduleID());
         }
 
 

@@ -45,20 +45,16 @@ namespace Saveyour
         {
             //Run 'modID' + '.exe' in the SaveYour/Modules folder to be implemented later.
             Window newModule;
-            if (modID.Equals("loggedInWindow"))
-            {
-                newModule = new loggedInWindow();
-            }
-            else if (modID.Equals("Quicknotes"))
+            if (modID.Equals("Quicknotes") && !modlist.hasName("Quicknotes"))
             {
                 newModule = new Quicknotes();
                 
             }
-            else if (modID.Equals("WeeklyToDo"))
+            else if (modID.Equals("WeeklyToDo") && !modlist.hasName("WeeklyToDo"))
             {
                 newModule = new WeeklyToDo();
             }
-            else if (modID.Equals("Google Calendar"))
+            else if (modID.Equals("Google Calendar") && !modlist.hasName("Google Calendar"))
             {
                 newModule = new GoogleCalendar();
             }
@@ -115,7 +111,12 @@ namespace Saveyour
 
             Debug.WriteLine("Booting other modules");
             saveLoad.loadToLaunch();
+
+            launch("Quicknotes");
             launch("WeeklyToDo");
+            launch("Google Calendar");           
+             
+            
             settings.Show();
 
         }

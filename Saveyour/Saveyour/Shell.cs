@@ -45,9 +45,9 @@ namespace Saveyour
         {
             //Run 'modID' + '.exe' in the SaveYour/Modules folder to be implemented later.
             Window newModule;
-            if (modID.Equals("Quicknotes") && !modlist.hasName("Quicknotes"))
+            if (modID.Equals("QuicknotesControl") && !modlist.hasName("QuicknotesControl"))
             {
-                newModule = new Quicknotes();
+                newModule = new QuicknotesControl();
                 
             }
             else if (modID.Equals("WeeklyToDo") && !modlist.hasName("WeeklyToDo"))
@@ -60,7 +60,6 @@ namespace Saveyour
             }
             else 
             {
-                newModule = new Quicknotes();
                 Debug.WriteLine("Shell attempted to launch an invalid moduleID: " + modID);
                 return null;
             }
@@ -69,7 +68,7 @@ namespace Saveyour
 
             if ((newModule != null) && modlist.add((Module)newModule))
             {
-                if (modID.Equals("Quicknotes")){
+                if (modID.Equals("QuicknotesControl")){
                     settings.addQNotes(newModule);
                 }
                 else if (modID.Equals("WeeklyToDo"))

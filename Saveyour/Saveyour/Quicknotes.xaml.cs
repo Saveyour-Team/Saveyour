@@ -19,9 +19,13 @@ namespace Saveyour
     /// </summary>
     public partial class Quicknotes : Window, Module
     {
-        public Quicknotes()
+
+	private QuicknotesControl qnControl;
+
+        public Quicknotes(QuicknotesControl control)
         {
             InitializeComponent();
+		qnControl = control;
         }
 
         public String moduleID()
@@ -50,6 +54,8 @@ namespace Saveyour
             return moduleID().Equals(other.moduleID());
         }
 
+
+	
 
         private void onKeyUp(object sender, KeyEventArgs e)
         {

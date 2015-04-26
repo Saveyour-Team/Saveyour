@@ -24,6 +24,7 @@ namespace Saveyour
         private DateTime taskDate;
         private String taskDescription;
         private Task theTask;
+        private bool firstFocus = true;
         public AddTaskWindow(Window parent)
         {
             this.Owner = parent;
@@ -53,6 +54,15 @@ namespace Saveyour
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             lblWeight.Content = weightSlider.Value.ToString();
+        }
+
+        private void descriptBoxGotFocus(object sender, RoutedEventArgs e)
+        {
+            if (firstFocus)
+            {
+                TaskDescription.Text = "";
+                firstFocus = false;
+            }
         }
 
     }

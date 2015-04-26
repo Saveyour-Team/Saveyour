@@ -60,5 +60,14 @@ namespace Saveyour
         {
             date = newDate;
         }
+
+        public bool Equals(Task task)
+        {
+            if (task == null)
+            {
+                return false;
+            }
+            return task.getDate().Equals(getDate()) && task.getTitle().Equals(getTitle()) && task.getDescription().Equals(getDescription()) && task.getWeight().Equals(getWeight());
+        }
     }
 }

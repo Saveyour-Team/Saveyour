@@ -200,6 +200,15 @@ namespace Saveyour
         }
 
 
+
+        private void removeTask(Task task)
+        {
+            List<Task> taskList = hashTasks[task.getDate()];
+            taskList.Remove(task);
+            Shell.getSaveLoader().save();
+        }
+
+
         /*Create everything needed to display the tasks on the weekly calendar.*/
         private void createTaskLabel(Task task, StackPanel daysTasks){
             //A stackpanel to contain the task title and description textblocks
@@ -216,9 +225,16 @@ namespace Saveyour
             taskDescriptLabel.Margin = new Thickness(10,0,0,0);
             taskDescriptLabel.Text = task.getDescription();
 
+            //Task Removal Button
+            Button removeTaskBtn = new Button();
+            removeTaskBtn.Content = "X";
+            removeTaskBtn.Tag = task;
+            removeTaskBtn.Click += new RoutedEventHandler(taskRemoveBtn_Click);
+
             //Add these to the stackpanel
             taskStack.Children.Add(taskLabel);
             taskStack.Children.Add(taskDescriptLabel);
+            taskStack.Children.Add(removeTaskBtn);
 
             //Add listener for when the Title Label is clicked.
             taskLabel.MouseLeftButtonDown += new MouseButtonEventHandler(taskLabel_Click);
@@ -228,8 +244,22 @@ namespace Saveyour
 
             taskLabel.Visibility = Visibility.Visible;
             taskStack.Visibility = Visibility.Visible;
+            removeTaskBtn.Visibility = Visibility.Collapsed;
             taskDescriptLabel.Visibility = Visibility.Collapsed;
 
+        }
+
+
+        private void taskRemoveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //Retrieves the task stored in removeBtns Tag field and removes it from our hashTable
+            Task task = (Task)(sender as FrameworkElement).Tag;
+            removeTask(task);
+            Debug.WriteLine("called removetask on "+ task.getTitle());
+
+            //Removes all the elements displaying the task on the WeeklyToDo GUI
+            StackPanel taskStack = (StackPanel)((Button)sender).Parent;
+            taskStack.Children.Clear();
         }
 
         /* This method is called when a TaskTitle textblock is clicked! */
@@ -238,20 +268,19 @@ namespace Saveyour
             //Debug.WriteLine("Sender: " + sender.ToString() + "E: " + e.ToString());
             //Get the stackpanel that the textblock is in and search its children
             StackPanel taskStack = (StackPanel)((TextBlock)sender).Parent;
-            IEnumerable children = LogicalTreeHelper.GetChildren(taskStack);
-            foreach (DependencyObject child in children)
+            //IEnumerable children = LogicalTreeHelper.GetChildren(taskStack);
+            foreach (DependencyObject child in taskStack.Children)
             {
-                //If it's not the title textblock, then it must be the description textblock
-                //So we toggle its visibility.
+                //If it's not the title textblock, then toggle its visibility!
                 if (child != sender)
                 {
-                    if (! ((TextBlock)child).IsVisible)
+                    if (!((FrameworkElement)child).IsVisible)
                     {
-                        ((TextBlock)child).Visibility = Visibility.Visible;
+                        ((FrameworkElement)child).Visibility = Visibility.Visible;
                     }
                     else
                     {
-                        ((TextBlock)child).Visibility = Visibility.Collapsed;
+                        ((FrameworkElement)child).Visibility = Visibility.Collapsed;
                     }
                 }
             }

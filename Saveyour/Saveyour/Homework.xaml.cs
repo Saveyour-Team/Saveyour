@@ -229,6 +229,7 @@ namespace Saveyour
 
         private void addTask(object sender, RoutedEventArgs e)
         {
+            /*
             AddTaskWindow setTaskWindow = new AddTaskWindow(this);
             setTaskWindow.ShowInTaskbar = false;
             Nullable<bool> result = setTaskWindow.ShowDialog();
@@ -242,6 +243,7 @@ namespace Saveyour
             Console.WriteLine(date);
             taskCollection.Add(new Task { AssignmentName = description, AssignmentDate = date });
             taskList.Items.Refresh();
+             */
         }
 
         private void leftTextBox_TextChanged(object sender, TextChangedEventArgs e)

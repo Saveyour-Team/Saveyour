@@ -125,6 +125,10 @@ namespace Saveyour
             }
         }
 
+        public bool Equals(GoogleCalendar other)
+        {
+            return moduleID().Equals(other.moduleID());
+        }
 
 
     }

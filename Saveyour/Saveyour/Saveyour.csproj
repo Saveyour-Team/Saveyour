@@ -79,9 +79,6 @@
       <DependentUpon>Modules.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shell.cs" />
-    <Compile Include="loggedInWindow.xaml.cs">
-      <DependentUpon>loggedInWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Task.cs" />
     <Compile Include="WeeklyToDo.xaml.cs">
       <DependentUpon>WeeklyToDo.xaml</DependentUpon>
@@ -114,10 +111,6 @@
       <DependentUpon>LoginWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="loggedInWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Quicknotes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

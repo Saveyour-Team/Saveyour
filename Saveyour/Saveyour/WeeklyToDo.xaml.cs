@@ -133,15 +133,54 @@ namespace Saveyour
             foreach (TextBlock day in days)
             {
                     numToday--;
+		   colorByWeights(j);
                    // day.Text += " " + DateTime.Today.AddDays(numToday * -1).ToString("d");
                    day.Text += " " + DateTime.Today.AddDays((j - numToday + 7)%7).ToString("d");
                    j++;
             }
             today.Text += " (TODAY)";
             //COLORS ARE SUBJECT TO CHANGE (someone change them if they have a good color scheme!)
-            today.Foreground = new SolidColorBrush(Colors.Green); //Changes text color
-            todayBorder.Background = new SolidColorBrush(Colors.Cyan); //Changes background color
+            today.Foreground = new SolidColorBrush(Colors.Black); //Changes text color
+            //todayborder.background = new solidcolorbrush(Colors.Cyan); //changes background color
         }
+	
+	/*Recolors the given day of the week (0=Sunday ... 6 = Saturday) based upon the weights of all the tasks in that day. */
+	private void colorByWeights(int dayOfWeek){
+		// Converts the int for the dayOfWeek to the date that it corrsponds to
+		DateTime day = curTopDay.AddDays(((int)(curTopDay.DayOfWeek) - dayOfWeek + 7)%7 );
+		int weight = sumOfTaskWeights(day);
+		if (weight < 5){
+            		borders[dayOfWeek*2].background = new solidcolorbrush(Colors.Green); //changes background color of title
+            		borders[dayOfWeek*2 + 1].background = new solidcolorbrush(Colors.Green); //changes background color of tasks list
+		}
+		else if(weight >=5 && weight < 8){		
+            		borders[dayOfWeek*2].background = new solidcolorbrush(Colors.Yellow); //changes background color of title
+            		borders[dayOfWeek*2 + 1].background = new solidcolorbrush(Colors.Yellow); //changes background color of tasks list
+		}
+
+				
+		else if(weight >=8 && weight < 10){		
+            		borders[dayOfWeek*2].background = new solidcolorbrush(Colors.Orange); //changes background color of title
+            		borders[dayOfWeek*2 + 1].background = new solidcolorbrush(Colors.Orange); //changes background color of tasks list
+		}
+
+						
+		else if(weight >=10){		
+            		borders[dayOfWeek*2].background = new solidcolorbrush(Colors.Red); //changes background color of title
+            		borders[dayOfWeek*2 + 1].background = new solidcolorbrush(Colors.Red); //changes background color of tasks list
+		}
+	}
+
+
+	/*Calculates the sum of the weights of all tasks on a given day */
+	private void sumOfTaskWeights(DateTime day){
+		int sum = 0;
+		List<Task> taskList = hashTasks[day];
+		foreach (Task task in taskList){
+			sum+= task.getWeight();
+		}
+		return sum;
+	}
 
         private void reOrderDays()
         {
@@ -421,6 +460,7 @@ namespace Saveyour
             if (task.getDate().CompareTo(nextWeek) < 0 && task.getDate().CompareTo(yesterday) > 0)
             {
                 displayTask(task);
+		colorByWeights((int)task.getDate().DayOfWeek);
             }
 
             
@@ -462,8 +502,9 @@ namespace Saveyour
             {
                 DateTime day = curTopDay.AddDays(i);
                 displayDaysTasks(day);
+		colorByWeights(i);
             }
-
+	
         }
 
         private void forwardWeek_Click(object sender, RoutedEventArgs e)

@@ -71,5 +71,15 @@ namespace Saveyour
         {
             Shell.getSaveLoader().save();
         }
+
+        private void AddQN_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void RemoveQN_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

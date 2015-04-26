@@ -43,9 +43,7 @@ namespace Saveyour
 	}
 	
 	private void toggleAll(){	
-            if (qnotes.IsVisible) {
-                qnotes.Hide();
-            }
+                qnotes.ToggleVisibility();
             else if (qnotes.IsLoaded) {
                 qnotes.Show();
                 qnotes.Activate();

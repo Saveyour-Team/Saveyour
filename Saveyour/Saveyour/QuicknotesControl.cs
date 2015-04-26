@@ -19,6 +19,8 @@ namespace Saveyour
     {
 
 	private List<Quicknotes> qnList;
+	private bool isVisible = true;
+
         public QuicknotesControl()
         {
             qnList = new List<Quicknotes>();
@@ -36,6 +38,35 @@ namespace Saveyour
 		qnList.Remove(note);
 		note.Dispose();
 	
+
+	}
+
+
+ 	public void ToggleVisibility(){
+		if (isVisible){
+			Hide();
+		}
+		else{
+			Show();
+		}
+
+		isVisible = !isVisible;
+
+	}
+	
+	public void Show(){
+		foreach (Quicknotes qn in qnList){
+			qn.Show();
+		
+		}
+
+	}
+
+	public void Hide(){
+		foreach (Quicknotes qn in qnList){
+			qn.Hide();
+		
+		}
 
 	}
 	

@@ -118,10 +118,16 @@ namespace Saveyour
             //launch("Quicknotes");
             launch("WeeklyToDo");
             launch("Google Calendar");
+<<<<<<< HEAD
             launch("Homework");
 
             launch("QuicknotesControl");
 
+=======
+
+            launch("Homework");
+            launch("QuicknotesControl");
+>>>>>>> HomeworkFixes
 
              
             

@@ -26,10 +26,16 @@ namespace Saveyour
             string path = Directory.GetCurrentDirectory();
 
             Debug.WriteLine("PATH: " + path);
+
+            if (!Directory.Exists(path + "/Modules"))
+            {
+                Debug.WriteLine("Modules Folder does not exist");
+                Directory.CreateDirectory("Modules");
+            }
             try
             {
                 ICollection<IPlugin> plugins = GenericPluginLoader<IPlugin>.LoadPlugins("Modules");
-                foreach (var item in plugins)
+                foreach (var item in plugins)   
                 {
                     _Plugins.Add(item.Name, item);
                     Debug.WriteLine("Added" + item.Name);

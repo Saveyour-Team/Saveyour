@@ -16,7 +16,8 @@ namespace TaskBatch
 
         public void Do()
         {
-            System.Windows.MessageBox.Show("Do Something in Second Plugin");
+            TaskBatchWindow taskBatch = new TaskBatchWindow();
+            taskBatch.Show();
         }
 
         #endregion

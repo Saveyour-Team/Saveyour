@@ -74,12 +74,12 @@ namespace Saveyour
 
         private void AddQN_Click(object sender, RoutedEventArgs e)
         {
-            
+		qnControl.addQuickNote();            
         }
 
         private void RemoveQN_Click(object sender, RoutedEventArgs e)
         {
-
+		qnControl.removeQuickNote(this);
         }
     }
 }

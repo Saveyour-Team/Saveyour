@@ -17,13 +17,13 @@ namespace Saveyour
     /// <summary>
     /// Interaction logic for Settings.xaml
     /// </summary>
-    public partial class Modules : Window, Module
+    public partial class Settings : Window, Module
     {
         Window qnotes;
         Window weeklytd;
         Window gcalendar;
 
-        public Modules()
+        public Settings()
         {
             InitializeComponent();            
         }

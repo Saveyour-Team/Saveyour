@@ -15,7 +15,7 @@ namespace Saveyour
         private static Modlist modlist;
         private static SaveLoader saveLoad;
         private static Shell theShell;
-        private static Modules settings;
+        private static Settings settings;
 
         static void OnProcessExit(object sender, EventArgs e)
         {
@@ -92,7 +92,7 @@ namespace Saveyour
             modlist = new Modlist();
  
             saveLoad = new SaveLoader();
-            settings = new Modules();
+            settings = new Settings();
 
             Debug.WriteLine("Booting other modules");
             saveLoad.loadToLaunch();
@@ -107,7 +107,7 @@ namespace Saveyour
 
             saveLoad = new SaveLoader();
             saveLoad.setLogin(username, password);
-            settings = new Modules();
+            settings = new Settings();
 
             Debug.WriteLine("Booting other modules");
             saveLoad.loadToLaunch();

@@ -23,15 +23,6 @@ namespace Saveyour
     /// </summary>
     public partial class Homework : Window, Module
     {
-
-        private class Task
-        {
-            public String AssignmentName { get; set; }
-            public String AssignmentDate { get; set; }
-
-            public String AssignmentShortenedDate { get; set; }
-        }
-
         ObservableCollection<Task> taskCollection;
         private class Subject
         {
@@ -40,8 +31,8 @@ namespace Saveyour
         }
         
         private const int MAX_SUBJECTS = 5;
-        private int numSubjects = 0;
-        private int totalSubjects = 0;
+        private int numSubjects = 1;
+
         Subject[] subjects = new Subject[MAX_SUBJECTS];
 
         public Homework()
@@ -135,11 +126,6 @@ namespace Saveyour
 
         private void addSubjectButton_Click(object sender, RoutedEventArgs e)
         {
-            if (totalSubjects == MAX_SUBJECTS)
-            {
-                Console.WriteLine("Max Subjects reached!");
-                return;
-            }
             if (numSubjects < MAX_SUBJECTS)
             {
                 hWindow.Width += 300;
@@ -151,18 +137,6 @@ namespace Saveyour
 
                 homeworkPanel.Children.Add(createSubject());
                 numSubjects++;
-                totalSubjects++;
-            }
-            else
-            {
-                hWindow.Height += homeworkPanel.Height;
-                windowGrid.Height += homeworkPanel.Height;
-                homeworkPanel.Height += homeworkPanel.Height;
-                homeworkPanel.Orientation = System.Windows.Controls.Orientation.Vertical;
-                homeworkPanel.Children.Add(createSubject());
-                numSubjects = 0;
-                totalSubjects++;
-                homeworkPanel.Orientation = System.Windows.Controls.Orientation.Horizontal;
             }
 
         }
@@ -181,13 +155,20 @@ namespace Saveyour
             Label newAssignmentLabel = new Label();
             Label newDateLabel = new Label();
             TextBox newSubjectBox = new TextBox();
-            ListView newList = new ListView();
-            newList.HorizontalAlignment = taskList.HorizontalAlignment;
-            newList.VerticalAlignment = taskList.VerticalAlignment;
-            newList.Width = taskList.Width;
-            newList.Height = taskList.Height;
-            newList.Margin = new Thickness(taskList.Margin.Left,taskList.Margin.Top, taskList.Margin.Right, taskList.Margin.Bottom);
-            newList.HorizontalContentAlignment = taskList.HorizontalContentAlignment;
+            /*
+            newAssignmentLabel.Content = assignmentLabel.Content;
+            newAssignmentLabel.HorizontalAlignment = assignmentLabel.HorizontalAlignment;
+            newAssignmentLabel.VerticalAlignment = assignmentLabel.VerticalAlignment;
+            newAssignmentLabel.Width = assignmentLabel.Width;
+            newAssignmentLabel.Height = assignmentLabel.Height;
+            newAssignmentLabel.Margin = new Thickness(assignmentLabel.Margin.Left,assignmentLabel.Margin.Top,assignmentLabel.Margin.Bottom,assignmentLabel.Margin.Right);
+
+            newDateLabel.Content = dateLabel.Content;
+            newDateLabel.HorizontalAlignment = dateLabel.HorizontalAlignment;
+            newDateLabel.VerticalAlignment = dateLabel.VerticalAlignment;
+            newDateLabel.Width = dateLabel.Width;
+            newDateLabel.Height = dateLabel.Height;
+            newDateLabel.Margin = new Thickness(dateLabel.Margin.Left,dateLabel.Margin.Top,dateLabel.Margin.Bottom,dateLabel.Margin.Right);
 
             newSubjectBox.Text = subjectBox.Text;
             newSubjectBox.HorizontalAlignment = subjectBox.HorizontalAlignment;
@@ -196,9 +177,11 @@ namespace Saveyour
             newSubjectBox.Width = subjectBox.Width;
             newSubjectBox.Height = subjectBox.Height;
             newSubjectBox.HorizontalContentAlignment = subjectBox.HorizontalContentAlignment;
-            newSubjectBox.Margin = new Thickness(subjectBox.Margin.Left, subjectBox.Margin.Top, subjectBox.Margin.Right, subjectBox.Margin.Bottom);
-            
-            /*
+            newSubjectBox.Margin = new Thickness(subjectBox.Margin.Left, subjectBox.Margin.Top, subjectBox.Margin.Bottom, subjectBox.Margin.Right);
+
+            RichTextBox leftBox = new RichTextBox();
+            RichTextBox rightBox = new RichTextBox();
+
             if (leftBox.Document == null)
             {
                 Debug.WriteLine("NULL");
@@ -215,9 +198,12 @@ namespace Saveyour
             rightBox.Height = rightTextBox.Height;
             rightBox.Width = rightTextBox.Width;
             rightBox.Margin = new Thickness(rightTextBox.Margin.Left,rightTextBox.Margin.Top,rightTextBox.Margin.Bottom,rightTextBox.Margin.Right);                         
-            */
+
+            newGrid.Children.Add(leftBox);
+            newGrid.Children.Add(rightBox);
+            newGrid.Children.Add(newAssignmentLabel);
+            newGrid.Children.Add(newDateLabel);
             newGrid.Children.Add(newSubjectBox);
-            newGrid.Children.Add(newList);
 
             /******* Adding logic for saving each subject into data structure *******/
             /*
@@ -243,7 +229,7 @@ namespace Saveyour
 
         private void addTask(object sender, RoutedEventArgs e)
         {
-            AddHomeworkTask setTaskWindow = new AddHomeworkTask(this);
+            AddTaskWindow setTaskWindow = new AddTaskWindow(this);
             setTaskWindow.ShowInTaskbar = false;
             Nullable<bool> result = setTaskWindow.ShowDialog();
             if (!result.HasValue || !result.Value)
@@ -253,9 +239,8 @@ namespace Saveyour
             String description = setTaskWindow.getTaskDescription();
             Console.WriteLine(description);
             String date = setTaskWindow.getTaskDate().ToShortDateString();
-            String shortenedDate = date.Remove(date.Length - 5);
             Console.WriteLine(date);
-            taskCollection.Add(new Task { AssignmentName = description, AssignmentDate = date, AssignmentShortenedDate = shortenedDate });
+            taskCollection.Add(new Task { AssignmentName = description, AssignmentDate = date });
             taskList.Items.Refresh();
         }
 

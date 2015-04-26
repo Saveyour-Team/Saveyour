@@ -1,5 +1,8 @@
 # Saveyour
 
+## Download
+  You can download the latest release of the Saveyour.exe [here](https://saveyour.herokuapp.com).
+
 ## What is Saveyour?
   Saveyour is an organizational, productive application that contains weekly to-do’s, calendars, agendas, notes, etc. into one tool. Its target in particular is the college student; however, entreprenuers, professors, and busy individuals will find the tool useful as well! It supports modularized togglable windows that can be customized by other developers. There are certain macros for quick task management such as parsing highlighted text to add to one's weekly to-do module or to add to one's homework module. There is a button to quickly hide and unhide Saveyour as a reference to one's schedule in a glance. Saveyour is able to take ones tasks and look through one's weekly to-do in order to find an available time to assign those tasks to do. 
 

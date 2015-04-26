@@ -70,7 +70,7 @@ namespace Saveyour
             String[] moduleData = input.Split(splitAt, StringSplitOptions.None);
             if (moduleData.Length < 1)
             {
-                Debug.WriteLine("Invalidly formatted string passed to loadModules in SaveLoader.\n");
+               // Debug.WriteLine("Invalidly formatted string passed to loadModules in SaveLoader.\n");
                 return false;
             }
             String lastModifiedHeader = "";
@@ -90,12 +90,12 @@ namespace Saveyour
 
                 try
                 {
-                    Debug.WriteLine(moduleData[i]);
+                  //  Debug.WriteLine(moduleData[i]);
                     int idx = moduleData[i].IndexOf('}');
                     modID = moduleData[i].Substring(1, moduleData[i].IndexOf('}') - 1);
-                    Debug.WriteLine(modID + "++");
+                   // Debug.WriteLine(modID + "++");
                     modData = moduleData[i].Substring(idx + 2, moduleData[i].Length - (idx + 3));
-                    Debug.WriteLine("Moddata: " + modData);
+                  //  Debug.WriteLine("Moddata: " + modData);
                     Module launched = Shell.launch(modID);
                     //launched.load(modData);
                     Boolean found = false;
@@ -112,7 +112,7 @@ namespace Saveyour
                 }
                 catch (ArgumentOutOfRangeException)
                 {
-                    Debug.WriteLine("Invalid saveddata.txt: " + moduleData[i]);
+                   // Debug.WriteLine("Invalid saveddata.txt: " + moduleData[i]);
                     foundAll = false;
                 }
 
@@ -124,26 +124,34 @@ namespace Saveyour
         public Boolean load()
         {
             String data = ReadWrite.readStringFrom(saveFile);
-            Debug.WriteLine("Loaded: " + data);
+           // Debug.WriteLine("Loaded: " + data);
             return loadModules(data);
         }
 
-        public void loadToLaunch(){
+        public bool loadToLaunch(){
             NetworkControl network = new NetworkControl();
             String response = network.Connect(network.getIP(), username + "\r\r\r" + password + "\r\r\r" + "login");
             String[] splitAt = { "\r\r\r" };
             String[] moduleData = response.Split(splitAt, StringSplitOptions.None);
-            loadToLaunch(moduleData[1]);
+            Debug.WriteLine("THIS IS MODULE DATA: " + moduleData[1]);
+            return loadToLaunch(moduleData[1]);
         }
 
         //Launch all modules that have saved settings
-        private void loadToLaunch(String input)
+        private bool loadToLaunch(String input) //input is the server data called from loadToLaunch()
         {
-            Debug.WriteLine("Input server: " + input);
+            bool localFile = true;
+
+           // Debug.WriteLine("Input server: " + input);
             String local = ReadWrite.readStringFrom(saveFile);
-            if (input.Equals("File not found.")){
-                Debug.WriteLine("Couldn't find saveddata.txt!");
-                return;
+            if (local.Equals("File not found.")){
+                //Debug.WriteLine("Couldn't find saveddata.txt!");                
+                localFile = false;
+            }
+            if (input.Equals(""))
+            {
+                if (!localFile)
+                    return false;
             }
 
             Modlist modList = Shell.getModList();
@@ -158,18 +166,18 @@ namespace Saveyour
             String lastModifiedHeaderLocal = "";
             String lastModifiedLocal = "";
 
-            Debug.WriteLine("Length: " + moduleData[0].Length);
-            Debug.WriteLine(moduleData[0]);
+            //Debug.WriteLine("Length: " + moduleData[0].Length);
+            //Debug.WriteLine(moduleData[0]);
             if (moduleData[0].Length == 35)
             {
                 lastModifiedHeader = moduleData[0].Substring(0, 16);
-                Debug.WriteLine(moduleData[0]);
+                //Debug.WriteLine(moduleData[0]);
             }
 
             if (diskData[0].Length == 35)
             {
                 lastModifiedHeaderLocal = diskData[0].Substring(0, 16);
-               Debug.WriteLine(diskData[0]);
+               //Debug.WriteLine(diskData[0]);
             }
 
             int i = 0;
@@ -190,15 +198,15 @@ namespace Saveyour
             {
                 input = local;
                 moduleData = diskData;
-                Debug.WriteLine("Local write is more recent, using it instead. Blank");
+                //Debug.WriteLine("Local write is more recent, using it instead. Blank");
             }
             else if (lastModifiedHeaderLocal.Equals(""))
             {
                 //Do nothing.
             }
-            else if (Convert.ToInt64(lastModified) < Convert.ToInt64(lastModifiedLocal)){
+            else if (Convert.ToInt64(lastModified) <= Convert.ToInt64(lastModifiedLocal)){
                 input = local;
-                Debug.WriteLine("Local write is more recent, using it instead.");
+                //Debug.WriteLine("Local write is more recent, using it instead.");
                 moduleData = diskData;
             }
 
@@ -207,20 +215,22 @@ namespace Saveyour
             {
                 try
                 {
-                    Debug.WriteLine(moduleData[i]);
+                   // Debug.WriteLine(moduleData[i]);
                     int idx = moduleData[i].IndexOf('}');
                     modID = moduleData[i].Substring(1, moduleData[i].IndexOf('}')-1);
-                    Debug.WriteLine(modID+ "++");
+                   // Debug.WriteLine(modID+ "++");
                     modData = moduleData[i].Substring(idx + 2, moduleData[i].Length - (idx+3));
-                    Debug.WriteLine("Moddata: "+modData);
+                   // Debug.WriteLine("Moddata: "+modData);
                     Module launched = Shell.launch(modID);
                     launched.load(modData);
                 }
                 catch (ArgumentOutOfRangeException)
                 {
-                    Debug.WriteLine("Invalid saveddata.txt: " + moduleData[i]);
+                   // Debug.WriteLine("Invalid saveddata.txt: " + moduleData[i]);
                 }
             }
+
+            return true;
         }
 
         public void setLogin(String user, String pwd)

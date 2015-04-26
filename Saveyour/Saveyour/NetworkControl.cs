@@ -64,7 +64,7 @@ namespace Saveyour
                 // Receive the TcpServer.response. 
 
                 // Buffer to store the response bytes.
-                data = new Byte[256];
+                data = new Byte[1048576];
 
                 // String to store the response ASCII representation.
                 String responseData = String.Empty;

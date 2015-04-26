@@ -15,7 +15,7 @@ namespace Saveyour
         private static Modlist modlist;
         private static SaveLoader saveLoad;
         private static Shell theShell;
-        private static Modules settings;
+        private static Settings settings;
 
         static void OnProcessExit(object sender, EventArgs e)
         {
@@ -45,20 +45,16 @@ namespace Saveyour
         {
             //Run 'modID' + '.exe' in the SaveYour/Modules folder to be implemented later.
             Window newModule;
-            if (modID.Equals("loggedInWindow"))
-            {
-                newModule = new loggedInWindow();
-            }
-            else if (modID.Equals("Quicknotes"))
+            if (modID.Equals("Quicknotes") && !modlist.hasName("Quicknotes"))
             {
                 newModule = new Quicknotes();
                 
             }
-            else if (modID.Equals("WeeklyToDo"))
+            else if (modID.Equals("WeeklyToDo") && !modlist.hasName("WeeklyToDo"))
             {
                 newModule = new WeeklyToDo();
             }
-            else if (modID.Equals("Google Calendar"))
+            else if (modID.Equals("Google Calendar") && !modlist.hasName("Google Calendar"))
             {
                 newModule = new GoogleCalendar();
             }
@@ -100,7 +96,7 @@ namespace Saveyour
             modlist = new Modlist();
  
             saveLoad = new SaveLoader();
-            settings = new Modules();
+            settings = new Settings();
 
             Debug.WriteLine("Booting other modules");
             saveLoad.loadToLaunch();
@@ -115,11 +111,17 @@ namespace Saveyour
 
             saveLoad = new SaveLoader();
             saveLoad.setLogin(username, password);
-            settings = new Modules();
+            settings = new Settings();
 
             Debug.WriteLine("Booting other modules");
             saveLoad.loadToLaunch();
+
+            launch("Quicknotes");
             launch("WeeklyToDo");
+            launch("Google Calendar");
+            launch("Homework");
+             
+            
             settings.Show();
 
         }

@@ -44,11 +44,7 @@ namespace Saveyour
 	
 	private void toggleAll(){	
                 qnotes.ToggleVisibility();
-            else if (qnotes.IsLoaded) {
-                qnotes.Show();
-                qnotes.Activate();
-                //qnotes.Topmost = true;
-            }
+            
             if (weeklytd.IsVisible)
             {
                 weeklytd.Hide();
@@ -85,10 +81,7 @@ namespace Saveyour
 
         private void QN_Click(object sender, RoutedEventArgs e)
         {
-            if (qnotes.IsVisible)
-                qnotes.Hide();
-            else if (qnotes.IsLoaded)
-                qnotes.Show();
+            qnotes.toggleVisibility;
         }
 
         private void WTD_Click(object sender, RoutedEventArgs e)
@@ -107,9 +100,9 @@ namespace Saveyour
                 gcalendar.Show();
         }
 
-        public void addQNotes(Window module)
+        public void addQNotes(QuicknotesControl qnc)
         {
-            qnotes = module;
+            qnotes = qnc;
         }
 
         public void addWTD(Window module)

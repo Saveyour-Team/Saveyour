@@ -22,11 +22,42 @@ namespace Saveyour
         Window qnotes;
         Window weeklytd;
         Window gcalendar;
-
+	
+	private KeyboardHook keyHook = new KeyBoardHook();
+	
         public Settings()
         {
             InitializeComponent();            
-        }
+       		// Create a listener for hotkeys
+       		keyHook.KeyPressed += new EventHandler<KeyPressedEventArgs>(key_pressed);
+       		// Register Alt+F12 as a hotkey
+        	keyHook.RegisterHotKey(ModifierKeys.Alt,Keys.F12);
+	}
+
+	private key_pressed(object sender, KeyPressedEventArgs e){
+		if (e.Key().Equals(Keys.F12) && e.Modifier().Equals(ModifierKeys.Alt)){
+			toggleAll();
+		}
+
+	}
+	
+	private void toggleAll(){	
+            if (qnotes.IsVisible)
+                qnotes.Hide();
+            else if (qnotes.IsLoaded)
+                qnotes.Show();
+
+            if (weeklytd.IsVisible)
+                weeklytd.Hide();
+            else if (weeklytd.IsLoaded)
+                weeklytd.Show();
+
+
+            if (gcalendar.IsVisible)
+                gcalendar.Hide();
+            else if (gcalendar.IsLoaded)
+                gcalendar.Show();
+	}
 
         private void QN_Click(object sender, RoutedEventArgs e)
         {

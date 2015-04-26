@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Forms;
 
 namespace Saveyour
 {
@@ -23,7 +24,7 @@ namespace Saveyour
         Window weeklytd;
         Window gcalendar;
 	
-	private KeyboardHook keyHook = new KeyBoardHook();
+	private KeyboardHook keyHook = new KeyboardHook();
 	
         public Settings()
         {
@@ -31,32 +32,57 @@ namespace Saveyour
        		// Create a listener for hotkeys
        		keyHook.KeyPressed += new EventHandler<KeyPressedEventArgs>(key_pressed);
        		// Register Alt+F12 as a hotkey
-        	keyHook.RegisterHotKey(ModifierKeys.Alt,Keys.F12);
+        	keyHook.RegisterHotKey(ModifierKeys.Alt,Keys.D0);
 	}
 
-	private key_pressed(object sender, KeyPressedEventArgs e){
-		if (e.Key().Equals(Keys.F12) && e.Modifier().Equals(ModifierKeys.Alt)){
+	private void key_pressed(object sender, KeyPressedEventArgs e){
+		if (e.Key.Equals(Keys.D0) && e.Modifier.Equals(ModifierKeys.Alt)){
 			toggleAll();
 		}
 
 	}
 	
 	private void toggleAll(){	
-            if (qnotes.IsVisible)
+            if (qnotes.IsVisible) {
                 qnotes.Hide();
-            else if (qnotes.IsLoaded)
+            }
+            else if (qnotes.IsLoaded) {
                 qnotes.Show();
-
+                qnotes.Activate();
+                //qnotes.Topmost = true;
+            }
             if (weeklytd.IsVisible)
+            {
                 weeklytd.Hide();
-            else if (weeklytd.IsLoaded)
+            }
+            else if (weeklytd.IsLoaded) 
+            {
                 weeklytd.Show();
+                weeklytd.Activate();
+                //weeklytd.Topmost = true;
+            }
 
-
-            if (gcalendar.IsVisible)
+            if (gcalendar.IsVisible) 
+            {
                 gcalendar.Hide();
-            else if (gcalendar.IsLoaded)
+            }
+            else if (gcalendar.IsLoaded) 
+            {
                 gcalendar.Show();
+                gcalendar.Activate();
+                //gcalendar.Topmost = true;
+            }
+
+            if (this.IsVisible)
+            {
+                this.Hide();
+            }
+            else if (this.IsLoaded)
+            {
+                this.Show();
+                this.Activate();
+                //this.Topmost = true;
+            }
 	}
 
         private void QN_Click(object sender, RoutedEventArgs e)

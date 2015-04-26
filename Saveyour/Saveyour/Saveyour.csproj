@@ -41,6 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -64,6 +65,7 @@
     <Compile Include="GoogleCalendar.xaml.cs">
       <DependentUpon>GoogleCalendar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="KeyBoardListener.cs" />
     <Compile Include="Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
     </Compile>
@@ -75,8 +77,8 @@
     </Compile>
     <Compile Include="ReadWrite.cs" />
     <Compile Include="SaveLoader.cs" />
-    <Compile Include="Modules.xaml.cs">
-      <DependentUpon>Modules.xaml</DependentUpon>
+    <Compile Include="Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shell.cs" />
     <Compile Include="Task.cs" />
@@ -115,9 +117,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Modules.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Settings.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="WeeklyToDo.xaml">
       <SubType>Designer</SubType>

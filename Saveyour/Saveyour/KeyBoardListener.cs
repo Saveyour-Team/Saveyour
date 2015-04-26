@@ -1,19 +1,24 @@
+using System;
+using System.Windows.Forms; 
+using System.Runtime.InteropServices;
+
+
 public sealed class KeyboardHook : IDisposable
 {
 	//This code was taken from Christian Liensberger's blog and modified a bit to fit SaveYour
 	// Register a global hotkey
-	[DllImport(“user32.dll”)]
+	[DllImport("user32.dll")]
 	private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
     	
 	// Unregister a global hotkey
- 	[DllImport(“user32.dll”)]
+ 	[DllImport("user32.dll")]
     	private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
 
 	//A private window class so we can hide our listener
     private class Window : NativeWindow, IDisposable
     {
-        private static int WM_HOTKEY = 0×0312;
+        private static int WM_HOTKEY = 0x0312;
 
         public Window()
         {
@@ -70,7 +75,7 @@ public sealed class KeyboardHook : IDisposable
 
         // register the hot key.
         if (!RegisterHotKey(_window.Handle, _currentId, (uint)modifier, (uint)key))
-            throw new InvalidOperationException(“Couldn’t register the hot key.”);
+            throw new InvalidOperationException("Couldn’t register the hot key.");
     }
 
    //Event handler for the keypresses 
@@ -79,8 +84,8 @@ public sealed class KeyboardHook : IDisposable
 
     public void Dispose()
     {
-        // unregister all the registered hot keys.
-        for (int i = _currentId; i > 0; i–)
+        // unregister all the registered hot keys.        
+        for (int i = _currentId; i> 0; i--)
         {
             UnregisterHotKey(_window.Handle, i);
         }
@@ -144,20 +149,3 @@ public enum ModifierKeys : uint
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}

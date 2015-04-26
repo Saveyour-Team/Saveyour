@@ -62,10 +62,12 @@
     <Compile Include="AddTaskWindow.xaml.cs">
       <DependentUpon>AddTaskWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GenericPluginLoader.cs" />
     <Compile Include="GoogleCalendar.xaml.cs">
       <DependentUpon>GoogleCalendar.xaml</DependentUpon>
     </Compile>
     <Compile Include="KeyBoardListener.cs" />
+    <Compile Include="PluginLoader.cs" />
     <Compile Include="QuicknotesControl.cs" />
     <Compile Include="Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
@@ -160,6 +162,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PluginContracts\PluginContracts.csproj">
+      <Project>{43c879d1-31ae-424f-91d1-92cf286d5497}</Project>
+      <Name>PluginContracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SaveyourUpdate\SaveyourUpdate.csproj">
       <Project>{5074d155-0f46-4831-8f51-0ccd4ea82a08}</Project>
       <Name>SaveyourUpdate</Name>

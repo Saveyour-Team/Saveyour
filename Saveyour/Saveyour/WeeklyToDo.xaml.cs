@@ -393,7 +393,11 @@ namespace Saveyour
                 }
 
             }
-
+		
+	    //Now that the tasks are loaded, color the days by the task weights.
+	    for(int i = 0; i < 7; i++){
+		colorByWeights(i);
+	    }
 
             return false;
         }

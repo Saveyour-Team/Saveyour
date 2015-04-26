@@ -41,6 +41,17 @@ namespace Saveyour
 		}
 
 	}
+
+
+	private void exitBtn_clicked(object sender, RoutedEventArgs e){
+		Shell.getSaveLoader().save();
+		Application.Current.Shutdown();
+
+	}
+
+	private void setHotkey_clicked(object sender, RoutedEventArgs e){
+
+	}
 	
 	private void toggleAll(){	
                 qnotes.ToggleVisibility();

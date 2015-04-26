@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Windows.Markup;
 using System.Diagnostics;
+using System.Collections.ObjectModel;
 
 namespace Saveyour
 {
@@ -22,7 +23,7 @@ namespace Saveyour
     /// </summary>
     public partial class Homework : Window, Module
     {
-        
+        ObservableCollection<Task> taskCollection;
         private class Subject
         {
             public FlowDocument dates, assignments;
@@ -37,8 +38,8 @@ namespace Saveyour
         public Homework()
         {
             InitializeComponent();
-            maxWarning.Visibility = Visibility.Hidden;
-
+            taskCollection = new ObservableCollection<Task>();
+            taskList.ItemsSource = taskCollection;
             //We need to load the information for the subjects here.
 
             //After loading the information, we increase numSubjects and take the data from load to construct each GroupBox for each Grid
@@ -96,7 +97,7 @@ namespace Saveyour
             FlowDocument content = XamlReader.Load(xamlFile) as FlowDocument;
             // Finally, set the Document property to the FlowDocument object that was
             // parsed from the input file.            
-            rightBox.Document = content;
+            //rightBox.Document = content;
 
             xamlFile.Close();          
 
@@ -137,10 +138,7 @@ namespace Saveyour
                 homeworkPanel.Children.Add(createSubject());
                 numSubjects++;
             }
-            else
-            {
-                maxWarning.Visibility = Visibility.Visible;
-            }
+
         }
 
         private void RichTextBox_TextChanged_1(object sender, TextChangedEventArgs e)
@@ -157,7 +155,7 @@ namespace Saveyour
             Label newAssignmentLabel = new Label();
             Label newDateLabel = new Label();
             TextBox newSubjectBox = new TextBox();
-
+            /*
             newAssignmentLabel.Content = assignmentLabel.Content;
             newAssignmentLabel.HorizontalAlignment = assignmentLabel.HorizontalAlignment;
             newAssignmentLabel.VerticalAlignment = assignmentLabel.VerticalAlignment;
@@ -188,7 +186,7 @@ namespace Saveyour
             {
                 Debug.WriteLine("NULL");
             }
-
+            
             leftBox.HorizontalAlignment = leftTextBox.HorizontalAlignment;
             leftBox.VerticalAlignment = leftTextBox.VerticalAlignment;
             leftBox.Height = leftTextBox.Height;
@@ -208,20 +206,53 @@ namespace Saveyour
             newGrid.Children.Add(newSubjectBox);
 
             /******* Adding logic for saving each subject into data structure *******/
-
+            /*
             Subject newSubject = new Subject();
             newSubject.subject = newSubjectBox;
             newSubject.assignments = leftBox.Document;
             newSubject.dates = rightBox.Document;
 
             subjects[numSubjects - 1] = newSubject;
-
+            */
             return newGrid;
+        }
+
+        private void deleteTask(object sender, RoutedEventArgs e)
+        {
+            Task item = (Task) (sender as Button).DataContext;
+            int index = taskList.Items.IndexOf(item);
+            taskCollection.Remove(item);
+
+            taskList.Items.Refresh();
+           
+        }
+
+        private void addTask(object sender, RoutedEventArgs e)
+        {
+            AddTaskWindow setTaskWindow = new AddTaskWindow(this);
+            setTaskWindow.ShowInTaskbar = false;
+            Nullable<bool> result = setTaskWindow.ShowDialog();
+            if (!result.HasValue || !result.Value)
+            {
+                return;
+            }
+            String description = setTaskWindow.getTaskDescription();
+            Console.WriteLine(description);
+            String date = setTaskWindow.getTaskDate().ToShortDateString();
+            Console.WriteLine(date);
+            taskCollection.Add(new Task { AssignmentName = description, AssignmentDate = date });
+            taskList.Items.Refresh();
         }
 
         private void leftTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void mouseEvent(object sender, MouseEventArgs e)
+        {
+            ListViewItem item = sender as ListViewItem;
+            Console.WriteLine(item);
         }
 
     }

@@ -6,17 +6,7 @@
     <Grid x:Name="windowGrid">
         <Button x:Name="addSubjectButton" Content="Add Subject" HorizontalAlignment="Left" Margin="230,10,0,0" VerticalAlignment="Top" Width="80" Click="addSubjectButton_Click"/>
         <StackPanel x:Name="homeworkPanel" HorizontalAlignment="Left" Height="295" Margin="20,50,0,0" VerticalAlignment="Top" Width="300" Orientation="Horizontal">
-            <Grid x:Name="panelGrid" Height="295">
-                <RichTextBox x:Name="leftTextBox" HorizontalAlignment="Left" Height="234" Margin="10,61,0,0" VerticalAlignment="Top" Width="215" TextChanged="leftTextBox_TextChanged">
-                    <FlowDocument>
-                        <Paragraph>
-                            <Run Text="RichTextBox"/>
-                        </Paragraph>
-                        <Paragraph>
-                            <Run Text="Testing to se eh owth isworks"/>
-                        </Paragraph>
-                    </FlowDocument>
-                </RichTextBox>
+            <Grid x:Name="panelGrid" Margin="0,0,0,0.2">
                 <RichTextBox x:Name="rightTextBox" HorizontalAlignment="Left" Height="234" Margin="225,61,0,0" VerticalAlignment="Top" Width="65">
                     <FlowDocument>
                         <Paragraph>
@@ -24,11 +14,33 @@
                         </Paragraph>
                     </FlowDocument>
                 </RichTextBox>
-                <Label x:Name="assignmentLabel" Content="Assignment" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="215"/>
-                <Label x:Name="dateLabel" Content="Date" HorizontalAlignment="Left" Margin="230,35,0,0" VerticalAlignment="Top" Width="60"/>
                 <TextBox x:Name="subjectBox" Text ="Change Subject Title Here!" VerticalContentAlignment="Center" HorizontalContentAlignment ="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Width="280" Height="35" Margin="10,0"/>
+                <ListView x:Name="taskList" HorizontalAlignment="Left" Height="234" Margin="10,61,0,0" VerticalAlignment="Top" Width="280">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn x:Name="assignmentColumn" Header="Assignment" DisplayMemberBinding="{Binding AssignmentName}" Width="170"/>
+                            <GridViewColumn x:Name="dateColumn" Header="Date" DisplayMemberBinding="{Binding AssignmentDate}" Width="60"/>
+                            <GridViewColumn Header="X" Width="30">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="X"  Click = "deleteTask" CommandParameter="{Binding}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="A" Width="30">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="X"  Click = "deleteTask" CommandParameter="{Binding}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button HorizontalAlignment="Left" Margin="215,37,0,0" VerticalAlignment="Top" Width="75">
+                    <Button Content="Button" Click ="addTask" Width="75"/>
+                </Button>
             </Grid>
         </StackPanel>
-        <Label x:Name="maxWarning" Content="Maximum Number of Subjects Reached!" HorizontalAlignment="Center" Margin="0,7,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

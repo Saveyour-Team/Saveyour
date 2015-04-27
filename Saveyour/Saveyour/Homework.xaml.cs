@@ -42,10 +42,18 @@ namespace Saveyour
         TabItem setTab;
         Button addButton;
         
+
+        //ObservableCollection<Task> taskCollection;
+
         private class Subject
         {
-            public FlowDocument dates, assignments;
-            public TextBox subject;            
+            public ObservableCollection<Task> taskCollection;
+            String name;
+
+            public Subject()
+            {
+                taskCollection = new ObservableCollection<Task>();
+            }
         }
         
         private const int MAX_SUBJECTS = 10;
@@ -56,11 +64,16 @@ namespace Saveyour
         public Homework()
         {
             InitializeComponent();
+
             subjectsCollection = new ObservableCollection<TabItem>();
             taskList.ItemsSource = new ObservableCollection<Task>();
             defaultListStyle = taskList;
             tabXAML = XamlWriter.Save(taskList);
 
+
+            //taskCollection = new ObservableCollection<Task>();
+            subjects[0] = new Subject();
+            taskList.ItemsSource = subjects[0].taskCollection; //This needs to be scalable to multiple xaml elements.
             //We need to load the information for the subjects here.
 
             //After loading the information, we increase numSubjects and take the data from load to construct each GroupBox for each Grid
@@ -83,28 +96,7 @@ namespace Saveyour
 
         public String save()
         {
-            String subjNames = "";
-
-            /****** SAVE FLOW DOCUMENT *******/
-
-            for (int i = 0; i < numSubjects; i++) 
-            {
-                subjNames += (subjects[i].subject.Text + ",");
-
-                // Open or create the output file.
-                FileStream xamlFile = new FileStream(@"savedFiles\" + subjects[i].subject.Text + "-assignments.xaml", FileMode.Create, FileAccess.ReadWrite);
-                // Save the contents of the FlowDocumentReader to the file stream that was just opened.
-                XamlWriter.Save(subjects[i].assignments, xamlFile);
-
-                // Also need to save dates
-                xamlFile = new FileStream(@"savedFiles\" + subjects[i].subject.Text + "-dates.xaml", FileMode.Create, FileAccess.ReadWrite);
-                // Save the contents of the FlowDocumentReader to the file stream that was just opened.
-                XamlWriter.Save(subjects[i].dates, xamlFile);
-
-                xamlFile.Close();
-            }
-
-            return subjNames;
+            return null;
         }
 
         public Boolean load(String data)
@@ -147,6 +139,7 @@ namespace Saveyour
 
         private void addSubjectButton_Click(object sender, RoutedEventArgs e)
         {
+
             TabItem newTab = new TabItem();
             newTab.Header = "Science";
             readString = new StringReader(tabXAML);
@@ -170,10 +163,17 @@ namespace Saveyour
             reader.Close();
         }
 
+        private void RichTextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+
         private void deleteTask(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("SJDBFGJSDGSD");
             Task item = (Task) (sender as Button).DataContext;
+
             int index = ((ListView)((TabItem)subjectsTab.SelectedItem).Content).Items.IndexOf(item);
             ((ObservableCollection<Task>)((ListView)((TabItem)subjectsTab.SelectedItem).Content).ItemsSource).Remove(item);
 
@@ -198,12 +198,16 @@ namespace Saveyour
             String description = setTaskWindow.getTaskDescription();
             String date = setTaskWindow.getTaskDate().ToShortDateString();
             String shortenedDate = date.Remove(date.Length - 5);
+
             TabItem setTab = subjectsTab.SelectedItem as TabItem;
             ((ObservableCollection<Task>)((ListView)setTab.Content).ItemsSource).Add(new Task { AssignmentName = description, AssignmentDate = date, AssignmentShortenedDate = shortenedDate });
             ((ListView)setTab.Content).Items.Refresh();
+
+            Console.WriteLine(date);
+            subjects[0].taskCollection.Add(new Task { AssignmentName = description, AssignmentDate = date, AssignmentShortenedDate = shortenedDate });
+            taskList.Items.Refresh();
+
         }
-
-
 
 
     }

@@ -7,6 +7,9 @@
     	<ResourceDictionary>
     		<ResourceDictionary.MergedDictionaries>
     			<ResourceDictionary Source="changeWeek.xaml"/>
+    			<ResourceDictionary Source="ArchiveTaskButton.xaml"/>
+                <ResourceDictionary Source="AddTaskButton.xaml"/>
+                <ResourceDictionary Source="DeleteTaskButton.xaml"/>
     		</ResourceDictionary.MergedDictionaries>
     	</ResourceDictionary>
          

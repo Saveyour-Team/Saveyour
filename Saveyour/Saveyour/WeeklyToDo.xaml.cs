@@ -132,12 +132,17 @@ namespace Saveyour
             int j = 0;
             foreach (TextBlock day in days)
             {
-                    numToday--;
-		   colorByWeights(j);
+                    //numToday--;
+		         colorByWeights(j);
                    // day.Text += " " + DateTime.Today.AddDays(numToday * -1).ToString("d");
-                   day.Text += " " + DateTime.Today.AddDays((j - numToday + 7)%7).ToString("d");
+
+               day.Text = "";
+               int count = (j - numToday + 7) % 7;
+               day.Text = curTopDay.AddDays(count - numToday).ToString("dddd");
+               day.Text += " " + curTopDay.AddDays(count - numToday).ToString("d");
                    j++;
             }
+          
             today.Text += " (TODAY)";
             //COLORS ARE SUBJECT TO CHANGE (someone change them if they have a good color scheme!)
             today.Foreground = new SolidColorBrush(Colors.Black); //Changes text color

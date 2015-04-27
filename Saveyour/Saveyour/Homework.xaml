@@ -5,9 +5,9 @@
 
         Title="Homework" Height="402.4" Width="331.6">
     <Grid x:Name="windowGrid" Margin="0,0,2.8,0.8">
-        <Button x:Name="addSubjectButton" Content="Add Subject" HorizontalAlignment="Left" Margin="73,17,0,0" VerticalAlignment="Top" Width="80" Click="addSubjectButton_Click"/>
+        <Button x:Name="addSubjectButton" Content="Add Subject" HorizontalAlignment="Left" Margin="32,17,0,0" VerticalAlignment="Top" Width="80" Click="addSubjectButton_Click"/>
         <TabControl x:Name="subjectsTab" HorizontalAlignment="Left" Height="312" Margin="10,56,0,0" VerticalAlignment="Top" Width="302">
-            <TabItem>
+            <TabItem Header="All">
                 <ListView x:Name="taskList" HorizontalAlignment="Left" Margin="0,0,0,-2" Width="292" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Height="Auto">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="{x:Type ListViewItem}">
@@ -38,7 +38,7 @@
                 </ListView>
             </TabItem>
         </TabControl>
-        <Button x:Name="addTaskButton" Click ="addTask" Content="Button" HorizontalAlignment="Left" Margin="238,17,0,0" VerticalAlignment="Top" Width="80"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="158,17,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="addTaskButton" Click ="addTask" Content="Add Task" HorizontalAlignment="Left" Margin="204,17,0,0" VerticalAlignment="Top" Width="80"/>
+        
     </Grid>
 </Window>

@@ -17,6 +17,7 @@ using System.Diagnostics;
 using System.Collections.ObjectModel;
 using System.Xml;
 
+
 namespace Saveyour
 {
     /// <summary>
@@ -139,9 +140,19 @@ namespace Saveyour
 
         private void addSubjectButton_Click(object sender, RoutedEventArgs e)
         {
+            
+            AddHomeworkSubject display = new AddHomeworkSubject();
+            display.ShowDialog();
+
+            String check = display.getSubject();
+
+            if (check.Equals("") || check.Equals("Empty Subject"))
+            {
+                return;
+            }
 
             TabItem newTab = new TabItem();
-            newTab.Header = "Science";
+            newTab.Header = display.getSubject(); //Need to make sure we cannot exit window until Submit or Cancel is pressed.
             readString = new StringReader(tabXAML);
             reader = XmlReader.Create(readString);
             ListView newList = (ListView)XamlReader.Load(reader);

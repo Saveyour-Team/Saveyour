@@ -83,6 +83,7 @@ namespace Saveyour
             hashTasks = new Dictionary<DateTime,List<Task>>();
 
             curTopDay = DateTime.Today;
+            Debug.WriteLine("DAY OF THE WEEK: " +curTopDay);
 
             nextWeek = DateTime.Today.AddDays(7);
             nextWeek = new DateTime(nextWeek.Year, nextWeek.Month, nextWeek.Day);
@@ -399,12 +400,14 @@ namespace Saveyour
 
             }
 		
-	    //Now that the tasks are loaded, color the days by the task weights.
-	    for(int i = 0; i < 7; i++){
-		colorByWeights(i);
-	    }
+	        //Now that the tasks are loaded, color the days by the task weights.
+	        for(int i = 0; i < 7; i++){
+		        colorByWeights(i);
+	        }
 
-            return false;
+            reOrderDays();
+
+            return true;
         }
 
         public Boolean Equals(Module other)

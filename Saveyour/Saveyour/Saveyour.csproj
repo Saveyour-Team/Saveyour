@@ -39,6 +39,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -59,8 +60,8 @@
     <Compile Include="AddTaskWindow.xaml.cs">
       <DependentUpon>AddTaskWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GoogleCalendar.xaml.cs">
-      <DependentUpon>GoogleCalendar.xaml</DependentUpon>
+    <Compile Include="GoogleCalendarWinForm.xaml.cs">
+      <DependentUpon>GoogleCalendarWinForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
@@ -87,9 +88,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="GoogleCalendar.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="GoogleCalendarWinForm.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Register.xaml">
       <Generator>MSBuild:Compile</Generator>

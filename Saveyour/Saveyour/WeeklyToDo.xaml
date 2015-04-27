@@ -92,7 +92,7 @@
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
-            <Button x:Name="AddTaskButton" Content="Add Task" HorizontalAlignment="Center" Margin="20.642,10,147,0" VerticalAlignment="Top" Width="86" Click="addTaskButton" Grid.Column="1"/>
+            <Button x:Name="AddTaskButton" Content="Add Task" HorizontalAlignment="Center" Margin="10,15,115,0" VerticalAlignment="Top" Width="86" Click="addTaskButton" Grid.Column="1"/>
 
         </Grid>
     </Border>

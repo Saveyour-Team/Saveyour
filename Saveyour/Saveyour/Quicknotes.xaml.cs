@@ -53,8 +53,6 @@ namespace Saveyour
         {
             return moduleID().Equals(other.moduleID());
         }
-
-
 	
 
         private void onKeyUp(object sender, KeyEventArgs e)
@@ -85,6 +83,12 @@ namespace Saveyour
         private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
+        }        
+
+        private void QuicknotesText_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (QuicknotesText.Text.Contains("Type notes here!"))
+                QuicknotesText.Text = "";
         }
     }
 }

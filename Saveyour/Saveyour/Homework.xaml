@@ -3,42 +3,53 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 
 
-        Title="Homework" Height="402.4" Width="331.6">
-    <Grid x:Name="windowGrid" Margin="0,0,2.8,0.8">
-        <Button x:Name="addSubjectButton" Content="Add Subject" HorizontalAlignment="Left" Margin="32,17,0,0" VerticalAlignment="Top" Width="80" Click="addSubjectButton_Click"/>
-        <TabControl x:Name="subjectsTab" HorizontalAlignment="Left" Height="312" Margin="10,56,0,0" VerticalAlignment="Top" Width="302">
-            <TabItem Header="All">
-                <ListView x:Name="taskList" HorizontalAlignment="Left" Margin="0,0,0,-2" Width="292" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Height="Auto">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListViewItem}">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                    <ListView.View>
-                        <GridView>
-                            <GridView.ColumnHeaderContainerStyle>
-                                <Style BasedOn="{StaticResource {x:Type GridViewColumnHeader}}" TargetType="{x:Type GridViewColumnHeader}">
-                                    <Setter Property="IsHitTestVisible" Value="False"/>
-                                </Style>
-                            </GridView.ColumnHeaderContainerStyle>
-                            <GridViewColumn x:Name="assignmentColumn" Header="Assignment" DisplayMemberBinding="{Binding AssignmentName}" Width="190"/>
-                            <GridViewColumn x:Name="dateColumn" Header="Date" DisplayMemberBinding="{Binding AssignmentShortenedDate}" Width="45"/>
-                            <GridViewColumn Header="Edit" Width="35">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Button x:Name="deleteButton" Content="X"  Click ="deleteTask"  HorizontalAlignment="Stretch"/>
-                                            <Button x:Name="archiveButton" Content="Y"  Click ="archiveTask"  HorizontalAlignment="Stretch"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </TabItem>
-        </TabControl>
-        <Button x:Name="addTaskButton" Click ="addTask" Content="Add Task" HorizontalAlignment="Left" Margin="204,17,0,0" VerticalAlignment="Top" Width="80"/>
-        
-    </Grid>
+        Title="Homework" Height="402.4" Width="331.6" WindowStyle="None" Background="Transparent" AllowsTransparency="True" ResizeMode="NoResize">
+    <Border BorderBrush="White" BorderThickness="2,2,2,2" CornerRadius="15,15,15,15" Background="#FF44B9FF">
+        <Grid x:Name="windowGrid" Margin="0,0,2.8,0.8">
+            <Button x:Name="addSubjectButton" Content="Add Subject" HorizontalAlignment="Left" Margin="49,27,0,0" VerticalAlignment="Top" Width="80" Click="addSubjectButton_Click"/>
+            <TabControl x:Name="subjectsTab" HorizontalAlignment="Left" Height="312" Margin="10,56,0,0" VerticalAlignment="Top" Width="302">
+                <TabItem Header="All">
+                    <ListView x:Name="taskList" HorizontalAlignment="Left" Margin="0,0,0,-2" Width="292" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Height="Auto">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridView.ColumnHeaderContainerStyle>
+                                    <Style BasedOn="{StaticResource {x:Type GridViewColumnHeader}}" TargetType="{x:Type GridViewColumnHeader}">
+                                        <Setter Property="IsHitTestVisible" Value="False"/>
+                                    </Style>
+                                </GridView.ColumnHeaderContainerStyle>
+                                <GridViewColumn x:Name="assignmentColumn" Header="Assignment" DisplayMemberBinding="{Binding AssignmentName}" Width="190"/>
+                                <GridViewColumn x:Name="dateColumn" Header="Date" DisplayMemberBinding="{Binding AssignmentShortenedDate}" Width="45"/>
+                                <GridViewColumn Header="Edit" Width="35">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button x:Name="deleteButton" Content="X"  Click ="deleteTask"  HorizontalAlignment="Stretch"/>
+                                                <Button x:Name="archiveButton" Content="Y"  Click ="archiveTask"  HorizontalAlignment="Stretch"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </TabItem>
+            </TabControl>
+            <Button x:Name="addTaskButton" Click ="addTask" Content="Add Task" HorizontalAlignment="Left" Margin="203,27,0,0" VerticalAlignment="Top" Width="80"/>
+
+            <Rectangle x:Name="titleBar" HorizontalAlignment="Left" Height="27" Stroke="#00000000" VerticalAlignment="Top" Width="316" MouseDown="titleBar_MouseDown" RadiusY="24.5" RadiusX="24.5" Margin="6,0,0,0" Opacity="0">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFF1FAFF" Offset="1"/>
+                        <GradientStop Color="#FFFEFFFF"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+
+        </Grid>
+    </Border>
 </Window>

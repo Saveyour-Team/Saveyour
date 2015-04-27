@@ -12,18 +12,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Forms;
+using System.Reflection;
+using SaveyourUpdate;
 
 namespace Saveyour
 {
     /// <summary>
     /// Interaction logic for Settings.xaml
     /// </summary>
-    public partial class Settings : Window, Module
+    public partial class Settings : Window, Module, SaveyourUpdatable
     {
         QuicknotesControl qnotes;
         Window weeklytd;
         Window gcalendar;
+        SaveyourUpdater updater;
         Window homework;
+
 	
 	private KeyboardHook keyHook = new KeyboardHook();
 	
@@ -33,7 +37,8 @@ namespace Saveyour
        		// Create a listener for hotkeys
        		keyHook.KeyPressed += new EventHandler<KeyPressedEventArgs>(key_pressed);
        		// Register Alt+F12 as a hotkey
-        	keyHook.RegisterHotKey(ModifierKeys.Shift,Keys.D0);
+        	keyHook.RegisterHotKey(ModifierKeys.Shift,Keys.D0);            
+            updater = new SaveyourUpdater(this);
 	}
 
 	private void key_pressed(object sender, KeyPressedEventArgs e){
@@ -165,6 +170,38 @@ namespace Saveyour
         public Boolean Equals(Module other)
         {
             return false;
+        }
+
+        public string ApplicationName
+        {
+            get { return "Saveyour"; }
+        }
+
+        public string ApplicationID
+        {
+            get { return "Saveyour"; }
+        }
+
+        public Assembly ApplicationAssembly
+        {
+            get { return Assembly.GetExecutingAssembly(); }
+        }
+
+        public Uri UpdateXmlLocation
+        {
+            get { return new Uri("https://github.com/Saveyour-Team/Release/raw/master/SaveyourXML.xml"); }
+            //This should be the XML file found on github. This must be the RAW version so that it will start downloading.
+            //This XML file is also in the release repo so it will look for the latest update possible.
+        }
+
+        private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            updater.doUpdate();
         }
 
         

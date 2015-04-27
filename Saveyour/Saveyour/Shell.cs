@@ -102,7 +102,7 @@ namespace Saveyour
             settings = new Settings();
 
             Debug.WriteLine("Booting other modules");
-            saveLoad.loadToLaunch();
+            saveLoad.load();
             settings.Show();
 
 
@@ -117,7 +117,7 @@ namespace Saveyour
             settings = new Settings();
 
             Debug.WriteLine("Booting other modules");
-            saveLoad.loadToLaunch();
+            saveLoad.load();
 
             //launch("Quicknotes");
             launch("WeeklyToDo");

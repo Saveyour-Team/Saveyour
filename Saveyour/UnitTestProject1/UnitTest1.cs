@@ -19,7 +19,7 @@ namespace UnitTestProject1
         public void testGetShell()
         {
             Boolean val = false;
-            Shell tempshell = Shell.getShell("John","Password");
+            Shell tempshell = Shell.getShell("TestUser","password");
 
             if (tempshell != null)
                 val = true;
@@ -31,7 +31,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void testShellLaunch()
         {
-            Shell tempshell = Shell.getShell("John", "Password");
+            Shell tempshell = Shell.getShell("TestUser", "password");
             Module actual = Shell.launch("Quicknotes");            
 
             Assert.AreNotEqual(Shell.launch("Quicknotes"), actual, "Not Equal");

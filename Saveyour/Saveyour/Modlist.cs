@@ -11,6 +11,7 @@ namespace Saveyour
     public class Modlist : IEnumerable<Module>
     {       
         List<Module> modules = new List<Module>();
+        List<String> names = new List<String>();
 
         public Boolean add(Module input)
         {
@@ -20,6 +21,7 @@ namespace Saveyour
                 return false;
             }
             modules.Add(input);
+            names.Add(input.moduleID());
             return true;
             
         }
@@ -32,6 +34,11 @@ namespace Saveyour
  
         public IEnumerator<Module> GetEnumerator(){
             return modules.GetEnumerator();
+        }
+
+        public bool hasName(String name)
+        {
+            return names.Contains(name);
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()

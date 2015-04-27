@@ -50,7 +50,7 @@ namespace Saveyour
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
             username = usernameField.Text;
-            String password = passwordField.Text;
+            String password = passwordField.Password;
             String command = "login";
 
             //Create a network connection and connect
@@ -78,22 +78,11 @@ namespace Saveyour
                 Shell.getShell(username, password); //Boots the shell (which sets up SaveLoader)
                 //Shell.getSaveLoader().setLogin(username, password);
                 this.Hide();
-                //loginStatusLabel.Content = username + " has logged in!";
-               // loggedInWindow loggedIn = (loggedInWindow) Shell.launch("loggedInWindow");
-
-                //loggedIn.load(username + " likes data!");
-
-
+                
                 if (userData != null)
                 {
                     //Shell.getSaveLoader().loadToLaunch(userData);
-                }
-                Quicknotes quicknotes = (Quicknotes)Shell.launch("Quicknotes");
-                //quicknotes.load("Type your notes here!");
-
-                GoogleCalendar gcalendar = (GoogleCalendar)Shell.launch("Google Calendar");
-
-                //Settings settings = (Settings)Shell.launch("Settings");
+                }               
 
                 this.Close();
             }
@@ -134,7 +123,7 @@ namespace Saveyour
                 return;
             }
             firstPasswordFocus = false;
-            passwordField.Text = "";
+            passwordField.Password = "";
 
         }
 

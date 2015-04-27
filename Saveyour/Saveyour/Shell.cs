@@ -15,7 +15,7 @@ namespace Saveyour
         private static Modlist modlist;
         private static SaveLoader saveLoad;
         private static Shell theShell;
-        private static Modules settings;
+        private static Settings settings;
 
         static void OnProcessExit(object sender, EventArgs e)
         {
@@ -44,27 +44,22 @@ namespace Saveyour
         public static Module launch(String modID)
         {
             //Run 'modID' + '.exe' in the SaveYour/Modules folder to be implemented later.
-            Window newModule;
-            if (modID.Equals("loggedInWindow"))
+            Module newModule;
+            if (modID.Equals("QuicknotesControl") && !modlist.hasName("QuicknotesControl"))
             {
-                newModule = new loggedInWindow();
-            }
-            else if (modID.Equals("Quicknotes"))
-            {
-                newModule = new Quicknotes();
+                newModule = new QuicknotesControl();
                 
             }
-            else if (modID.Equals("WeeklyToDo"))
+            else if (modID.Equals("WeeklyToDo") && !modlist.hasName("WeeklyToDo"))
             {
                 newModule = new WeeklyToDo();
             }
-            else if (modID.Equals("Google Calendar"))
+            else if (modID.Equals("Google Calendar") && !modlist.hasName("Google Calendar"))
             {
                 newModule = new GoogleCalendar();
             }
             else 
             {
-                newModule = new Quicknotes();
                 Debug.WriteLine("Shell attempted to launch an invalid moduleID: " + modID);
                 return null;
             }
@@ -73,16 +68,16 @@ namespace Saveyour
 
             if ((newModule != null) && modlist.add((Module)newModule))
             {
-                if (modID.Equals("Quicknotes")){
+                if (modID.Equals("QuicknotesControl")){
                     settings.addQNotes(newModule);
                 }
                 else if (modID.Equals("WeeklyToDo"))
                 {
-                    settings.addWTD(newModule);
+                    settings.addWTD((Window) newModule);
                 }
                 else if (modID.Equals("Google Calendar"))
                 {
-                    settings.addGC(newModule);
+                    settings.addGC((Window) newModule);
                 }
                 newModule.Show();
             }
@@ -96,7 +91,7 @@ namespace Saveyour
             modlist = new Modlist();
  
             saveLoad = new SaveLoader();
-            settings = new Modules();
+            settings = new Settings();
 
             Debug.WriteLine("Booting other modules");
             saveLoad.loadToLaunch();
@@ -111,11 +106,19 @@ namespace Saveyour
 
             saveLoad = new SaveLoader();
             saveLoad.setLogin(username, password);
-            settings = new Modules();
+            settings = new Settings();
 
             Debug.WriteLine("Booting other modules");
             saveLoad.loadToLaunch();
+
+            //launch("Quicknotes");
             launch("WeeklyToDo");
+            launch("Google Calendar");
+            launch("QuicknotesControl");
+
+ 
+             
+            
             settings.Show();
 
         }

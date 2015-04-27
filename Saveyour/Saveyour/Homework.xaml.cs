@@ -15,6 +15,7 @@ using System.IO;
 using System.Windows.Markup;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
+using System.Xml;
 
 namespace Saveyour
 {
@@ -119,9 +120,15 @@ namespace Saveyour
 
                 windowGrid.Width = hWindow.Width;
                 double marginLeft = addSubjectButton.Margin.Left;
-                addSubjectButton.Margin = new Thickness(marginLeft += 300, 10, 0, 0);
+                addSubjectButton.Margin = new Thickness(marginLeft += 325, 10, 0, 0);
 
-                homeworkPanel.Children.Add(createSubject());
+                string gridXaml = XamlWriter.Save(panelGrid);
+
+                StringReader stringReader = new StringReader(gridXaml);
+                XmlReader xmlReader = XmlReader.Create(stringReader);
+                Grid newGrid = (Grid)XamlReader.Load(xmlReader);
+
+                homeworkPanel.Children.Add(newGrid);
                 numSubjects++;
                 totalSubjects++;
             }
@@ -170,24 +177,6 @@ namespace Saveyour
             newSubjectBox.HorizontalContentAlignment = subjectBox.HorizontalContentAlignment;
             newSubjectBox.Margin = new Thickness(subjectBox.Margin.Left, subjectBox.Margin.Top, subjectBox.Margin.Right, subjectBox.Margin.Bottom);
             
-            /*
-            if (leftBox.Document == null)
-            {
-                Debug.WriteLine("NULL");
-            }
-            
-            leftBox.HorizontalAlignment = leftTextBox.HorizontalAlignment;
-            leftBox.VerticalAlignment = leftTextBox.VerticalAlignment;
-            leftBox.Height = leftTextBox.Height;
-            leftBox.Width = leftTextBox.Width;
-            leftBox.Margin = new Thickness(leftTextBox.Margin.Left,leftTextBox.Margin.Top,leftTextBox.Margin.Bottom,leftTextBox.Margin.Right);                                                
-
-            rightBox.HorizontalAlignment = rightTextBox.HorizontalAlignment;
-            rightBox.VerticalAlignment = rightTextBox.VerticalAlignment;
-            rightBox.Height = rightTextBox.Height;
-            rightBox.Width = rightTextBox.Width;
-            rightBox.Margin = new Thickness(rightTextBox.Margin.Left,rightTextBox.Margin.Top,rightTextBox.Margin.Bottom,rightTextBox.Margin.Right);                         
-            */
             newGrid.Children.Add(newSubjectBox);
             newGrid.Children.Add(newList);
 

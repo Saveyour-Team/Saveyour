@@ -82,7 +82,7 @@
 								</TransformGroup>
 							</Path.RenderTransform>
 						</Path>
-						<Path x:Name="path1" Data="M1.383401,1.5080344 L7.917,0 0,8.208 z" HorizontalAlignment="Center" Height="9.885" Margin="-2.302,5.037,8.417,5.078" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" VerticalAlignment="Center" Width="9.885" RenderTransformOrigin="0.5,0.5" >
+						<Path x:Name="path1" Data="M1.383401,1.5080344 L7.917,0 0,8.208 z" HorizontalAlignment="Center" Height="10.445" Margin="-2.877,4.715,8.55,4.84" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" VerticalAlignment="Center" Width="10.327" RenderTransformOrigin="0.5,0.5" >
 							<Path.Fill>
 								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
 									<GradientStop Color="#FF710B10" Offset="0"/>
@@ -98,7 +98,7 @@
 								</TransformGroup>
 							</Path.RenderTransform>
 						</Path>
-						<Path x:Name="path" Data="M1.383401,1.5080344 L7.917,0 0,8.208 z" HorizontalAlignment="Center" Height="9.885" Margin="8.49,5.037,-2.375,5.078" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" VerticalAlignment="Center" Width="9.885" RenderTransformOrigin="0.5,0.5" >
+						<Path x:Name="path" Data="M1.383401,1.5080344 L7.917,0 0,8.208 z" HorizontalAlignment="Center" Height="10.445" Margin="8.606,4.757,-3.051,4.798" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" VerticalAlignment="Center" Width="10.445" RenderTransformOrigin="0.5,0.5" >
 							<Path.Fill>
 								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
 									<GradientStop Color="#FFE4474E"/>

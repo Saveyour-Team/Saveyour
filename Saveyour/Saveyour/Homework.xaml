@@ -2,15 +2,14 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 
-        Title="Homework" Height="396" Width="374">
-    <Grid x:Name="windowGrid">
-        <Button x:Name="addSubjectButton" Content="Add Subject" HorizontalAlignment="Left" Margin="230,10,0,0" VerticalAlignment="Top" Width="80" Click="addSubjectButton_Click"/>
-        <StackPanel x:Name="homeworkPanel" HorizontalAlignment="Left" Height="306" Margin="20,50,0,0" VerticalAlignment="Top" Width="329" Orientation="Horizontal">
-            <Grid x:Name="panelGrid" Margin="0,0,0,-0.4" Width="326">
-                <TextBox x:Name="subjectBox" Text ="Change Subject Title Here!" VerticalContentAlignment="Center" HorizontalContentAlignment ="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Width="302" Height="35" Margin="10,0,14,0"/>
-                <ListView x:Name="taskList" HorizontalAlignment="Left" Height="235" Margin="10,61,0,0" VerticalAlignment="Top" Width="306" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        Title="Homework" Height="402.4" Width="331.6">
+    <Grid x:Name="windowGrid" Margin="0,0,2.8,0.8">
+        <Button x:Name="addSubjectButton" Content="Add Subject" HorizontalAlignment="Left" Margin="73,17,0,0" VerticalAlignment="Top" Width="80" Click="addSubjectButton_Click"/>
+        <TabControl x:Name="subjectsTab" HorizontalAlignment="Left" Height="312" Margin="10,56,0,0" VerticalAlignment="Top" Width="302">
+            <TabItem>
+                <ListView x:Name="taskList" HorizontalAlignment="Left" Margin="0,0,0,-2" Width="292" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Height="Auto">
                     <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
+                        <Style TargetType="{x:Type ListViewItem}">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                         </Style>
                     </ListView.ItemContainerStyle>
@@ -21,14 +20,14 @@
                                     <Setter Property="IsHitTestVisible" Value="False"/>
                                 </Style>
                             </GridView.ColumnHeaderContainerStyle>
-                            <GridViewColumn x:Name="assignmentColumn" Header="Assignment" DisplayMemberBinding="{Binding AssignmentName}" Width="202"/>
+                            <GridViewColumn x:Name="assignmentColumn" Header="Assignment" DisplayMemberBinding="{Binding AssignmentName}" Width="190"/>
                             <GridViewColumn x:Name="dateColumn" Header="Date" DisplayMemberBinding="{Binding AssignmentShortenedDate}" Width="45"/>
                             <GridViewColumn Header="Edit" Width="35">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <Button Content="X"  Click = "deleteTask" CommandParameter="{Binding}" HorizontalAlignment="Stretch"/>
-                                            <Button Content="Y"  Click = "deleteTask" CommandParameter="{Binding}" HorizontalAlignment="Stretch"/>
+                                            <Button x:Name="deleteButton" Content="X"  Click ="deleteTask"  HorizontalAlignment="Stretch"/>
+                                            <Button x:Name="archiveButton" Content="Y"  Click ="archiveTask"  HorizontalAlignment="Stretch"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -36,8 +35,9 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <Button Content="Button" Click ="addTask" Margin="237,37,14,250"/>
-            </Grid>
-        </StackPanel>
+            </TabItem>
+        </TabControl>
+        <Button x:Name="addTaskButton" Click ="addTask" Content="Button" HorizontalAlignment="Left" Margin="238,17,0,0" VerticalAlignment="Top" Width="80"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="158,17,0,0" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </Window>

@@ -35,8 +35,8 @@ namespace Saveyour
         ObservableCollection<Task> taskCollection;
         private class Subject
         {
-            public FlowDocument dates, assignments;
-            public TextBox subject;            
+            ObservableCollection<Task> taskCollection;
+            String name;
         }
         
         private const int MAX_SUBJECTS = 5;
@@ -71,45 +71,11 @@ namespace Saveyour
 
         public String save()
         {
-            String subjNames = "";
-
-            /****** SAVE FLOW DOCUMENT *******/
-
-            for (int i = 0; i < numSubjects; i++) 
-            {
-                subjNames += (subjects[i].subject.Text + ",");
-
-                // Open or create the output file.
-                FileStream xamlFile = new FileStream(@"savedFiles\" + subjects[i].subject.Text + "-assignments.xaml", FileMode.Create, FileAccess.ReadWrite);
-                // Save the contents of the FlowDocumentReader to the file stream that was just opened.
-                XamlWriter.Save(subjects[i].assignments, xamlFile);
-
-                // Also need to save dates
-                xamlFile = new FileStream(@"savedFiles\" + subjects[i].subject.Text + "-dates.xaml", FileMode.Create, FileAccess.ReadWrite);
-                // Save the contents of the FlowDocumentReader to the file stream that was just opened.
-                XamlWriter.Save(subjects[i].dates, xamlFile);
-
-                xamlFile.Close();
-            }
-
-            return subjNames;
+            return null;
         }
 
         public Boolean load(String data)
         {
-            //Need to de-tokenize based on String given for subject names. Delimiter is ','.
-
-            /****** LOAD FLOW DOCUMENT *******/
-
-            FileStream xamlFile = new FileStream(@"savedFiles\test.xaml", FileMode.Open, FileAccess.Read);
-            // and parse the file with the XamlReader.Load method.
-            FlowDocument content = XamlReader.Load(xamlFile) as FlowDocument;
-            // Finally, set the Document property to the FlowDocument object that was
-            // parsed from the input file.            
-            //rightBox.Document = content;
-
-            xamlFile.Close();          
-
             return true;
         }
 
@@ -219,15 +185,9 @@ namespace Saveyour
             newGrid.Children.Add(newSubjectBox);
             newGrid.Children.Add(newList);
 
-            /******* Adding logic for saving each subject into data structure *******/
-            /*
-            Subject newSubject = new Subject();
-            newSubject.subject = newSubjectBox;
-            newSubject.assignments = leftBox.Document;
-            newSubject.dates = rightBox.Document;
+            /******* Adding logic for saving each subject into data structure *******/            
 
-            subjects[numSubjects - 1] = newSubject;
-            */
+            //subjects[numSubjects - 1] = newSubject;            
             return newGrid;
         }
 

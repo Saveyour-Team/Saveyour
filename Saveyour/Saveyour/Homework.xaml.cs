@@ -116,7 +116,7 @@ namespace Saveyour
             if (numSubjects < MAX_SUBJECTS)
             {
                 hWindow.Width += 325;
-                homeworkPanel.Width += 310;
+                homeworkPanel.Width += 325;
 
                 windowGrid.Width = hWindow.Width;
                 double marginLeft = addSubjectButton.Margin.Left;
@@ -126,7 +126,7 @@ namespace Saveyour
 
                 StringReader stringReader = new StringReader(gridXaml);
                 XmlReader xmlReader = XmlReader.Create(stringReader);
-                Grid newGrid = (Grid)XamlReader.Load(xmlReader);
+                Grid newGrid = (Grid)XamlReader.Load(xmlReader);                
 
                 homeworkPanel.Children.Add(newGrid);
                 numSubjects++;

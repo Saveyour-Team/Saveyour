@@ -87,7 +87,8 @@ namespace Saveyour
 
         private void QuicknotesText_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            QuicknotesText.Text = "";
+            if (QuicknotesText.Text.Contains("Type notes here!"))
+                QuicknotesText.Text = "";
         }
     }
 }

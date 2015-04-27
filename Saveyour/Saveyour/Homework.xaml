@@ -8,7 +8,7 @@
         <Grid x:Name="windowGrid" Margin="0,0,2.8,0.8">
             <Button x:Name="addSubjectButton" Content="Add Subject" HorizontalAlignment="Left" Margin="49,27,0,0" VerticalAlignment="Top" Width="80" Click="addSubjectButton_Click"/>
             <TabControl x:Name="subjectsTab" HorizontalAlignment="Left" Height="312" Margin="10,56,0,0" VerticalAlignment="Top" Width="302">
-                <TabItem Header="All">
+                <TabItem x:Name="AllTab" Header="All">
                     <ListView x:Name="taskList" HorizontalAlignment="Left" Margin="0,0,0,-2" Width="292" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Height="Auto">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">

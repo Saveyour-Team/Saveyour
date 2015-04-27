@@ -212,8 +212,11 @@ namespace Saveyour
             String shortenedDate = date.Remove(date.Length - 5);
 
             TabItem setTab = subjectsTab.SelectedItem as TabItem;
-            ((ObservableCollection<Task>)((ListView)setTab.Content).ItemsSource).Add(new Task { AssignmentName = description, AssignmentDate = date, AssignmentShortenedDate = shortenedDate });
-            ((ListView)setTab.Content).Items.Refresh();
+            if (setTab != AllTab)
+            {
+                ((ObservableCollection<Task>)((ListView)setTab.Content).ItemsSource).Add(new Task { AssignmentName = description, AssignmentDate = date, AssignmentShortenedDate = shortenedDate });
+                ((ListView)setTab.Content).Items.Refresh();
+            }
 
             Console.WriteLine(date);
             subjects[0].taskCollection.Add(new Task { AssignmentName = description, AssignmentDate = date, AssignmentShortenedDate = shortenedDate });

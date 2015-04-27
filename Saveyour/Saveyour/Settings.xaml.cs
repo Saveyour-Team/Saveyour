@@ -40,7 +40,7 @@ namespace Saveyour
        		keyHook.KeyPressed += new EventHandler<KeyPressedEventArgs>(key_pressed);
        		// Register Alt+F12 as a hotkey
 
-        	keyHook.RegisterHotKey(ModifierKeys.Alt,Keys.D0);
+        	keyHook.RegisterHotKey(ModifierKeys.Shift,Keys.D0);
             updater = new SaveyourUpdater(this);
 
 	}

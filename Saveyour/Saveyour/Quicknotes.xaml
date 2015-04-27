@@ -4,8 +4,10 @@
         Title="Quicknotes" Height="300" Width="300" Closing="onClosing" LostFocus="lostFocus">
     <Grid>
         <TextBox x:Name="QuicknotesText" Margin="0,42,0,0" TextWrapping="Wrap" Text="Type notes here!&#xD;&#xA;" AcceptsReturn="True" AcceptsTab="True" KeyUp="onKeyUp"/>
-        <Button x:Name="RemoveQN" Content="X" HorizontalAlignment="Right" Margin="0,5,5,0" Height="32" Width="33" Click="RemoveQN_Click" VerticalAlignment="Top"/>
-        <Button x:Name="AddQN" Content="+" HorizontalAlignment="Right" Margin="0,5,42,0" VerticalAlignment="Top" Height="32" Width="32" Click="AddQN_Click"/>
+
+        <Button x:Name="RemoveQN" Content="Button" HorizontalAlignment="Left" Margin="266,10,0,0" VerticalAlignment="Top" Width="16" Height="20" Style="{DynamicResource DeleteStyle}" Click="RemoveQN_Click" />
+        <Button x:Name="AddQN" Content="Button" HorizontalAlignment="Left" Margin="245,10,0,0" VerticalAlignment="Top" Width="16" Height="20" Style="{DynamicResource AddStyle}" Click="AddQN_Click" />
+
 
     </Grid>
 </Window>

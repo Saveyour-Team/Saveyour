@@ -30,6 +30,7 @@ namespace Saveyour
             this.Owner = parent;
             InitializeComponent();
             TaskCalendar.SelectedDate = DateTime.Today;
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
@@ -64,6 +65,11 @@ namespace Saveyour
         public DateTime getTaskDate()
         {
             return taskDate;
+        }
+
+        private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }

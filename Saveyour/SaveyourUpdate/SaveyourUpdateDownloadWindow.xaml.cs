@@ -166,5 +166,10 @@ namespace SaveyourUpdate
                 this.DialogResult = null;
             }
         }
+
+        private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
     }
 }

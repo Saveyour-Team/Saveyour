@@ -81,5 +81,10 @@ namespace Saveyour
         {
 		    qnControl.removeQuickNote(this);
         }
+
+        private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
     }
 }

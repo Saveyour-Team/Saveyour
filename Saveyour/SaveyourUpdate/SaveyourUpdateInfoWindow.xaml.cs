@@ -44,5 +44,15 @@ namespace SaveyourUpdate
             txtDescription.Document = ObjFdoc;  
 
         }
+
+        private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

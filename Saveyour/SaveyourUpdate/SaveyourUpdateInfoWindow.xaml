@@ -4,12 +4,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="SaveyourUpdateInfoWindow" Height="300" Width="300" WindowStyle="None" Background="Transparent" AllowsTransparency="True" ResizeMode="NoResize">
 
-    <Border BorderBrush="Black" BorderThickness="2,2,2,2" CornerRadius="30,30,30,30" Background="#FF0FA5FF">
+    <Border BorderBrush="White" BorderThickness="2,2,2,2" CornerRadius="30,30,30,30" Background="#FF44B9FF">
 
         <Grid>
-            <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" RenderTransformOrigin="-0.03,-0.07" Source="Images/update.GIF" Margin="10,10,0,0"/>
-            <Label x:Name="lblVersions" Content="" HorizontalAlignment="Left" Margin="118,10,0,0" VerticalAlignment="Top" Height="79" Width="168"/>
-            <Label x:Name="lblDescription" Content="Description:" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top"/>
+            <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" RenderTransformOrigin="-0.03,-0.07" Source="Images/update.GIF" Margin="-132,10,0,0"/>
+            <Label x:Name="lblVersions" Foreground="White" Content="" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,26,0,0" VerticalAlignment="Top" Height="79" Width="222" FontSize="18"/>
+            <Label x:Name="lblDescription" Foreground="White" Content="Description:" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top"/>
             <RichTextBox x:Name="txtDescription" HorizontalAlignment="Left" Height="118" Margin="10,136,0,0" VerticalAlignment="Top" Width="263" AcceptsReturn="False" AutoWordSelection="False" IsReadOnly="True" IsUndoEnabled="False">
                 <FlowDocument>
                     <Paragraph>

@@ -8,7 +8,7 @@
         LostFocus="onLostFocus"
         WindowStyle="None" Background="Transparent" AllowsTransparency="True" ResizeMode="NoResize">
 
-    <Border BorderBrush="Black" BorderThickness="2,2,2,2" CornerRadius="30,30,30,30" Background="#FF0FA5FF">
+    <Border BorderBrush="White" BorderThickness="2,2,2,2" CornerRadius="15,15,15,15" Background="White">
 
         <Grid>
             <Grid x:Name="WeekGrid" Margin="0" IsEnabled="True">
@@ -73,7 +73,7 @@
                 <Border x:Name="SundayTaskBorder" BorderBrush="Black" BorderThickness="1" Height="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={tools:RatioConverter}, ConverterParameter='0.06' }" Margin="0" VerticalAlignment="Top" Grid.Row="14">
                     <StackPanel x:Name="SundayTasks" Margin="10,0,0,0" />
                 </Border>
-                <Border x:Name="ButtonBorder" BorderBrush="Black" BorderThickness="1" Height="45" VerticalAlignment="Top" Grid.Row="0" CornerRadius="30,30,0,0"/>
+                <Border x:Name="ButtonBorder" BorderBrush="Black" BorderThickness="1" Height="45" VerticalAlignment="Top" Grid.Row="0" CornerRadius="15,15,0,0"/>
 
             </Grid>
             <Button x:Name="backWeek" Content="backWeek" HorizontalAlignment="Left" VerticalAlignment="Top" Width="42" Style="{DynamicResource backWeek}" Height="42" Margin="10,1.5,0,0" Click="backWeek_Click"/>

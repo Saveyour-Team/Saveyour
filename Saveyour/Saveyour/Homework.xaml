@@ -4,7 +4,7 @@
 
 
         Title="Homework" Height="402.4" Width="331.6" WindowStyle="None" Background="Transparent" AllowsTransparency="True" ResizeMode="NoResize">
-    <Border BorderBrush="Black" BorderThickness="2,2,2,2" CornerRadius="30,30,30,30" Background="#FF0FA5FF">
+    <Border BorderBrush="White" BorderThickness="2,2,2,2" CornerRadius="15,15,15,15" Background="#FF44B9FF">
         <Grid x:Name="windowGrid" Margin="0,0,2.8,0.8">
             <Button x:Name="addSubjectButton" Content="Add Subject" HorizontalAlignment="Left" Margin="49,27,0,0" VerticalAlignment="Top" Width="80" Click="addSubjectButton_Click"/>
             <TabControl x:Name="subjectsTab" HorizontalAlignment="Left" Height="312" Margin="10,56,0,0" VerticalAlignment="Top" Width="302">

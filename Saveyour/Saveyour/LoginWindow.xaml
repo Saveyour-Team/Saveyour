@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="LoginWindow" Height="405.843" Width="442.347" WindowStyle="None" Background="Transparent" AllowsTransparency="True" ResizeMode="NoResize">
 
-    <Border BorderBrush="Black" BorderThickness="2,2,2,2" CornerRadius="30,30,30,30" Background="#FF0FA5FF">
+    <Border BorderBrush="White" BorderThickness="2,2,2,2" CornerRadius="30,30,30,30" Background="#FF44B9FF">
         <Grid Margin="0,0,-8,1">
-            <Label Content="Saveyour" HorizontalAlignment="Left" Margin="105,10,0,0" VerticalAlignment="Top" FontSize="60"/>
+            <Label Content="Saveyour" HorizontalAlignment="Left" Margin="105,10,0,0" VerticalAlignment="Top" FontSize="60" Foreground="White"/>
             <TextBlock HorizontalAlignment="Left" Margin="117,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224"/>
             <TextBox x:Name="usernameField" HorizontalAlignment="Left" Height="23" Margin="131,174,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="195" TextChanged="TextBox_TextChanged" GotFocus="usernameGotFocus"/>
             <PasswordBox x:Name="passwordField" HorizontalAlignment="Left" Height="23" Margin="131,208,0,0" Password="hunter2" VerticalAlignment="Top" Width="195" GotFocus="passwordGotFocus" KeyUp="onPasswordKeyUp"/>

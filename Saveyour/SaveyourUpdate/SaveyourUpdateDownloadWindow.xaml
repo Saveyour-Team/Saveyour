@@ -4,11 +4,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="SaveyourUpdateDownloadWindow" Height="167.045" Width="412.5" ShowInTaskbar="False" ResizeMode="NoResize" Closed="Window_Closed" WindowStyle="None" Background="Transparent" AllowsTransparency="True">
 
-    <Border BorderBrush="Black" BorderThickness="2,2,2,2" CornerRadius="30,30,30,30" Background="#FF0FA5FF">
+    <Border BorderBrush="White" BorderThickness="2,2,2,2" CornerRadius="30,30,30,30" Background="#FF44B9FF">
 
         <Grid>
             <Label x:Name="lblProgress" Content="" HorizontalAlignment="Left" Margin="167,98,0,0" VerticalAlignment="Top" Width="68"/>
-            <TextBlock x:Name="lblDownloading" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Downloading Update..." VerticalAlignment="Top" Height="57" Width="386" TextAlignment="Center" FontSize="36"/>
+            <TextBlock x:Name="lblDownloading" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Downloading Update..." VerticalAlignment="Top" Height="57" Width="386" TextAlignment="Center" FontSize="36" Foreground="White"/>
 
             <Rectangle x:Name="titleBar" HorizontalAlignment="Left" Height="163" Stroke="#00000000" VerticalAlignment="Top" Width="408" MouseDown="titleBar_MouseDown" RadiusY="24.5" RadiusX="24.5" Opacity="0">
                 <Rectangle.Fill>

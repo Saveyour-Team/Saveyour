@@ -4,19 +4,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="SaveyourUpdateAcceptWindow" Height="187.5" Width="368.182" WindowStyle="None" Background="Transparent" AllowsTransparency="True" ResizeMode="NoResize">
 
-    <Border BorderBrush="Black" BorderThickness="2,2,2,2" CornerRadius="30,30,30,30" Background="#FF0FA5FF">
+    <Border BorderBrush="White" BorderThickness="2,2,2,2" CornerRadius="30,30,30,30" Background="#FF44B9FF">
 
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="127*"/>
                 <ColumnDefinition Width="233*"/>
             </Grid.ColumnDefinitions>
-            <Image x:Name="pictureBox" HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" Source="Images/update.GIF"/>
-            <TextBlock HorizontalAlignment="Left" Margin="115,10,0,0" TextWrapping="Wrap" Text="An Update is available! Would you like to download it now?" VerticalAlignment="Top" Height="71" Width="235" FontSize="18" TextAlignment="Center" Grid.ColumnSpan="2"/>
-            <Button x:Name="btnYes" Content="Yes" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="115,127,0,0" Grid.ColumnSpan="2" Click="btnYes_Click"/>
-            <Button x:Name="btnNo" Content="No" HorizontalAlignment="Left" Margin="68,127,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Click="btnNo_Click"/>
-            <Button x:Name="btnDetails" Content="Details" HorizontalAlignment="Left" Margin="148,127,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Click="btnDetails_Click"/>
-            <Label x:Name="lblNewVersion" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" Width="196"/>
+            <Image x:Name="pictureBox" HorizontalAlignment="Left" Height="100" Margin="-161,18,0,0" VerticalAlignment="Top" Width="100" Source="Images/update.GIF"/>
+            <TextBlock HorizontalAlignment="Center" Margin="0,21,0,0" TextWrapping="Wrap" Text="An Update is available! Would you like to download it now?" VerticalAlignment="Top" Height="71" Width="235" FontSize="18" TextAlignment="Center" Grid.ColumnSpan="2" Foreground="White"/>
+            <Button x:Name="btnYes" Content="Yes" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="43,127,0,0" Click="btnYes_Click"/>
+            <Button x:Name="btnNo" Content="No" HorizontalAlignment="Left" Margin="10,127,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Click="btnNo_Click"/>
+            <Button x:Name="btnDetails" Content="Details" HorizontalAlignment="Left" Margin="105,127,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Click="btnDetails_Click"/>
+            <Label x:Name="lblNewVersion" Content="" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,92,0,0" VerticalAlignment="Top" Width="196" Foreground="White" Grid.ColumnSpan="2"/>
 
             <Rectangle x:Name="titleBar" HorizontalAlignment="Left" Height="118" Stroke="#00000000" VerticalAlignment="Top" Width="358" MouseDown="titleBar_MouseDown" RadiusY="24.5" RadiusX="24.5" Margin="3,0,0,0" Grid.ColumnSpan="2" Opacity="0">
                 <Rectangle.Fill>

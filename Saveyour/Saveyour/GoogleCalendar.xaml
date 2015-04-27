@@ -1,9 +1,39 @@
 ﻿<Window x:Name="Google_Calendar__Web_View_" x:Class="Saveyour.GoogleCalendar"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:MyApplication.Behaviors"
         Title="Google Calendar (Web View)" Height="527.705" Width="807.188">
+    
     <Grid>
-        <WebBrowser x:Name="calendar" Margin="0"/>
-
+        
+        <WebBrowser x:Name="calendar"/>
     </Grid>
+    
+    <TabControl xmlns:x="clr-namespace:MyApplication.Behaviors" >
+        <TabItem Header="Header">...</TabItem>
+        
+        
+    </TabControl>
+    
 </Window>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<TabControl xmlns:b="clr-namespace:MyApplication.Behaviors">
+    <TabItem Header="foo">...</TabItem>
+    <TabItem Header="Google map">
+        <WebBrowser b:BindableSource="{Binding Path=MapUrl}"
+                b:DisableJavascriptErrors="True" />
+    </TabItem>
+</TabControl>

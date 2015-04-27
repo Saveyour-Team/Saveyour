@@ -28,12 +28,13 @@ namespace Saveyour
             InitializeComponent();
             gcalendar = (WebBrowser)FindName("calendar");
             gcalendar.Navigate("https://www.google.com/calendar/");
-
-
+            
             _DeleteUserLoginCookie();
             HideScriptErrors(gcalendar, true);
             
         }
+
+       
 
         public String moduleID()
         {
@@ -60,8 +61,12 @@ namespace Saveyour
             return other == this;
         }
 
+        
+        /*Code below is the original, i.e. changed
         public void HideScriptErrors(WebBrowser wb, bool Hide)
         {
+           
+            
             FieldInfo fiComWebBrowser = typeof(WebBrowser)
                 .GetField("calendar",
                           BindingFlags.Instance | BindingFlags.NonPublic);
@@ -71,8 +76,19 @@ namespace Saveyour
             objComWebBrowser.GetType().InvokeMember(
                 "Silent", BindingFlags.SetProperty, null, objComWebBrowser,
                 new object[] { Hide });
-        }
+       
+            
+        }*/
 
+        public void HideScriptErrors(WebBrowser wb, bool Hide) {
+            FieldInfo fiComBrowser = typeof(WebBrowser).GetField("calendar", BindingFlags.Instance | BindingFlags.NonPublic);
+            if (fiComBrowser == null) return;
+            object objComWebBrowser = fiComBrowser.GetValue(wb);
+            if (objComWebBrowser == null) return;
+            objComWebBrowser.GetType().InvokeMember("Silent", BindingFlags.SetProperty | BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, objComWebBrowser, new object[] { Hide });
+        
+        }
+        
 
         static readonly Uri url1 = new Uri("https://www.google.com/calendar/");
         static readonly Uri url2 = new Uri("https://google.com/");

@@ -27,6 +27,8 @@ namespace Saveyour
         public LoginWindow()
         {
             InitializeComponent();
+            GoogleCalendar test = new GoogleCalendar();
+            test.Show();
         }
 
         public Boolean loggedIn()

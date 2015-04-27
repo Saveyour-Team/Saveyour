@@ -7,7 +7,7 @@
         <Button x:Name="addSubjectButton" Content="Add Subject" HorizontalAlignment="Left" Margin="230,10,0,0" VerticalAlignment="Top" Width="80" Click="addSubjectButton_Click"/>
         <StackPanel x:Name="homeworkPanel" HorizontalAlignment="Left" Height="306" Margin="20,50,0,0" VerticalAlignment="Top" Width="329" Orientation="Horizontal">
             <Grid x:Name="panelGrid" Margin="0,0,0,-0.4" Width="326">
-                <TextBox x:Name="subjectBox" Text ="Change Subject Title Here!" VerticalContentAlignment="Center" HorizontalContentAlignment ="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Width="302" Height="35" Margin="10,0,14,0"/>
+                <TextBox x:Name="subjectBox" Text ="Change Subject Title Here!" VerticalContentAlignment="Center" HorizontalContentAlignment ="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Width="302" Height="35" Margin="10,0,14,0" MouseDoubleClick="subjectBox_DClick"/>
                 <ListView x:Name="taskList" HorizontalAlignment="Left" Height="235" Margin="10,61,0,0" VerticalAlignment="Top" Width="306" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">

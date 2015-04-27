@@ -32,11 +32,16 @@ namespace Saveyour
             public String AssignmentShortenedDate { get; set; }
         }
 
-        ObservableCollection<Task> taskCollection;
+        //ObservableCollection<Task> taskCollection;
         private class Subject
         {
-            ObservableCollection<Task> taskCollection;
+            public ObservableCollection<Task> taskCollection;
             String name;
+
+            public Subject()
+            {
+                taskCollection = new ObservableCollection<Task>();
+            }
         }
         
         private const int MAX_SUBJECTS = 5;
@@ -47,8 +52,9 @@ namespace Saveyour
         public Homework()
         {
             InitializeComponent();
-            taskCollection = new ObservableCollection<Task>();
-            taskList.ItemsSource = taskCollection;
+            //taskCollection = new ObservableCollection<Task>();
+            subjects[0] = new Subject();
+            taskList.ItemsSource = subjects[0].taskCollection; //This needs to be scalable to multiple xaml elements.
             //We need to load the information for the subjects here.
 
             //After loading the information, we increase numSubjects and take the data from load to construct each GroupBox for each Grid
@@ -108,7 +114,7 @@ namespace Saveyour
             }
             if (numSubjects < MAX_SUBJECTS)
             {
-                hWindow.Width += 300;
+                hWindow.Width += 325;
                 homeworkPanel.Width += 310;
 
                 windowGrid.Width = hWindow.Width;
@@ -195,7 +201,7 @@ namespace Saveyour
         {
             Task item = (Task) (sender as Button).DataContext;
             int index = taskList.Items.IndexOf(item);
-            taskCollection.Remove(item);
+            subjects[0].taskCollection.Remove(item);
 
             taskList.Items.Refresh();
            
@@ -215,7 +221,7 @@ namespace Saveyour
             String date = setTaskWindow.getTaskDate().ToShortDateString();
             String shortenedDate = date.Remove(date.Length - 5);
             Console.WriteLine(date);
-            taskCollection.Add(new Task { AssignmentName = description, AssignmentDate = date, AssignmentShortenedDate = shortenedDate });
+            subjects[0].taskCollection.Add(new Task { AssignmentName = description, AssignmentDate = date, AssignmentShortenedDate = shortenedDate });
             taskList.Items.Refresh();
         }
 
@@ -228,6 +234,11 @@ namespace Saveyour
         {
             ListViewItem item = sender as ListViewItem;
             Console.WriteLine(item);
+        }
+
+        private void subjectBox_DClick(object sender, System.EventArgs e)
+        {
+            subjectBox.Text = "";
         }
 
     }

@@ -50,7 +50,7 @@ namespace Saveyour
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
             username = usernameField.Text;
-            String password = passwordField.Text;
+            String password = passwordField.Password;
             String command = "login";
 
             //Create a network connection and connect
@@ -123,7 +123,7 @@ namespace Saveyour
                 return;
             }
             firstPasswordFocus = false;
-            passwordField.Text = "";
+            passwordField.Password = "";
 
         }
 

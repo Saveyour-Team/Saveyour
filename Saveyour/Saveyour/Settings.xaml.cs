@@ -26,6 +26,8 @@ namespace Saveyour
         Window weeklytd;
         Window gcalendar;
         SaveyourUpdater updater;
+        Window homework;
+
 	
 	private KeyboardHook keyHook = new KeyboardHook();
 	
@@ -35,12 +37,12 @@ namespace Saveyour
        		// Create a listener for hotkeys
        		keyHook.KeyPressed += new EventHandler<KeyPressedEventArgs>(key_pressed);
        		// Register Alt+F12 as a hotkey
-        	keyHook.RegisterHotKey(ModifierKeys.Alt,Keys.D0);
+        	keyHook.RegisterHotKey(ModifierKeys.Shift,Keys.D0);            
             updater = new SaveyourUpdater(this);
 	}
 
 	private void key_pressed(object sender, KeyPressedEventArgs e){
-		if (e.Key.Equals(Keys.D0) && e.Modifier.Equals(ModifierKeys.Alt)){
+		if (e.Key.Equals(Keys.D0) && e.Modifier.Equals(ModifierKeys.Shift)){
 			toggleAll();
 		}
 
@@ -80,6 +82,16 @@ namespace Saveyour
                 gcalendar.Show();
                 gcalendar.Activate();
                 //gcalendar.Topmost = true;
+            }
+
+            if (homework.IsVisible)
+            {
+                homework.Hide();
+            }
+            else if (homework.IsLoaded)
+            {
+                homework.Show();
+                homework.Activate();
             }
 
             if (this.IsVisible)
@@ -128,6 +140,11 @@ namespace Saveyour
         public void addGC(Window module)
         {
             gcalendar = module;
+        }
+
+        public void addHW(Window module)
+        {
+            homework = module;
         }
 
         public String moduleID()

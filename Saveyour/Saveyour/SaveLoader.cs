@@ -27,7 +27,7 @@ namespace Saveyour
             String currentTime = date.ToString(datePattern);
             output = output + "[Last Modified: " + currentTime + "]\r\r\n";
             foreach (Module m in modList)
-            {
+            {                
                 if (m.save().Contains("\r\r\n"))
                 {
                     Debug.WriteLine("Error! Module: " + m.moduleID() + " has \\r\\n in its save output! Skipping!\n");

@@ -83,6 +83,10 @@ namespace Saveyour
                 {
                     settings.addGC((Window) newModule);
                 }
+                else if (modID.Equals("Homework"))
+                {
+                    settings.addHW((Window)newModule);
+                }
                 newModule.Show();
             }
          

@@ -1,0 +1,24 @@
+﻿Merge branch 'homework' of https://github.com/Saveyour-Team/Saveyour into homework
+
+Conflicts:
+	Saveyour/Saveyour/Homework.xaml.cs
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch homework
+# Your branch and 'origin/homework' have diverged,
+# and have 2 and 1 different commit each, respectively.
+#   (use "git pull" to merge the remote branch into yours)
+#
+# All conflicts fixed but you are still merging.
+#
+# Changes to be committed:
+#	modified:   Saveyour/Saveyour/Homework.xaml.cs
+#
+

@@ -148,6 +148,7 @@ namespace Saveyour
             
             addButton = (Button) newList.FindName("deleteButton");
             if (addButton != null)
+
             {
                 Console.WriteLine("Is Not NULL WAHOO!!");
                 addButton.Click += new RoutedEventHandler(deleteTask);

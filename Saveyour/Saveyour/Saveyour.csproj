@@ -66,6 +66,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddHomeworkSubject.xaml.cs">
+      <DependentUpon>AddHomeworkSubject.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddHomeworkTask.xaml.cs">
       <DependentUpon>AddHomeworkTask.xaml</DependentUpon>
     </Compile>
@@ -99,6 +102,10 @@
     <Compile Include="WeeklyToDo.xaml.cs">
       <DependentUpon>WeeklyToDo.xaml</DependentUpon>
     </Compile>
+    <Page Include="AddHomeworkSubject.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddHomeworkTask.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

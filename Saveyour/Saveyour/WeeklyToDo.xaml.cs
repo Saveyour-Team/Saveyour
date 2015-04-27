@@ -125,6 +125,7 @@ namespace Saveyour
             borders[13] = SaturdayTaskBorder;
 
             int numToday = (int)DateTime.Today.DayOfWeek;
+
             today = days[numToday];
             todayBorder = borders[numToday * 2];
             reOrderDays();
@@ -132,16 +133,14 @@ namespace Saveyour
             int j = 0;
             foreach (TextBlock day in days)
             {
-                    //numToday--;
-		         colorByWeights(j);
-                   // day.Text += " " + DateTime.Today.AddDays(numToday * -1).ToString("d");
-
+		       colorByWeights(j);
                day.Text = "";
-               int count = (j - numToday + 7) % 7;
-               day.Text = curTopDay.AddDays(count - numToday).ToString("dddd");
-               day.Text += " " + curTopDay.AddDays(count - numToday).ToString("d");
-                   j++;
+               day.Text = curTopDay.AddDays((j - numToday + 7)%7).ToString("dddd");
+               day.Text += " " + curTopDay.AddDays((j - numToday + 7) % 7).ToString("d");
+               j++;
             }
+
+            reOrderDays();
           
             today.Text += " (TODAY)";
             //COLORS ARE SUBJECT TO CHANGE (someone change them if they have a good color scheme!)
@@ -506,8 +505,8 @@ namespace Saveyour
             foreach (TextBlock day in days)
             {
                 day.Text = "";
-                day.Text = curTopDay.AddDays(count - numToday).ToString("dddd");
-                day.Text += " " + curTopDay.AddDays(count - numToday).ToString("d");
+                day.Text = curTopDay.AddDays((count - numToday + 7) % 7).ToString("dddd");
+                day.Text += " " + curTopDay.AddDays((count - numToday + 7) % 7).ToString("d");
                 count++;
             }
 
@@ -539,8 +538,8 @@ namespace Saveyour
             foreach (TextBlock day in days)
             {
                 day.Text = "";
-                day.Text = curTopDay.AddDays(count - numToday).ToString("dddd");
-                day.Text += " " + curTopDay.AddDays(count - numToday).ToString("d");
+                day.Text = curTopDay.AddDays((count - numToday + 7) % 7).ToString("dddd");
+                day.Text += " " + curTopDay.AddDays((count - numToday + 7) % 7).ToString("d");
                 count++;
             }
 

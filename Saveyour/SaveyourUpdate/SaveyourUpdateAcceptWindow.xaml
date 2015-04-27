@@ -4,13 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="SaveyourUpdateAcceptWindow" Height="187.5" Width="368.182" WindowStyle="None" Background="Transparent" AllowsTransparency="True" ResizeMode="NoResize">
 
-    <Border BorderBrush="Black" BorderThickness="2,2,2,2" CornerRadius="30,30,30,30">
-        <Border.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF0FA5FF" Offset="1"/>
-                <GradientStop Color="White"/>
-            </LinearGradientBrush>
-        </Border.Background>
+    <Border BorderBrush="Black" BorderThickness="2,2,2,2" CornerRadius="30,30,30,30" Background="#FF0FA5FF">
 
         <Grid>
             <Grid.ColumnDefinitions>

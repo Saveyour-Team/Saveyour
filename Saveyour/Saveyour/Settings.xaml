@@ -3,13 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Modules" Height="386.567" Width="300" WindowStyle="None" Background="Transparent" AllowsTransparency="True" ResizeMode="NoResize">
 
-    <Border BorderBrush="Black" BorderThickness="2,2,2,2" CornerRadius="30,30,30,30">
-        <Border.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF0FA5FF" Offset="1"/>
-                <GradientStop Color="White"/>
-            </LinearGradientBrush>
-        </Border.Background>
+    <Border BorderBrush="Black" BorderThickness="2,2,2,2" CornerRadius="30,30,30,30" Background="#FF0FA5FF">
 
         <Grid>
             <Label Content="Quicknotes" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Transparent" FontSize="16" BorderBrush="#FF3B0D0D" BorderThickness="0,3" Width="295" HorizontalContentAlignment="Center" Margin="0,26,1,0"/>
@@ -20,7 +14,7 @@
             <Button Content="Show/Hide" HorizontalAlignment="Center" Margin="1,237,0,0" VerticalAlignment="Top" Width="75" Click="GC_Click"/>
             <Label x:Name="AppControls" Content="Application Controls" HorizontalAlignment="Left" Margin="0,268,0,0" VerticalAlignment="Top" FontSize="16" Width="295" HorizontalContentAlignment="Center" BorderThickness="0,3" BorderBrush="Black"/>
 
-            <Button x:Name="AppExit" Content="Exit Application" HorizontalAlignment="Center" Margin="0,319,0,0" VerticalAlignment="Top" Width="100" Click="exitBtn_clicked" Height="20"/>
+            <Button x:Name="AppExit" Content="Exit Application" HorizontalAlignment="Center" Margin="99,353,97,0" VerticalAlignment="Top" Width="100" Click="exitBtn_clicked" Height="20"/>
             <!-- <Button x:Name="setHotKey" Content="Set Show/Hide Hotkey" HorizontalAlignment="Left" Margin="30,294,0,0" VerticalAlignment="Top" Width="75" Click="setHotkey_clicked"/> -->
 
             <Rectangle x:Name="titleBar" HorizontalAlignment="Left" Height="37" Stroke="#00000000" VerticalAlignment="Top" Width="295" MouseDown="titleBar_MouseDown" RadiusY="24.5" RadiusX="24.5" Opacity="0">
@@ -31,6 +25,7 @@
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
+            <Button Name="btnUpdate" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="111,319,0,0" Click="btnUpdate_Click"/>
 
         </Grid>
     </Border>

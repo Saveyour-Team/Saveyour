@@ -4,13 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="SaveyourUpdateDownloadWindow" Height="167.045" Width="412.5" ShowInTaskbar="False" ResizeMode="NoResize" Closed="Window_Closed" WindowStyle="None" Background="Transparent" AllowsTransparency="True">
 
-    <Border BorderBrush="Black" BorderThickness="2,2,2,2" CornerRadius="30,30,30,30">
-        <Border.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF0FA5FF" Offset="1"/>
-                <GradientStop Color="White"/>
-            </LinearGradientBrush>
-        </Border.Background>
+    <Border BorderBrush="Black" BorderThickness="2,2,2,2" CornerRadius="30,30,30,30" Background="#FF0FA5FF">
 
         <Grid>
             <Label x:Name="lblProgress" Content="" HorizontalAlignment="Left" Margin="167,98,0,0" VerticalAlignment="Top" Width="68"/>
@@ -26,7 +20,7 @@
             </Rectangle>
 
             <ProgressBar x:Name="progressBar" HorizontalAlignment="Left" Height="26" Margin="10,72,0,0" VerticalAlignment="Top" Width="386"/>
-            
+
         </Grid>
     </Border>
 </Window>

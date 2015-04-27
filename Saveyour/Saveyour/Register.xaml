@@ -3,13 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Register" Height="438" Width="449" WindowStyle="None" Background="Transparent" AllowsTransparency="True" ResizeMode="NoResize">
 
-    <Border BorderBrush="Black" BorderThickness="2,2,2,2" CornerRadius="30,30,30,30">
-        <Border.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF0FA5FF" Offset="1"/>
-                <GradientStop Color="White"/>
-            </LinearGradientBrush>
-        </Border.Background>
+    <Border BorderBrush="Black" BorderThickness="2,2,2,2" CornerRadius="30,30,30,30" Background="#FF0FA5FF">
 
         <Grid Margin="0,0,-8,1">
             <Label Content="Saveyour" HorizontalAlignment="Left" Margin="105,10,0,0" VerticalAlignment="Top" FontSize="60"/>
@@ -20,7 +14,7 @@
             <Label x:Name="loginStatusLabel" Content="Register as a New User" HorizontalAlignment="Center" Margin="0,105,0,0" VerticalAlignment="Top" Width="250" HorizontalContentAlignment ="Center" FontWeight="Bold" FontSize="16" RenderTransformOrigin="0.495,-0.962"/>
             <TextBox x:Name="confirmPasswordField" HorizontalAlignment="Center" Height="23" Margin="0,255,0,0" TextWrapping="Wrap" Text="Confirm Password" VerticalAlignment="Top" Width="195" GotFocus="passwordConfirmGotFocus" KeyUp="onPasswordKeyUp" TabIndex="3"/>
 
-            <Rectangle x:Name="titleBar" HorizontalAlignment="Left" Height="37" Stroke="#00000000" VerticalAlignment="Top" Width="426" MouseDown="titleBar_MouseDown" RadiusY="24.5" RadiusX="24.5" Margin="6,0,0,0">
+            <Rectangle x:Name="titleBar" HorizontalAlignment="Left" Height="37" Stroke="#00000000" VerticalAlignment="Top" Width="426" MouseDown="titleBar_MouseDown" RadiusY="24.5" RadiusX="24.5" Margin="6,0,0,0" Opacity="0">
                 <Rectangle.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FFEAF7FF" Offset="1"/>

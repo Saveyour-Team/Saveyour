@@ -4,13 +4,7 @@
 
 
         Title="Homework" Height="402.4" Width="331.6" WindowStyle="None" Background="Transparent" AllowsTransparency="True" ResizeMode="NoResize">
-    <Border BorderBrush="Black" BorderThickness="2,2,2,2" CornerRadius="30,30,30,30">
-        <Border.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF0FA5FF" Offset="1"/>
-                <GradientStop Color="White"/>
-            </LinearGradientBrush>
-        </Border.Background>
+    <Border BorderBrush="Black" BorderThickness="2,2,2,2" CornerRadius="30,30,30,30" Background="#FF0FA5FF">
         <Grid x:Name="windowGrid" Margin="0,0,2.8,0.8">
             <Button x:Name="addSubjectButton" Content="Add Subject" HorizontalAlignment="Left" Margin="49,27,0,0" VerticalAlignment="Top" Width="80" Click="addSubjectButton_Click"/>
             <TabControl x:Name="subjectsTab" HorizontalAlignment="Left" Height="312" Margin="10,56,0,0" VerticalAlignment="Top" Width="302">
@@ -47,7 +41,7 @@
             </TabControl>
             <Button x:Name="addTaskButton" Click ="addTask" Content="Add Task" HorizontalAlignment="Left" Margin="203,27,0,0" VerticalAlignment="Top" Width="80"/>
 
-            <Rectangle x:Name="titleBar" HorizontalAlignment="Left" Height="27" Stroke="#00000000" VerticalAlignment="Top" Width="316" MouseDown="titleBar_MouseDown" RadiusY="24.5" RadiusX="24.5" Margin="6,0,0,0">
+            <Rectangle x:Name="titleBar" HorizontalAlignment="Left" Height="27" Stroke="#00000000" VerticalAlignment="Top" Width="316" MouseDown="titleBar_MouseDown" RadiusY="24.5" RadiusX="24.5" Margin="6,0,0,0" Opacity="0">
                 <Rectangle.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FFF1FAFF" Offset="1"/>

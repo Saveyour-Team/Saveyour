@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Threading;
 
 namespace Saveyour
 {
@@ -16,7 +17,7 @@ namespace Saveyour
         /**
         * Returns the savedata string for all the modules with format 
         * [Last Modified: DATETIME]\r\r\n{ModuleID}{DATA FOR THE MODULE}\r\r\n{Module2ID}{DATA FOR THE MODULE2}\r\r\n
-        * String save() return null if the save output is invalid (because it contains \r\n) 
+        * String save() return null if the save output is invalid (because it contains \r\r\n) 
         **/
         private String saveModules()
         {
@@ -27,10 +28,11 @@ namespace Saveyour
             String currentTime = date.ToString(datePattern);
             output = output + "[Last Modified: " + currentTime + "]\r\r\n";
             foreach (Module m in modList)
-            {                
-                if (m.save().Contains("\r\r\n"))
+            {
+                String save = m.save();
+                if (save == null || save.Contains("\r\r\n"))
                 {
-                    Debug.WriteLine("Error! Module: " + m.moduleID() + " has \\r\\n in its save output! Skipping!\n");
+                    Debug.WriteLine("Error! Module: " + m.moduleID() + " has invalid save output! Skipping!\n");
                 }
                 else if (m.moduleID().Equals("loggedInWindow"))
                 {
@@ -44,6 +46,10 @@ namespace Saveyour
             return output;
         }
 
+
+        /**
+         * This method causes SaveLoader to aggregate savedata from the modules using the saveModules() method, then saves it to disk and to server.
+         **/
         public void save()
         {
             String savedata = saveModules();
@@ -54,8 +60,19 @@ namespace Saveyour
                 return;
             }
             String message = username + "\r\r\r" + password + "\r\r\r" + "upload" + "\r\r\r" +savedata;
+            Thread saveThread = new Thread(new ParameterizedThreadStart(this.saveToNetwork));
+            saveThread.Start(message);
+
+            //Thread will autoterminate once the method saveToNetwork finishes!
+
+        }
+
+        /** This method is called by threads that save the userdata to the server!
+         ** It receives a String as input, it's classified as object in the header for threading reasons!*/
+        private void saveToNetwork(object message)
+        {
             NetworkControl network = new NetworkControl();
-            String response = network.Connect(network.getIP(), message);
+            String response = network.Connect(network.getIP(), (String)message);
             Debug.WriteLine(response);
         }
 

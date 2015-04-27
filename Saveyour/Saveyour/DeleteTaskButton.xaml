@@ -50,7 +50,7 @@
 						</Rectangle>
 						<Rectangle HorizontalAlignment="Left" Height="5.5" Margin="2,2.667,0,0" RadiusY="3.833" RadiusX="3.833" VerticalAlignment="Top" Width="12" StrokeThickness="0" Stroke="{x:Null}" Fill="#44FFFFFF"/>
 						<Rectangle Fill="#FCFFFFFF" HorizontalAlignment="Center" Height="14" RadiusY="0" RadiusX="0" Stroke="{x:Null}" StrokeThickness="0" VerticalAlignment="Center" Width="10.7"/>
-						<Path x:Name="path2" Data="M-2.6263534,-2.7699217 L7.917,0 0,8.208 z" HorizontalAlignment="Center" Height="6.059" Margin="5.723,2.796,4.242,11.145" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" VerticalAlignment="Center" Width="6.035" RenderTransformOrigin="0.5,0.5" >
+						<Path x:Name="path2" Data="M-2.6263534,-2.7699217 L7.917,0 0,8.208 z" HorizontalAlignment="Center" Height="6.295" Margin="5.505,2.47,4.106,11.235" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" VerticalAlignment="Center" Width="6.389" RenderTransformOrigin="0.5,0.5" >
 							<Path.Fill>
 								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
 									<GradientStop Color="#FFE5484E" Offset="0"/>
@@ -66,7 +66,7 @@
 								</TransformGroup>
 							</Path.RenderTransform>
 						</Path>
-						<Path x:Name="path3" Data="M-3.3828479,-3.5071891 L7.917,0 0,8.208 z" HorizontalAlignment="Center" Height="6.373" Margin="5.826,12.091,3.801,1.536" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" VerticalAlignment="Center" Width="6.373" RenderTransformOrigin="0.5,0.5" >
+						<Path x:Name="path3" Data="M-3.3828479,-3.5071891 L7.917,0 0,8.208 z" HorizontalAlignment="Center" Height="6.667" Margin="5.679,12.152,3.654,1.181" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" VerticalAlignment="Center" Width="6.667" RenderTransformOrigin="0.5,0.5" >
 							<Path.Fill>
 								<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
 									<GradientStop Color="#FF6D080E" Offset="1"/>

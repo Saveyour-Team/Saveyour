@@ -96,7 +96,7 @@ namespace Saveyour
 
         public String save()
         {
-            return null;
+            return "Not implemented yet";
         }
 
         public Boolean load(String data)

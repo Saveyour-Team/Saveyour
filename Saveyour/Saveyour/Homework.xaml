@@ -41,7 +41,7 @@
             </TabControl>
             <Button x:Name="addTaskButton" Click ="addTask" Content="Add Task" HorizontalAlignment="Left" Margin="203,27,0,0" VerticalAlignment="Top" Width="80"/>
 
-            <Rectangle x:Name="titleBar" HorizontalAlignment="Left" Height="27" Stroke="#00000000" VerticalAlignment="Top" Width="316" MouseDown="titleBar_MouseDown" RadiusY="24.5" RadiusX="24.5" Margin="6,0,0,0" Opacity="0">
+            <Rectangle x:Name="titleBar" HorizontalAlignment="Left" Height="27" Stroke="#00000000" VerticalAlignment="Top" Width="316" MouseDown="titleBar_MouseDown" RadiusY="24.5" RadiusX="24.5" Margin="10,-16,-0.8,0" Opacity="0">
                 <Rectangle.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FFF1FAFF" Offset="1"/>

@@ -130,18 +130,14 @@ namespace Saveyour
             todayBorder = borders[numToday * 2];
             reOrderDays();
 
-            int j = 0;
+            int j = 0; ;
             foreach (TextBlock day in days)
             {
-                    //numToday--;
-		         colorByWeights(j);
-                   // day.Text += " " + DateTime.Today.AddDays(numToday * -1).ToString("d");
-
-               day.Text = "";
-               int count = (j - numToday + 7) % 7;
-               day.Text = curTopDay.AddDays(count - numToday).ToString("dddd");
-               day.Text += " " + curTopDay.AddDays(count - numToday).ToString("d");
-                   j++;
+                colorByWeights(j);
+                day.Text = "";
+                day.Text = curTopDay.AddDays(j - numToday).ToString("dddd");
+                day.Text += " " + curTopDay.AddDays(j- numToday).ToString("d");
+                j++;
             }
           
             today.Text += " (TODAY)";

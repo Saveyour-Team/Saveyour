@@ -68,8 +68,6 @@ namespace Saveyour
         private Border[] borders;
 
 
-
-
         public WeeklyToDo()
         {
             InitializeComponent();

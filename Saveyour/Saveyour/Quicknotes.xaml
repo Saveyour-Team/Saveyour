@@ -6,7 +6,7 @@
     <Border BorderBrush="White" BorderThickness="2,2,2,2" CornerRadius="0,0,0,0" Background="#FF44B9FF">
 
         <Grid>
-            <TextBox x:Name="QuicknotesText" Margin="0,42,0,0" TextWrapping="Wrap" Text="Type notes here!&#xD;&#xA;" AcceptsReturn="True" AcceptsTab="True" KeyUp="onKeyUp"/>
+            <TextBox x:Name="QuicknotesText" Margin="0,42,0,0" TextWrapping="Wrap" Text="Type notes here!&#xD;&#xA;" AcceptsReturn="True" AcceptsTab="True" KeyUp="onKeyUp" MouseDoubleClick="QuicknotesText_MouseDoubleClick"/>
             <Rectangle x:Name="titleBar" HorizontalAlignment="Left" Height="42" Stroke="#00000000" VerticalAlignment="Top" Width="292" MouseDown="titleBar_MouseDown" Fill="Transparent"/>
 
             <Button x:Name="RemoveQN" Content="Button" HorizontalAlignment="Left" Margin="266,10,0,0" VerticalAlignment="Top" Width="16" Height="20" Style="{DynamicResource DeleteStyle}" Click="RemoveQN_Click" />

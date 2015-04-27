@@ -37,6 +37,13 @@
   <PropertyGroup>
     <StartupObject>Saveyour.App</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <Win32Resource>
+    </Win32Resource>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon_32.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -164,6 +171,12 @@
       <Project>{5074d155-0f46-4831-8f51-0ccd4ea82a08}</Project>
       <Name>SaveyourUpdate</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_32.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon_32.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

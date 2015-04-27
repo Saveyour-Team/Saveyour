@@ -17,6 +17,7 @@ namespace Saveyour
         private static Shell theShell;
         private static Settings settings;
         private static Dictionary<string, IPlugin> _Plugins;
+        private static WeeklyToDo weeklyToDo;
 
         public static bool loadPluginModules()
         {
@@ -82,7 +83,8 @@ namespace Saveyour
             }
             else if (modID.Equals("WeeklyToDo") && !modlist.hasName("WeeklyToDo"))
             {
-                newModule = new WeeklyToDo();
+               newModule = new WeeklyToDo();
+               weeklyToDo = (WeeklyToDo)newModule;
             }
             else if (modID.Equals("Google Calendar") && !modlist.hasName("Google Calendar"))
             {
@@ -155,7 +157,7 @@ namespace Saveyour
 
             Debug.WriteLine("Booting other modules");
             saveLoad.loadToLaunch();
-
+            weeklyToDo = null;
             //launch("Quicknotes");
             launch("WeeklyToDo");
             launch("Google Calendar");
@@ -180,6 +182,10 @@ namespace Saveyour
         public static Dictionary<string, IPlugin> getPlugins()
         {
             return _Plugins;
+        }
+
+        public static WeeklyToDo getWeeklyToDo() {
+            return weeklyToDo;
         }
 
         public void startApp(){            

@@ -173,7 +173,7 @@ namespace Saveyour
 
 
 	/*Calculates the sum of the weights of all tasks on a given day */
-	private int sumOfTaskWeights(DateTime day){
+	public int sumOfTaskWeights(DateTime day){
 		int sum = 0;
         try
         {
@@ -255,7 +255,7 @@ namespace Saveyour
             Shell.getSaveLoader().save();
         }
 
-
+       
         /*Create everything needed to display the tasks on the weekly calendar.*/
         private void createTaskLabel(Task task, StackPanel daysTasks){
             //A stackpanel to contain the task title and description textblocks

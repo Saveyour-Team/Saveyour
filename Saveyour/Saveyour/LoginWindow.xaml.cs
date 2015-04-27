@@ -42,6 +42,7 @@ namespace Saveyour
         {
             return isLoggedIn;
         }
+
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
@@ -49,6 +50,8 @@ namespace Saveyour
 
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
+            loginStatusLabel.Content = "Logging into Saveyour..";
+
             username = usernameField.Text;
             String password = passwordField.Password;
             String command = "login";
@@ -82,7 +85,8 @@ namespace Saveyour
                 if (userData != null)
                 {
                     //Shell.getSaveLoader().loadToLaunch(userData);
-                }               
+                }
+                                  
 
                 this.Close();
             }

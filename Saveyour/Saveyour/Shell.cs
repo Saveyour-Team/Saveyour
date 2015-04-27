@@ -58,6 +58,10 @@ namespace Saveyour
             {
                 newModule = new GoogleCalendar();
             }
+            else if (modID.Equals("Homework"))
+            {
+                newModule = new Homework();
+            }
             else 
             {
                 Debug.WriteLine("Shell attempted to launch an invalid moduleID: " + modID);
@@ -114,9 +118,10 @@ namespace Saveyour
             //launch("Quicknotes");
             launch("WeeklyToDo");
             launch("Google Calendar");
+
+            launch("Homework");
             launch("QuicknotesControl");
 
- 
              
             
             settings.Show();

@@ -66,11 +66,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddHomeworkTask.xaml.cs">
+      <DependentUpon>AddHomeworkTask.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddTaskWindow.xaml.cs">
       <DependentUpon>AddTaskWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="GoogleCalendar.xaml.cs">
       <DependentUpon>GoogleCalendar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Homework.xaml.cs">
+      <DependentUpon>Homework.xaml</DependentUpon>
     </Compile>
     <Compile Include="KeyBoardListener.cs" />
     <Compile Include="QuicknotesControl.cs" />
@@ -93,7 +99,19 @@
     <Compile Include="WeeklyToDo.xaml.cs">
       <DependentUpon>WeeklyToDo.xaml</DependentUpon>
     </Compile>
+    <Page Include="AddHomeworkTask.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddTaskButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="AddTaskWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ArchiveTaskButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -101,9 +119,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="DeleteTaskButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GoogleCalendar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Homework.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Register.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -179,7 +205,7 @@
     <Resource Include="icon_32.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

@@ -1,0 +1,169 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Style x:Key="ArchiveStyle" TargetType="{x:Type Button}">
+		<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+		<Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+		<Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+		<Setter Property="BorderThickness" Value="1"/>
+		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="Padding" Value="1"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Button}">
+					<Grid HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="16">
+						<Path Data="M5.9070001,0.75033335 L11.814,3.834 0,3.834 z" HorizontalAlignment="Left" Height="3.084" Margin="2.092,7.755,0,0" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" VerticalAlignment="Top" Width="11.814" RenderTransformOrigin="0.5,0.5">
+							<Path.Fill>
+								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+									<GradientStop Color="#FF3462C1" Offset="1"/>
+									<GradientStop Color="#FF294EAB"/>
+								</LinearGradientBrush>
+							</Path.Fill>
+							<Path.RenderTransform>
+								<TransformGroup>
+									<ScaleTransform/>
+									<SkewTransform/>
+									<RotateTransform Angle="180"/>
+									<TranslateTransform X="0" Y="0.75100000000000033"/>
+								</TransformGroup>
+							</Path.RenderTransform>
+						</Path>
+						<Rectangle x:Name="rectangle" HorizontalAlignment="Left" Height="20" RadiusY="3.833" RadiusX="3.833" StrokeThickness="1" VerticalAlignment="Top" Width="16" Margin="0,-0.344,0,0">
+							<Rectangle.Fill>
+								<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+									<GradientStop Color="#FF050E66" Offset="1"/>
+									<GradientStop Color="#FF559BFF"/>
+								</LinearGradientBrush>
+							</Rectangle.Fill>
+						</Rectangle>
+						<Rectangle HorizontalAlignment="Center" Height="2.594" Stroke="{x:Null}" StrokeThickness="0" VerticalAlignment="Center" Width="11.814" Fill="White" Margin="2.093,4.531,2.093,12.875"/>
+						<Path Data="M5.9070001,-0.50254432 L11.814,3.218 0,3.218 z" Fill="White" HorizontalAlignment="Left" Height="2.344" Margin="2.093,2.187,0,0" Stretch="Fill" Stroke="White" StrokeThickness="0" VerticalAlignment="Top" Width="11.814"/>
+						<Rectangle HorizontalAlignment="Center" Height="1.302" Stroke="{x:Null}" StrokeThickness="0" VerticalAlignment="Center" Width="11.814" Fill="White" Margin="2.109,8.51,2.077,10.188"/>
+						<Path Data="M5.9070001,0.75033335 L11.814,3.834 0,3.834 z" Fill="White" HorizontalAlignment="Left" Height="3.084" Margin="2.155,11.395,0,0" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" VerticalAlignment="Top" Width="11.814" RenderTransformOrigin="0.5,0.5">
+							<Path.RenderTransform>
+								<TransformGroup>
+									<ScaleTransform/>
+									<SkewTransform/>
+									<RotateTransform Angle="180"/>
+									<TranslateTransform X="0" Y="0.75100000000000033"/>
+								</TransformGroup>
+							</Path.RenderTransform>
+						</Path>
+						<Rectangle HorizontalAlignment="Center" Height="1.302" Stroke="{x:Null}" StrokeThickness="0" VerticalAlignment="Center" Width="11.814" Fill="White" Margin="2.093,10.843,2.093,7.855"/>
+						<Path x:Name="path1" Data="M5.9070001,0.75033335 L11.814,3.834 0,3.834 z" HorizontalAlignment="Left" Height="3.084" Margin="2.061,10.099,0,0" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" VerticalAlignment="Top" Width="11.814" RenderTransformOrigin="0.5,0.5">
+							<Path.Fill>
+								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+									<GradientStop Color="#FF3462C1" Offset="1"/>
+									<GradientStop Color="#FF294EAB"/>
+								</LinearGradientBrush>
+							</Path.Fill>
+							<Path.RenderTransform>
+								<TransformGroup>
+									<ScaleTransform/>
+									<SkewTransform/>
+									<RotateTransform Angle="180"/>
+									<TranslateTransform X="0" Y="0.75100000000000033"/>
+								</TransformGroup>
+							</Path.RenderTransform>
+						</Path>
+						<Path Data="M5.9070001,0.75033335 L11.814,3.834 0,3.834 z" Fill="White" HorizontalAlignment="Left" Height="3.083" Margin="2.108,9.067,0,0" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" VerticalAlignment="Top" Width="11.814" RenderTransformOrigin="0.5,0.5">
+							<Path.RenderTransform>
+								<TransformGroup>
+									<ScaleTransform/>
+									<SkewTransform/>
+									<RotateTransform Angle="180"/>
+									<TranslateTransform X="0" Y="0.75100000000000033"/>
+								</TransformGroup>
+							</Path.RenderTransform>
+						</Path>
+						<Path x:Name="path" Data="M5.9070001,0.75033335 L11.814,3.834 0,3.834 z" HorizontalAlignment="Left" Height="3.083" Margin="2.108,7.755,0,0" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" VerticalAlignment="Top" Width="11.814" RenderTransformOrigin="0.5,0.5">
+							<Path.Fill>
+								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+									<GradientStop Color="#FF3462C1" Offset="1"/>
+									<GradientStop Color="#FF294EAB"/>
+								</LinearGradientBrush>
+							</Path.Fill>
+							<Path.RenderTransform>
+								<TransformGroup>
+									<ScaleTransform/>
+									<SkewTransform/>
+									<RotateTransform Angle="180"/>
+									<TranslateTransform X="0" Y="0.75100000000000033"/>
+								</TransformGroup>
+							</Path.RenderTransform>
+						</Path>
+						<Path Data="M5.9070001,-0.50254432 L11.814,3.218 0,3.218 z" Fill="White" HorizontalAlignment="Left" Height="2.344" Margin="2.093,7.125,0,0" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" VerticalAlignment="Top" Width="11.814" RenderTransformOrigin="0.5,0.5">
+							<Path.RenderTransform>
+								<TransformGroup>
+									<ScaleTransform/>
+									<SkewTransform/>
+									<RotateTransform Angle="180"/>
+									<TranslateTransform/>
+								</TransformGroup>
+							</Path.RenderTransform>
+						</Path>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsDefaulted" Value="true"/>
+						<Trigger Property="IsMouseOver" Value="true">
+							<Setter Property="Fill" TargetName="rectangle">
+								<Setter.Value>
+									<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+										<GradientStop Color="#FF050E66" Offset="1"/>
+										<GradientStop Color="#FF559BFF" Offset="0.6"/>
+									</LinearGradientBrush>
+								</Setter.Value>
+							</Setter>
+							<Setter Property="Fill" TargetName="path">
+								<Setter.Value>
+									<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+										<GradientStop Color="#FF559BFF" Offset="1"/>
+										<GradientStop Color="#FF559BFF"/>
+									</LinearGradientBrush>
+								</Setter.Value>
+							</Setter>
+							<Setter Property="Fill" TargetName="path1">
+								<Setter.Value>
+									<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+										<GradientStop Color="#FF559BFF" Offset="1"/>
+										<GradientStop Color="#FF3F75D5"/>
+									</LinearGradientBrush>
+								</Setter.Value>
+							</Setter>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="true">
+							<Setter Property="Fill" TargetName="rectangle">
+								<Setter.Value>
+									<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+										<GradientStop Color="#FF050E66" Offset="0.6"/>
+										<GradientStop Color="#FF559BFF"/>
+									</LinearGradientBrush>
+								</Setter.Value>
+							</Setter>
+							<Setter Property="Fill" TargetName="path">
+								<Setter.Value>
+									<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+										<GradientStop Color="#FF1A338E" Offset="1"/>
+										<GradientStop Color="#FF071169"/>
+									</LinearGradientBrush>
+								</Setter.Value>
+							</Setter>
+							<Setter Property="Fill" TargetName="path1">
+								<Setter.Value>
+									<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+										<GradientStop Color="#FF0A176F" Offset="1"/>
+										<GradientStop Color="#FF050E66"/>
+									</LinearGradientBrush>
+								</Setter.Value>
+							</Setter>
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="false"/>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<!-- Resource dictionary entries should be defined here. -->
+</ResourceDictionary>

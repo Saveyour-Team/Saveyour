@@ -135,8 +135,8 @@ namespace Saveyour
             {
 		       colorByWeights(j);
                day.Text = "";
-               day.Text = curTopDay.AddDays(j - numToday).ToString("dddd");
-               day.Text += " " + curTopDay.AddDays(j - numToday).ToString("d");
+               day.Text = curTopDay.AddDays((j - numToday + 7)%7).ToString("dddd");
+               day.Text += " " + curTopDay.AddDays((j - numToday + 7) % 7).ToString("d");
                j++;
             }
 
@@ -505,8 +505,8 @@ namespace Saveyour
             foreach (TextBlock day in days)
             {
                 day.Text = "";
-                day.Text = curTopDay.AddDays(count - numToday).ToString("dddd");
-                day.Text += " " + curTopDay.AddDays(count - numToday).ToString("d");
+                day.Text = curTopDay.AddDays((count - numToday + 7) % 7).ToString("dddd");
+                day.Text += " " + curTopDay.AddDays((count - numToday + 7) % 7).ToString("d");
                 count++;
             }
 
@@ -538,8 +538,8 @@ namespace Saveyour
             foreach (TextBlock day in days)
             {
                 day.Text = "";
-                day.Text = curTopDay.AddDays(count - numToday).ToString("dddd");
-                day.Text += " " + curTopDay.AddDays(count - numToday).ToString("d");
+                day.Text = curTopDay.AddDays((count - numToday + 7) % 7).ToString("dddd");
+                day.Text += " " + curTopDay.AddDays((count - numToday + 7) % 7).ToString("d");
                 count++;
             }
 

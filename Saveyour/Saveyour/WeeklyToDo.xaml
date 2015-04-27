@@ -72,18 +72,18 @@
             <Border x:Name="ButtonBorder" BorderBrush="Black" BorderThickness="1" Height="45" VerticalAlignment="Top" Grid.Row="0"/>
 
         </Grid>
-        <Button x:Name="AddTaskButton" Content="Add Task" HorizontalAlignment="Center" Margin="146,10,144,0" VerticalAlignment="Top" Width="86" Click="addTaskButton"/>
-        <Button x:Name="backWeek" Content="backWeek" HorizontalAlignment="Left" VerticalAlignment="Top" Width="42" Style="{DynamicResource backWeek}" Height="42" Margin="6,1.5,0,0" Click="backWeek_Click"/>
-        <Button x:Name="forwardWeek" Content="forwardWeek" HorizontalAlignment="Left" VerticalAlignment="Top" Width="42" Style="{DynamicResource backWeek}" Height="42" Margin="322,1.5,0,0" RenderTransformOrigin="0.5,0.5" Click="forwardWeek_Click">
-        	<Button.RenderTransform>
-        		<TransformGroup>
-        			<ScaleTransform/>
-        			<SkewTransform/>
-        			<RotateTransform Angle="-180.509"/>
-        			<TranslateTransform/>
-        		</TransformGroup>
-        	</Button.RenderTransform>
+        <Button x:Name="backWeek" Content="backWeek" HorizontalAlignment="Left" VerticalAlignment="Top" Width="42" Style="{DynamicResource backWeek}" Height="42" Margin="5,1.5,0,0" Click="backWeek_Click"/>
+        <Button x:Name="forwardWeek" Content="forwardWeek" HorizontalAlignment="Right" VerticalAlignment="Top" Width="42" Style="{DynamicResource backWeek}" Height="42" Margin="0,1.5,5,0" RenderTransformOrigin="0.5,0.5" Click="forwardWeek_Click">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-180.509"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
         </Button>
+        <Button x:Name="AddTaskButton" Content="Add Task" HorizontalAlignment="Center" Margin="78,10,78,0" VerticalAlignment="Top" Width="86" Click="addTaskButton"/>
 
 
     </Grid>

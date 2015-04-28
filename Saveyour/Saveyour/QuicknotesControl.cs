@@ -39,10 +39,11 @@ namespace Saveyour
         }
 
     //Adds a new Quicknotes window.
-	public void addQuickNote(){
+	public Quicknotes addQuickNote(){
 		Quicknotes qn = new Quicknotes(this);
 		qnList.Add(qn);
 		qn.Show();
+        return qn;
 	}
 
     //Removes a specific quicknotes window.

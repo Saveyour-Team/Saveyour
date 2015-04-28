@@ -96,7 +96,8 @@ namespace Saveyour
         //This is called when the + button is clicked, it creates a new Quicknotes window.
         private void AddQN_Click(object sender, RoutedEventArgs e)
         {
-		    qnControl.addQuickNote();            
+		    Quicknotes changePos = qnControl.addQuickNote();
+            changePos.Left = this.Left + 325;
         }
 
         //This is called when the x button is clicked, it removes this Quicknotes window.

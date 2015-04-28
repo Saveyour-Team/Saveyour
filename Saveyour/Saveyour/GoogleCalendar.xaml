@@ -1,6 +1,9 @@
 ﻿<Window x:Name="Google_Calendar__Web_View_" x:Class="Saveyour.GoogleCalendar"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStartupLocation="Manual" 
+        Left="400" Top="0"
+        
         Title="Google Calendar (Web View)" Height="527.705" Width="807.188">
     <Grid>
         <WebBrowser x:Name="calendar" Margin="0"/>

@@ -15,12 +15,19 @@ using System.Diagnostics;
 
 namespace Saveyour
 {
+    /***
+     * 
+     * QuicknotesControl is a data structure to keep track of all the Quicknotes modules created.
+     * Most of the functions in this are often wrappers that iterate through a list and call the same function on each Quicknotes module.
+     * For example, calling Show() in this class will cause the class to iterate through its list of Quicknotes modules and call Show() on those modules.     
+     * 
+     * ***/
     
     public partial class QuicknotesControl : Module
     {
 
-	private List<Quicknotes> qnList;
-	private bool isVisible = true;
+	    private List<Quicknotes> qnList;
+	    private bool isVisible = true;
 
         public QuicknotesControl()
         {
@@ -29,48 +36,52 @@ namespace Saveyour
         }
 
 
-	public void addQuickNote(){
-		Quicknotes qn = new Quicknotes(this);
-		qnList.Add(qn);
-		qn.Show();
-	}
+	    public void addQuickNote(){
+		    Quicknotes qn = new Quicknotes(this);
+		    qnList.Add(qn);
+		    qn.Show();
+	    }
 
 
-	public void removeQuickNote(Quicknotes note){
-		qnList.Remove(note);
-        ((Window)note).Close();
+	    public void removeQuickNote(Quicknotes note){
+		    qnList.Remove(note);
+            ((Window)note).Close();	
+	    }
+
+
+        /***** LOGIC FOR LIST OF QUICKNOTES INTERACTIONS *****/
+
+ 	    public void ToggleVisibility(){
+		    if (isVisible){
+			    Hide();
+		    }
+		    else{
+			    Show();
+		    }
+
+		    isVisible = !isVisible;
+
+	    }
 	
-
-	}
-
-
- 	public void ToggleVisibility(){
-		if (isVisible){
-			Hide();
-		}
-		else{
-			Show();
-		}
-
-		isVisible = !isVisible;
-
-	}
-	
-	public void Show(){
-		foreach (Quicknotes qn in qnList){
-			qn.Show();
+	    public void Show(){
+		    foreach (Quicknotes qn in qnList){
+			    qn.Show();
 		
-		}
+		    }
 
-	}
+	    }
 
-	public void Hide(){
-		foreach (Quicknotes qn in qnList){
-			qn.Hide();
-		
-		}
+	    public void Hide(){
+		    foreach (Quicknotes qn in qnList){
+			    qn.Hide();		
+		    }
 
-	}
+	    }
+
+        /***** END OF LOGIC FOR LIST OF QUICKNOTES INTERACTIONS *****/
+
+
+        /***** MODULE INTERFACE METHODS *****/
 	
         public String moduleID()
         {
@@ -93,7 +104,7 @@ namespace Saveyour
 			}
 			else{
 
-				saveString+="\r\t\r"+qn.save();
+				saveString+="\r\t\r"+qn.save(); //Logic for separating saved text within the save files.
 			}
 		
 		}
@@ -139,8 +150,7 @@ namespace Saveyour
             return moduleID().Equals(other.moduleID());
         }
 
-
-        
+        /***** END OF MODULE INTERFACE METHODS *****/
 
     }
 }

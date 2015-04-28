@@ -28,6 +28,8 @@ namespace Saveyour
 		    qnControl = control;
         }
 
+        /***** MODULE INTERFACE METHODS *****/
+
         public String moduleID()
         {
             return "Quicknotes";
@@ -53,7 +55,11 @@ namespace Saveyour
         {
             return moduleID().Equals(other.moduleID());
         }
+
+        /***** END OF MODULE INTERFACE METHODS *****/
 	
+
+        /***** DATA BINDINGS TO XAML ELEMENTS *****/
 
         private void onKeyUp(object sender, KeyEventArgs e)
         {
@@ -90,5 +96,7 @@ namespace Saveyour
             if (QuicknotesText.Text.Contains("Type notes here!"))
                 QuicknotesText.Text = "";
         }
+
+        /***** END OF DATA BINDINGS TO XAML ELEMENTS *****/
     }
 }

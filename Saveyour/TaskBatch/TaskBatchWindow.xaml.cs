@@ -18,7 +18,7 @@ namespace TaskBatch
     /// <summary>
     /// Interaction logic for TaskBatchWindow.xaml
     /// </summary>
-    internal partial class TaskBatchWindow : Window, IComparable<DateTimeSum>
+    internal partial class TaskBatchWindow : Window
     {
 
         WeeklyToDo WeeklyInstance;
@@ -35,9 +35,11 @@ namespace TaskBatch
         
         }
 
-        private List<DateTimeSum> ListOfDays(DateTime start, DateTime stop){
+        private List<DateTimeSum> ListOfDays(){
             List<DateTimeSum> l = new List<DateTimeSum>();
-            DateTime d = start;
+            DateTime d = DateTime.Today;
+            DateTime stop = d.AddDays(14);
+            
             while(d<=stop){
                 int tasksWeight = WeeklyInstance.sumOfTaskWeights(d);  
                 DateTimeSum temp = new DateTimeSum();
@@ -51,19 +53,35 @@ namespace TaskBatch
         }
 
         private List<DateTimeSum> sortList(List<DateTimeSum> l){
-            DateTimeSum newList = new DateTimeSum();
+            //List<DateTimeSum> newList = new List<DateTimeSum>();
             int lsize = l.Count;
-            foreach(DateTimeSum d in l){
-            
+            int min; //min is the smallest
+            for(int i=0; i<lsize; i++){
+                min = i;
+                for (int j = i+1; j < lsize; j++) { 
+                    if(l[j].compareTo(l[min])==-1){
+                        min = j;
+                    }
+                }
+                if (min != i) {
+                    l = swap(l,i,min);
+                }
             }
-
             return l;
         }
-        
+
+        private List<DateTimeSum> swap(List<DateTimeSum> l, int p1, int p2) {
+            DateTimeSum temp = l[p1];
+            DateTimeSum temp2 = l[p2];
+            l[p1] = temp2;
+            l[p2] = temp;
+            return l;
+            
+        }
 
     }
 
-    internal class DateTimeSum : IComparable{
+    internal class DateTimeSum {
         
         DateTime d;
         int sum;
@@ -91,7 +109,7 @@ namespace TaskBatch
             DateTime d1 = this.getDateTime();
             DateTime d2 = ds2.getDateTime();
 
-            if(s1==s2 && d1.Equals(d2){
+            if(s1==s2 && d1.Equals(d2)){
                 return true;
             } else {
                 return false;

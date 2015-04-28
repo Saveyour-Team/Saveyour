@@ -33,14 +33,14 @@ namespace Saveyour
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
 
+        /***** LOGIC FOR DATABINDINGS IN XAML *****/
+
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
             taskDate = (DateTime)TaskCalendar.SelectedDate;
             this.DialogResult = true;
             taskDescription = TaskDescription.Text;
             taskDate = (DateTime) TaskCalendar.SelectedDate;
-
-
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)

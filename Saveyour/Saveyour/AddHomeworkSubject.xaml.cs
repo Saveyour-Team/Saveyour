@@ -27,14 +27,24 @@ namespace Saveyour
             Empty.Visibility = Visibility.Hidden;
         }
 
+        public String getSubject()
+        {
+            if (input != null && input != "")
+                return input;
+            else
+                return "Empty Subject"; //Homework.xaml.cs will handle this case and not add the subject when seeing this
+        }
+
+        /***** LOGIC FOR DATA BINDINGS IN XAML *****/
+
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            input = Subject.Text;
+            input = Subject.Text; //Saves text of inputted subject title 
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            input = "";
+            input = "";       //Homework.xaml.cs will also handle "" inputs where it will not add the subject
             this.Close();            
         }
 
@@ -42,28 +52,22 @@ namespace Saveyour
         {
             if (input == "")
             {
-                Empty.Visibility = Visibility.Visible;
+                Empty.Visibility = Visibility.Visible; //Warns user that input is blank and does not continue.
             }
             else
             {
-                input = Subject.Text;
+                input = Subject.Text; //Success scenario of having text in input
                 this.Close();
             }    
             
-        }
-
-        public String getSubject()
-        {
-            if (input != null && input != "")
-                return input;
-            else
-                return "Empty Subject";
-        }
+        }        
 
         private void Subject_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Subject.Text = "";
+            Subject.Text = ""; //Clears out whatever is inputted in textbox for Subject
         }
+
+        /***** END OF LOGIC FOR DATA BINDINGS IN XAML *****/
 
 
     }

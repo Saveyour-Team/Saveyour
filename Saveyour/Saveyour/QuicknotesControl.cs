@@ -15,6 +15,13 @@ using System.Diagnostics;
 
 namespace Saveyour
 {
+    /***
+     * 
+     * QuicknotesControl is a data structure to keep track of all the Quicknotes modules created.
+     * Most of the functions in this are often wrappers that iterate through a list and call the same function on each Quicknotes module.
+     * For example, calling Show() in this class will cause the class to iterate through its list of Quicknotes modules and call Show() on those modules.     
+     * 
+     * ***/
     
     public partial class QuicknotesControl : Module
     {
@@ -39,13 +46,15 @@ namespace Saveyour
 	}
 
     //Removes a specific quicknotes window.
-	public void removeQuickNote(Quicknotes note){
-		qnList.Remove(note);
+    public void removeQuickNote(Quicknotes note)
+    {
+        qnList.Remove(note);
         ((Window)note).Close();
+
+    }
 	
 
-	}
-
+        /***** LOGIC FOR LIST OF QUICKNOTES INTERACTIONS *****/
     //Toggles the visibility of all the children Quicknotes
  	public void ToggleVisibility(){
 		if (isVisible){
@@ -54,19 +63,15 @@ namespace Saveyour
 		else{
 			Show();
 		}
-
-		isVisible = !isVisible;
-
+		    isVisible = !isVisible;
 	}
 
     //Shows all the children Quicknotes
 	public void Show(){
 		foreach (Quicknotes qn in qnList){
 			qn.Show();
-		
-		}
-
-	}
+	    }
+    }
 
 
     //Hides all the children Quicknotes
@@ -75,8 +80,12 @@ namespace Saveyour
 			qn.Hide();
 		
 		}
+    }
 
-	}
+        /***** END OF LOGIC FOR LIST OF QUICKNOTES INTERACTIONS *****/
+
+
+        /***** MODULE INTERFACE METHODS *****/
 	
         //Returns the ID for this type of module
         public String moduleID()
@@ -104,7 +113,7 @@ namespace Saveyour
 			}
 			else{
 
-				saveString+="\r\t\r"+qn.save();
+				saveString+="\r\t\r"+qn.save(); //Logic for separating saved text within the save files.
 			}
 		
 		}
@@ -152,8 +161,7 @@ namespace Saveyour
             return moduleID().Equals(other.moduleID());
         }
 
-
-        
+        /***** END OF MODULE INTERFACE METHODS *****/
 
     }
 }

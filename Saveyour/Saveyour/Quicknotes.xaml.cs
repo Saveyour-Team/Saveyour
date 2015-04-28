@@ -29,6 +29,10 @@ namespace Saveyour
 		    qnControl = control;
         }
 
+
+     
+        /***** MODULE INTERFACE METHODS *****/
+
         //Returns this module's type ID.
         public String moduleID()
         {
@@ -59,7 +63,16 @@ namespace Saveyour
         {
             return moduleID().Equals(other.moduleID());
         }
+
+        /***** END OF MODULE INTERFACE METHODS *****/
 	
+
+
+
+        /***** DATA BINDINGS TO XAML ELEMENTS *****/
+
+
+    
         //This used to be used for saving, but we found it more efficient to save on lost focus and when the app is closed.
         private void onKeyUp(object sender, KeyEventArgs e)
         {
@@ -104,5 +117,7 @@ namespace Saveyour
             if (QuicknotesText.Text.Contains("Type notes here!"))
                 QuicknotesText.Text = "";
         }
+
+        /***** END OF DATA BINDINGS TO XAML ELEMENTS *****/
     }
 }

@@ -52,7 +52,7 @@ namespace SaveyourUpdate
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            this.Hide();
         }
     }
 }

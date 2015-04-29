@@ -15,6 +15,10 @@ namespace SaveyourUpdate
         SHA512
     }
 
+    /*
+     * The purpose of this class is to organize and get various hash values using MD5, SHA1, and SHA512 algorithms. 
+     * */
+
     internal static class Hasher
     {
         internal static String HashFile(String filePath, HashType algo)

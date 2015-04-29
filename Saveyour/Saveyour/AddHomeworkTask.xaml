@@ -13,7 +13,7 @@
             <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Center" Height="30" Margin="299,229,161,0" VerticalAlignment="Top" Width="90" Click="CancelButton_Click"/>
             <Label Content="Description:" Foreground="White" HorizontalAlignment="Left" Margin="234,61,0,0" VerticalAlignment="Top"/>
 
-            <Rectangle x:Name="titleBar" HorizontalAlignment="Left" Height="37" Stroke="#00000000" VerticalAlignment="Top" Width="557" MouseDown="titleBar_MouseDown" RadiusY="24.5" RadiusX="24.5" Margin="3,0,0,0" Opacity="0">
+            <Rectangle x:Name="titleBar" HorizontalAlignment="Left" Height="37" Stroke="#00000000" VerticalAlignment="Top" Width="557" MouseDown="titleBar_MouseDown" RadiusY="24.5" RadiusX="24.5" Margin="3,0,0,0" Opacity="0" PreviewMouseDown="titleBar_PreviewMouseDown">
                 <Rectangle.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FFE4F5FF" Offset="1"/>

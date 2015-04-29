@@ -41,6 +41,10 @@ namespace SaveyourUpdate
                     if (new SaveyourUpdateAcceptWindow(this.applicationInfo, update).ShowDialog() == true)
                         this.DownloadUpdate(update);
                 }
+                else
+                {
+                    new SaveyourNoUpdateWindow().ShowDialog();
+                }
             }
         }
 

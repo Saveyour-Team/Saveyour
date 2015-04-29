@@ -20,7 +20,7 @@
             <Button x:Name="AppExit" Content="Exit Application" HorizontalAlignment="Center" Margin="99,353,97,0" VerticalAlignment="Top" Width="100" Click="exitBtn_clicked" Height="20"/>
             <!-- <Button x:Name="setHotKey" Content="Set Show/Hide Hotkey" HorizontalAlignment="Left" Margin="30,294,0,0" VerticalAlignment="Top" Width="75" Click="setHotkey_clicked"/> -->
 
-            <Rectangle x:Name="titleBar" HorizontalAlignment="Left" Height="37" Stroke="#00000000" VerticalAlignment="Top" Width="295" MouseDown="titleBar_MouseDown" RadiusY="24.5" RadiusX="24.5" Opacity="0">
+            <Rectangle x:Name="titleBar" HorizontalAlignment="Left" Height="37" Stroke="#00000000" VerticalAlignment="Top" Width="295" MouseDown="titleBar_MouseDown" RadiusY="24.5" RadiusX="24.5" Opacity="0" PreviewMouseDown="titleBar_PreviewMouseDown">
                 <Rectangle.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FFEAF7FF" Offset="1"/>

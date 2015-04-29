@@ -171,5 +171,11 @@ namespace SaveyourUpdate
         {
             this.DragMove();
         }
+
+        private void titleBar_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.RightButton == MouseButtonState.Pressed)
+                e.Handled = true;
+        }
     }
 }

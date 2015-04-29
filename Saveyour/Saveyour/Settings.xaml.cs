@@ -229,6 +229,12 @@ namespace Saveyour
 
         }
 
+        private void titleBar_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.RightButton == MouseButtonState.Pressed)
+                e.Handled = true;
+        }
+
         /***** END OF LOGIC FOR DATA BINDINGS XAML ELEMENTS *****/
         
     }

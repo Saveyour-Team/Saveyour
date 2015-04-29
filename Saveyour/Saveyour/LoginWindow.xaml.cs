@@ -181,5 +181,11 @@ namespace Saveyour
         {
             Application.Current.Shutdown();
         }
+
+        private void titleBar_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.RightButton == MouseButtonState.Pressed)
+                e.Handled = true;
+        }
     }
 }

@@ -42,6 +42,7 @@ namespace Saveyour
         {
             return isLoggedIn;
         }
+
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
@@ -49,8 +50,10 @@ namespace Saveyour
 
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
+            loginStatusLabel.Content = "Logging into Saveyour..";
+
             username = usernameField.Text;
-            String password = passwordField.Text;
+            String password = passwordField.Password;
             String command = "login";
 
             //Create a network connection and connect
@@ -82,7 +85,8 @@ namespace Saveyour
                 if (userData != null)
                 {
                     //Shell.getSaveLoader().loadToLaunch(userData);
-                }               
+                }
+                                  
 
                 this.Close();
             }
@@ -123,7 +127,7 @@ namespace Saveyour
                 return;
             }
             firstPasswordFocus = false;
-            passwordField.Text = "";
+            passwordField.Password = "";
 
         }
 
@@ -166,6 +170,22 @@ namespace Saveyour
             get { return new Uri("https://github.com/Saveyour-Team/Release/raw/master/SaveyourXML.xml"); }
             //This should be the XML file found on github. This must be the RAW version so that it will start downloading.
             //This XML file is also in the release repo so it will look for the latest update possible.
+        }
+
+        private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void destroyApp_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void titleBar_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.RightButton == MouseButtonState.Pressed)
+                e.Handled = true;
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Threading;
 
 namespace Saveyour
 {
@@ -16,7 +17,7 @@ namespace Saveyour
         /**
         * Returns the savedata string for all the modules with format 
         * [Last Modified: DATETIME]\r\r\n{ModuleID}{DATA FOR THE MODULE}\r\r\n{Module2ID}{DATA FOR THE MODULE2}\r\r\n
-        * String save() return null if the save output is invalid (because it contains \r\n) 
+        * String save() return null if the save output is invalid (because it contains \r\r\n) 
         **/
         private String saveModules()
         {
@@ -28,9 +29,10 @@ namespace Saveyour
             output = output + "[Last Modified: " + currentTime + "]\r\r\n";
             foreach (Module m in modList)
             {
-                if (m.save().Contains("\r\r\n"))
+                String save = m.save();
+                if (save == null || save.Contains("\r\r\n"))
                 {
-                    Debug.WriteLine("Error! Module: " + m.moduleID() + " has \\r\\n in its save output! Skipping!\n");
+                    Debug.WriteLine("Error! Module: " + m.moduleID() + " has invalid save output! Skipping!\n");
                 }
                 else if (m.moduleID().Equals("loggedInWindow"))
                 {
@@ -44,6 +46,10 @@ namespace Saveyour
             return output;
         }
 
+
+        /**
+         * This method causes SaveLoader to aggregate savedata from the modules using the saveModules() method, then saves that data to disk and to server.
+         **/
         public void save()
         {
             String savedata = saveModules();
@@ -54,81 +60,29 @@ namespace Saveyour
                 return;
             }
             String message = username + "\r\r\r" + password + "\r\r\r" + "upload" + "\r\r\r" +savedata;
+            Thread saveThread = new Thread(new ParameterizedThreadStart(this.saveToNetwork));
+            saveThread.Start(message);
+
+            //Thread will autoterminate once the method saveToNetwork finishes!
+
+        }
+
+        /** This method is called by threads that save the userdata to the server!
+         ** It receives a String as input, it's classified as object in the header for threading reasons!*/
+        private void saveToNetwork(object message)
+        {
             NetworkControl network = new NetworkControl();
-            String response = network.Connect(network.getIP(), message);
+            String response = network.Connect(network.getIP(), (String)message);
             Debug.WriteLine(response);
         }
 
 
-        private Boolean loadModules(String input)
-        {
-            Boolean foundAll = true;
-            Modlist modList = Shell.getModList();
-            String modID;
-            String modData;
-            String[] splitAt = { "\r\r\n" };
-            String[] moduleData = input.Split(splitAt, StringSplitOptions.None);
-            if (moduleData.Length < 1)
-            {
-               // Debug.WriteLine("Invalidly formatted string passed to loadModules in SaveLoader.\n");
-                return false;
-            }
-            String lastModifiedHeader = "";
-            String lastModified = "";
-            if (moduleData[0].Length == 34){
-                 lastModifiedHeader = moduleData[0].Substring(0, 16);
-            }
-            
-            int i = 0;
-            if (lastModifiedHeader.Equals("[Last Modified: "))
-            {
-                i = 1;
-                lastModified = moduleData[0].Substring(16, 18);
-            }
-            for (; i < moduleData.Length; i++)
-            {
-
-                try
-                {
-                  //  Debug.WriteLine(moduleData[i]);
-                    int idx = moduleData[i].IndexOf('}');
-                    modID = moduleData[i].Substring(1, moduleData[i].IndexOf('}') - 1);
-                   // Debug.WriteLine(modID + "++");
-                    modData = moduleData[i].Substring(idx + 2, moduleData[i].Length - (idx + 3));
-                  //  Debug.WriteLine("Moddata: " + modData);
-                    Module launched = Shell.launch(modID);
-                    //launched.load(modData);
-                    Boolean found = false;
-                    foreach (Module m in modList)
-                    {
-                        if (m.moduleID().Equals(modID))
-                        {
-                            m.load(modData);
-                            found = true;
-                            break;
-                        }
-                    }
-                    foundAll = foundAll && found;
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                   // Debug.WriteLine("Invalid saveddata.txt: " + moduleData[i]);
-                    foundAll = false;
-                }
-
-            }
-            return foundAll;
-
-        }
-
-        public Boolean load()
-        {
-            String data = ReadWrite.readStringFrom(saveFile);
-           // Debug.WriteLine("Loaded: " + data);
-            return loadModules(data);
-        }
-
-        public bool loadToLaunch(){
+ 
+        /**
+         * Loads saved userdata from the network and local disk depending on which is available, and which was modified most recently.  Then it sends each module the data it previously saved.
+         */
+        public bool load(){
+            //This network connection is NOT threaded, as we want to program to halt and try and get data from the server before loading!
             NetworkControl network = new NetworkControl();
             String response = network.Connect(network.getIP(), username + "\r\r\r" + password + "\r\r\r" + "login");
             String[] splitAt = { "\r\r\r" };
@@ -137,7 +91,11 @@ namespace Saveyour
             return loadToLaunch(moduleData[1]);
         }
 
-        //Launch all modules that have saved settings
+        /**
+         *  The input String is given by the load() method and always contains the data obtained from the server (if any).
+         *  This method then loads savedata from the disk and then determines which savedata to load (if both exist it takes the one most recently modified to load),
+         *  and finally launches each module mentioned in the savedata and loads them with the data they had previously saved.
+         */
         private bool loadToLaunch(String input) //input is the server data called from loadToLaunch()
         {
             bool localFile = true;
@@ -165,6 +123,9 @@ namespace Saveyour
             String lastModified = "";
             String lastModifiedHeaderLocal = "";
             String lastModifiedLocal = "";
+
+
+            //The following logic is how the program determines what dataset (local or network input) was most recently modified and uses it for loading.
 
             //Debug.WriteLine("Length: " + moduleData[0].Length);
             //Debug.WriteLine(moduleData[0]);
@@ -210,7 +171,7 @@ namespace Saveyour
                 moduleData = diskData;
             }
 
-
+            //Now that we have decided upon which data to load, we need to actually go through and load it by splitting up the savestring and sending the appropriate data around to modules.
             for (; i < moduleData.Length; i++)
             {
                 try
@@ -236,6 +197,9 @@ namespace Saveyour
             return true;
         }
 
+        /**
+         * This is used to tell the SaveLoader the username and password for when it makes network connections to the server.
+         */
         public void setLogin(String user, String pwd)
         {
             username = user;

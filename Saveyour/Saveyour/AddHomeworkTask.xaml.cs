@@ -18,14 +18,14 @@ namespace Saveyour
     /// <summary>
     /// Interaction logic for AddTaskWindow.xaml
     /// </summary>
-    public partial class AddTaskWindow : Window
+    public partial class AddHomeworkTask : Window
     {
 
         private DateTime taskDate;
         private String taskDescription;
         private Task theTask;
         private bool firstFocus = true;
-        public AddTaskWindow(Window parent)
+        public AddHomeworkTask(Window parent)
         {
             this.Owner = parent;
             InitializeComponent();
@@ -33,28 +33,19 @@ namespace Saveyour
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
 
+        /***** LOGIC FOR DATABINDINGS IN XAML *****/
+
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
             taskDate = (DateTime)TaskCalendar.SelectedDate;
             this.DialogResult = true;
-
-            theTask = new Task(taskTitle.Text, TaskDescription.Text, Convert.ToInt32(lblWeight.Content), taskDate);
-
+            taskDescription = TaskDescription.Text;
+            taskDate = (DateTime) TaskCalendar.SelectedDate;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false;
-        }
-
-        public Task getTask()
-        {
-            return theTask;
-        }
-
-        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            lblWeight.Content = weightSlider.Value.ToString();
         }
 
         private void descriptBoxGotFocus(object sender, RoutedEventArgs e)
@@ -64,6 +55,16 @@ namespace Saveyour
                 TaskDescription.Text = "";
                 firstFocus = false;
             }
+        }
+
+        public String getTaskDescription()
+        {
+            return taskDescription;
+        }
+
+        public DateTime getTaskDate()
+        {
+            return taskDate;
         }
 
         private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
@@ -76,6 +77,5 @@ namespace Saveyour
             if (e.RightButton == MouseButtonState.Pressed)
                 e.Handled = true;
         }
-
     }
 }

@@ -29,6 +29,7 @@ namespace Saveyour
         public Register()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
 
 
@@ -132,6 +133,22 @@ namespace Saveyour
             {
                 registerButton_Click(this, e);
             }
+        }
+
+        private void destroyRegister_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void titleBar_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.RightButton == MouseButtonState.Pressed)
+                e.Handled = true;
         }
     }
 }

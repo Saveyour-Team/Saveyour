@@ -57,41 +57,50 @@ namespace Saveyour
     public partial class WeeklyToDo : Window, Module
     {
 
-        //private List<DateTask> dates = new List<DateTask>();
-
+        //Dates used to determine whether or not to show tasks.
         private DateTime nextWeek;
         private DateTime yesterday;
+
+        //The elements on the xaml form that represent the Day's titles and task lists.
         private List<TextBlock> days = new List<TextBlock>();
         private List<StackPanel> taskDays = new List<StackPanel>();
+
+        //The date of the day currently on the top of the weekly display
         private DateTime curTopDay;
+
+        //A list of all the tasks in the module, keyed by the date they are assigned for.
         private Dictionary<DateTime,List<Task>> hashTasks;
+
+        //The borders of the days on the xaml form
         private Border[] borders;
-
-
 
 
         public WeeklyToDo()
         {
             InitializeComponent();
 
-            //this.Height = (System.Windows.SystemParameters.PrimaryScreenHeight * 1);
-            //this.Width = (System.Windows.SystemParameters.PrimaryScreenWidth * 0.2);
-
+            //Moves WeeklyToDo to the topright of the screen on launch.
             Left = System.Windows.SystemParameters.PrimaryScreenWidth - Width;
             Top = 0;
 
+            //Initialization of the class's fields
             hashTasks = new Dictionary<DateTime,List<Task>>();
 
             curTopDay = DateTime.Today;
 
             nextWeek = DateTime.Today.AddDays(7);
+            //Forces nextWeek's date to be at the very beginning of the day
             nextWeek = new DateTime(nextWeek.Year, nextWeek.Month, nextWeek.Day);
 
             yesterday = DateTime.Today.AddDays(-1);
+            //Forces yesterday's date to be at the very beginning of the day
             yesterday = new DateTime(yesterday.Year, yesterday.Month, yesterday.Day);
 
             TextBlock today = null;
             Border todayBorder = null;
+
+            //Initialize our lists of days, tasks, and borders.
+
             days.Add(SundayTitle);
             days.Add(MondayTitle);
             days.Add(TuesdayTitle);
@@ -124,20 +133,28 @@ namespace Saveyour
             borders[12] = SaturdayTitleBorder;
             borders[13] = SaturdayTaskBorder;
 
+            //Stored the current day of the week (0 = Sunday, ..., 6 = Saturday)
             int numToday = (int)DateTime.Today.DayOfWeek;
+
             today = days[numToday];
             todayBorder = borders[numToday * 2];
-            reOrderDays();
+            reOrderDays(); //Puts Today's date at the top of the display and sorts the rest accordingly.
 
+
+            //Relabel the titles with the date of each day, and color them by the tasks present in each day.
             int j = 0;
             foreach (TextBlock day in days)
             {
-                    numToday--;
-		   colorByWeights(j);
-                   // day.Text += " " + DateTime.Today.AddDays(numToday * -1).ToString("d");
-                   day.Text += " " + DateTime.Today.AddDays((j - numToday + 7)%7).ToString("d");
-                   j++;
+		       colorByWeights(j);
+               day.Text = "";
+               day.Text = curTopDay.AddDays((j - numToday + 7)%7).ToString("dddd");
+               day.Text += " " + curTopDay.AddDays((j - numToday + 7) % 7).ToString("d");
+               j++;
             }
+
+            reOrderDays();
+          
+            //Label today with the (TODAY) label.
             today.Text += " (TODAY)";
             //COLORS ARE SUBJECT TO CHANGE (someone change them if they have a good color scheme!)
             today.Foreground = new SolidColorBrush(Colors.Black); //Changes text color
@@ -190,6 +207,9 @@ namespace Saveyour
 		return sum;
 	}
 
+        /*
+         * Reorders the days in the WeeklyToDo display so that the current day of the week is on top.
+         */
         private void reOrderDays()
         {
             //Reorder the days so that the current day of the week is at the top.
@@ -209,11 +229,13 @@ namespace Saveyour
 
         }
 
+        //Returns the ID tag of this module
         public String moduleID()
         {
             return "WeeklyToDo";
         }
 
+        //Currently unused, may be used for abstracting GUI control later.
         public Boolean update()
         {
             return false;
@@ -247,7 +269,7 @@ namespace Saveyour
         }
 
 
-
+        //Removes a given task from the hashTable and saves.
         private void removeTask(Task task)
         {
             List<Task> taskList = hashTasks[task.getDate()];
@@ -296,7 +318,7 @@ namespace Saveyour
 
         }
 
-
+        //This is called when the "X" button below an expanded task is clicked.  sender.Tag contains the actual task involved
         private void taskRemoveBtn_Click(object sender, RoutedEventArgs e)
         {
             //Retrieves the task stored in removeBtns Tag field and removes it from our hashTable
@@ -313,7 +335,7 @@ namespace Saveyour
 	    colorByWeights(dayOfWeek);
         }
 
-        /* This method is called when a TaskTitle textblock is clicked! */
+        /* This method is called when a TaskTitle textblock is clicked! It shows or hides the task description as appropriate*/
         private void taskLabel_Click(object sender, RoutedEventArgs e)
         {
             //Debug.WriteLine("Sender: " + sender.ToString() + "E: " + e.ToString());
@@ -402,6 +424,7 @@ namespace Saveyour
             return false;
         }
 
+        //Two modules are equal if they are of the same type.
         public Boolean Equals(Module other)
         {
             return moduleID().Equals(other.moduleID());
@@ -417,6 +440,9 @@ namespace Saveyour
             StackPanel daysTasks = taskDays[taskDay];
             createTaskLabel(task, daysTasks);
         }
+
+        /* For a given day is looks up all the tasks in hashTasks for that day and displays them on the week's display.   
+         */
         private void displayDaysTasks(DateTime day)
         {
             try
@@ -434,6 +460,7 @@ namespace Saveyour
         }
 
 
+        //Adds a task to the hashTasks hashtable keyed by its date.
         private void addTask(Task task)
         {
             try
@@ -450,6 +477,11 @@ namespace Saveyour
             }
         }
 
+        /*This is called when the "Add Task" button is clicked.
+         * It creates a new AddTask window and waits for its response (which is a task) then adds that task to this WeeklyToDo module,
+         * and displays it if it is a task assigned for the currently showing week.
+         * 
+         */
         private void addTaskButton(object sender, RoutedEventArgs e)
         {
             AddTaskWindow addTaskWin = new AddTaskWindow(this);
@@ -472,11 +504,21 @@ namespace Saveyour
             //Try to add a new list containing the task.
             addTask(task);
 
+
+
+            DateTime theNextWeek = curTopDay.AddDays(7);
+            //Forces nextWeek's date to be at the very beginning of the day
+            theNextWeek = new DateTime(theNextWeek.Year, theNextWeek.Month, theNextWeek.Day);
+
+            DateTime lastDay = curTopDay.AddDays(-1);
+            //Forces the past day's date to be at the very beginning of the day
+            lastDay = new DateTime(lastDay.Year, lastDay.Month, lastDay.Day);
+
             //If the task is in the current week, display it.
-            if (task.getDate().CompareTo(nextWeek) < 0 && task.getDate().CompareTo(yesterday) > 0)
+            if (task.getDate().CompareTo(theNextWeek) < 0 && task.getDate().CompareTo(lastDay) > 0)
             {
                 displayTask(task);
-		colorByWeights((int)task.getDate().DayOfWeek);
+		        colorByWeights((int)task.getDate().DayOfWeek);
             }
 
             
@@ -484,11 +526,13 @@ namespace Saveyour
         }
 
 
+        //This is called when focus is lost. We used to save in this case, but now we save only when tasks are added or removed.
         private void onLostFocus(object sender, RoutedEventArgs e)
         {
             //Shell.getSaveLoader().save();
         }
 
+        //This is called when the backarrow button is clicked.  It moves the display back a week.
         private void backWeek_Click(object sender, RoutedEventArgs e)
         {
             int numToday = (int)DateTime.Today.DayOfWeek;
@@ -501,8 +545,8 @@ namespace Saveyour
             foreach (TextBlock day in days)
             {
                 day.Text = "";
-                day.Text = curTopDay.AddDays(count - numToday).ToString("dddd");
-                day.Text += " " + curTopDay.AddDays(count - numToday).ToString("d");
+                day.Text = curTopDay.AddDays((count - numToday + 7) % 7).ToString("dddd");
+                day.Text += " " + curTopDay.AddDays((count - numToday + 7) % 7).ToString("d");
                 count++;
             }
 
@@ -523,6 +567,7 @@ namespace Saveyour
 	
         }
 
+        //This is called when the forwardarrow button is clicked.  It moves the display forward a week.
         private void forwardWeek_Click(object sender, RoutedEventArgs e)
         {
             int numToday = (int)DateTime.Today.DayOfWeek;
@@ -534,8 +579,8 @@ namespace Saveyour
             foreach (TextBlock day in days)
             {
                 day.Text = "";
-                day.Text = curTopDay.AddDays(count - numToday).ToString("dddd");
-                day.Text += " " + curTopDay.AddDays(count - numToday).ToString("d");
+                day.Text = curTopDay.AddDays((count - numToday + 7) % 7).ToString("dddd");
+                day.Text += " " + curTopDay.AddDays((count - numToday + 7) % 7).ToString("d");
                 count++;
             }
 
@@ -555,6 +600,7 @@ namespace Saveyour
             }
         }
 
+        //This removes all of the tasks from the week's display.
         private void clearDisplay()
         {
             foreach (StackPanel day in taskDays)
@@ -564,9 +610,16 @@ namespace Saveyour
             }
         }
 
-        private void loadDisplayTasks()
+        //This allows the window to be moved by clicking and dragging the top if it.
+        private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            this.DragMove();
+        }
 
+        private void titleBar_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.RightButton == MouseButtonState.Pressed)
+                e.Handled = true;
         }
 
     }

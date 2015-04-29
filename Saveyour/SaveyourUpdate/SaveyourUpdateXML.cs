@@ -4,6 +4,9 @@ using System.Xml;
 
 namespace SaveyourUpdate
 {
+    /// <summary>
+    /// This class is the class that will parse the XML file located on the server. It will parse and check if there is any update to get.
+    /// </summary>
     internal class SaveyourUpdateXML
     {
         private Version version;
@@ -23,11 +26,18 @@ namespace SaveyourUpdate
             this.launchArgs = launchArgs;
         }
 
+        /*
+         * This function checks if the input version if greater than or less than the current version.
+         * */
         internal bool IsNewerThan(Version version)
         {
             return this.version > version;
         }
 
+        /*
+         * This function checks if there is anything at the URI has anything at that location. It will return true
+         * if there is something found at that URI, and false otherwise.
+         * */
         internal static bool ExistsOnServer(Uri location)
         {
             try
@@ -44,6 +54,9 @@ namespace SaveyourUpdate
             }
         }
 
+        /*
+         * This function parses the XML file and attempts to get a version, url, file name, md5 hash, description and launch arguments.
+         * */
         internal static SaveyourUpdateXML Parse(Uri location, String appID)
         {
             Version version = null;

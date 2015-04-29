@@ -4,7 +4,7 @@
         WindowStartupLocation="Manual" 
         Left="0" Top="450"
         
-        Title="Modules" Height="386.567" Width="300" WindowStyle="None" Background="Transparent" AllowsTransparency="True" ResizeMode="NoResize">
+        Title="Settings" Height="386.567" Width="300" WindowStyle="None" Background="Transparent" AllowsTransparency="True" ResizeMode="NoResize">
 
     <Border BorderBrush="White" BorderThickness="2,2,2,2" CornerRadius="15,15,15,15" Background="#FF44B9FF">
 

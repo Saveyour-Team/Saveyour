@@ -67,10 +67,17 @@ namespace Saveyour
 		    isVisible = !isVisible;
 	}
 
+    public bool getVisibility()
+    {
+        return isVisible;
+    }
+
     //Shows all the children Quicknotes
 	public void Show(){
 		foreach (Quicknotes qn in qnList){
 			qn.Show();
+            qn.Activate();
+            isVisible = true;
 	    }
     }
 
@@ -79,7 +86,7 @@ namespace Saveyour
 	public void Hide(){
 		foreach (Quicknotes qn in qnList){
 			qn.Hide();
-		
+            isVisible = false;
 		}
     }
 

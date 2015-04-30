@@ -28,12 +28,16 @@ namespace Saveyour
         Window homework;
 
         SaveyourUpdater updater;
+
+        bool toggledAll;
        
         //This allows for us to globally bind a key in Windows to a macro
 	    private KeyboardHook keyHook = new KeyboardHook(); 
 	
         public Settings()
         {
+            toggledAll = false;
+
             InitializeComponent();            
        		// Create a listener for hotkeys
        		keyHook.KeyPressed += new EventHandler<KeyPressedEventArgs>(key_pressed);
@@ -58,51 +62,58 @@ namespace Saveyour
         	    
         /***** HOTKEY BINDING LOGIC *****/	
 
-	    private void toggleAll(){	
-                    qnotes.ToggleVisibility();
+	    private void toggleAll(){
+
+            if (qnotes.getVisibility() && !toggledAll) { 
+                qnotes.Hide();
+            }
+            else
+            {
+                qnotes.Show();
+            }
             
-                if (weeklytd.IsVisible)
-                {
-                    weeklytd.Hide();
-                }
-                else if (weeklytd.IsLoaded) 
-                {
-                    weeklytd.Show();
-                    weeklytd.Activate();
-                    //weeklytd.Topmost = true;
-                }
+            if (weeklytd.IsVisible && !toggledAll)
+            {
+                weeklytd.Hide();
+            }
+            else if (weeklytd.IsLoaded && toggledAll) 
+            {
+                weeklytd.Show();
+                weeklytd.Activate();
+                //weeklytd.Topmost = true;
+            }
 
-                if (gcalendar.IsVisible) 
-                {
-                    gcalendar.Hide();
-                }
-                else if (gcalendar.IsLoaded) 
-                {
-                    gcalendar.Show();
-                    gcalendar.Activate();
-                    //gcalendar.Topmost = true;
-                }
+            if (gcalendar.IsVisible && !toggledAll) 
+            {
+                gcalendar.Hide();
+            }
+            else if (gcalendar.IsLoaded && toggledAll) 
+            {
+                gcalendar.Show();
+                gcalendar.Activate();
+                //gcalendar.Topmost = true;
+            }
 
-                if (homework.IsVisible)
-                {
-                    homework.Hide();
-                }
-                else if (homework.IsLoaded)
-                {
-                    homework.Show();
-                    homework.Activate();
-                }
+            if (homework.IsVisible && !toggledAll)
+            {
+                homework.Hide();
+            }
+            else if (homework.IsLoaded && toggledAll)
+            {
+                homework.Show();
+                homework.Activate();
+            }
 
-                if (this.IsVisible)
-                {
-                    this.Hide();
-                }
-                else if (this.IsLoaded)
-                {
-                    this.Show();
-                    this.Activate();
-                    //this.Topmost = true;
-                }
+            if (this.IsVisible)
+            {
+                this.Hide();
+            }
+            else if (this.IsLoaded)
+            {
+                this.Show();
+                this.Activate();
+                //this.Topmost = true;
+            }
 	    }
 
         /***** END OF HOTKEY BINDING LOGIC *****/
@@ -231,6 +242,7 @@ namespace Saveyour
             if (e.Key.Equals(Keys.D0) && e.Modifier.Equals(ModifierKeys.Control))
             {
                 toggleAll();
+                toggledAll = !toggledAll;
             }
             else if (e.Key.Equals(Keys.D1) && e.Modifier.Equals(ModifierKeys.Control))
             {

@@ -148,15 +148,14 @@ namespace UnitTestProject1
             Modlist modules = new Modlist();
             Module mod = Shell.launch("Quicknotes");
             modules.add(mod);
-            boolean hname = false;
+            bool hname = false;
             String name = "Quicknotes";
 
             int count = 0;
 
-            foreach (String element in modules.names)
-            {
+            if(modules.hasName("Quicknotes"))
                 count++;
-            }
+            
 
             hname = modules.hasName(mod.moduleID());
 
@@ -167,11 +166,12 @@ namespace UnitTestProject1
 
         //Testing Quicknote's ID method
         [TestMethod]
-        public void wtdID()
+        public void qnotesID()
         {
-            QUicknotes qk = new QuickNotes();
+            Modlist modules = new Modlist();
+            Module mod = Shell.launch("Quicknotes");
             String actual = "Quicknotes";
-            String got = qk.moduleID();
+            String got = mod.moduleID();
 
             Assert.AreEqual(actual, got, "Not Equal");
 
@@ -192,9 +192,9 @@ namespace UnitTestProject1
 			String project = "Project";
             String desc = "All Problems";
             int w = 10;
-			
-			List<Task> taskList = wtd.hashTasks[];
-            foreach (Task task in taskList)
+
+            List<Saveyour.Task> taskList = wtd.hashTasks[] ;
+            foreach (Saveyour.Task tasks in taskList)
             {
                 Assert.AreEqual(task.getTitle(), project, "Titles Not Equal");
             	Assert.AreEqual(task.getDescription(), desc, "Descriptions Not Equal");
@@ -224,8 +224,8 @@ namespace UnitTestProject1
            	Assert.AreEqual(task.getDate(), today, "Dates Not Equal");
 			
 			int count = 0;
-			List<Task> taskList = wtd.hashTasks[];
-            foreach (Task task in taskList)
+			List<Saveyour.Task> taskList = wtd.hashTasks[];
+            foreach (Saveyour.Task tasks in taskList)
             {
                 count++;
             }
@@ -263,15 +263,18 @@ namespace UnitTestProject1
 			wtd.addTask(task);
 			String output = wtd.save();
 			Boolean loaded = wtd.load(output);
+            String project = "Project";
+            String desc = "All Problems";
+            int w = 10;
 			
-			List<Task> taskList = wtd.hashTasks[];
+			List<Saveyour.Task> taskList = wtd.hashTasks[];
 			int count = 0;
-            foreach (Task task in taskList)
+            foreach (Saveyour.Task tasks in taskList)
             {
-                Assert.AreEqual(task.getTitle(), project, "Titles Not Equal");
-            	Assert.AreEqual(task.getDescription(), desc, "Descriptions Not Equal");
-            	Assert.AreEqual(task.getWeight(), w, "Weights Not Equal");
-            	Assert.AreEqual(task.getDate(), today, "Dates Not Equal");
+                Assert.AreEqual(tasks.getTitle(), project, "Titles Not Equal");
+            	Assert.AreEqual(tasks.getDescription(), desc, "Descriptions Not Equal");
+            	Assert.AreEqual(tasks.getWeight(), w, "Weights Not Equal");
+            	Assert.AreEqual(tasks.getDate(), today, "Dates Not Equal");
             	count++;
             }
             
@@ -313,6 +316,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void loggedIn()
         {
+            Saveyour.LoginWindow lw = new LoginWindow();
             bool loggedIn = false;
             String username = "TestUser";
             String password = "password";
@@ -321,7 +325,7 @@ namespace UnitTestProject1
             //Create a network connection and connect
             NetworkControl network = new NetworkControl();
             String response = network.Connect(network.getIP(), username + "\r\r\r" + password + "\r\r\r" + command);
-            Debug.WriteLine(response);
+            //Debug.WriteLine(response);
 
             String[] splitAt = { "\r\r\n" };
             String[] responseData = response.Split(splitAt, StringSplitOptions.None);
@@ -331,22 +335,17 @@ namespace UnitTestProject1
             if (responseData.Length > 1)
             {
                 userData = responseData[1];
-                Debug.WriteLine("UserData: " + userData);
+                //Debug.WriteLine("UserData: " + userData);
             }
 
 
             if (response.Contains("Logged in as"))
             {
-                //Feedback newForm = new Feedback(this);
-                //newForm.ShowDialog();
+                
                 loggedIn = true;
-                Shell.getShell(username, password); //Boots the shell (which sets up SaveLoader)
-                //Shell.getSaveLoader().setLogin(username, password);
-                this.Hide();
-
-                this.Close();
+                
             };
-            Assert.AreEqual(loggedIn, loggedIn());
+            Assert.AreEqual(loggedIn, lw.loggedIn());
         }
 
         //Testing SaveLoader's save and load methods
@@ -356,8 +355,9 @@ namespace UnitTestProject1
             Modlist modules = new Modlist();
             Module mod = Shell.launch("Quicknotes");
             modules.add(mod);
-            Module mod = Shell.launch("WeeklyToDo");
+            Module mod2 = Shell.launch("WeeklyToDo");
             modules.add(mod);
+            modules.add(mod2);
 
             int count = 0;
 
@@ -400,16 +400,15 @@ namespace UnitTestProject1
         {
             
             Settings set = new Settings();
-            set.addQNotes(Quicknotes);
-            set.addWTD("WeeklyToDo");
-            set.addHW("Homework");
-            set.addGC("GoogleCalendar");
-            
+            Modlist modules = new Modlist();
+            Module mod = Shell.launch("Quicknotes");
+            Module mod2 = Shell.launch("WeeklyToDo");
+ 
+            set.addQNotes(mod);
+            set.addWTD(mod2);
+                  
             Assert.IsNotNull(set.qnotes);
             Assert.IsNotNull(set.weeklytd);
-            Assert.IsNotNull(set.homework);
-            Assert.IsNotNull(set.gcalendar);
-
             
         }
 
@@ -432,7 +431,7 @@ namespace UnitTestProject1
         {
             Homework hw = new Homework();
             String actual = "Homework";
-            String got = set.moduleID();
+            String got = hw.moduleID();
 
             Assert.AreEqual(actual, got, "Not Equal");
 
@@ -440,7 +439,7 @@ namespace UnitTestProject1
         }
 
         //Testing new Homework
-        [TestMethod]
+        /*[TestMethod]
         public void newHW()
         {
             Homework hw = new Homework();
@@ -449,7 +448,7 @@ namespace UnitTestProject1
             Assert.IsNotNull(hw.subjects[0]);
 
 
-        }
+        }*/
 
     }
 }

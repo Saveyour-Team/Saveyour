@@ -52,7 +52,7 @@ namespace TaskBatch
 
 
             }
-            return l;
+            return sortList(l);
         }
 
         private List<DateTimeSum> sortList(List<DateTimeSum> l){

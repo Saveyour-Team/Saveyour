@@ -301,11 +301,10 @@ namespace Saveyour
             removeTaskBtn.Tag = task;
 
             removeTaskBtn.ContentTemplate = this.Resources["remTemplate"] as DataTemplate;
-            //removeTaskBtn.Click += new RoutedEventHandler(taskRemoveBtn_Click);
 
             removeTaskBtn.Click += new RoutedEventHandler(taskRemoveBtn_Click);
             removeTaskBtn.Width = this.Width / 2;
-            removeTaskBtn.HorizontalAlignment = HorizontalAlignment.Center;
+            //removeTaskBtn.HorizontalAlignment = HorizontalAlignment.Center;
 
 
             //Add these to the stackpanel

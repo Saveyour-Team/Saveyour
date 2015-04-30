@@ -8,14 +8,14 @@
         LostFocus="onLostFocus"
         WindowStyle="None" Background="Transparent" AllowsTransparency="True" ResizeMode="NoResize">
 
-    <Border BorderBrush="White" BorderThickness="2,2,2,2" CornerRadius="15,15,15,15" Background="White">
+    <Border BorderBrush="White" BorderThickness="2,2,2,2" CornerRadius="15,15,15,15" Background="White" Height="{x:Static SystemParameters.PrimaryScreenHeight}">
 
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="63*"/>
                 <ColumnDefinition Width="127*"/>
             </Grid.ColumnDefinitions>
-            <Grid x:Name="WeekGrid" Margin="0" IsEnabled="True" Grid.ColumnSpan="2">
+            <Grid x:Name="WeekGrid" Margin="0" IsEnabled="True" Grid.ColumnSpan="2" Height="{x:Static SystemParameters.PrimaryScreenHeight}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>

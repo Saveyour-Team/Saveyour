@@ -20,8 +20,6 @@
         </Border>
 
         <Button x:Name="addTaskBtn" Content="Add Task" HorizontalAlignment="Center" VerticalAlignment="Top" Width="74" Height="25" Foreground="White" Background="#FF5EC0FF" Click="addTaskButton" Margin="112,49,114,0"/>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-            <StackPanel x:Name="AvailableDates" Margin="0,100,0,28"/>
-        </ScrollViewer>
+        <StackPanel x:Name="AvailableDates" Margin="0,96,0,32"/>
     </Grid>
 </Window>

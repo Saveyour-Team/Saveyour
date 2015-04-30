@@ -87,6 +87,9 @@
     <Compile Include="AddHomeworkTask.xaml.cs">
       <DependentUpon>AddHomeworkTask.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddTaskNoDate.xaml.cs">
+      <DependentUpon>AddTaskNoDate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddTaskWindow.xaml.cs">
       <DependentUpon>AddTaskWindow.xaml</DependentUpon>
     </Compile>
@@ -128,6 +131,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddTaskButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AddTaskNoDate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -35,6 +35,16 @@ namespace TaskBatch
             //WeeklyInstance.sumOfTaskWeights();
             //Pull Weekly Data
             Debug.WriteLine("INSTANCE: " + WeeklyInstance);
+
+            StackPanel dateStack = new StackPanel();
+            TextBlock dateLabel = new TextBlock();
+            dateLabel.Text = "TESTSTESTETSETSTET";
+            dateLabel.Margin = new Thickness(10, 0, 0, 0);
+
+            dateStack.Children.Add(dateLabel);
+
+            AvailableDates.Children.Add(dateStack);
+
         
         }
 
@@ -86,7 +96,7 @@ namespace TaskBatch
         private void addTaskButton(object sender, RoutedEventArgs e)
         {
             WeeklyInstance = Shell.getWeeklyToDo(); 
-            Saveyour.Task task = WeeklyInstance.selectAddTask(e);
+            Saveyour.Task task = WeeklyInstance.selectAddNoDateTask(e);
 
 
         }

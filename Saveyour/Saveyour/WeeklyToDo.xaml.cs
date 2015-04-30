@@ -487,9 +487,9 @@ namespace Saveyour
             }
         }
 
-        public Task selectAddTask(RoutedEventArgs e)
+        public Task selectAddNoDateTask(RoutedEventArgs e)
         {
-            AddTaskWindow addTaskWin = new AddTaskWindow(this);
+            AddTaskNoDate addTaskWin = new AddTaskNoDate(this);
             addTaskWin.ShowInTaskbar = false;
             Nullable<bool> result = addTaskWin.ShowDialog();
             if (!result.HasValue || !result.Value)

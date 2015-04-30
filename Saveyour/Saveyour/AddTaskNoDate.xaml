@@ -1,0 +1,32 @@
+﻿<Window x:Class="Saveyour.AddTaskNoDate"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AddTaskWindow" Height="300" Width="569.333" WindowStyle="None" Background="Transparent" AllowsTransparency="True" ResizeMode="NoResize">
+
+    <Border BorderBrush="White" BorderThickness="2,2,2,2" CornerRadius="15,15,15,15" Background="#FF44B9FF">
+        <Grid Margin="0,0,2,0">
+            <TextBlock x:Name="Title" Foreground="White" Margin="10,5,10,0" TextWrapping="Wrap" Text="Add Task " HorizontalAlignment="Center" Width="111" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
+            <TextBox x:Name="TaskDescription" Height="90" Margin="127,99,127,0" TextWrapping="Wrap" Text="Enter a description of your task here!" VerticalAlignment="Top" AcceptsReturn="True" GotFocus="descriptBoxGotFocus"/>
+            <Button x:Name="ConfirmButton" Content="Confirm Task" HorizontalAlignment="Center" Height="30" Margin="166,239,307,0" VerticalAlignment="Top" Width="90" Click="ConfirmButton_Click"/>
+            <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Center" Height="30" Margin="292,239,181,0" VerticalAlignment="Top" Width="90" Click="CancelButton_Click"/>
+            <Label Content="Title:" Foreground="White" HorizontalAlignment="Left" Margin="130,38,0,0" VerticalAlignment="Top" Height="32" Width="52"/>
+            <TextBox x:Name="taskTitle" HorizontalAlignment="Left" Height="23" Margin="176,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250"/>
+            <Label x:Name="Weight" Foreground="White" Content="Difficulty:" HorizontalAlignment="Left" Margin="127,195,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="lblWeight" Foreground="White" Content="0" HorizontalAlignment="Left" Margin="191,195,0,0" VerticalAlignment="Top" Width="31" HorizontalContentAlignment="Center"/>
+            <Slider x:Name="weightSlider" HorizontalAlignment="Left" Margin="266,195,0,0" VerticalAlignment="Top" Width="143" ValueChanged="Slider_ValueChanged" SmallChange="1" TickPlacement="Both" IsSnapToTickEnabled="True"/>
+            <Label Content="Easy" Foreground="White" HorizontalAlignment="Left" Margin="223,195,0,0" VerticalAlignment="Top"/>
+            <Label Content="Hard" Foreground="White" HorizontalAlignment="Left" Margin="409,195,0,0" VerticalAlignment="Top"/>
+            <Label Content="Description:" Foreground="White" HorizontalAlignment="Left" Margin="127,75,0,0" VerticalAlignment="Top"/>
+
+            <Rectangle x:Name="titleBar" HorizontalAlignment="Left" Height="37" Stroke="#00000000" VerticalAlignment="Top" Width="557" MouseDown="titleBar_MouseDown" RadiusY="24.5" RadiusX="24.5" Margin="4,0,0,0" Opacity="0" PreviewMouseDown="titleBar_PreviewMouseDown">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFE3F5FF" Offset="1"/>
+                        <GradientStop Color="#FFFDFEFF"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+
+        </Grid>
+    </Border>
+</Window>

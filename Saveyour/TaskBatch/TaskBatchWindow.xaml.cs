@@ -34,18 +34,7 @@ namespace TaskBatch
             WeeklyInstance = Shell.getWeeklyToDo(); //This is always null because of the way plugins are loaded. 
             //WeeklyInstance.sumOfTaskWeights();
             //Pull Weekly Data
-            Debug.WriteLine("INSTANCE: " + WeeklyInstance);
-
-            StackPanel dateStack = new StackPanel();
-            TextBlock dateLabel = new TextBlock();
-            dateLabel.Text = "TESTSTESTETSETSTET";
-            dateLabel.Margin = new Thickness(10, 0, 0, 0);
-
-            dateStack.Children.Add(dateLabel);
-
-            AvailableDates.Children.Add(dateStack);
-
-        
+            Debug.WriteLine("INSTANCE: " + WeeklyInstance);        
         }
 
         private List<DateTimeSum> ListOfDays(){
@@ -98,7 +87,19 @@ namespace TaskBatch
             WeeklyInstance = Shell.getWeeklyToDo(); 
             Saveyour.Task task = WeeklyInstance.selectAddNoDateTask(e);
 
+            //CALCULATE THE BEST DATE HERE
+            ConfirmationWindow confirm = new ConfirmationWindow();
 
+            confirm.displayMessage("Would you like to add the task  to the date\n " + "(the date goes here)");
+
+            if (task != null)
+            {
+                bool? result = confirm.ShowDialog();
+                if (result == true)
+                {
+                    // ADD THE TASK AT THE DATE
+                }
+            }
         }
 
         private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)

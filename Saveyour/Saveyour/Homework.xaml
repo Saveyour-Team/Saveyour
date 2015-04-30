@@ -2,8 +2,19 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 
-
-        Title="Homework" Height="402.4" Width="331.6">
+    Title="Homework" Height="402.4" Width="331.6">
+    <Window.Resources>
+        <DataTemplate x:Key="editColumnTemplate">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="X"  Command="{Binding Path=DataContext.DeleteCommand,
+                      RelativeSource={RelativeSource Mode=FindAncestor,
+                                                     AncestorType=Window}}" CommandParameter="{Binding}" HorizontalAlignment="Stretch"/>
+                <Button Content="A"  Command="{Binding Path=DataContext.ArchiveCommand,
+                      RelativeSource={RelativeSource Mode=FindAncestor,
+                                                     AncestorType=Window}}" CommandParameter="{Binding}" HorizontalAlignment="Stretch"/>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
     <Grid x:Name="windowGrid" Margin="0,0,2.8,0.8">
         <Button x:Name="addSubjectButton" Content="Add Subject" HorizontalAlignment="Left" Margin="32,17,0,0" VerticalAlignment="Top" Width="80" Click="addSubjectButton_Click"/>
         <TabControl x:Name="subjectsTab" HorizontalAlignment="Left" Height="312" Margin="10,56,0,0" VerticalAlignment="Top" Width="302">
@@ -23,15 +34,7 @@
                             </GridView.ColumnHeaderContainerStyle>
                             <GridViewColumn x:Name="assignmentColumn" Header="Assignment" DisplayMemberBinding="{Binding AssignmentName}" Width="190"/>
                             <GridViewColumn x:Name="dateColumn" Header="Date" DisplayMemberBinding="{Binding AssignmentShortenedDate}" Width="45"/>
-                            <GridViewColumn Header="Edit" Width="35">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Button x:Name="deleteButton" Content="X"  Click ="deleteTask"  HorizontalAlignment="Stretch"/>
-                                            <Button x:Name="archiveButton" Content="Y"  Click ="archiveTask"  HorizontalAlignment="Stretch"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
+                            <GridViewColumn Header="Edit" Width="35" CellTemplate="{StaticResource editColumnTemplate}">
                             </GridViewColumn>
                         </GridView>
                     </ListView.View>

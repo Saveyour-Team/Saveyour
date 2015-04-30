@@ -121,6 +121,7 @@ namespace TaskBatch
             bool? result = confirm.ShowDialog();
             if (result == true)
             {
+                AvailableDates.Children.Clear();
                 // ADD THE TASKS AT THE DATE
             }
         }

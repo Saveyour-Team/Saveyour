@@ -471,7 +471,7 @@ namespace Saveyour
 
 
         //Adds a task to the hashTasks hashtable keyed by its date.
-        private void addTask(Task task)
+        public void addTask(Task task)
         {
             try
             {

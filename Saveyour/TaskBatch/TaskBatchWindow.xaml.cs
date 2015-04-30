@@ -115,18 +115,19 @@ namespace TaskBatch
             ConfirmationWindow confirm = new ConfirmationWindow();
 
             //CALCULATE THE IDEAL DAY TO PLACE TASKS
-            List<DateTimeSum> allDays = sortList(ListOfDays());
+            List<DateTimeSum> allDays = sortList(ListOfDays());//returns a sorted lists with all the days for the next 2 weeks in ascending order from lowest to highest task weight for day
             DateTimeSum idealDay = allDays[0];//gets index at the top, which is the one with the least task weight
-            DateTime toAdd = idealDay.getDateTime();
+            DateTime toAdd = idealDay.getDateTime(); //This si the ideal date to add the task to. Want to add Task to this Date
             String date = toAdd.ToString();
             confirm.displayMessage("Would you like to add the tasks to the date\n " + date);
-
+            Saveyour.Task task = WeeklyInstance.selectAddNoDateTask(e); 
             bool? result = confirm.ShowDialog();
             if (result == true)
             {
                 AvailableDates.Children.Clear();
                 
                 // ADD THE TASKS AT THE DATE
+                WeeklyInstance.addTask(task);
             }
         }
 

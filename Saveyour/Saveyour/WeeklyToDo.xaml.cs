@@ -299,6 +299,8 @@ namespace Saveyour
             removeTaskBtn.Content = "X";
             removeTaskBtn.Tag = task;
             removeTaskBtn.Click += new RoutedEventHandler(taskRemoveBtn_Click);
+            removeTaskBtn.Width = this.Width / 2;
+            removeTaskBtn.HorizontalAlignment = HorizontalAlignment.Center;
 
             //Add these to the stackpanel
             taskStack.Children.Add(taskLabel);

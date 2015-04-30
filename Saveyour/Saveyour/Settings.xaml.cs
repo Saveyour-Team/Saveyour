@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Forms;
 using System.Reflection;
+using System.Diagnostics;
 using SaveyourUpdate;
 
 namespace Saveyour

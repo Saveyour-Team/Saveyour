@@ -28,8 +28,8 @@ namespace Saveyour
             InitializeComponent();
 		    qnControl = control;
 
-            Left = (System.Windows.SystemParameters.PrimaryScreenWidth / 2) - (this.Width / 2);
-            Top = System.Windows.SystemParameters.PrimaryScreenHeight - this.Height;
+            Left = (System.Windows.SystemParameters.PrimaryScreenWidth / 2) - 3 * (this.Width / 2);
+            Top = System.Windows.SystemParameters.PrimaryScreenHeight - this.Height - 50;
         }
 
 

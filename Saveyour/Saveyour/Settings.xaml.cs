@@ -25,11 +25,10 @@ namespace Saveyour
         QuicknotesControl qnotes;
         Window weeklytd;
         Window gcalendar;
-
-        SaveyourUpdater updater;
-
         Window homework;
 
+        SaveyourUpdater updater;
+       
         //This allows for us to globally bind a key in Windows to a macro
 	    private KeyboardHook keyHook = new KeyboardHook(); 
 	
@@ -205,6 +204,14 @@ namespace Saveyour
                 gcalendar.Hide();
             else if (gcalendar.IsLoaded)
                 gcalendar.Show();
+        }
+
+        private void HW_Click(object sender, RoutedEventArgs e)
+        {
+            if (homework.IsVisible)
+                homework.Hide();
+            else if (homework.IsLoaded)
+                homework.Show();
         }
 
         private void key_pressed(object sender, KeyPressedEventArgs e)

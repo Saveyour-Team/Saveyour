@@ -46,8 +46,8 @@ namespace Saveyour
         private void registerButton_Click(object sender, RoutedEventArgs e)
         {
             username = usernameField.Text;
-            String password = passwordField.Text;
-            String confirm = confirmPasswordField.Text;
+            String password = passwordField.Password;
+            String confirm = confirmPasswordField.Password;
             if (!password.Equals(confirm))
             {
                 loginStatusLabel.Content = "Password fields don't match!";
@@ -112,7 +112,7 @@ namespace Saveyour
                 return;
             }
             firstPasswordFocus = false;
-            passwordField.Text = "";
+            passwordField.Password = "";
 
         }
 
@@ -123,7 +123,7 @@ namespace Saveyour
                 return;
             }
             firstPasswordConfirmFocus = false;
-            confirmPasswordField.Text = "";
+            confirmPasswordField.Password = "";
 
         }
 

@@ -9,10 +9,10 @@
             <Label Content="Saveyour" HorizontalAlignment="Left" Margin="105,10,0,0" VerticalAlignment="Top" FontSize="60" Foreground="White"/>
             <TextBlock HorizontalAlignment="Left" Margin="117,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224"/>
             <TextBox x:Name="usernameField" HorizontalAlignment="Center" Height="23" Margin="0,155,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="195" TextChanged="TextBox_TextChanged" GotFocus="usernameGotFocus" TabIndex="1"/>
-            <TextBox x:Name="passwordField" HorizontalAlignment="Center" Height="23" Margin="0,205,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="195" GotFocus="passwordGotFocus" KeyUp="onPasswordKeyUp" TabIndex="2"/>
+            <PasswordBox x:Name="passwordField" HorizontalAlignment="Center" Height="23" Margin="0,205,0,0" Password="hunter2" VerticalAlignment="Top" Width="195" GotFocus="passwordGotFocus" KeyUp="onPasswordKeyUp" TabIndex="2"/>
             <Button x:Name="registerButton" Content="Register" Margin="0,250,0,0" Width="87" Click="registerButton_Click" Height="20" MinWidth="87" MinHeight="20" TabIndex="20"/>
             <Label x:Name="loginStatusLabel" Foreground="White" Content="Register as a New User" HorizontalAlignment="Center" Margin="0,105,0,0" VerticalAlignment="Top" Width="250" HorizontalContentAlignment ="Center" FontWeight="Bold" FontSize="16" RenderTransformOrigin="0.495,-0.962"/>
-            <TextBox x:Name="confirmPasswordField" HorizontalAlignment="Center" Height="23" Margin="0,255,0,0" TextWrapping="Wrap" Text="Confirm Password" VerticalAlignment="Top" Width="195" GotFocus="passwordConfirmGotFocus" KeyUp="onPasswordKeyUp" TabIndex="3"/>
+            <PasswordBox x:Name="confirmPasswordField" HorizontalAlignment="Center" Height="23" Margin="0,255,0,0" Password="hunter2" VerticalAlignment="Top" Width="195" GotFocus="passwordConfirmGotFocus" KeyUp="onPasswordKeyUp" TabIndex="3"/>
 
             <Rectangle x:Name="titleBar" HorizontalAlignment="Left" Height="37" Stroke="#00000000" VerticalAlignment="Top" Width="426" MouseDown="titleBar_MouseDown" RadiusY="24.5" RadiusX="24.5" Margin="6,0,0,0" Opacity="0">
                 <Rectangle.Fill>

@@ -126,7 +126,7 @@
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
-            <Button Content="Button" HorizontalAlignment="Center" VerticalAlignment="Top" Width="40" Height="40" Style="{DynamicResource genericAddStyle1}" Click="addTaskButton" Margin="170,2,170,0"/>
+            <Button x:Name="addTaskBtn" Content="Button" HorizontalAlignment="Center" VerticalAlignment="Top" Width="40" Height="40" Style="{DynamicResource genericAddStyle1}" Click="addTaskButton"/>
 
         </Grid>
     </Border>

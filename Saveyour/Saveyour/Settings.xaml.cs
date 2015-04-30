@@ -294,6 +294,11 @@ namespace Saveyour
                 e.Handled = true;
         }
 
+        private void AddQN_Click(object sender, RoutedEventArgs e)
+        {
+            qnotes.addQuickNote();
+        }
+
         /***** END OF LOGIC FOR DATA BINDINGS XAML ELEMENTS *****/
         
     }

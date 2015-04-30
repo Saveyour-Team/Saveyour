@@ -42,6 +42,9 @@ namespace Saveyour
         	keyHook.RegisterHotKey(ModifierKeys.Shift,Keys.D0);
             updater = new SaveyourUpdater(this);
 
+            Left = 0;
+            Top = System.Windows.SystemParameters.PrimaryScreenHeight - 435;
+
 	    }
         	    
         /***** HOTKEY BINDING LOGIC *****/	

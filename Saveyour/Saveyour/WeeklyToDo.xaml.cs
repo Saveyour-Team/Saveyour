@@ -83,8 +83,8 @@ namespace Saveyour
             //Moves WeeklyToDo to the topright of the screen on launch.
             Left = System.Windows.SystemParameters.PrimaryScreenWidth - Width;
             Top = 0;
-            Thickness point = addTaskBtn.Margin;
-            addTaskBtn.Margin = new Thickness(point.Left, point.Top + 2, point.Right, point.Bottom);
+            //Thickness point = addTaskBtn.Margin;
+            //addTaskBtn.Margin = new Thickness(point.Left, point.Top + 2, point.Right, point.Bottom);
 
             //Initialization of the class's fields
             hashTasks = new Dictionary<DateTime,List<Task>>();

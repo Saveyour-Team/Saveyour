@@ -127,8 +127,8 @@
                 </Button.RenderTransform>
             </Button>
             
-            
             <Button x:Name="addTaskBtn" Content="Add Task" HorizontalAlignment="Center" VerticalAlignment="Top" Width="75" Height="25" Foreground="White" Background="#FF5EC0FF" Click="addTaskButton"/>    
+
             
             
 

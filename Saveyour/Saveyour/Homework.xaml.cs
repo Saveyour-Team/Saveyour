@@ -34,47 +34,39 @@ namespace Saveyour
             public String AssignmentShortenedDate { get; set; }
         }
 
-        ObservableCollection<Task> taskCollection;
-        ObservableCollection<TabItem> subjectsCollection;
-        ListView defaultListStyle;
-        String tabXAML;
-        StringReader readString;
-        XmlReader reader;
-        TabItem setTab;
-        Button addButton;
-        
-
-        //ObservableCollection<Task> taskCollection;
-
         private class Subject
         {
             public ObservableCollection<Task> taskCollection;
-            String name;
 
             public Subject()
             {
                 taskCollection = new ObservableCollection<Task>();
             }
         }
-        
-        private const int MAX_SUBJECTS = 10;
-        private int numSubjects = 1;
-        private int totalSubjects = 1;
-        Subject[] subjects = new Subject[MAX_SUBJECTS];
 
+        private const int MAX_SUBJECTS = 10;
+        //Subject[] subjects = new Subject[MAX_SUBJECTS];
+        MainViewModel newView;
+        private static TabControl mainTabControl;
+        ObservableCollection<Task> taskGroupAll;
+        ObservableCollection<Task> taskGroup;
+        TabItem AllTab;
         public Homework()
         {
             InitializeComponent();
+            newView = new MainViewModel();
+            this.DataContext = newView;
+            taskGroup = new ObservableCollection<Task>();
+            //subjects[0] = new Subject();
+            
+            AllTab = new TabItem();
+            AllTab.Header = "All";
+            taskGroupAll = new ObservableCollection<Task>();
+            AllTab.Content = createNewList(taskGroupAll);
+            subjectsTab.Items.Add(AllTab);
+            mainTabControl = subjectsTab;
 
-            subjectsCollection = new ObservableCollection<TabItem>();
-            taskList.ItemsSource = new ObservableCollection<Task>();
-            defaultListStyle = taskList;
-            tabXAML = XamlWriter.Save(taskList);
-
-
-            //taskCollection = new ObservableCollection<Task>();
-            subjects[0] = new Subject();
-            taskList.ItemsSource = subjects[0].taskCollection; //This needs to be scalable to multiple xaml elements.
+            //This needs to be scalable to multiple xaml elements.
             //We need to load the information for the subjects here.
 
             //After loading the information, we increase numSubjects and take the data from load to construct each GroupBox for each Grid
@@ -82,7 +74,7 @@ namespace Saveyour
             //Load the GroupBox, then the Grid, then each task in Task, then each date in Date
 
             //                        
-            
+
         }
 
         public String moduleID()
@@ -123,21 +115,6 @@ namespace Saveyour
             return moduleID().Equals(other.moduleID());
         }
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void Task_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void RichTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
         private void addSubjectButton_Click(object sender, RoutedEventArgs e)
         {
             
@@ -150,50 +127,32 @@ namespace Saveyour
             {
                 return;
             }
-
+            
             TabItem newTab = new TabItem();
-            newTab.Header = display.getSubject(); //Need to make sure we cannot exit window until Submit or Cancel is pressed.
-            readString = new StringReader(tabXAML);
-            reader = XmlReader.Create(readString);
-            ListView newList = (ListView)XamlReader.Load(reader);
-            
-            addButton = (Button) newList.FindName("deleteButton");
-            if (addButton != null)
-
-            {
-                Console.WriteLine("Is Not NULL WAHOO!!");
-                addButton.Click += new RoutedEventHandler(deleteTask);
-            }
-            addButton = (Button) LogicalTreeHelper.FindLogicalNode(newList, "archiveButton") as Button;
-            if(addButton != null)
-                addButton.Click += new RoutedEventHandler(archiveTask);
-            
-            taskCollection = new ObservableCollection<Task>();
-            newList.ItemsSource = taskCollection;
-            newTab.Content = newList;
+            newTab.Header = check; //Need to make sure we cannot exit window until Submit or Cancel is pressed.
+            newTab.Content = createNewList(null);
             subjectsTab.Items.Add(newTab);
-            reader.Close();
+            mainTabControl = subjectsTab;
         }
-
-        private void RichTextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        
+        public static void deleteTask(object sender)
         {
+            Task item = (Task)sender;
+            Console.Write("Item Name:");
+            Console.WriteLine(item.AssignmentName);
+            TabItem tabitem = (TabItem) mainTabControl.SelectedItem;
+            Console.WriteLine(tabitem);
+            ListView listview = (ListView) tabitem.Content;
+            Console.WriteLine(listview);
+            int index = ((ListView)((TabItem)mainTabControl.SelectedItem).Content).Items.IndexOf(item);
+            Console.Write(index);
+            ((ObservableCollection<Task>)((ListView)((TabItem)mainTabControl.SelectedItem).Content).ItemsSource).Remove(item);
+
+            ((ListView)((TabItem)mainTabControl.SelectedItem).Content).Items.Refresh();
 
         }
 
-
-        private void deleteTask(object sender, RoutedEventArgs e)
-        {
-            Console.WriteLine("SJDBFGJSDGSD");
-            Task item = (Task) (sender as Button).DataContext;
-
-            int index = ((ListView)((TabItem)subjectsTab.SelectedItem).Content).Items.IndexOf(item);
-            ((ObservableCollection<Task>)((ListView)((TabItem)subjectsTab.SelectedItem).Content).ItemsSource).Remove(item);
-
-            ((ListView)((TabItem)subjectsTab.SelectedItem).Content).Items.Refresh();
-           
-        }
-
-        private void archiveTask(object send, RoutedEventArgs e)
+        private static void archiveTask(object send)
         {
             Console.WriteLine("??????????????????");
         }
@@ -212,18 +171,119 @@ namespace Saveyour
             String shortenedDate = date.Remove(date.Length - 5);
 
             TabItem setTab = subjectsTab.SelectedItem as TabItem;
-            if (setTab != AllTab)
-            {
-                ((ObservableCollection<Task>)((ListView)setTab.Content).ItemsSource).Add(new Task { AssignmentName = description, AssignmentDate = date, AssignmentShortenedDate = shortenedDate });
-                ((ListView)setTab.Content).Items.Refresh();
-            }
+            Console.WriteLine(setTab);
+            Task newTask = new Task { AssignmentName = description, AssignmentDate = date, AssignmentShortenedDate = shortenedDate };
 
-            Console.WriteLine(date);
-            subjects[0].taskCollection.Add(new Task { AssignmentName = description, AssignmentDate = date, AssignmentShortenedDate = shortenedDate });
-            taskList.Items.Refresh();
+
+            ((ObservableCollection<Task>)((ListView)setTab.Content).ItemsSource).Add(newTask);
+            Console.WriteLine(((ObservableCollection<Task>)((ListView)setTab.Content).ItemsSource));
+            ((ListView)setTab.Content).Items.Refresh();
+            mainTabControl = subjectsTab;
+            //Console.WriteLine(((ListView)setTab.Content));
+            //subjects[0].taskCollection.Add(newTask);
 
         }
 
+        private ListView createNewList(ObservableCollection<Task> list)
+        {
+            
+            ListView newList = new ListView();
+            GridViewColumn nameColumn = new GridViewColumn();
+            GridViewColumn dateColumn = new GridViewColumn();
+            GridViewColumn editColumn = new GridViewColumn();
+            GridView newGrid = new GridView();
+            nameColumn.Width = 190;
+            nameColumn.Header = "Assignment";
+            nameColumn.DisplayMemberBinding = new Binding("AssignmentName");
+            dateColumn.Width = 45;
+            dateColumn.Header = "Date";
+            dateColumn.DisplayMemberBinding = new Binding("AssignmentShortenedDate");
+            editColumn.Width = 35;
+            editColumn.Header = "Edit";
+            editColumn.CellTemplate = this.Resources["editColumnTemplate"] as DataTemplate;
+            newGrid.Columns.Add(nameColumn);
+            newGrid.Columns.Add(dateColumn);
+            newGrid.Columns.Add(editColumn);
+
+            newList.View = newGrid;
+            if(list == null){
+                taskGroup = new ObservableCollection<Task>();
+                newList.ItemsSource = taskGroup;
+            }
+            else
+                newList.ItemsSource = list;
+
+            return newList;
+        }
+
+        public class MainViewModel
+        {
+            public MainViewModel()
+            {
+
+            }
+
+            private ICommand deleteCommand;
+            private ICommand archiveCommand;
+            public ICommand DeleteCommand
+            {
+                get
+                {
+                    if (deleteCommand == null)
+                        deleteCommand = new RelayCommand(i => this.deleteSelectedTask(i), null);
+                    return deleteCommand;
+                }
+            }
+            public ICommand ArchiveCommand
+            {
+                get
+                {
+                    if (archiveCommand == null)
+                        archiveCommand = new RelayCommand(i => this.archiveSelectedTask(i), null);
+                    return archiveCommand;
+                }
+            }
+
+            private void deleteSelectedTask(object sender)
+            {
+                Console.WriteLine("Pressed delete button!");
+                deleteTask(sender);
+            }
+
+            private void archiveSelectedTask(object sender)
+            {
+                Console.WriteLine("Pressed archive task button!");
+                archiveTask(sender);
+            }
+        }    
+
+        public class RelayCommand : ICommand
+        {
+            readonly Action<object> execute;
+            readonly Predicate<object> canExecute;
+
+            public RelayCommand(Action<object> executeDelegate, Predicate<object> canExecuteDelegate)
+            {
+                execute = executeDelegate;
+                canExecute = canExecuteDelegate;
+            }
+
+            bool ICommand.CanExecute(object parameter)
+            {
+                return canExecute == null ? true : canExecute(parameter);
+            }
+
+            event EventHandler ICommand.CanExecuteChanged
+            {
+                add { CommandManager.RequerySuggested += value; }
+                remove { CommandManager.RequerySuggested -= value; }
+            }
+
+            void ICommand.Execute(object parameter)
+            {
+                execute(parameter);
+            }
+        }
         private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
@@ -234,7 +294,5 @@ namespace Saveyour
             if (e.RightButton == MouseButtonState.Pressed)
                 e.Handled = true;
         }
-
-
     }
 }

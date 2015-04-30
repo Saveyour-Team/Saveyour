@@ -13,8 +13,8 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Button}">
-					<Grid HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50">
-						<Rectangle x:Name="rectangle" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50" RadiusY="3.25" RadiusX="3.25" Stroke="White">
+					<Grid HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="40">
+						<Rectangle x:Name="rectangle" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="40" RadiusY="3.25" RadiusX="3.25" Stroke="White">
 							<Rectangle.Fill>
 								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
 									<GradientStop Color="#FF008F13" Offset="1"/>
@@ -22,8 +22,8 @@
 								</LinearGradientBrush>
 							</Rectangle.Fill>
 						</Rectangle>
-						<Rectangle HorizontalAlignment="Center" Height="35" Stroke="White" VerticalAlignment="Center" Width="35" StrokeThickness="0" Fill="White"/>
-						<Rectangle x:Name="rectangle1" HorizontalAlignment="Left" Height="18.5" Stroke="White" StrokeThickness="0" VerticalAlignment="Top" Width="18.5" Margin="5,5,0,0">
+						<Rectangle HorizontalAlignment="Center" Height="25" Stroke="White" VerticalAlignment="Center" Width="25" StrokeThickness="0" Fill="White"/>
+						<Rectangle x:Name="rectangle1" HorizontalAlignment="Left" Height="16.25" Stroke="White" StrokeThickness="0" VerticalAlignment="Top" Width="16.25" Margin="2.25,2.25,0,0">
 							<Rectangle.Fill>
 								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
 									<GradientStop Color="#FF00F421" Offset="0"/>
@@ -31,7 +31,7 @@
 								</LinearGradientBrush>
 							</Rectangle.Fill>
 						</Rectangle>
-						<Rectangle x:Name="rectangle2" HorizontalAlignment="Left" Height="18.5" Stroke="White" StrokeThickness="0" VerticalAlignment="Top" Width="19" Margin="26.5,5,0,0">
+						<Rectangle x:Name="rectangle2" HorizontalAlignment="Left" Height="16.25" Stroke="White" StrokeThickness="0" VerticalAlignment="Top" Width="16.25" Margin="21,2.25,0,0">
 							<Rectangle.Fill>
 								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
 									<GradientStop Color="#FF00F421" Offset="0"/>
@@ -39,7 +39,7 @@
 								</LinearGradientBrush>
 							</Rectangle.Fill>
 						</Rectangle>
-						<Rectangle x:Name="rectangle3" HorizontalAlignment="Left" Height="19" Stroke="White" StrokeThickness="0" VerticalAlignment="Top" Width="18.5" Margin="5,26.5,0,0">
+						<Rectangle x:Name="rectangle3" HorizontalAlignment="Left" Height="16.25" Stroke="White" StrokeThickness="0" VerticalAlignment="Top" Width="16.25" Margin="2.25,21,0,0">
 							<Rectangle.Fill>
 								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
 									<GradientStop Color="#FF00C11A" Offset="0"/>
@@ -47,7 +47,7 @@
 								</LinearGradientBrush>
 							</Rectangle.Fill>
 						</Rectangle>
-						<Rectangle x:Name="rectangle4" HorizontalAlignment="Left" Height="19" Stroke="White" StrokeThickness="0" VerticalAlignment="Top" Width="19" Margin="26.5,26.5,0,0">
+						<Rectangle x:Name="rectangle4" HorizontalAlignment="Left" Height="16.25" Stroke="White" StrokeThickness="0" VerticalAlignment="Top" Width="16.25" Margin="21,21,0,0">
 							<Rectangle.Fill>
 								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
 									<GradientStop Color="#FF00C11A" Offset="0"/>

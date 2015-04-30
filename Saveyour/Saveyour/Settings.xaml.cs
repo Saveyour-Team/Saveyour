@@ -37,9 +37,18 @@ namespace Saveyour
             InitializeComponent();            
        		// Create a listener for hotkeys
        		keyHook.KeyPressed += new EventHandler<KeyPressedEventArgs>(key_pressed);
-       		// Register Alt+F12 as a hotkey
+       		
+            // Register Ctrl + 0 as a hotkey
+        	keyHook.RegisterHotKey(ModifierKeys.Control,Keys.D0);
 
-        	keyHook.RegisterHotKey(ModifierKeys.Shift,Keys.D0);
+            keyHook.RegisterHotKey(ModifierKeys.Control, Keys.D1);
+
+            keyHook.RegisterHotKey(ModifierKeys.Control, Keys.D2);
+
+            keyHook.RegisterHotKey(ModifierKeys.Control, Keys.D3);
+
+            keyHook.RegisterHotKey(ModifierKeys.Control, Keys.D4);
+            
             updater = new SaveyourUpdater(this);
 
 	    }
@@ -216,10 +225,37 @@ namespace Saveyour
 
         private void key_pressed(object sender, KeyPressedEventArgs e)
         {
-            if (e.Key.Equals(Keys.D0) && e.Modifier.Equals(ModifierKeys.Shift))
+            if (e.Key.Equals(Keys.D0) && e.Modifier.Equals(ModifierKeys.Control))
             {
                 toggleAll();
             }
+            else if (e.Key.Equals(Keys.D1) && e.Modifier.Equals(ModifierKeys.Control))
+            {
+                qnotes.ToggleVisibility();
+            }
+            else if (e.Key.Equals(Keys.D2) && e.Modifier.Equals(ModifierKeys.Control))
+            {
+                if (weeklytd.IsVisible)
+                    weeklytd.Hide();
+                else if (weeklytd.IsLoaded)
+                    weeklytd.Show();
+            }
+            else if (e.Key.Equals(Keys.D3) && e.Modifier.Equals(ModifierKeys.Control))
+            {
+                if (gcalendar.IsVisible)
+                    gcalendar.Hide();
+                else if (gcalendar.IsLoaded)
+                    gcalendar.Show();
+            }
+            else if (e.Key.Equals(Keys.D4) && e.Modifier.Equals(ModifierKeys.Control))
+            {
+                if (homework.IsVisible)
+                    homework.Hide();
+                else if (homework.IsLoaded)
+                    homework.Show();
+            }
+
+
 
         }
 

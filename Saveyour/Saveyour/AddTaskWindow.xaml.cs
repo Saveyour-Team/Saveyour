@@ -30,6 +30,7 @@ namespace Saveyour
             this.Owner = parent;
             InitializeComponent();
             TaskCalendar.SelectedDate = DateTime.Today;
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
@@ -63,6 +64,17 @@ namespace Saveyour
                 TaskDescription.Text = "";
                 firstFocus = false;
             }
+        }
+
+        private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void titleBar_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.RightButton == MouseButtonState.Pressed || e.MiddleButton == MouseButtonState.Pressed)
+                e.Handled = true;
         }
 
     }

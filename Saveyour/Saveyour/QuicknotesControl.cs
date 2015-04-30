@@ -15,73 +15,109 @@ using System.Diagnostics;
 
 namespace Saveyour
 {
+    /***
+     * 
+     * QuicknotesControl is a data structure to keep track of all the Quicknotes modules created.
+     * Most of the functions in this are often wrappers that iterate through a list and call the same function on each Quicknotes module.
+     * For example, calling Show() in this class will cause the class to iterate through its list of Quicknotes modules and call Show() on those modules.     
+     * 
+     * ***/
     
     public partial class QuicknotesControl : Module
     {
 
-	private List<Quicknotes> qnList;
-	private bool isVisible = true;
+        private double topPos;
+        private double leftPos;
 
+        //A list of all of the Quicknotes spawned by this module.
+	    private List<Quicknotes> qnList;
+        //This remembers whether all of the quicknotes children are currently visible or not.
+	    private bool isVisible = true;
+
+        //By default we always have at least one Quicknotes window when this is launched.
         public QuicknotesControl()
         {
             qnList = new List<Quicknotes>();
-            addQuickNote();
+            topPos = 400;
+            leftPos = 300;
+            addQuickNote();            
+        }
+
+        //Adds a new Quicknotes window.
+	    public Quicknotes addQuickNote(){
+		    Quicknotes qn = new Quicknotes(this);
+		    qnList.Add(qn);
+            
+            qn.Left = leftPos + 40;                            
+
+		    qn.Show();
+            return qn;
+	    }
+
+        //Removes a specific quicknotes window.
+        public void removeQuickNote(Quicknotes note)
+        {
+            qnList.Remove(note);
+            ((Window)note).Close();
+
+        }
+	
+
+        /***** LOGIC FOR LIST OF QUICKNOTES INTERACTIONS *****/
+        //Toggles the visibility of all the children Quicknotes
+ 	    public void ToggleVisibility(){
+		    if (isVisible){
+			    Hide();
+		    }
+		    else{
+			    Show();
+		    }
+		        isVisible = !isVisible;
+	    }
+
+        public bool getVisibility()
+        {
+            return isVisible;
+        }
+
+        //Shows all the children Quicknotes
+	    public void Show(){
+		    foreach (Quicknotes qn in qnList){
+			    qn.Show();
+                qn.Activate();
+                isVisible = true;
+	        }
         }
 
 
-	public void addQuickNote(){
-		Quicknotes qn = new Quicknotes(this);
-		qnList.Add(qn);
-		qn.Show();
-	}
+        //Hides all the children Quicknotes
+	    public void Hide(){
+		    foreach (Quicknotes qn in qnList){
+			    qn.Hide();
+                isVisible = false;
+		    }
+        }
+
+        /***** END OF LOGIC FOR LIST OF QUICKNOTES INTERACTIONS *****/
 
 
-	public void removeQuickNote(Quicknotes note){
-		qnList.Remove(note);
-        ((Window)note).Close();
+        /***** MODULE INTERFACE METHODS *****/
 	
-
-	}
-
-
- 	public void ToggleVisibility(){
-		if (isVisible){
-			Hide();
-		}
-		else{
-			Show();
-		}
-
-		isVisible = !isVisible;
-
-	}
-	
-	public void Show(){
-		foreach (Quicknotes qn in qnList){
-			qn.Show();
-		
-		}
-
-	}
-
-	public void Hide(){
-		foreach (Quicknotes qn in qnList){
-			qn.Hide();
-		
-		}
-
-	}
-	
+        //Returns the ID for this type of module
         public String moduleID()
         {
             return "QuicknotesControl";
         }
 
+        //Currently unused, later may be used if we abstract the GUI away from WPF forms
         public Boolean update()
         {
             return false;
         }
 
+        /*Aggregates the savedata from all of the children Quicknotes and returns it as one string.
+         * Save format is DATA1\r\t\rDATA2\r\t\r etc.
+         */
         public String save()
         {
 		String saveString = "";
@@ -93,13 +129,14 @@ namespace Saveyour
 			}
 			else{
 
-				saveString+="\r\t\r"+qn.save();
+				saveString+="\r\t\r"+qn.save(); //Logic for separating saved text within the save files.
 			}
 		
 		}
             return saveString;
         }
 
+        //Splits the given savestring up into savestrings for multiple quicknotes modules and launches a quicknotes copy for each.
         public Boolean load(String data)
         {
             
@@ -134,13 +171,13 @@ namespace Saveyour
             return true;
         }
 
+        //Two modules are equal if they are of the same type.
         public Boolean Equals(Module other)
         {
             return moduleID().Equals(other.moduleID());
         }
 
-
-        
+        /***** END OF MODULE INTERFACE METHODS *****/
 
     }
 }

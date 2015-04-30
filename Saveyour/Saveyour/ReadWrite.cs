@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Saveyour
 {
     public static class ReadWrite
     {
-        static String directory = @"savedFiles\";
+        //Creates the directory for Saveyour userdata to be stored
+        static String directory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Saveyour\\";
 
         public static Boolean write(String settings)
         {                                   
             bool exists = System.IO.Directory.Exists(directory);
 
-            if (!exists)
+            if (!exists) //Checks for existence of directory before deleting it, although I believe CreateDirectory() may already take care of that case
                 System.IO.Directory.CreateDirectory(directory);
             
             System.IO.File.WriteAllText(directory + "settings.txt", settings);
@@ -32,6 +34,7 @@ namespace Saveyour
             return true;
         }
 
+        //Reads user data from the directory created 
         public static String read()
         {           
 

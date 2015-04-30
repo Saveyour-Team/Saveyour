@@ -69,7 +69,7 @@ namespace Saveyour
         private DateTime curTopDay;
 
         //A list of all the tasks in the module, keyed by the date they are assigned for.
-        private Dictionary<DateTime,List<Task>> hashTasks;
+        public Dictionary<DateTime,List<Task>> hashTasks;
 
         //The borders of the days on the xaml form
         private Border[] borders;
@@ -470,7 +470,7 @@ namespace Saveyour
 
 
         //Adds a task to the hashTasks hashtable keyed by its date.
-        private void addTask(Task task)
+        public void addTask(Task task)
         {
             try
             {

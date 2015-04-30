@@ -87,19 +87,16 @@ namespace TaskBatch
             WeeklyInstance = Shell.getWeeklyToDo(); 
             Saveyour.Task task = WeeklyInstance.selectAddNoDateTask(e);
 
-            //CALCULATE THE BEST DATE HERE
-            ConfirmationWindow confirm = new ConfirmationWindow();
+            StackPanel taskStack = new StackPanel();
 
-            confirm.displayMessage("Would you like to add the task  to the date\n " + "(the date goes here)");
+            TextBlock taskLabel = new TextBlock();
+            taskLabel.Text = task.getTitle();
+            taskLabel.Margin = new Thickness(50, 0, 0, 0);
 
-            if (task != null)
-            {
-                bool? result = confirm.ShowDialog();
-                if (result == true)
-                {
-                    // ADD THE TASK AT THE DATE
-                }
-            }
+            taskStack.Children.Add(taskLabel);
+
+            AvailableDates.Children.Add(taskStack);
+           
         }
 
         private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
@@ -111,6 +108,21 @@ namespace TaskBatch
         {
             if (e.RightButton == MouseButtonState.Pressed || e.MiddleButton == MouseButtonState.Pressed)
                 e.Handled = true;
+        }
+
+        private void addWeeklyToDo_Click(object sender, RoutedEventArgs e)
+        {
+            ConfirmationWindow confirm = new ConfirmationWindow();
+
+            //CALCULATE THE IDEAL DAY TO PLACE TASKS
+
+            confirm.displayMessage("Would you like to add the tasks to the date\n " + "(the date goes here)");
+
+            bool? result = confirm.ShowDialog();
+            if (result == true)
+            {
+                // ADD THE TASKS AT THE DATE
+            }
         }
 
     }

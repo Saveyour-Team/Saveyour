@@ -127,7 +127,7 @@ namespace Saveyour
 
         private void titleBar_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.RightButton == MouseButtonState.Pressed)
+            if (e.RightButton == MouseButtonState.Pressed || e.MiddleButton == MouseButtonState.Pressed)
                 e.Handled = true;
         }
 

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Saveyour
 {
     public static class ReadWrite
     {
-        static String directory = @"savedFiles\";
+        static String directory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Saveyour\\";
 
         public static Boolean write(String settings)
         {                                   

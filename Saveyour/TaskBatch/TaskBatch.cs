@@ -1,4 +1,5 @@
 ﻿using PluginContracts;
+using System.Windows;
 
 namespace TaskBatch
 {

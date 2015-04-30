@@ -4,13 +4,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-           
-
+        Height="300" Width="300"
+        WindowStyle="None" Background="Transparent" AllowsTransparency="True" ResizeMode="NoResize">
 
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Center" VerticalAlignment="Top" Width="76" Margin="108,10,108,0"/>
+        <Border BorderBrush="White" BorderThickness="2,2,2,2" CornerRadius="30,30,30,30" Background="#FF44B9FF">
+            <Rectangle x:Name="titleBar" HorizontalAlignment="Left" Height="37" Stroke="#00000000" VerticalAlignment="Top" Width="288" MouseDown="titleBar_MouseDown" RadiusY="24.5" RadiusX="24.5" Margin="4,0,0,0" Opacity="0" PreviewMouseDown="titleBar_PreviewMouseDown">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFEAF7FF" Offset="1"/>
+                        <GradientStop Color="#FFFDFEFF"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+        </Border>
 
+        <Button x:Name="addTaskBtn" Content="Add Task" HorizontalAlignment="Center" VerticalAlignment="Top" Width="74" Height="25" Foreground="White" Background="#FF5EC0FF" Click="addTaskButton" Margin="112,49,114,0"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel x:Name="AvailableDates" Margin="0,100,0,28"/>
+        </ScrollViewer>
     </Grid>
 </Window>

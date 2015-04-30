@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Diagnostics;
 using Saveyour;
 
 namespace TaskBatch
@@ -26,16 +27,19 @@ namespace TaskBatch
         internal TaskBatchWindow()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+
             //Adding all the logic here
             //get weekly to do
-            WeeklyInstance = Shell.getWeeklyToDo();
+            WeeklyInstance = Shell.getWeeklyToDo(); //This is always null because of the way plugins are loaded. 
             //WeeklyInstance.sumOfTaskWeights();
             //Pull Weekly Data
-
+            Debug.WriteLine("INSTANCE: " + WeeklyInstance);
         
         }
 
         private List<DateTimeSum> ListOfDays(){
+            WeeklyInstance = Shell.getWeeklyToDo();
             List<DateTimeSum> l = new List<DateTimeSum>();
             DateTime d = DateTime.Today;
             DateTime stop = d.AddDays(14);
@@ -77,6 +81,25 @@ namespace TaskBatch
             l[p2] = temp;
             return l;
             
+        }
+
+        private void addTaskButton(object sender, RoutedEventArgs e)
+        {
+            WeeklyInstance = Shell.getWeeklyToDo(); 
+            Saveyour.Task task = WeeklyInstance.selectAddTask(e);
+
+
+        }
+
+        private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void titleBar_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.RightButton == MouseButtonState.Pressed || e.MiddleButton == MouseButtonState.Pressed)
+                e.Handled = true;
         }
 
     }

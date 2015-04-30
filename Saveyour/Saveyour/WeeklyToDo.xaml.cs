@@ -487,6 +487,19 @@ namespace Saveyour
             }
         }
 
+        public Task selectAddTask(RoutedEventArgs e)
+        {
+            AddTaskWindow addTaskWin = new AddTaskWindow(this);
+            addTaskWin.ShowInTaskbar = false;
+            Nullable<bool> result = addTaskWin.ShowDialog();
+            if (!result.HasValue || !result.Value)
+            {
+                return null;
+            }
+
+            return addTaskWin.getTask();
+        }
+
         /*This is called when the "Add Task" button is clicked.
          * It creates a new AddTask window and waits for its response (which is a task) then adds that task to this WeeklyToDo module,
          * and displays it if it is a task assigned for the currently showing week.

@@ -13,6 +13,10 @@ Saveyour is extensible and the software written takes into account other develop
 #### Homework - Add subjects with tasks and due dates for homework! Parsing will allow for automatic task adding for this module.
 #### Weekly To-Do - Displays days of the week as well as tasks that are required throughout that week. Color-coded analysis will allow for one to look through one's day (red - busy, yellow - somewhat busy, green - plenty of freedom).
 #### Google Calendar - Displays one's Google Calendar for quick reference incase Weekly To-Do itself does not do the job!
+
+### User documentation
+You may download or view the user documentation from our website [here](https://saveyour.herokuapp.com/docs#user-docs).
+
 * * *
 # 1. Source control and build process instructions:
 

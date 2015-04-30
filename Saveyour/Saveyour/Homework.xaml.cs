@@ -16,6 +16,7 @@ using System.Windows.Markup;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
 using System.Xml;
+using System.Text.RegularExpressions;
 
 
 namespace Saveyour
@@ -32,6 +33,7 @@ namespace Saveyour
             public String AssignmentDate { get; set; }
 
             public String AssignmentShortenedDate { get; set; }
+
         }
 
         private class Subject
@@ -56,7 +58,7 @@ namespace Saveyour
             InitializeComponent();
             newView = new MainViewModel();
             this.DataContext = newView;
-            taskGroup = new ObservableCollection<Task>();
+            taskGroupAll = new ObservableCollection<Task>();
             //subjects[0] = new Subject();
             
             AllTab = new TabItem();
@@ -167,21 +169,37 @@ namespace Saveyour
                 return;
             }
             String description = setTaskWindow.getTaskDescription();
-            String date = setTaskWindow.getTaskDate().ToShortDateString();
-            String shortenedDate = date.Remove(date.Length - 5);
+            String date = setTaskWindow.getTaskDate().Year.ToString() + setTaskWindow.getTaskDate().Month.ToString() + setTaskWindow.getTaskDate().Day.ToString();
+            String shortenedDate = setTaskWindow.getTaskDate().ToShortDateString();
+            shortenedDate = shortenedDate.Remove(shortenedDate.Length - 5); 
 
             TabItem setTab = subjectsTab.SelectedItem as TabItem;
             Console.WriteLine(setTab);
             Task newTask = new Task { AssignmentName = description, AssignmentDate = date, AssignmentShortenedDate = shortenedDate };
 
-
-            ((ObservableCollection<Task>)((ListView)setTab.Content).ItemsSource).Add(newTask);
-            Console.WriteLine(((ObservableCollection<Task>)((ListView)setTab.Content).ItemsSource));
+            //((ObservableCollection<Task>)((ListView)setTab.Content).ItemsSource).Add(newTask);
+            sortAllTab(newTask,(ObservableCollection<Task>)((ListView)setTab.Content).ItemsSource);
+            sortAllTab(newTask, taskGroupAll);
             ((ListView)setTab.Content).Items.Refresh();
             mainTabControl = subjectsTab;
             //Console.WriteLine(((ListView)setTab.Content));
             //subjects[0].taskCollection.Add(newTask);
 
+        }
+
+        private void sortAllTab(Task sortTask, ObservableCollection<Task> list)
+        {
+            int i = 0;
+            String convertA;
+            int convertB = int.Parse(sortTask.AssignmentDate);
+            foreach(Task getTask in list){
+                convertA = getTask.AssignmentDate;
+                if (int.Parse(convertA) > convertB)
+                    break;
+                i++;
+            }
+
+            list.Insert(i, sortTask);
         }
 
         private ListView createNewList(ObservableCollection<Task> list)
@@ -215,6 +233,7 @@ namespace Saveyour
 
             return newList;
         }
+        
 
         public class MainViewModel
         {

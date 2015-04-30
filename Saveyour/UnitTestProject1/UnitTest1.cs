@@ -392,9 +392,9 @@ namespace UnitTestProject1
             
             sv.setLogin("John","123");
             
-            //Assert.AreEqual(sv.username,usr,"Not Equal");
-            //Assert.AreEqual(sv.password,pas,"Not Equal");
-            //Assert.AreEqual(sv.saveFile,file,"Not Equal");
+            Assert.AreEqual(sv.username,usr,"Not Equal");
+            Assert.AreEqual(sv.password,pas,"Not Equal");
+            Assert.AreEqual(sv.saveFile,file,"Not Equal");
             
         }
 

@@ -30,12 +30,7 @@ Before logging in, one must click on the "Add Certificate" button in order to au
 
 If one wishes to connect to their own server, please change the ip address in the NetworkControl class to the corresponding server ip.
 
-  Some current mockups of usernames/passwords on the database are: 
-  Brendan / ih8slackbot 
-  John / mongoDBisDaBest 
-  Simran / pyth0n
- 
-  Using any of these pairs should allow you to login using the Saveyour client. Invalid credentials will not allow for login.
+Clicking Register and registering with a valid username and password will allow for one to login successfully. Invalid credentials will not allow for login.
 
   After logging in, a user's module windows will open up for use.
 

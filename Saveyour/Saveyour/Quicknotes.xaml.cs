@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Forms;
 
 namespace Saveyour
 {
@@ -21,12 +22,17 @@ namespace Saveyour
     {
 
         //This is the parent module that launched this instance of quicknotes.  We need it to tell it when to add or remove quicknotes.
-    	private QuicknotesControl qnControl;
+    	private QuicknotesControl qnControl;        
 
         public Quicknotes(QuicknotesControl control)
         {
             InitializeComponent();
 		    qnControl = control;
+            
+            Left = (System.Windows.SystemParameters.PrimaryScreenWidth / 2) - 3 * (this.Width / 2);
+
+            double taskBar = Convert.ToDouble((Screen.PrimaryScreen.Bounds.Height - Screen.PrimaryScreen.WorkingArea.Height).ToString());
+            Top = System.Windows.SystemParameters.PrimaryScreenHeight - (taskBar + this.Height);
         }
 
 
@@ -74,7 +80,7 @@ namespace Saveyour
 
     
         //This used to be used for saving, but we found it more efficient to save on lost focus and when the app is closed.
-        private void onKeyUp(object sender, KeyEventArgs e)
+        private void onKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
           //  Shell.getSaveLoader().save();
         }
@@ -121,7 +127,7 @@ namespace Saveyour
 
         private void titleBar_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.RightButton == MouseButtonState.Pressed)
+            if (e.RightButton == MouseButtonState.Pressed || e.MiddleButton == MouseButtonState.Pressed)
                 e.Handled = true;
         }
 

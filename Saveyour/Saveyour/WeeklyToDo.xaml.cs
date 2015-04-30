@@ -74,14 +74,17 @@ namespace Saveyour
         //The borders of the days on the xaml form
         private Border[] borders;
 
-
+        MainViewModel newModel;
         public WeeklyToDo()
         {
             InitializeComponent();
-
+            newModel = new MainViewModel();
+            this.DataContext = newModel;
             //Moves WeeklyToDo to the topright of the screen on launch.
             Left = System.Windows.SystemParameters.PrimaryScreenWidth - Width;
             Top = 0;
+            Thickness point = addTaskBtn.Margin;
+            addTaskBtn.Margin = new Thickness(point.Left, point.Top + 10, point.Right, point.Bottom);
 
             //Initialization of the class's fields
             hashTasks = new Dictionary<DateTime,List<Task>>();
@@ -298,7 +301,13 @@ namespace Saveyour
             Button removeTaskBtn = new Button();
             removeTaskBtn.Content = "X";
             removeTaskBtn.Tag = task;
+
+            removeTaskBtn.ContentTemplate = this.Resources["remTemplate"] as DataTemplate;
+
             removeTaskBtn.Click += new RoutedEventHandler(taskRemoveBtn_Click);
+            removeTaskBtn.Width = this.Width / 2;
+            //removeTaskBtn.HorizontalAlignment = HorizontalAlignment.Center;
+
 
             //Add these to the stackpanel
             taskStack.Children.Add(taskLabel);
@@ -618,8 +627,61 @@ namespace Saveyour
 
         private void titleBar_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.RightButton == MouseButtonState.Pressed)
+            if (e.RightButton == MouseButtonState.Pressed || e.MiddleButton == MouseButtonState.Pressed)
                 e.Handled = true;
+        }
+
+        public class MainViewModel
+        {
+            public MainViewModel()
+            {
+
+            }
+
+            private ICommand clickMeCommand;
+            public ICommand ClickMeCommand
+            {
+                get
+                {
+                    if (clickMeCommand == null)
+                        clickMeCommand = new RelayCommand(i => this.doThis(i), null);
+                    return clickMeCommand;
+                }
+            }
+
+            private void doThis(object sender)
+            {
+                Console.WriteLine("PRESSED BUTTON!!");
+            }
+
+        }
+
+        public class RelayCommand : ICommand
+        {
+            readonly Action<object> execute;
+            readonly Predicate<object> canExecute;
+
+            public RelayCommand(Action<object> executeDelegate, Predicate<object> canExecuteDelegate)
+            {
+                execute = executeDelegate;
+                canExecute = canExecuteDelegate;
+            }
+
+            bool ICommand.CanExecute(object parameter)
+            {
+                return canExecute == null ? true : canExecute(parameter);
+            }
+
+            event EventHandler ICommand.CanExecuteChanged
+            {
+                add { CommandManager.RequerySuggested += value; }
+                remove { CommandManager.RequerySuggested -= value; }
+            }
+
+            void ICommand.Execute(object parameter)
+            {
+                execute(parameter);
+            }
         }
 
     }

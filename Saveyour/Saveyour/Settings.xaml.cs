@@ -25,73 +25,96 @@ namespace Saveyour
         QuicknotesControl qnotes;
         Window weeklytd;
         Window gcalendar;
+        Window homework;
 
         SaveyourUpdater updater;
 
-        Window homework;
-
+        bool toggledAll;
+       
         //This allows for us to globally bind a key in Windows to a macro
 	    private KeyboardHook keyHook = new KeyboardHook(); 
 	
         public Settings()
         {
+            toggledAll = false;
+
             InitializeComponent();            
        		// Create a listener for hotkeys
        		keyHook.KeyPressed += new EventHandler<KeyPressedEventArgs>(key_pressed);
-       		// Register Alt+F12 as a hotkey
+       		
+            // Register Ctrl + 0 as a hotkey
+        	keyHook.RegisterHotKey(ModifierKeys.Control,Keys.D0);
 
-        	keyHook.RegisterHotKey(ModifierKeys.Shift,Keys.D0);
+            keyHook.RegisterHotKey(ModifierKeys.Control, Keys.D1);
+
+            keyHook.RegisterHotKey(ModifierKeys.Control, Keys.D2);
+
+            keyHook.RegisterHotKey(ModifierKeys.Control, Keys.D3);
+
+            keyHook.RegisterHotKey(ModifierKeys.Control, Keys.D4);
+            
             updater = new SaveyourUpdater(this);
+
+            Left = 0;
+            double taskBar = Convert.ToDouble((Screen.PrimaryScreen.Bounds.Height - Screen.PrimaryScreen.WorkingArea.Height).ToString());
+            Top = System.Windows.SystemParameters.PrimaryScreenHeight - (taskBar + this.Height);
 
 	    }
         	    
         /***** HOTKEY BINDING LOGIC *****/	
 
-	    private void toggleAll(){	
-                    qnotes.ToggleVisibility();
+	    private void toggleAll(){
+
+            if (qnotes.getVisibility() && !toggledAll) { 
+                qnotes.Hide();
+            }
+            else
+            {
+                qnotes.Show();
+            }
             
-                if (weeklytd.IsVisible)
-                {
-                    weeklytd.Hide();
-                }
-                else if (weeklytd.IsLoaded) 
-                {
-                    weeklytd.Show();
-                    weeklytd.Activate();
-                    //weeklytd.Topmost = true;
-                }
+            if (weeklytd.IsVisible && !toggledAll)
+            {
+                weeklytd.Hide();
+            }
+            else if (weeklytd.IsLoaded && toggledAll) 
+            {
+                weeklytd.Show();
+                weeklytd.Activate();
+                //weeklytd.Topmost = true;
+            }
 
-                if (gcalendar.IsVisible) 
-                {
-                    gcalendar.Hide();
-                }
-                else if (gcalendar.IsLoaded) 
-                {
-                    gcalendar.Show();
-                    gcalendar.Activate();
-                    //gcalendar.Topmost = true;
-                }
+            if (gcalendar.IsVisible && !toggledAll) 
+            {
+                gcalendar.Hide();
+            }
+            else if (gcalendar.IsLoaded && toggledAll) 
+            {
+                gcalendar.Show();
+                gcalendar.Activate();
+                //gcalendar.Topmost = true;
+            }
 
-                if (homework.IsVisible)
-                {
-                    homework.Hide();
-                }
-                else if (homework.IsLoaded)
-                {
-                    homework.Show();
-                    homework.Activate();
-                }
+            if (homework.IsVisible && !toggledAll)
+            {
+                homework.Hide();
+            }
+            else if (homework.IsLoaded && toggledAll)
+            {
+                homework.Show();
+                homework.Activate();
+            }
 
-                if (this.IsVisible)
-                {
-                    this.Hide();
-                }
-                else if (this.IsLoaded)
-                {
-                    this.Show();
-                    this.Activate();
-                    //this.Topmost = true;
-                }
+            if (this.IsVisible)
+            {
+                this.Hide();
+            }
+            else if (this.IsLoaded)
+            {
+                this.Show();
+                this.Activate();
+                //this.Topmost = true;
+            }
 	    }
 
         /***** END OF HOTKEY BINDING LOGIC *****/
@@ -207,12 +230,48 @@ namespace Saveyour
                 gcalendar.Show();
         }
 
+        private void HW_Click(object sender, RoutedEventArgs e)
+        {
+            if (homework.IsVisible)
+                homework.Hide();
+            else if (homework.IsLoaded)
+                homework.Show();
+        }
+
         private void key_pressed(object sender, KeyPressedEventArgs e)
         {
-            if (e.Key.Equals(Keys.D0) && e.Modifier.Equals(ModifierKeys.Shift))
+            if (e.Key.Equals(Keys.D0) && e.Modifier.Equals(ModifierKeys.Control))
             {
                 toggleAll();
+                toggledAll = !toggledAll;
             }
+            else if (e.Key.Equals(Keys.D1) && e.Modifier.Equals(ModifierKeys.Control))
+            {
+                qnotes.ToggleVisibility();
+            }
+            else if (e.Key.Equals(Keys.D2) && e.Modifier.Equals(ModifierKeys.Control))
+            {
+                if (weeklytd.IsVisible)
+                    weeklytd.Hide();
+                else if (weeklytd.IsLoaded)
+                    weeklytd.Show();
+            }
+            else if (e.Key.Equals(Keys.D3) && e.Modifier.Equals(ModifierKeys.Control))
+            {
+                if (gcalendar.IsVisible)
+                    gcalendar.Hide();
+                else if (gcalendar.IsLoaded)
+                    gcalendar.Show();
+            }
+            else if (e.Key.Equals(Keys.D4) && e.Modifier.Equals(ModifierKeys.Control))
+            {
+                if (homework.IsVisible)
+                    homework.Hide();
+                else if (homework.IsLoaded)
+                    homework.Show();
+            }
+
+
 
         }
 
@@ -231,7 +290,7 @@ namespace Saveyour
 
         private void titleBar_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.RightButton == MouseButtonState.Pressed)
+            if (e.RightButton == MouseButtonState.Pressed || e.MiddleButton == MouseButtonState.Pressed)
                 e.Handled = true;
         }
 

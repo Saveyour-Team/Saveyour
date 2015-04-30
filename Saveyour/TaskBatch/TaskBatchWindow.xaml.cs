@@ -23,7 +23,8 @@ namespace TaskBatch
     {
 
         WeeklyToDo WeeklyInstance;
-
+        LinkedList<Saveyour.Task> tasklist = new LinkedList<Saveyour.Task>();
+        
         internal TaskBatchWindow()
         {
             InitializeComponent();
@@ -32,11 +33,12 @@ namespace TaskBatch
             //Adding all the logic here
             //get weekly to do
             WeeklyInstance = Shell.getWeeklyToDo(); //This is always null because of the way plugins are loaded. 
-            //WeeklyInstance.sumOfTaskWeights();
-            //Pull Weekly Data
-            Debug.WriteLine("INSTANCE: " + WeeklyInstance);        
+
+            Debug.WriteLine("INSTANCE: " + WeeklyInstance);
+           
         }
 
+        
         private List<DateTimeSum> ListOfDays(){
             WeeklyInstance = Shell.getWeeklyToDo();
             List<DateTimeSum> l = new List<DateTimeSum>();
@@ -96,6 +98,7 @@ namespace TaskBatch
             taskStack.Children.Add(taskLabel);
 
             AvailableDates.Children.Add(taskStack);
+            tasklist.AddLast(task);
            
         }
 
@@ -120,14 +123,16 @@ namespace TaskBatch
             DateTime toAdd = idealDay.getDateTime(); //This si the ideal date to add the task to. Want to add Task to this Date
             String date = toAdd.ToString();
             confirm.displayMessage("Would you like to add the tasks to the date\n " + date);
-            Saveyour.Task task = WeeklyInstance.selectAddNoDateTask(e); 
+            
             bool? result = confirm.ShowDialog();
             if (result == true)
             {
                 AvailableDates.Children.Clear();
                 
                 // ADD THE TASKS AT THE DATE
-                WeeklyInstance.addTask(task);
+                foreach(Saveyour.Task t in tasklist) {
+                    WeeklyInstance.addTask(t);
+                }
             }
         }
 

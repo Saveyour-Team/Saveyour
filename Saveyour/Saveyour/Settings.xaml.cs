@@ -56,7 +56,8 @@ namespace Saveyour
             updater = new SaveyourUpdater(this);
 
             Left = 0;
-            Top = System.Windows.SystemParameters.PrimaryScreenHeight - 435;
+            double taskBar = Convert.ToDouble((Screen.PrimaryScreen.Bounds.Height - Screen.PrimaryScreen.WorkingArea.Height).ToString());
+            Top = System.Windows.SystemParameters.PrimaryScreenHeight - (taskBar + this.Height);
 
 	    }
         	    

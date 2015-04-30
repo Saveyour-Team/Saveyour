@@ -57,7 +57,7 @@ namespace Saveyour
 
             Left = 0;
             double taskBar = Convert.ToDouble((Screen.PrimaryScreen.Bounds.Height - Screen.PrimaryScreen.WorkingArea.Height).ToString());
-            Top = System.Windows.SystemParameters.PrimaryScreenHeight - (taskBar + this.Height);
+            Top = 25 + System.Windows.SystemParameters.PrimaryScreenHeight - (taskBar + this.Height);
 
 	    }
         	    
@@ -65,10 +65,10 @@ namespace Saveyour
 
 	    private void toggleAll(){
 
-            if (qnotes.getVisibility() && !toggledAll) { 
+            if (qnotes.getVisibility() && !toggledAll) {
                 qnotes.Hide();
             }
-            else
+            else if (toggledAll)
             {
                 qnotes.Show();
             }
@@ -247,7 +247,14 @@ namespace Saveyour
             }
             else if (e.Key.Equals(Keys.D1) && e.Modifier.Equals(ModifierKeys.Control))
             {
-                qnotes.ToggleVisibility();
+                if (qnotes.getVisibility())
+                {
+                    qnotes.Hide();
+                }
+                else
+                {
+                    qnotes.Show();
+                }
             }
             else if (e.Key.Equals(Keys.D2) && e.Modifier.Equals(ModifierKeys.Control))
             {

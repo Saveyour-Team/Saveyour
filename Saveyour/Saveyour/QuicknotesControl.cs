@@ -69,11 +69,11 @@ namespace Saveyour
 		    if (isVisible){
 			    Hide();
 		    }
-		    else{
+		    else {
 			    Show();
 		    }
 		        isVisible = !isVisible;
-	    }
+	    }                                                                                                                     
 
         public bool getVisibility()
         {

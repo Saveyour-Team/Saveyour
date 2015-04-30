@@ -115,13 +115,17 @@ namespace TaskBatch
             ConfirmationWindow confirm = new ConfirmationWindow();
 
             //CALCULATE THE IDEAL DAY TO PLACE TASKS
-
-            confirm.displayMessage("Would you like to add the tasks to the date\n " + "(the date goes here)");
+            List<DateTimeSum> allDays = sortList(ListOfDays());
+            DateTimeSum idealDay = allDays[0];//gets index at the top, which is the one with the least task weight
+            DateTime toAdd = idealDay.getDateTime();
+            String date = toAdd.ToString();
+            confirm.displayMessage("Would you like to add the tasks to the date\n " + date);
 
             bool? result = confirm.ShowDialog();
             if (result == true)
             {
                 AvailableDates.Children.Clear();
+                
                 // ADD THE TASKS AT THE DATE
             }
         }

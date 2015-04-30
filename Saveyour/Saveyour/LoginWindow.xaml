@@ -5,15 +5,15 @@
 
     <Border BorderBrush="White" BorderThickness="2,2,2,2" CornerRadius="30,30,30,30" Background="#FF44B9FF">
         <Grid Margin="0,0,-8,1">
-            <Label Content="Saveyour" HorizontalAlignment="Left" Margin="105,10,0,0" VerticalAlignment="Top" FontSize="60" Foreground="White"/>
+            <Label Content="Saveyour" HorizontalAlignment="Left" Margin="105,30,0,0" VerticalAlignment="Top" FontSize="60" Foreground="White"/>
             <TextBlock HorizontalAlignment="Left" Margin="117,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224"/>
             <TextBox x:Name="usernameField" HorizontalAlignment="Left" Height="23" Margin="131,174,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="195" TextChanged="TextBox_TextChanged" GotFocus="usernameGotFocus"/>
             <PasswordBox x:Name="passwordField" HorizontalAlignment="Left" Height="23" Margin="131,208,0,0" Password="hunter2" VerticalAlignment="Top" Width="195" GotFocus="passwordGotFocus" KeyUp="onPasswordKeyUp"/>
-            <Button x:Name="loginButton" Content="Login" HorizontalAlignment="Left" Margin="131,260,0,0" VerticalAlignment="Top" Width="87" Click="loginButton_Click"/>
+            <Button x:Name="loginButton" Content="Login" HorizontalAlignment="Left" Margin="131,260,0,0" VerticalAlignment="Top" Width="87" Click="loginButton_Click" Background="{x:Null}" Foreground="White" BorderBrush="White"/>
             <Label x:Name="loginStatusLabel" Content="" HorizontalAlignment="Left" Margin="131,126,0,0" VerticalAlignment="Top" Width="195" HorizontalContentAlignment ="Center"/>
-            <Button x:Name="addCertificateButton" Content="Add Certificate" HorizontalAlignment="Left" Margin="239,260,0,0" VerticalAlignment="Top" Width="87" Click="addCertificateButton_Click"/>
-            <Button x:Name="Register" Content="Register" HorizontalAlignment="Left" Margin="131,300,0,0" VerticalAlignment="Top" Width="87" Click="registerButton_Click"/>
-            <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="239,300,0,0" VerticalAlignment="Top" Width="87" Click="btnUpdate_Click"/>
+            <Button x:Name="addCertificateButton" Content="Add Certificate" HorizontalAlignment="Left" Margin="239,260,0,0" VerticalAlignment="Top" Width="87" Click="addCertificateButton_Click" BorderBrush="White" Background="{x:Null}" Foreground="White"/>
+            <Button x:Name="Register" Content="Register" HorizontalAlignment="Left" Margin="131,300,0,0" VerticalAlignment="Top" Width="87" Click="registerButton_Click" Foreground="White" Background="{x:Null}" BorderBrush="White"/>
+            <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="239,300,0,0" VerticalAlignment="Top" Width="87" Click="btnUpdate_Click" BorderBrush="White" Background="{x:Null}" Foreground="White"/>
             <Label x:Name="lblVersion" Content="Version" Foreground="White" HorizontalAlignment="Left" Margin="380,370,0,0" VerticalAlignment="Top" Width="56"/>
             <Rectangle x:Name="titleBar" HorizontalAlignment="Left" Height="37" Stroke="#00000000" VerticalAlignment="Top" Width="426" MouseDown="titleBar_MouseDown" RadiusY="24.5" RadiusX="24.5" Margin="6,0,0,0" Opacity="0" PreviewMouseDown="titleBar_PreviewMouseDown">
                 <Rectangle.Fill>

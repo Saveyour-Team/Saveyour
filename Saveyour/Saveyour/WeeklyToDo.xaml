@@ -7,7 +7,13 @@
         Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={tools:RatioConverter}, ConverterParameter='0.2' }"
         LostFocus="onLostFocus"
         WindowStyle="None" Background="Transparent" AllowsTransparency="True" ResizeMode="NoResize">
-
+    <Window.Resources>
+        <DataTemplate x:Key="remTemplate">
+            <Button Content="X"   Command="{Binding Path=DataContext.ClickMeCommand,
+                      RelativeSource={RelativeSource Mode=FindAncestor,
+                                                     AncestorType=Window}}" />
+        </DataTemplate>
+    </Window.Resources>
     <Border BorderBrush="White" BorderThickness="2,2,2,2" CornerRadius="15,15,15,15" Background="White" Height="{x:Static SystemParameters.PrimaryScreenHeight}">
 
         <Grid>

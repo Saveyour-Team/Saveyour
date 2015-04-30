@@ -21,13 +21,13 @@ namespace Saveyour
     {
 
         //This is the parent module that launched this instance of quicknotes.  We need it to tell it when to add or remove quicknotes.
-    	private QuicknotesControl qnControl;
+    	private QuicknotesControl qnControl;        
 
         public Quicknotes(QuicknotesControl control)
         {
             InitializeComponent();
 		    qnControl = control;
-
+            
             Left = (System.Windows.SystemParameters.PrimaryScreenWidth / 2) - 3 * (this.Width / 2);
             Top = System.Windows.SystemParameters.PrimaryScreenHeight - this.Height - 50;
         }

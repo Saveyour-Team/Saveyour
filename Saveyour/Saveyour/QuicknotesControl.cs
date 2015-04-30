@@ -26,69 +26,77 @@ namespace Saveyour
     public partial class QuicknotesControl : Module
     {
 
-    //A list of all of the Quicknotes spawned by this module.
-	private List<Quicknotes> qnList;
-    //This remembers whether all of the quicknotes children are currently visible or not.
-	private bool isVisible = true;
+        private double topPos;
+        private double leftPos;
+
+        //A list of all of the Quicknotes spawned by this module.
+	    private List<Quicknotes> qnList;
+        //This remembers whether all of the quicknotes children are currently visible or not.
+	    private bool isVisible = true;
 
         //By default we always have at least one Quicknotes window when this is launched.
         public QuicknotesControl()
         {
             qnList = new List<Quicknotes>();
-            addQuickNote();
+            topPos = 400;
+            leftPos = 300;
+            addQuickNote();            
         }
 
-    //Adds a new Quicknotes window.
-	public Quicknotes addQuickNote(){
-		Quicknotes qn = new Quicknotes(this);
-		qnList.Add(qn);
-		qn.Show();
-        return qn;
-	}
+        //Adds a new Quicknotes window.
+	    public Quicknotes addQuickNote(){
+		    Quicknotes qn = new Quicknotes(this);
+		    qnList.Add(qn);
+            
+            qn.Left = leftPos + 40;                            
 
-    //Removes a specific quicknotes window.
-    public void removeQuickNote(Quicknotes note)
-    {
-        qnList.Remove(note);
-        ((Window)note).Close();
+		    qn.Show();
+            return qn;
+	    }
 
-    }
+        //Removes a specific quicknotes window.
+        public void removeQuickNote(Quicknotes note)
+        {
+            qnList.Remove(note);
+            ((Window)note).Close();
+
+        }
 	
 
         /***** LOGIC FOR LIST OF QUICKNOTES INTERACTIONS *****/
-    //Toggles the visibility of all the children Quicknotes
- 	public void ToggleVisibility(){
-		if (isVisible){
-			Hide();
-		}
-		else{
-			Show();
-		}
-		    isVisible = !isVisible;
-	}
-
-    public bool getVisibility()
-    {
-        return isVisible;
-    }
-
-    //Shows all the children Quicknotes
-	public void Show(){
-		foreach (Quicknotes qn in qnList){
-			qn.Show();
-            qn.Activate();
-            isVisible = true;
+        //Toggles the visibility of all the children Quicknotes
+ 	    public void ToggleVisibility(){
+		    if (isVisible){
+			    Hide();
+		    }
+		    else{
+			    Show();
+		    }
+		        isVisible = !isVisible;
 	    }
-    }
+
+        public bool getVisibility()
+        {
+            return isVisible;
+        }
+
+        //Shows all the children Quicknotes
+	    public void Show(){
+		    foreach (Quicknotes qn in qnList){
+			    qn.Show();
+                qn.Activate();
+                isVisible = true;
+	        }
+        }
 
 
-    //Hides all the children Quicknotes
-	public void Hide(){
-		foreach (Quicknotes qn in qnList){
-			qn.Hide();
-            isVisible = false;
-		}
-    }
+        //Hides all the children Quicknotes
+	    public void Hide(){
+		    foreach (Quicknotes qn in qnList){
+			    qn.Hide();
+                isVisible = false;
+		    }
+        }
 
         /***** END OF LOGIC FOR LIST OF QUICKNOTES INTERACTIONS *****/
 

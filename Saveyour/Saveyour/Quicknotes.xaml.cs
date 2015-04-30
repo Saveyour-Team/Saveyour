@@ -119,6 +119,12 @@ namespace Saveyour
                 QuicknotesText.Text = "";
         }
 
+        private void titleBar_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.RightButton == MouseButtonState.Pressed)
+                e.Handled = true;
+        }
+
         /***** END OF DATA BINDINGS TO XAML ELEMENTS *****/
     }
 }

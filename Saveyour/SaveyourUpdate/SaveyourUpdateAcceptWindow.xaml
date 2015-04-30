@@ -18,7 +18,7 @@
             <Button x:Name="btnDetails" Content="Details" HorizontalAlignment="Left" Margin="105,127,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Click="btnDetails_Click"/>
             <Label x:Name="lblNewVersion" Content="" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,92,0,0" VerticalAlignment="Top" Width="196" Foreground="White" Grid.ColumnSpan="2"/>
 
-            <Rectangle x:Name="titleBar" HorizontalAlignment="Left" Height="118" Stroke="#00000000" VerticalAlignment="Top" Width="358" MouseDown="titleBar_MouseDown" RadiusY="24.5" RadiusX="24.5" Margin="3,0,0,0" Grid.ColumnSpan="2" Opacity="0">
+            <Rectangle x:Name="titleBar" HorizontalAlignment="Left" Height="118" Stroke="#00000000" VerticalAlignment="Top" Width="358" MouseDown="titleBar_MouseDown" RadiusY="24.5" RadiusX="24.5" Margin="3,0,0,0" Grid.ColumnSpan="2" Opacity="0" PreviewMouseDown="titleBar_PreviewMouseDown">
                 <Rectangle.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FFEAF7FF" Offset="1"/>

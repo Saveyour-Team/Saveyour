@@ -19,6 +19,7 @@ namespace SaveyourUpdate
 {
     /// <summary>
     /// Interaction logic for SaveyourUpdateDownloadWindow.xaml
+    /// The purpose of this class is to create a Window that displays and downloads the newest version of Saveyour.
     /// </summary>
 
     internal partial class SaveyourUpdateDownloadWindow : Window
@@ -28,31 +29,49 @@ namespace SaveyourUpdate
         private String tempFile;
         private String md5;
 
+        /*
+         * This function returns tempFile which is a file path to a temporary location. This is where Saveyour is downloaded to first.
+         * */
         internal String TempFilePath
         {
             get { return this.tempFile; }
         }
+
+
         internal SaveyourUpdateDownloadWindow(Uri location, String md5) 
         {
-            //may need to add an Icon object to be passed in
-            //Supposedly, WPF windows are supposed to have all windows created as the same icon
-            //However, Saveyour did not have an icon at the time I was writing this so I can't confirm
             InitializeComponent();
 
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen; //Centers window to screen
 
             tempFile = System.IO.Path.GetTempFileName();
+            //A temporary path file (.tmp) is created in the Windows temporary folder and the path is given and assigned to tempFile
+
             Debug.WriteLine(tempFile);
             this.md5 = md5;
-            webClient = new WebClient();
 
+            /*
+             * A web client is created to interact with the internet. In this case, two event handlers are created, one for updating the 
+             * progress bar of how much is downloaded, and the second is what to do after it is done downloading.
+             * */
+
+            webClient = new WebClient();
             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(webClient_DownloadProgressChanged);
             webClient.DownloadFileCompleted +=webClient_DownloadFileCompleted;
+
+            /*
+             * A background worker is created so that the download and update process is multithreaded. This will allow the program not to 
+             * freeze when updating.
+             * */
 
             bgWorker = new BackgroundWorker();
             bgWorker.DoWork += new DoWorkEventHandler(bgWorker_DoWork);
             bgWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bgWorker_RunWorkerCompleted);
 
+            /*
+             * First, the program will attempt to download the file. If it cannot download it, then a reponse is sent to SaveyourUpdater saying that
+             * the update could not be downloaded. Then the Window closes.
+             * */
             try
             {
                 webClient.DownloadFileAsync(location, tempFile);
@@ -65,12 +84,22 @@ namespace SaveyourUpdate
             }
         }
 
+        /*
+         * This event handler handles what the background worker does when it has finished all of its work. It will send a response to SaveyourUpdater
+         * and let it know that it has finished running. Then it will close.
+         * */
         private void bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             this.DialogResult = (bool)e.Result;
             this.Close();
         }
 
+
+        /*
+         * This event handler handles what the background worker does when it is created. It is going to check if the MD5 hash of the file that is
+         * downloaded is the same as the MD5 hash listed in the update. If they are the same, then it is known that the file was downloaded correctly. If
+         * they are not the same, then there was an error downloading the file.
+         * */
         private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             string file = ((string[])e.Argument)[0];
@@ -87,6 +116,11 @@ namespace SaveyourUpdate
             }
         }
 
+        /*
+         * This event handler hands what the web client does when it has finished downloading the file. If there was no cancellation
+         * by the user, or any other errors, then the file is verified by MD5 hash by the background worker. If there was something to
+         * interrupt the download, then a reponse is sent to SaveyourUpdater notifying it that the file was not downloaded.
+         * */
         private void webClient_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
             if (e.Error != null)
@@ -108,6 +142,11 @@ namespace SaveyourUpdate
             }
         }
 
+        /*
+         *  This event handler handles what happens when the web client is currently downloading the file. In particular, it is going
+         *  to update the progress bar found on the Window based on how much is downloaded. It will also give a textual update
+         *  to the label that displays how many bytes, kilobytes, megabytes, or gigabytes have been downloaded.
+         * */
         private void webClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             this.progressBar.Value = e.ProgressPercentage;
@@ -115,6 +154,11 @@ namespace SaveyourUpdate
                 FormatBytes(e.TotalBytesToReceive, 2, true));
         }
 
+        /*
+         * This is a helper function for updating the amount of progress downloaded. It formats the bytes such that if it is greater than 1KB,
+         * then it will use KB rather than B to display. If it is greater than 1MB, then it will use the MB notation. If it is greater than 1GB,
+         * then it will use the GB notation.
+         * */
         private String FormatBytes(long bytes, int decimalPlaces, bool showByteType)
         {
             double newBytes = bytes;
@@ -152,6 +196,12 @@ namespace SaveyourUpdate
 
         }
 
+        /*
+         * This event handler handles wheat happens if the Window is closed by the user. Although there is no X button for the user
+         * to press to cancel it, if for some reason the program is closed while downloading, this event handler will ensure that nothing is corrupted.
+         * If the web client is working, then the download is canceled and SaveyourUpdater is notified that the update was cancelled.
+         * If the background worker was working, then it will be cancelled and SaveyourUpdater will be notified that there was an error updating.
+         * */
         private void Window_Closed(object sender, EventArgs e)
         {
             if (webClient.IsBusy)
@@ -167,9 +217,23 @@ namespace SaveyourUpdate
             }
         }
 
+        /*
+         * This event hanlder allows the window to be dragged around the screen. There is a "title bar" that can be
+         * dragged around due to this event handler.
+         * */
         private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
+        }
+
+        /*
+         * This event handler checks for what type of mouse press occurred. Since DragMove() does not handle right
+         * clicks, they are ignored due to this event handler.
+         * */
+        private void titleBar_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.RightButton == MouseButtonState.Pressed)
+                e.Handled = true;
         }
     }
 }

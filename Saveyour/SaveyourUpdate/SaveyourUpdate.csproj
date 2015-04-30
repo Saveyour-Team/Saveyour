@@ -65,6 +65,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="SaveyourNoUpdateWindow.xaml.cs">
+      <DependentUpon>SaveyourNoUpdateWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SaveyourUpdatable.cs" />
     <Compile Include="SaveyourUpdateAcceptWindow.xaml.cs">
       <DependentUpon>SaveyourUpdateAcceptWindow.xaml</DependentUpon>
@@ -88,6 +91,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="SaveyourNoUpdateWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SaveyourUpdateAcceptWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

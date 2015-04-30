@@ -15,8 +15,16 @@ namespace SaveyourUpdate
         SHA512
     }
 
+    /*
+     * The purpose of this class is to organize and get various hash values using MD5, SHA1, and SHA512 algorithms. 
+     * */
+
     internal static class Hasher
     {
+        /*
+         * This method returns the hash value of a file at filePath. The hash value is of type algo, which can be MD5, SHA1, or SHA512.
+         * For the purpose of SaveyourUpdater, only MD5 will be used.
+         * */
         internal static String HashFile(String filePath, HashType algo)
         {
             switch (algo)
@@ -32,6 +40,9 @@ namespace SaveyourUpdate
             }
         }
 
+        /*
+         * Converts the byte array created by System.Cryptography when hashing a file to a string. 
+         * */
         private static String MakeHashString(byte[] hash)
         {
             StringBuilder s = new StringBuilder(hash.Length * 2);

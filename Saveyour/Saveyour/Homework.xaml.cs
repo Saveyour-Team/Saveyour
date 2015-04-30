@@ -45,22 +45,28 @@ namespace Saveyour
         }
 
         private const int MAX_SUBJECTS = 10;
-        Subject[] subjects = new Subject[MAX_SUBJECTS];
+        //Subject[] subjects = new Subject[MAX_SUBJECTS];
         MainViewModel newView;
         private static TabControl mainTabControl;
-        ObservableCollection<Task> taskCollection;
-        ObservableCollection<TabItem> subjectsCollection;
-
+        ObservableCollection<Task> taskGroupAll;
+        ObservableCollection<Task> taskGroup;
+        TabItem AllTab;
         public Homework()
         {
-            newView = new MainViewModel();
             InitializeComponent();
+            newView = new MainViewModel();
             this.DataContext = newView;
-            subjectsCollection = new ObservableCollection<TabItem>();
-            taskList.ItemsSource = new ObservableCollection<Task>();
-            mainTabControl = subjectsTab;            
-            subjects[0] = new Subject();
-            taskList.ItemsSource = subjects[0].taskCollection; //This needs to be scalable to multiple xaml elements.
+            taskGroup = new ObservableCollection<Task>();
+            //subjects[0] = new Subject();
+            
+            AllTab = new TabItem();
+            AllTab.Header = "All";
+            taskGroupAll = new ObservableCollection<Task>();
+            AllTab.Content = createNewList(taskGroupAll);
+            subjectsTab.Items.Add(AllTab);
+            mainTabControl = subjectsTab;
+
+            //This needs to be scalable to multiple xaml elements.
             //We need to load the information for the subjects here.
 
             //After loading the information, we increase numSubjects and take the data from load to construct each GroupBox for each Grid
@@ -111,7 +117,7 @@ namespace Saveyour
 
         private void addSubjectButton_Click(object sender, RoutedEventArgs e)
         {
-
+            
             AddHomeworkSubject display = new AddHomeworkSubject();
             display.ShowDialog();
 
@@ -121,34 +127,10 @@ namespace Saveyour
             {
                 return;
             }
-
+            
             TabItem newTab = new TabItem();
-            newTab.Header = display.getSubject(); //Need to make sure we cannot exit window until Submit or Cancel is pressed.
-
-            //ListView newList = (ListView)XamlReader.Load(reader);
-            ListView newList = new ListView();
-            GridViewColumn nameColumn = new GridViewColumn();
-            GridViewColumn dateColumn = new GridViewColumn();
-            GridViewColumn editColumn = new GridViewColumn();
-            GridView newGrid = new GridView();
-            nameColumn.Width = 190;
-            nameColumn.Header = "Assignment";
-            nameColumn.DisplayMemberBinding = new Binding("AssignmentName");
-            dateColumn.Width = 45;
-            dateColumn.Header = "Date";
-            dateColumn.DisplayMemberBinding = new Binding("AssignmentShortenedDate");
-            editColumn.Width = 35;
-            editColumn.Header = "Edit";
-            editColumn.CellTemplate = this.Resources["editColumnTemplate"] as DataTemplate;
-            newGrid.Columns.Add(nameColumn);
-            newGrid.Columns.Add(dateColumn);
-            newGrid.Columns.Add(editColumn);
-
-            newList.View = newGrid;
-
-            taskCollection = new ObservableCollection<Task>();
-            newList.ItemsSource = taskCollection;
-            newTab.Content = newList;
+            newTab.Header = check; //Need to make sure we cannot exit window until Submit or Cancel is pressed.
+            newTab.Content = createNewList(null);
             subjectsTab.Items.Add(newTab);
             mainTabControl = subjectsTab;
         }
@@ -156,12 +138,14 @@ namespace Saveyour
         public static void deleteTask(object sender)
         {
             Task item = (Task)sender;
+            Console.Write("Item Name:");
             Console.WriteLine(item.AssignmentName);
             TabItem tabitem = (TabItem) mainTabControl.SelectedItem;
-
+            Console.WriteLine(tabitem);
             ListView listview = (ListView) tabitem.Content;
-            int newIndex = listview.Items.IndexOf(item);
+            Console.WriteLine(listview);
             int index = ((ListView)((TabItem)mainTabControl.SelectedItem).Content).Items.IndexOf(item);
+            Console.Write(index);
             ((ObservableCollection<Task>)((ListView)((TabItem)mainTabControl.SelectedItem).Content).ItemsSource).Remove(item);
 
             ((ListView)((TabItem)mainTabControl.SelectedItem).Content).Items.Refresh();
@@ -187,13 +171,49 @@ namespace Saveyour
             String shortenedDate = date.Remove(date.Length - 5);
 
             TabItem setTab = subjectsTab.SelectedItem as TabItem;
+            Console.WriteLine(setTab);
             Task newTask = new Task { AssignmentName = description, AssignmentDate = date, AssignmentShortenedDate = shortenedDate };
 
+
             ((ObservableCollection<Task>)((ListView)setTab.Content).ItemsSource).Add(newTask);
+            Console.WriteLine(((ObservableCollection<Task>)((ListView)setTab.Content).ItemsSource));
             ((ListView)setTab.Content).Items.Refresh();
+            mainTabControl = subjectsTab;
+            //Console.WriteLine(((ListView)setTab.Content));
+            //subjects[0].taskCollection.Add(newTask);
 
-            subjects[0].taskCollection.Add(newTask);
+        }
 
+        private ListView createNewList(ObservableCollection<Task> list)
+        {
+            
+            ListView newList = new ListView();
+            GridViewColumn nameColumn = new GridViewColumn();
+            GridViewColumn dateColumn = new GridViewColumn();
+            GridViewColumn editColumn = new GridViewColumn();
+            GridView newGrid = new GridView();
+            nameColumn.Width = 190;
+            nameColumn.Header = "Assignment";
+            nameColumn.DisplayMemberBinding = new Binding("AssignmentName");
+            dateColumn.Width = 45;
+            dateColumn.Header = "Date";
+            dateColumn.DisplayMemberBinding = new Binding("AssignmentShortenedDate");
+            editColumn.Width = 35;
+            editColumn.Header = "Edit";
+            editColumn.CellTemplate = this.Resources["editColumnTemplate"] as DataTemplate;
+            newGrid.Columns.Add(nameColumn);
+            newGrid.Columns.Add(dateColumn);
+            newGrid.Columns.Add(editColumn);
+
+            newList.View = newGrid;
+            if(list == null){
+                taskGroup = new ObservableCollection<Task>();
+                newList.ItemsSource = taskGroup;
+            }
+            else
+                newList.ItemsSource = list;
+
+            return newList;
         }
 
         public class MainViewModel
@@ -226,7 +246,7 @@ namespace Saveyour
 
             private void deleteSelectedTask(object sender)
             {
-                Console.WriteLine(sender);
+                Console.WriteLine("Pressed delete button!");
                 deleteTask(sender);
             }
 
@@ -263,6 +283,16 @@ namespace Saveyour
             {
                 execute(parameter);
             }
+        }
+        private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void titleBar_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.RightButton == MouseButtonState.Pressed)
+                e.Handled = true;
         }
     }
 }

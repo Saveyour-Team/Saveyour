@@ -17,12 +17,14 @@ namespace Saveyour
         private static Shell theShell;
         private static Settings settings;
 
+        /* This method is run when the application closes.  We use it to force one last save of the user data. */
         static void OnProcessExit(object sender, EventArgs e)
         {
             getSaveLoader().save();
             Debug.WriteLine("Saving before exit...");
         }
 
+        /**Returns the Shell or creates a new one if it does not exist.  This enforces the singleton pattern. */
         public static Shell getShell()
         {
             if (theShell == null)
@@ -32,6 +34,10 @@ namespace Saveyour
             return theShell;
         }
 
+        /**Returns the Shell or creates a new one if it does not exist.  This enforces the singleton pattern.  
+         * This method differs from the one above by allowing a username and password to be entered for saving to the server if this is the first call of getShell.
+         * Otherwise it just returns the already existing shell.
+         */
         public static Shell getShell(String username, String password)
         {
             if (theShell == null)
@@ -41,6 +47,9 @@ namespace Saveyour
             return theShell;
         }
 
+        /*
+         * Launches the module corresponding to the given modID and adds it to modlist.  This also checks to make sure duplicate modules of the same type are not launched.
+         */
         public static Module launch(String modID)
         {
             //Run 'modID' + '.exe' in the SaveYour/Modules folder to be implemented later.
@@ -92,7 +101,8 @@ namespace Saveyour
          
             return (Module)newModule;
         }
-
+        
+        /** This private constructor creates a shell with no username and password.  It's private to enforce the Singleton pattern, and is called by getShell when appropriate.*/
         private Shell() : this(null,null)
         {
 
@@ -102,11 +112,13 @@ namespace Saveyour
             settings = new Settings();
 
             Debug.WriteLine("Booting other modules");
-            saveLoad.loadToLaunch();
+            saveLoad.load();
             settings.Show();
 
 
         }
+
+        /** This private constructor creates a shell with the given username and password.  It's private to enforce the Singleton pattern, and is called by getShell when appropriate.*/
         private Shell(String username, String password)
         {
 
@@ -117,7 +129,7 @@ namespace Saveyour
             settings = new Settings();
 
             Debug.WriteLine("Booting other modules");
-            saveLoad.loadToLaunch();
+            saveLoad.load();
 
             //launch("Quicknotes");
             launch("WeeklyToDo");
@@ -132,15 +144,18 @@ namespace Saveyour
 
         }
 
+        /** Returns the modList used by the shell to keep track of running modules*/
         public static Modlist getModList()
         {
             return modlist;
         }
 
+        /** Returns the SaveLoader instance that is used to save all module data*/
         public static SaveLoader getSaveLoader(){
             return saveLoad;
         }
 
+        //This used to be used to allow us to run the app by launching on Shell.  Since we transitioned to WPF the app is now launched elsewhere, but I'll leave this incase we ever want to switch back.
         public void startApp(){            
 
             //Application.Run(userLogin);

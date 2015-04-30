@@ -171,5 +171,21 @@ namespace Saveyour
             //This should be the XML file found on github. This must be the RAW version so that it will start downloading.
             //This XML file is also in the release repo so it will look for the latest update possible.
         }
+
+        private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void destroyApp_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void titleBar_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.RightButton == MouseButtonState.Pressed)
+                e.Handled = true;
+        }
     }
 }

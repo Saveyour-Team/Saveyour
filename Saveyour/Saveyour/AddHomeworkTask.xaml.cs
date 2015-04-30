@@ -30,7 +30,10 @@ namespace Saveyour
             this.Owner = parent;
             InitializeComponent();
             TaskCalendar.SelectedDate = DateTime.Today;
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
+
+        /***** LOGIC FOR DATABINDINGS IN XAML *****/
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
@@ -38,8 +41,6 @@ namespace Saveyour
             this.DialogResult = true;
             taskDescription = TaskDescription.Text;
             taskDate = (DateTime) TaskCalendar.SelectedDate;
-
-
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -64,6 +65,17 @@ namespace Saveyour
         public DateTime getTaskDate()
         {
             return taskDate;
+        }
+
+        private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void titleBar_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.RightButton == MouseButtonState.Pressed)
+                e.Handled = true;
         }
     }
 }

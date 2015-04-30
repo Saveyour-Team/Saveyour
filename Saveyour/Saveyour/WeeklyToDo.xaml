@@ -19,7 +19,7 @@
 
     <Border BorderBrush="White" BorderThickness="2,2,2,2" CornerRadius="15,15,15,15" Background="White" Height="{x:Static SystemParameters.PrimaryScreenHeight}">
 
-        <Grid>
+        <Grid OpacityMask="Black">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="63*"/>
             </Grid.ColumnDefinitions>
@@ -126,7 +126,12 @@
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
-            <Button x:Name="addTaskBtn" Content="Button" HorizontalAlignment="Center" VerticalAlignment="Top" Width="40" Height="40" Style="{DynamicResource genericAddStyle1}" Click="addTaskButton" />
+            
+            
+            <Button Content="Add Task" HorizontalAlignment="Left" Margin="120,10,0,0" VerticalAlignment="Top" Width="75" Height="25" Foreground="White" Background="#FF5EC0FF"/>    
+            
+            
+
 
         </Grid>
     </Border>

@@ -58,7 +58,7 @@ namespace Saveyour
 
             Left = 0;
             double taskBar = Convert.ToDouble((Screen.PrimaryScreen.Bounds.Height - Screen.PrimaryScreen.WorkingArea.Height).ToString());
-            Top = 25 + System.Windows.SystemParameters.PrimaryScreenHeight - (taskBar + this.Height);
+            Top = System.Windows.SystemParameters.PrimaryScreenHeight - (taskBar + this.Height);
 
 	    }
         	    

@@ -41,19 +41,23 @@ namespace TaskBatch
         
         private List<DateTimeSum> ListOfDays(){
             WeeklyInstance = Shell.getWeeklyToDo();
+
+            if (WeeklyInstance != null)
+                Debug.WriteLine("HELLO");
+
             List<DateTimeSum> l = new List<DateTimeSum>();
             DateTime d = DateTime.Today;
             DateTime stop = d.AddDays(14);
             
-            while(d<=stop){
+            while(!d.Equals(stop)){
                 int tasksWeight = WeeklyInstance.sumOfTaskWeights(d);  
                 DateTimeSum temp = new DateTimeSum();
                 temp.setDateTime(d);
                 temp.setDayWeight(WeeklyInstance.sumOfTaskWeights(d));
                 l.Add(temp);
-
-
+                d = d.AddDays(1);
             }
+
             return sortList(l);
         }
 
@@ -97,18 +101,14 @@ namespace TaskBatch
                 if (taskLabel != null)
                 { 
                     taskLabel.Text = task.getTitle();
-                    taskLabel.Margin = new Thickness(50, 0, 0, 0);
+                    taskLabel.Margin = new Thickness(25, 0, 0, 0);
 
                     taskStack.Children.Add(taskLabel);
                     
                     AvailableDates.Children.Add(taskStack);
                     tasklist.AddLast(task);//adds task to end of taskList
                 }
-            }
-
-
-            
-           
+            }           
         }
 
         private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
@@ -122,8 +122,15 @@ namespace TaskBatch
                 e.Handled = true;
         }
 
-        private void addWeeklyToDo_Click(object sender, RoutedEventArgs e)
+        private void addToWeeklyToDo_Click(object sender, RoutedEventArgs e)
         {
+            /*
+            ConfirmationWindow confirm = new ConfirmationWindow();
+            bool? result = confirm.ShowDialog();
+
+            List<DateTimeSum> days = ListOfDays();
+            MessageBox.Show(days[0].getDateTime().ToString());
+            */
             ConfirmationWindow confirm = new ConfirmationWindow();
 
             //CALCULATE THE IDEAL DAY TO PLACE TASKS
@@ -132,17 +139,21 @@ namespace TaskBatch
             DateTime toAdd = idealDay.getDateTime(); //This is the ideal date to add the task to. Want to add Task to this Date
             String date = toAdd.ToString();
             confirm.displayMessage("Would you like to add the tasks to the date\n " + date);
-            
+
             bool? result = confirm.ShowDialog();
             if (result == true)
             {
                 AvailableDates.Children.Clear();
-                
+
                 // ADD THE TASKS AT THE DATE
-                foreach(Saveyour.Task t in tasklist) {
-                    WeeklyInstance.addTask(t);//adds task to weekly instance
+                foreach (Saveyour.Task t in tasklist)
+                {
+                    t.setDate(toAdd);
+                    if (WeeklyInstance.addAndDisplay(t))//adds task to weekly instance
+                        Debug.WriteLine("Added");
                 }
             }
+
         }
 
     }

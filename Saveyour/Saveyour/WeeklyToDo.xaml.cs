@@ -548,6 +548,37 @@ namespace Saveyour
             Shell.getSaveLoader().save();
         }
 
+        public Boolean addAndDisplay(Task task)
+        {
+            try
+            {
+                addTask(task);
+
+                DateTime theNextWeek = curTopDay.AddDays(7);
+                //Forces nextWeek's date to be at the very beginning of the day
+                theNextWeek = new DateTime(theNextWeek.Year, theNextWeek.Month, theNextWeek.Day);
+
+                DateTime lastDay = curTopDay.AddDays(-1);
+                //Forces the past day's date to be at the very beginning of the day
+                lastDay = new DateTime(lastDay.Year, lastDay.Month, lastDay.Day);
+
+                //If the task is in the current week, display it.
+                if (task.getDate().CompareTo(theNextWeek) < 0 && task.getDate().CompareTo(lastDay) > 0)
+                {
+                    displayTask(task);
+                    colorByWeights((int)task.getDate().DayOfWeek);
+                }
+
+                Shell.getSaveLoader().save();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
 
         //This is called when focus is lost. We used to save in this case, but now we save only when tasks are added or removed.
         private void onLostFocus(object sender, RoutedEventArgs e)

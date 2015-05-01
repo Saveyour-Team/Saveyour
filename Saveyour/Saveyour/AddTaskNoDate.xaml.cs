@@ -22,7 +22,6 @@ namespace Saveyour
     {
 
         private DateTime taskDate;
-        private String taskDescription;
         private Task theTask;
         private bool firstFocus = true;
         public AddTaskNoDate(Window parent)

@@ -206,5 +206,18 @@ namespace Saveyour
             password = pwd;
             saveFile = username + ".txt";
         }
+
+        public String getUsername()
+        {
+            return username;
+        }
+        public String getPassword()
+        {
+            return password;
+        }
+        public String getFile()
+        {
+            return saveFile;
+        }
     }
 }

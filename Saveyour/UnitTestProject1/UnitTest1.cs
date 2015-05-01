@@ -78,9 +78,9 @@ namespace UnitTestProject1
 
             System.IO.Directory.CreateDirectory("savedFiles");
 
-            System.IO.File.WriteAllText(@"savedFiles\readtest.txt", "TESTTEST");
+            System.IO.File.WriteAllText(@"savedFiles\readtest", "TESTTEST");
 
-            String written = ReadWrite.readStringFrom(@"readtest.txt");
+            String written = ReadWrite.readStringFrom(@"readtest");
             Debug.WriteLine("readtest: " + written);
 
             Assert.AreEqual("TESTTEST",written);

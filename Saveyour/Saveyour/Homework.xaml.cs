@@ -49,6 +49,7 @@ namespace Saveyour
         Storyboard newStoryBoard;
         public Homework()
         {
+            //Dynamically creating controls for the dislplay
             mainTabControl = new TabControl();
             taskGroupAll = new ObservableCollection<Task>();
             AllTab = new TabItem();
@@ -68,21 +69,12 @@ namespace Saveyour
             errorLabel.Visibility = Visibility.Hidden;
             newView = new MainViewModel();
             this.DataContext = newView;
-            //Creating of the All Tab that will contain all the tasks
+
 
             //Animation for  showing Label.
             newStoryBoard = new Storyboard();
-            Console.WriteLine("ADDED IN CONSTRUCTOR!!!");
- 
-            
-            //This needs to be scalable to multiple xaml elements.
-            //We need to load the information for the subjects here.
-
-            //After loading the information, we increase numSubjects and take the data from load to construct each GroupBox for each Grid
-
-            //Load the GroupBox, then the Grid, then each task in Task, then each date in Date
-
-            //                        
+     
+                      
 
         }
 
@@ -98,6 +90,7 @@ namespace Saveyour
 
         public String save()
         {
+            //save tasks and their corresponding subjects
             String output = "";
             foreach (TabItem subject in (ItemCollection) mainTabControl.Items)
             {
@@ -175,12 +168,10 @@ namespace Saveyour
 
                 }
             }
-            Console.WriteLine(mainTabControl);
+            //enter all the loaded information into the tab control
             AllTab.Content = createNewList(taskGroupAll);
             mainTabControl.SelectedItem = AllTab;
             windowGrid.Children.Add(mainTabControl);
-            Console.WriteLine(((TabItem)mainTabControl.SelectedItem).Header);
-            Console.WriteLine(mainTabControl);
             return true;
         }
 
@@ -216,6 +207,7 @@ namespace Saveyour
             //When the button to delete task is pressed, find the task in the same row as the button
             Task item = (Task)sender;
             TabItem tabitem = (TabItem) mainTabControl.SelectedItem;
+            //Delete task in both All tab and Subject Tab
             if (((TabItem)mainTabControl.SelectedItem) == AllTab)
             {
                 taskGroupAll.Remove(item);
@@ -236,18 +228,11 @@ namespace Saveyour
                 return;
             }
             
-      
-            //Remove the task
             ((ObservableCollection<Task>)((ListView)((TabItem)mainTabControl.SelectedItem).Content).ItemsSource).Remove(item);
             //Find the task in the All tab and remove it from there too
             taskGroupAll.Remove(item);
-
+            //Get and update the list
             ((ListView)((TabItem)mainTabControl.SelectedItem).Content).Items.Refresh();
-
-            //Refresh and Update List
-            //((ListView)getTab.Content).Items.Refresh();
-
-            //((ListView)((TabItem)mainTabControl.SelectedItem).Content).Items.Refresh();
 
             Shell.getSaveLoader().save();
         }
@@ -286,7 +271,7 @@ namespace Saveyour
             Shell.getSaveLoader().save();
 
         }
-
+        //Sorts the tasks by date
         private void sortAllTab(Task sortTask, ObservableCollection<Task> list)
         {
             int i = 0;
@@ -304,7 +289,7 @@ namespace Saveyour
 
         private ListView createNewList(ObservableCollection<Task> list)
         {
-            
+            //Create a list with standard style
             ListView newList = new ListView();
             GridViewColumn nameColumn = new GridViewColumn();
             GridViewColumn dateColumn = new GridViewColumn();
@@ -334,7 +319,7 @@ namespace Saveyour
             return newList;
         }
         
-
+        //View Model to bind commands to the buttons
         public class MainViewModel
         {
             public MainViewModel()
@@ -375,7 +360,7 @@ namespace Saveyour
                 //archiveTask(sender);
             }
         }    
-
+        //Create a RelayCommand to execute the button click event
         public class RelayCommand : ICommand
         {
             readonly Action<object> execute;
@@ -418,6 +403,7 @@ namespace Saveyour
         {
             if (mainTabControl.SelectedItem == AllTab)
             {
+                //Set Facing Animation
                 errorLabel.Visibility = System.Windows.Visibility.Visible;
                 TimeSpan duration = TimeSpan.FromMilliseconds(500); //
 

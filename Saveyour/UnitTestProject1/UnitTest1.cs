@@ -80,7 +80,7 @@ namespace UnitTestProject1
 
             System.IO.File.WriteAllText(@"savedFiles\readtest", "TESTTEST");
 
-            String written = ReadWrite.readStringFrom(@"readtest");
+            String written = ReadWrite.readStringFrom(@"readtest.txt");
             Debug.WriteLine("readtest: " + written);
 
             Assert.AreEqual("TESTTEST",written);

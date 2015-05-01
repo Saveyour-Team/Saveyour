@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Forms;
 using System.Reflection;
+using System.Diagnostics;
 using SaveyourUpdate;
 
 namespace Saveyour
@@ -299,6 +300,11 @@ namespace Saveyour
         {
             if (e.RightButton == MouseButtonState.Pressed || e.MiddleButton == MouseButtonState.Pressed)
                 e.Handled = true;
+        }
+
+        private void AddQN_Click(object sender, RoutedEventArgs e)
+        {
+            qnotes.addQuickNote();
         }
 
         /***** END OF LOGIC FOR DATA BINDINGS XAML ELEMENTS *****/

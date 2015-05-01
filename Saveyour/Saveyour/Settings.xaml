@@ -9,6 +9,7 @@
         <Grid>
             <Label Content="Quicknotes" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Transparent" FontSize="16" BorderBrush="White" BorderThickness="0,3" Width="295" HorizontalContentAlignment="Center" Margin="0,26,1,0"/>
             <Button x:Name="QNShowHide" Content="Show/Hide" HorizontalAlignment="Left" Margin="35,75,0,0" VerticalAlignment="Top" Width="76" Click="QN_Click" Background="{x:Null}" BorderBrush="White" Foreground="White"/>
+            <Button x:Name="AddQN" Content="Add" HorizontalAlignment="Left" Margin="120,75,0,0" VerticalAlignment="Top" Width="30" Click="AddQN_Click" Background="{x:Null}" BorderBrush="White" Foreground="White"></Button>
             <Label Content="Macro: Ctrl + 1" HorizontalAlignment="Left" Margin="155,70,0,0" VerticalAlignment="Top" Background="Transparent" FontSize="14" BorderBrush="White" BorderThickness="0,0" Foreground="White" />
             
             <Label x:Name="WeeklyToDo" Foreground="White" Content="Weekly To-Do" HorizontalAlignment="Left" Margin="1,106,0,0" VerticalAlignment="Top" FontSize="16" Width="295" HorizontalContentAlignment="Center" BorderThickness="0,3" BorderBrush="White"/>

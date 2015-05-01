@@ -83,6 +83,7 @@ namespace Saveyour
             //Moves WeeklyToDo to the topright of the screen on launch.
             Left = System.Windows.SystemParameters.PrimaryScreenWidth - Width;
             Top = 0;
+            //Moves the add task button slightly lower from the top, and ensures centering
             Thickness point = addTaskBtn.Margin;
             addTaskBtn.Margin = new Thickness(point.Left, point.Top + 10, point.Right, point.Bottom);
 

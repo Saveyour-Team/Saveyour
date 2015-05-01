@@ -246,7 +246,6 @@ namespace UnitTestProject1
             Saveyour.Task task = new Saveyour.Task("Project", "All Problems", 10, today);
 
             wtd.addTask(task);
-            String actual = "Project\t\tAll Problems\t\t10\t\t04/29/2015 12:00:00 AM";
             String output = wtd.save();
 
 

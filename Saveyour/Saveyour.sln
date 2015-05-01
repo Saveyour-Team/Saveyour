@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveyourUpdate", "SaveyourUpdate\SaveyourUpdate.csproj", "{5074D155-0F46-4831-8F51-0CCD4EA82A08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginContracts", "PluginContracts\PluginContracts.csproj", "{43C879D1-31AE-424F-91D1-92CF286D5497}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskBatch", "TaskBatch\TaskBatch.csproj", "{3AF42680-FF00-4BFF-A586-69210AA57DCC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{5074D155-0F46-4831-8F51-0CCD4EA82A08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5074D155-0F46-4831-8F51-0CCD4EA82A08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5074D155-0F46-4831-8F51-0CCD4EA82A08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43C879D1-31AE-424F-91D1-92CF286D5497}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43C879D1-31AE-424F-91D1-92CF286D5497}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43C879D1-31AE-424F-91D1-92CF286D5497}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43C879D1-31AE-424F-91D1-92CF286D5497}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AF42680-FF00-4BFF-A586-69210AA57DCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AF42680-FF00-4BFF-A586-69210AA57DCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AF42680-FF00-4BFF-A586-69210AA57DCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AF42680-FF00-4BFF-A586-69210AA57DCC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

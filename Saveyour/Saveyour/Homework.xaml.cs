@@ -29,8 +29,8 @@ namespace Saveyour
     /// </summary>
     public partial class Homework : Window, Module
     {
-
-        private class Task
+        //Task class object for the Listview
+        public class Task
         {
             public String AssignmentName { get; set; }
             public String AssignmentDate { get; set; }
@@ -39,39 +39,31 @@ namespace Saveyour
 
         }
 
-        private class Subject
-        {
-            public ObservableCollection<Task> taskCollection;
-
-            public Subject()
-            {
-                taskCollection = new ObservableCollection<Task>();
-            }
-        }
-
         private const int MAX_SUBJECTS = 10;
-        //Subject[] subjects = new Subject[MAX_SUBJECTS];
         MainViewModel newView;
         private static TabControl mainTabControl;
         ObservableCollection<Task> taskGroupAll;
         ObservableCollection<Task> taskGroup;
+        ObservableCollection<Task> archivedTasks;
         TabItem AllTab;
         Storyboard newStoryBoard;
         public Homework()
         {
             InitializeComponent();
+            //Setting up a ModelView for clicking on buttons in the Listview
             errorLabel.Visibility = Visibility.Hidden;
             newView = new MainViewModel();
             this.DataContext = newView;
+            //Create ObservableCollections to add tasks to
             taskGroupAll = new ObservableCollection<Task>();
-            //subjects[0] = new Subject();
-            
+            archivedTasks = new ObservableCollection<Task>();
+            //Creating of the All Tab that will contain all the tasks
             AllTab = new TabItem();
             AllTab.Header = "All";
-            taskGroupAll = new ObservableCollection<Task>();
             AllTab.Content = createNewList(taskGroupAll);
+            Console.WriteLine("IN CONSTRUCTOR = " + taskGroupAll.Count);
             subjectsTab.Items.Add(AllTab);
-            Console.WriteLine(subjectsTab);
+            //Animation for  showing Label.
             newStoryBoard = new Storyboard();
             //This needs to be scalable to multiple xaml elements.
             //We need to load the information for the subjects here.
@@ -97,10 +89,8 @@ namespace Saveyour
         public String save()
         {
             String output = "";
-            int i = 0;
             foreach (TabItem subject in (ItemCollection) subjectsTab.Items)
             {
-                i++;
                 output = output + subject.Header + ":";
                 foreach (Task task in (ObservableCollection<Task>)((ListView)subject.Content).ItemsSource)
                 {
@@ -108,15 +98,21 @@ namespace Saveyour
                 }
                 output = output + "\r\t\r";
             }
-            
+            output = output + "SEPARATE";
+            foreach (Task task in archivedTasks)
+            {
+               output = output + task.AssignmentName + "," + task.AssignmentDate + "," + task.AssignmentShortenedDate + "\t\t";
+            }
             Debug.WriteLine("Saving: " + output);
-            Debug.WriteLine(i);
+
             return output;
         }
 
         public Boolean load(String data)
         {
-            
+            //Get the string from database and load it
+            //Use substrings to find a subject name and all its tasks in it
+            data = data.Substring(0, data.IndexOf("SEPARATE"));
             Console.WriteLine(data);
             Debug.WriteLine("Homework Loading: " + data);
             String[] splitAt = { "\r\t\r" };
@@ -173,10 +169,7 @@ namespace Saveyour
                         }
                     }
                     restoreSubject.Header = separateTasks[0];
-                    Console.WriteLine(restoreSource);
                     restoreSubject.Content = createNewList(restoreSource);
-                    Console.WriteLine("Content = " + restoreSubject.Content);
-                    Console.WriteLine("Newly created = " + restoreSubject);
                     if (restoreSubject != AllTab)
                     {
                         subjectsTab.Items.Add(restoreSubject);
@@ -185,7 +178,6 @@ namespace Saveyour
             }
 
             mainTabControl = subjectsTab;
-            Console.WriteLine("DONE LOADING!!! " + mainTabControl);
             return true;
         }
 
@@ -197,7 +189,7 @@ namespace Saveyour
 
         private void addSubjectButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            //When addSubjectButton is clicked, show a window where user can pick time and date
             AddHomeworkSubject display = new AddHomeworkSubject();
             display.ShowDialog();
 
@@ -207,7 +199,7 @@ namespace Saveyour
             {
                 return;
             }
-            
+            //Create a new tab that uses the subject name.
             TabItem newTab = new TabItem();
             newTab.Header = check; //Need to make sure we cannot exit window until Submit or Cancel is pressed.
             newTab.Content = createNewList(null);
@@ -218,19 +210,17 @@ namespace Saveyour
         
         public static void deleteTask(object sender)
         {
+            //When the button to delete task is pressed, find the task in the same row as the button
             Task item = (Task)sender;
-            Console.Write("Item Name:");
-            Console.WriteLine(item.AssignmentName);
-            Console.WriteLine(mainTabControl.SelectedItem);
             TabItem tabitem = (TabItem) mainTabControl.SelectedItem;
 
-            Console.WriteLine("maintabcontrol = " + mainTabControl);
-            Console.WriteLine("tabitem = " +tabitem);
             ListView listview = (ListView) tabitem.Content;
             Console.WriteLine(listview);
+            //Find the index of the item so we can delete it
             int index = ((ListView)((TabItem)mainTabControl.SelectedItem).Content).Items.IndexOf(item);
-            Console.Write(index);
+            //Remove the task
             ((ObservableCollection<Task>)((ListView)((TabItem)mainTabControl.SelectedItem).Content).ItemsSource).Remove(item);
+            //Find the task in the All tab and remove it from there too
             TabItem getTab = null;
             foreach (TabItem tab in mainTabControl.Items)
             {
@@ -239,19 +229,28 @@ namespace Saveyour
                 }
                     
             }
-            ((ObservableCollection<Task>)((ListView)getTab.Content).ItemsSource).Remove(item);
+            Task delTask = null;
+            foreach (Task task in (ObservableCollection<Task>)((ListView)getTab.Content).ItemsSource)
+            {
+                if (task.AssignmentName.Equals(item.AssignmentName))
+                {
+                    delTask = task;
+                }
+            }
+
+            Boolean removed = ((ObservableCollection<Task>)((ListView)getTab.Content).ItemsSource).Remove(delTask);
+            //Refresh and Update List
+            ((ListView)getTab.Content).Items.Refresh();
             ((ListView)((TabItem)mainTabControl.SelectedItem).Content).Items.Refresh();
 
             Shell.getSaveLoader().save();
         }
 
-        private static void archiveTask(object send)
-        {
-            Console.WriteLine("??????????????????");
-        }
+ 
 
         private void addTask(object sender, RoutedEventArgs e)
         {
+            //When user clicks on addTask, show a window where they can pick the date, task name and a description
             AddHomeworkTask setTaskWindow = new AddHomeworkTask(this);
             setTaskWindow.ShowInTaskbar = false;
             Nullable<bool> result = setTaskWindow.ShowDialog();
@@ -259,6 +258,7 @@ namespace Saveyour
             {
                 return;
             }
+            //Get all the information
             String description = setTaskWindow.getTaskDescription();
             String date = setTaskWindow.getTaskDate().Year.ToString() + setTaskWindow.getTaskDate().Month.ToString() + setTaskWindow.getTaskDate().Day.ToString();
             String shortenedDate = setTaskWindow.getTaskDate().ToShortDateString();
@@ -268,15 +268,14 @@ namespace Saveyour
             Console.WriteLine(setTab);
             Task newTask = new Task { AssignmentName = description, AssignmentDate = date, AssignmentShortenedDate = shortenedDate };
 
-            //((ObservableCollection<Task>)((ListView)setTab.Content).ItemsSource).Add(newTask);
+            //Add the task to the currently selected tab by gettings its list and adding it to the observablecollection
             ObservableCollection<Task> currentList = (ObservableCollection<Task>)((ListView)setTab.Content).ItemsSource;
             if(currentList != taskGroupAll)
                 sortAllTab(newTask,(ObservableCollection<Task>)((ListView)setTab.Content).ItemsSource);
             sortAllTab(newTask, taskGroupAll);
             ((ListView)setTab.Content).Items.Refresh();
             mainTabControl = subjectsTab;
-            //Console.WriteLine(((ListView)setTab.Content));
-            //subjects[0].taskCollection.Add(newTask);
+
 
             Shell.getSaveLoader().save();
 
@@ -305,13 +304,13 @@ namespace Saveyour
             GridViewColumn dateColumn = new GridViewColumn();
             GridViewColumn editColumn = new GridViewColumn();
             GridView newGrid = new GridView();
-            nameColumn.Width = 180;
+            nameColumn.Width = 195;
             nameColumn.Header = "Assignment";
             nameColumn.DisplayMemberBinding = new Binding("AssignmentName");
             dateColumn.Width = 45;
             dateColumn.Header = "Date";
             dateColumn.DisplayMemberBinding = new Binding("AssignmentShortenedDate");
-            editColumn.Width = 45;
+            editColumn.Width = 30;
             editColumn.Header = "Edit";
             editColumn.CellTemplate = this.Resources["editColumnTemplate"] as DataTemplate;
             newGrid.Columns.Add(nameColumn);

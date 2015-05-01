@@ -12,9 +12,6 @@
                 <Button Content="X"  Command="{Binding Path=DataContext.DeleteCommand,
                       RelativeSource={RelativeSource Mode=FindAncestor,
                                                      AncestorType=Window}}" CommandParameter="{Binding}" HorizontalAlignment="Stretch" Style="{StaticResource DeleteStyle}"/>
-                <Button Content="A"  Command="{Binding Path=DataContext.ArchiveCommand,
-                      RelativeSource={RelativeSource Mode=FindAncestor,
-                                                     AncestorType=Window}}" CommandParameter="{Binding}" HorizontalAlignment="Stretch" Style="{StaticResource ArchiveStyle}"/>
             </StackPanel>
         </DataTemplate>
     </Window.Resources>

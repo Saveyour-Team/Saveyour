@@ -61,11 +61,11 @@ namespace UnitTestProject1
         {
             System.IO.Directory.CreateDirectory("savedFiles");
 
-            ReadWrite.writeStringTo("TESTING", "writetest.txt");
+            ReadWrite.writeStringTo("TESTING", "writetest");
 
-            String written = System.IO.File.ReadAllText(@"savedFiles\writetest.txt");
+            String written = System.IO.File.ReadAllText(@"savedFiles\writetest");
 
-            Assert.AreEqual(written, "TESTING");
+            Assert.AreEqual("TESTING",written);
 
         }
         //Testing ReadWrite's readStringFrom method
@@ -246,12 +246,12 @@ namespace UnitTestProject1
             Saveyour.Task task = new Saveyour.Task("Project", "All Problems", 10, today);
 
             wtd.addTask(task);
-            String actual = "Project\t\tAll Problems\t\t10\t\t04/29/2015\t\t12:00:00 AM";
+            String actual = "Project\t\tAll Problems\t\t10\t\t04/29/2015 12:00:00 AM";
             String output = wtd.save();
 
 
 
-            Assert.AreEqual(actual, output, "Not Equal");
+            Assert.AreEqual(output, actual, "Not Equal");
 
         }
 

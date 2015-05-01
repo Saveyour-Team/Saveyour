@@ -7,6 +7,7 @@ namespace TaskBatch
     {
         #region IPlugin Members
 
+        TaskBatchWindow taskBatch;
         public string Name
         {
             get
@@ -17,8 +18,16 @@ namespace TaskBatch
 
         public void Do()
         {
-            TaskBatchWindow taskBatch = new TaskBatchWindow();
+            if(taskBatch == null)
+                taskBatch = new TaskBatchWindow();
             taskBatch.Show();
+        }
+
+        public Window getInstance()
+        {
+            if (taskBatch == null)
+                taskBatch = new TaskBatchWindow();
+            return taskBatch;
         }
 
         #endregion

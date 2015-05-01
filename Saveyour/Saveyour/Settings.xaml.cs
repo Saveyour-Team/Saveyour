@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Windows.Forms;
 using System.Reflection;
 using System.Diagnostics;
+using PluginContracts;
 using SaveyourUpdate;
 
 namespace Saveyour
@@ -65,6 +66,19 @@ namespace Saveyour
         /***** HOTKEY BINDING LOGIC *****/	
 
 	    private void toggleAll(){
+            Dictionary<string, IPlugin> plugins = Shell.getPlugins();
+            foreach (KeyValuePair<string, IPlugin> plugin in plugins)
+            {
+                if (plugin.Value.getInstance() != null)
+                {
+                    if (plugin.Value.getInstance().IsVisible && !toggledAll)
+                    {
+                        plugin.Value.getInstance().Hide();
+                    }
+                    else if (toggledAll)
+                        plugin.Value.getInstance().Show();
+                }
+            }
 
             if (qnotes.getVisibility() && !toggledAll) {
                 qnotes.Hide();

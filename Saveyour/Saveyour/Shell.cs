@@ -195,7 +195,6 @@ namespace Saveyour
             saveLoad.load();
             
             settings.Show();
-
         }
 
         /** Returns the modList used by the shell to keep track of running modules*/

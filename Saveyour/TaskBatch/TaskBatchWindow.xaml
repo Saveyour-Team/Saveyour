@@ -19,12 +19,15 @@
             </Rectangle>
         </Border>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-            <StackPanel x:Name="AvailableDates" Margin="0,96,0,32"/>
-        </ScrollViewer>
-        
-        <Button x:Name="addTaskBtn" Content="Add Task" HorizontalAlignment="Center" VerticalAlignment="Top" Width="74" Height="25" Foreground="White" Background="#FF5EC0FF" Click="addTaskButton" Margin="114,21,112,0"/>
-        <Button x:Name="addWeeklyToDo" Content="Add To Weekly To Do" HorizontalAlignment="Center" VerticalAlignment="Top" Width="126" Height="25" Foreground="White" Background="#FF5EC0FF" Margin="0,51,0,0" Click="addWeeklyToDo_Click"/>
-        
+        <Border x:Name="TasksBorder" BorderBrush="White" BorderThickness="1" Height="163" Margin="0,103,0,0" VerticalAlignment="Top">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="AvailableDates"/>
+            </ScrollViewer>
+        </Border>
+
+        <Button x:Name="addTaskBtn" Content="Add Task" HorizontalAlignment="Center" VerticalAlignment="Top" Width="74" Height="25" Foreground="White" Background="#FF5EC0FF" Click="addTaskButton" Margin="114,10,112,0"/>
+        <Button x:Name="addToWeeklyToDo" Content="Add to Single Day" HorizontalAlignment="Center" VerticalAlignment="Top" Width="116" Height="25" Foreground="White" Background="#FF5EC0FF" Margin="0,40,0,0" Click="addToWeeklyToDo_Click"/>
+        <Button x:Name="autoAdd" Content="Automatic Add" HorizontalAlignment="Center" VerticalAlignment="Top" Width="96" Height="25" Foreground="White" Background="#FF5EC0FF" Margin="0,70,0,0" Click="autoAdd_Click"/>
+
     </Grid>
 </Window>

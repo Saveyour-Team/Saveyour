@@ -6,9 +6,9 @@
              Height="187.5" Width="368.182" WindowStyle="None" Background="Transparent" AllowsTransparency="True" ResizeMode="NoResize">
     <Border BorderBrush="White" BorderThickness="2,2,2,2" CornerRadius="30,30,30,30" Background="#FF44B9FF">
         <Grid>
-            <TextBlock x:Name="Message" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Top" Height="111" Width="241" FontSize="22"/>
-            <Button x:Name="btnYes" Content="Yes" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Margin="62,130,0,0" Click="btnYes_Click"/>
-            <Button x:Name="btnNo" Content="No" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Margin="228,130,0,0" Click="btnNo_Click"/>
+            <TextBlock x:Name="Message" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Top" Height="125" Width="240" FontSize="22" Margin="62,0"/>
+            <Button x:Name="btnYes" Content="Yes" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Margin="76,135,0,0" Click="btnYes_Click"/>
+            <Button x:Name="btnNo" Content="No" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Margin="211,135,0,0" Click="btnNo_Click"/>
 
         </Grid>
     </Border>

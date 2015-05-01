@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Windows.Forms;
 using System.Reflection;
 using System.Diagnostics;
+using PluginContracts;
 using SaveyourUpdate;
 
 namespace Saveyour
@@ -58,13 +59,26 @@ namespace Saveyour
 
             Left = 0;
             double taskBar = Convert.ToDouble((Screen.PrimaryScreen.Bounds.Height - Screen.PrimaryScreen.WorkingArea.Height).ToString());
-            Top = 25 + System.Windows.SystemParameters.PrimaryScreenHeight - (taskBar + this.Height);
+            Top = System.Windows.SystemParameters.PrimaryScreenHeight - (taskBar + this.Height);
 
 	    }
         	    
         /***** HOTKEY BINDING LOGIC *****/	
 
 	    private void toggleAll(){
+            Dictionary<string, IPlugin> plugins = Shell.getPlugins();
+            foreach (KeyValuePair<string, IPlugin> plugin in plugins)
+            {
+                if (plugin.Value.getInstance() != null)
+                {
+                    if (plugin.Value.getInstance().IsVisible && !toggledAll)
+                    {
+                        plugin.Value.getInstance().Hide();
+                    }
+                    else if (toggledAll)
+                        plugin.Value.getInstance().Show();
+                }
+            }
 
             if (qnotes.getVisibility() && !toggledAll) {
                 qnotes.Hide();

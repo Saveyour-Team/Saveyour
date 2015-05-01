@@ -41,19 +41,24 @@ namespace TaskBatch
         
         private List<DateTimeSum> ListOfDays(){
             WeeklyInstance = Shell.getWeeklyToDo();
+
+            if (WeeklyInstance != null)
+                Debug.WriteLine("HELLO");
+
             List<DateTimeSum> l = new List<DateTimeSum>();
             DateTime d = DateTime.Today;
             DateTime stop = d.AddDays(14);
             
-            while(d<=stop){
-                int tasksWeight = WeeklyInstance.sumOfTaskWeights(d);  
+            while(!d.Equals(stop)){
+                int tasksWeight = WeeklyInstance.sumOfTaskWeights(d);
+                Debug.WriteLine(d + " Weight: " + tasksWeight);
                 DateTimeSum temp = new DateTimeSum();
                 temp.setDateTime(d);
                 temp.setDayWeight(WeeklyInstance.sumOfTaskWeights(d));
                 l.Add(temp);
-
-
+                d = d.AddDays(1);
             }
+
             return sortList(l);
         }
 
@@ -97,18 +102,14 @@ namespace TaskBatch
                 if (taskLabel != null)
                 { 
                     taskLabel.Text = task.getTitle();
-                    taskLabel.Margin = new Thickness(50, 0, 0, 0);
+                    taskLabel.Margin = new Thickness(25, 0, 0, 0);
 
                     taskStack.Children.Add(taskLabel);
                     
                     AvailableDates.Children.Add(taskStack);
                     tasklist.AddLast(task);//adds task to end of taskList
                 }
-            }
-
-
-            
-           
+            }           
         }
 
         private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
@@ -122,7 +123,7 @@ namespace TaskBatch
                 e.Handled = true;
         }
 
-        private void addWeeklyToDo_Click(object sender, RoutedEventArgs e)
+        private void addToWeeklyToDo_Click(object sender, RoutedEventArgs e)
         {
             ConfirmationWindow confirm = new ConfirmationWindow();
 
@@ -130,18 +131,45 @@ namespace TaskBatch
             List<DateTimeSum> allDays = sortList(ListOfDays());//returns a sorted lists with all the days for the next 2 weeks in ascending order from lowest to highest task weight for day
             DateTimeSum idealDay = allDays[0];//gets index at the top, which is the one with the least task weight
             DateTime toAdd = idealDay.getDateTime(); //This is the ideal date to add the task to. Want to add Task to this Date
-            String date = toAdd.ToString();
-            confirm.displayMessage("Would you like to add the tasks to the date\n " + date);
-            
+            String date = toAdd.ToString("d");
+
+            confirm.displayMessage("Would you like to add the tasks to the date\n " + date + "?");
+
             bool? result = confirm.ShowDialog();
             if (result == true)
             {
                 AvailableDates.Children.Clear();
-                
+
                 // ADD THE TASKS AT THE DATE
-                foreach(Saveyour.Task t in tasklist) {
-                    WeeklyInstance.addTask(t);//adds task to weekly instance
+                foreach (Saveyour.Task t in tasklist)
+                {
+                    t.setDate(toAdd);
+                    if (WeeklyInstance.addAndDisplay(t))//adds task to weekly instance
+                        Debug.WriteLine("Added");
                 }
+            }
+
+        }
+
+        private void autoAdd_Click(object sender, RoutedEventArgs e)
+        {
+            ConfirmationWindow confirm = new ConfirmationWindow();
+            confirm.displayMessage("Would you like TaskBatch to find a date and add these tasks for you?");
+
+            bool? result = confirm.ShowDialog();
+            if (result == true)
+            {
+                List<DateTimeSum> allDays = ListOfDays();
+                AvailableDates.Children.Clear();
+                foreach (Saveyour.Task t in tasklist)
+                {
+                    allDays = ListOfDays();
+                    DateTime toAdd = allDays[0].getDateTime();
+                    t.setDate(toAdd);
+                    if (WeeklyInstance.addAndDisplay(t))//adds task to weekly instance
+                        Debug.WriteLine("Added");
+                }
+
             }
         }
 

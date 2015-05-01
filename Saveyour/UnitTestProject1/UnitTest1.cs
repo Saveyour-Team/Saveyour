@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Markup;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -246,9 +247,10 @@ namespace UnitTestProject1
             Saveyour.Task task = new Saveyour.Task("Project", "All Problems", 10, today);
 
             wtd.addTask(task);
-            String output = wtd.save();
-
-
+            String actual = "Project\t\tAll Problems\t\t10\t\t4/29/2015 12:00:00 AM";
+            String output = wtd.save();          
+            Debug.WriteLine("Expected: " + output);
+            Debug.WriteLine("Actual: " + actual);
 
             Assert.AreEqual(output, actual, "Not Equal");
 
@@ -403,17 +405,20 @@ namespace UnitTestProject1
         {
             try
             {
+
                 Settings set = new Settings();
                 QuicknotesControl qnotes = new QuicknotesControl();
                 Modlist modules = new Modlist();
-                Module mod = Shell.launch("Quicknotes");
+                Module mod = Shell.launch("Homework");
                 Module mod2 = Shell.launch("WeeklyToDo");
+                modules.add(mod);
+                modules.add(mod2);
 
-                set.addQNotes(mod);
-                //set.addWTD(mod2);
+                set.addHW((Window)mod);
+                set.addWTD((Window)mod2);
 
-                //Assert.AreEqual(set.qnotes,qnotes);
-                //Assert.IsNotNull(set.weeklytd);
+                Assert.AreEqual(set.getHW(), qnotes);
+                Assert.IsNotNull(set.getWTD());
             }
             catch (InvalidOperationException e)
             {

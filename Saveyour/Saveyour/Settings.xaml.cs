@@ -128,9 +128,19 @@ namespace Saveyour
             qnotes = (QuicknotesControl) qnc;
         }
 
+        public QuicknotesControl getQNotes()
+        {
+            return qnotes;
+        }
+
         public void addWTD(Window module)
         {
             weeklytd = module;
+        }
+
+        public Window getWTD()
+        {
+            return weeklytd;
         }
 
         public void addGC(Window module)
@@ -141,6 +151,11 @@ namespace Saveyour
         public void addHW(Window module)
         {
             homework = module;
+        }
+
+        public Window getHW()
+        {
+            return homework;
         }
 
         /***** END OF LOGIC FOR RETRIEVING MODULES FROM SHELL *****/

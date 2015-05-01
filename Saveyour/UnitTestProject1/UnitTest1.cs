@@ -62,9 +62,9 @@ namespace UnitTestProject1
         {
             System.IO.Directory.CreateDirectory("savedFiles");
 
-            ReadWrite.writeStringTo("TESTING", "writetest");
+            ReadWrite.writeStringTo("TESTING", "writetest.txt");
 
-            String written = System.IO.File.ReadAllText(@"savedFiles\writetest");
+            String written = System.IO.File.ReadAllText(@"savedFiles\writetest.txt");
 
             Assert.AreEqual("TESTING",written);
 
@@ -80,7 +80,7 @@ namespace UnitTestProject1
 
             String written = ReadWrite.readStringFrom(@"readtest.txt");
 
-            Assert.AreEqual(written, "TESTTEST");
+            Assert.AreEqual("TESTTEST",written);
 
         }
         //Testing NetworkControl's testIP method
@@ -165,7 +165,7 @@ namespace UnitTestProject1
 
         }
 
-        //Testing Quicknote's ID method
+        //Testing Homework's ID method
         [TestMethod]
         public void homeworkID()
         {
@@ -326,29 +326,19 @@ namespace UnitTestProject1
             String password = "password";
             String command = "login";
 
-            //Create a network connection and connect
             NetworkControl network = new NetworkControl();
             String response = network.Connect(network.getIP(), username + "\r\r\r" + password + "\r\r\r" + command);
-            //Debug.WriteLine(response);
+            Debug.WriteLine(response);
 
             String[] splitAt = { "\r\r\n" };
             String[] responseData = response.Split(splitAt, StringSplitOptions.None);
-            //userData = responseData[1];
-            String userData = null;
-
-            if (responseData.Length > 1)
-            {
-                userData = responseData[1];
-                //Debug.WriteLine("UserData: " + userData);
-            }
-
 
             if (response.Contains("Logged in as"))
             {
                 
                 loggedIn = true;
                 
-            };
+            }
             Assert.IsTrue(loggedIn);
         }
 
@@ -360,9 +350,7 @@ namespace UnitTestProject1
             Modlist modules = Shell.getModList();
             Module mod = Shell.launch("Homework");
             modules.add(mod);
-            //Module mod2 = Shell.launch("WeeklyToDo");
             modules.add(mod);
-            //modules.add(mod2);
 
             int count = 0;
 
@@ -383,7 +371,7 @@ namespace UnitTestProject1
 
         //Testing SaveLoader's setLogin method
         [TestMethod]
-        public void saveLogInInfo()
+        public void setLogInInfo()
         {
             
             SaveLoader sv = new SaveLoader();
@@ -447,30 +435,7 @@ namespace UnitTestProject1
 
         }
 
-        //Testing Homework's ID method
-        [TestMethod]
-        public void hwID()
-        {
-            Homework hw = new Homework();
-            String actual = "Homework";
-            String got = hw.moduleID();
 
-            Assert.AreEqual(actual, got, "Not Equal");
-
-
-        }
-
-        //Testing new Homework
-        /*[TestMethod]
-        public void newHW()
-        {
-            Homework hw = new Homework();
-            //Subject sub = new Subject();
-
-            Assert.IsNotNull(hw.subjects[0]);
-
-
-        }*/
 
     }
 }

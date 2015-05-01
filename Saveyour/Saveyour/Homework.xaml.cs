@@ -366,7 +366,7 @@ namespace Saveyour
             private void archiveSelectedTask(object sender)
             {
                 Console.WriteLine("Pressed archive task button!");
-                archiveTask(sender);
+                //archiveTask(sender);
             }
         }    
 

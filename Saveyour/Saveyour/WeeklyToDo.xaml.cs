@@ -69,7 +69,7 @@ namespace Saveyour
         private DateTime curTopDay;
 
         //A list of all the tasks in the module, keyed by the date they are assigned for.
-        private Dictionary<DateTime,List<Task>> hashTasks;
+        public Dictionary<DateTime,List<Task>> hashTasks;
 
         //The borders of the days on the xaml form
         private Border[] borders;
@@ -194,7 +194,7 @@ namespace Saveyour
 
 
 	/*Calculates the sum of the weights of all tasks on a given day */
-	private int sumOfTaskWeights(DateTime day){
+	public int sumOfTaskWeights(DateTime day){
 		int sum = 0;
         try
         {
@@ -281,7 +281,7 @@ namespace Saveyour
             Shell.getSaveLoader().save();
         }
 
-
+       
         /*Create everything needed to display the tasks on the weekly calendar.*/
         private void createTaskLabel(Task task, StackPanel daysTasks){
             //A stackpanel to contain the task title and description textblocks
@@ -471,7 +471,7 @@ namespace Saveyour
 
 
         //Adds a task to the hashTasks hashtable keyed by its date.
-        private void addTask(Task task)
+        public void addTask(Task task)
         {
             try
             {
@@ -485,6 +485,19 @@ namespace Saveyour
             {
                 hashTasks[task.getDate()].Add(task);
             }
+        }
+
+        public Task selectAddNoDateTask(RoutedEventArgs e)
+        {
+            AddTaskNoDate addTaskWin = new AddTaskNoDate(this);
+            addTaskWin.ShowInTaskbar = false;
+            Nullable<bool> result = addTaskWin.ShowDialog();
+            if (!result.HasValue || !result.Value)
+            {
+                return null;
+            }
+
+            return addTaskWin.getTask();
         }
 
         /*This is called when the "Add Task" button is clicked.

@@ -10,9 +10,9 @@ namespace Saveyour
 {
     public class SaveLoader
     {
-        String saveFile = "saveddata.txt";
-        String username = "";
-        String password = "";
+        public static String saveFile = "saveddata.txt";
+        public static String username = "";
+        public static String password = "";
 
         /**
         * Returns the savedata string for all the modules with format 
@@ -205,6 +205,19 @@ namespace Saveyour
             username = user;
             password = pwd;
             saveFile = username + ".txt";
+        }
+
+        public String getUsername()
+        {
+            return username;
+        }
+        public String getPassword()
+        {
+            return password;
+        }
+        public String getFile()
+        {
+            return saveFile;
         }
     }
 }

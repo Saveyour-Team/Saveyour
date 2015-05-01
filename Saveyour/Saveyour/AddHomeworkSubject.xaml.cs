@@ -67,6 +67,17 @@ namespace Saveyour
             Subject.Text = ""; //Clears out whatever is inputted in textbox for Subject
         }
 
+        private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void titleBar_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.RightButton == MouseButtonState.Pressed || e.MiddleButton == MouseButtonState.Pressed)
+                e.Handled = true;
+        }
+
         /***** END OF LOGIC FOR DATA BINDINGS IN XAML *****/
 
 

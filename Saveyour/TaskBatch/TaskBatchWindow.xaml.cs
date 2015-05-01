@@ -50,7 +50,8 @@ namespace TaskBatch
             DateTime stop = d.AddDays(14);
             
             while(!d.Equals(stop)){
-                int tasksWeight = WeeklyInstance.sumOfTaskWeights(d);  
+                int tasksWeight = WeeklyInstance.sumOfTaskWeights(d);
+                Debug.WriteLine(d + " Weight: " + tasksWeight);
                 DateTimeSum temp = new DateTimeSum();
                 temp.setDateTime(d);
                 temp.setDayWeight(WeeklyInstance.sumOfTaskWeights(d));
@@ -124,21 +125,15 @@ namespace TaskBatch
 
         private void addToWeeklyToDo_Click(object sender, RoutedEventArgs e)
         {
-            /*
-            ConfirmationWindow confirm = new ConfirmationWindow();
-            bool? result = confirm.ShowDialog();
-
-            List<DateTimeSum> days = ListOfDays();
-            MessageBox.Show(days[0].getDateTime().ToString());
-            */
             ConfirmationWindow confirm = new ConfirmationWindow();
 
             //CALCULATE THE IDEAL DAY TO PLACE TASKS
             List<DateTimeSum> allDays = sortList(ListOfDays());//returns a sorted lists with all the days for the next 2 weeks in ascending order from lowest to highest task weight for day
             DateTimeSum idealDay = allDays[0];//gets index at the top, which is the one with the least task weight
             DateTime toAdd = idealDay.getDateTime(); //This is the ideal date to add the task to. Want to add Task to this Date
-            String date = toAdd.ToString();
-            confirm.displayMessage("Would you like to add the tasks to the date\n " + date);
+            String date = toAdd.ToString("d");
+
+            confirm.displayMessage("Would you like to add the tasks to the date\n " + date + "?");
 
             bool? result = confirm.ShowDialog();
             if (result == true)
@@ -154,6 +149,28 @@ namespace TaskBatch
                 }
             }
 
+        }
+
+        private void autoAdd_Click(object sender, RoutedEventArgs e)
+        {
+            ConfirmationWindow confirm = new ConfirmationWindow();
+            confirm.displayMessage("Would you like TaskBatch to find a date and add these tasks for you?");
+
+            bool? result = confirm.ShowDialog();
+            if (result == true)
+            {
+                List<DateTimeSum> allDays = ListOfDays();
+                AvailableDates.Children.Clear();
+                foreach (Saveyour.Task t in tasklist)
+                {
+                    allDays = ListOfDays();
+                    DateTime toAdd = allDays[0].getDateTime();
+                    t.setDate(toAdd);
+                    if (WeeklyInstance.addAndDisplay(t))//adds task to weekly instance
+                        Debug.WriteLine("Added");
+                }
+
+            }
         }
 
     }

@@ -26,7 +26,6 @@
                 </Rectangle.Fill>
             </Rectangle>
             <Button x:Name="addSubjectButton" Content="Add Subject" HorizontalAlignment="Left" Margin="13,456,0,0" VerticalAlignment="Top" Width="80" Click="addSubjectButton_Click" Style="{DynamicResource SubjectButtonStyle}"/>
-            <TabControl x:Name="subjectsTab" HorizontalAlignment="Left" Height="391" Margin="13,28,0,0" VerticalAlignment="Top" Width="302"/>
             <Button x:Name="addTaskButton" Click ="addTask" Content="Add Task" HorizontalAlignment="Left" Margin="235,456,0,0" VerticalAlignment="Top" Width="80" Style="{DynamicResource TaskButtonStyle}"/>
             <Button x:Name="removeSubjectButton" HorizontalAlignment="Left" Margin="122,456,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource RemoveSubjectStyle}" Click="removeSubjectButton_Click"/>
             <Label x:Name="errorLabel" Content="Cannot Add Tasks to All Tab" HorizontalAlignment="Left" Margin="82,424,0,0" VerticalAlignment="Top"/>

@@ -18,7 +18,7 @@ namespace Saveyour
         private static Settings settings;
         private static Dictionary<string, IPlugin> _Plugins;
         private static WeeklyToDo weeklyToDo;
-
+        public static Homework gg;
         public static bool loadPluginModules()
         {
             //ICollection<IPlugin> plugins = PluginLoader.LoadPlugins("Plugins");
@@ -102,6 +102,7 @@ namespace Saveyour
             else if (modID.Equals("Homework"))
             {
                 newModule = new Homework();
+                gg = (Homework)newModule;
             }
             else 
             {
@@ -181,16 +182,17 @@ namespace Saveyour
             //saveLoad.loadToLaunch();
             //weeklyToDo = null;
 
-            saveLoad.load();
+            
 
             //launch("Quicknotes");
+            /*
             launch("WeeklyToDo");
             launch("Google Calendar");
 
             launch("Homework");
             launch("QuicknotesControl");
-
-             
+            */
+            saveLoad.load();
             
             settings.Show();
 

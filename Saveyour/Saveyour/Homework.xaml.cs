@@ -36,35 +36,45 @@ namespace Saveyour
             public String AssignmentDate { get; set; }
 
             public String AssignmentShortenedDate { get; set; }
+            public String AssignmentSubject { get; set; }
 
         }
 
         private const int MAX_SUBJECTS = 10;
         MainViewModel newView;
         private static TabControl mainTabControl;
-        ObservableCollection<Task> taskGroupAll;
+        private static ObservableCollection<Task> taskGroupAll;
         ObservableCollection<Task> taskGroup;
-        ObservableCollection<Task> archivedTasks;
-        TabItem AllTab;
+        private static TabItem AllTab;
         Storyboard newStoryBoard;
         public Homework()
         {
+            mainTabControl = new TabControl();
+            taskGroupAll = new ObservableCollection<Task>();
+            AllTab = new TabItem();
             InitializeComponent();
+            AllTab.Header = "All";
+            AllTab.Content = createNewList(taskGroupAll);
+            mainTabControl.Items.Insert(0, Homework.AllTab);
+            mainTabControl.SelectedItem = AllTab;
+
+            mainTabControl.HorizontalAlignment = HorizontalAlignment.Left;
+            mainTabControl.Height = 391;
+            mainTabControl.Margin = new Thickness(13, 28, 0, 0);
+            mainTabControl.VerticalAlignment = VerticalAlignment.Top;
+            mainTabControl.Width = 302;
+
             //Setting up a ModelView for clicking on buttons in the Listview
             errorLabel.Visibility = Visibility.Hidden;
             newView = new MainViewModel();
             this.DataContext = newView;
-            //Create ObservableCollections to add tasks to
-            taskGroupAll = new ObservableCollection<Task>();
-            archivedTasks = new ObservableCollection<Task>();
             //Creating of the All Tab that will contain all the tasks
-            AllTab = new TabItem();
-            AllTab.Header = "All";
-            AllTab.Content = createNewList(taskGroupAll);
-            Console.WriteLine("IN CONSTRUCTOR = " + taskGroupAll.Count);
-            subjectsTab.Items.Add(AllTab);
+
             //Animation for  showing Label.
             newStoryBoard = new Storyboard();
+            Console.WriteLine("ADDED IN CONSTRUCTOR!!!");
+ 
+            
             //This needs to be scalable to multiple xaml elements.
             //We need to load the information for the subjects here.
 
@@ -89,20 +99,16 @@ namespace Saveyour
         public String save()
         {
             String output = "";
-            foreach (TabItem subject in (ItemCollection) subjectsTab.Items)
+            foreach (TabItem subject in (ItemCollection) mainTabControl.Items)
             {
                 output = output + subject.Header + ":";
                 foreach (Task task in (ObservableCollection<Task>)((ListView)subject.Content).ItemsSource)
                 {
-                    output = output + task.AssignmentName + "," + task.AssignmentDate + "," + task.AssignmentShortenedDate + "\t\t";
+                    output = output + task.AssignmentName + "," + task.AssignmentDate + "," + task.AssignmentShortenedDate + "," + task.AssignmentSubject +"\t\t";
                 }
                 output = output + "\r\t\r";
             }
-            output = output + "SEPARATE";
-            foreach (Task task in archivedTasks)
-            {
-               output = output + task.AssignmentName + "," + task.AssignmentDate + "," + task.AssignmentShortenedDate + "\t\t";
-            }
+
             Debug.WriteLine("Saving: " + output);
 
             return output;
@@ -110,10 +116,9 @@ namespace Saveyour
 
         public Boolean load(String data)
         {
+            Console.WriteLine("data = " + data);
             //Get the string from database and load it
             //Use substrings to find a subject name and all its tasks in it
-            data = data.Substring(0, data.IndexOf("SEPARATE"));
-            Console.WriteLine(data);
             Debug.WriteLine("Homework Loading: " + data);
             String[] splitAt = { "\r\t\r" };
             String[] splitAt2 = { ":" };
@@ -123,61 +128,59 @@ namespace Saveyour
             String[] separateTasks;
             TabItem restoreSubject;
             ObservableCollection<Task> restoreSource;
+
             for (int i = 0; i < listOfSubjects.Length; i++)
             {
                 if (!listOfSubjects[i].Equals(""))
                 {
                     //Split the subject string into the Subject and Task Name
                     separateTasks = listOfSubjects[i].Split(splitAt2, StringSplitOptions.None);
-                    if (separateTasks[0].Equals("All"))
+                    restoreSource = new ObservableCollection<Task>();
+                    restoreSubject = new TabItem();
+                    if (!separateTasks[0].Equals("All"))
                     {
-                        restoreSubject = AllTab;
-                        restoreSource = taskGroupAll;
-                    }
-                    else
-                    {
-                        restoreSubject = new TabItem();
-                        restoreSource = new ObservableCollection<Task>();
-
-                    }
-                    
-                    //If there is tasks under the subject
-                    if (!string.IsNullOrWhiteSpace(separateTasks[1]))
-                    {
-                        //Split the string of all tasks into each individual task
-                        String[] restoreTasks = separateTasks[1].Split(splitAt3, StringSplitOptions.None);
-                        try
+                        //If there is tasks under the subject
+                        if (!string.IsNullOrWhiteSpace(separateTasks[1]))
                         {
-                            //Goes through all the tasks and adds it into an ObservableCollection<Task>
-                            for (int j = 0; j < restoreTasks.Length; j++)
+                            //Split the string of all tasks into each individual task
+                            String[] restoreTasks = separateTasks[1].Split(splitAt3, StringSplitOptions.None);
+                            try
                             {
-                                if (!string.IsNullOrWhiteSpace(restoreTasks[j]))
+                                //Goes through all the tasks and adds it into an ObservableCollection<Task>
+                                for (int j = 0; j < restoreTasks.Length; j++)
                                 {
-                                    String[] restoreTaskInfo = restoreTasks[j].Split(splitAt4, StringSplitOptions.None);
+                                    if (!string.IsNullOrWhiteSpace(restoreTasks[j]))
+                                    {
+                                        String[] restoreTaskInfo = restoreTasks[j].Split(splitAt4, StringSplitOptions.None);
 
-                                    Task newTask = new Task();
-                                    newTask.AssignmentName = restoreTaskInfo[0];
-                                    newTask.AssignmentDate = restoreTaskInfo[1];
-                                    newTask.AssignmentShortenedDate = restoreTaskInfo[2];
-                                    restoreSource.Add(newTask);
+                                        Task newTask = new Task();
+                                        newTask.AssignmentName = restoreTaskInfo[0];
+                                        newTask.AssignmentDate = restoreTaskInfo[1];
+                                        newTask.AssignmentShortenedDate = restoreTaskInfo[2];
+                                        newTask.AssignmentSubject = restoreTaskInfo[3];
+                                        restoreSource.Add(newTask);
+                                        taskGroupAll.Add(newTask);
+                                    }
                                 }
                             }
+                            catch (FormatException e)
+                            {
+                                Debug.WriteLine("Invalid WeeklyToDo Task Format!");
+                            }                           
                         }
-                        catch (FormatException e)
-                        {
-                            Debug.WriteLine("Invalid WeeklyToDo Task Format!");
-                        }
+                        restoreSubject.Header = separateTasks[0];
+                        restoreSubject.Content = createNewList(restoreSource);
+                        mainTabControl.Items.Add(restoreSubject);
                     }
-                    restoreSubject.Header = separateTasks[0];
-                    restoreSubject.Content = createNewList(restoreSource);
-                    if (restoreSubject != AllTab)
-                    {
-                        subjectsTab.Items.Add(restoreSubject);
-                    }
+
                 }
             }
-
-            mainTabControl = subjectsTab;
+            Console.WriteLine(mainTabControl);
+            AllTab.Content = createNewList(taskGroupAll);
+            mainTabControl.SelectedItem = AllTab;
+            windowGrid.Children.Add(mainTabControl);
+            Console.WriteLine(((TabItem)mainTabControl.SelectedItem).Header);
+            Console.WriteLine(mainTabControl);
             return true;
         }
 
@@ -203,8 +206,8 @@ namespace Saveyour
             TabItem newTab = new TabItem();
             newTab.Header = check; //Need to make sure we cannot exit window until Submit or Cancel is pressed.
             newTab.Content = createNewList(null);
-            subjectsTab.Items.Add(newTab);
-            mainTabControl = subjectsTab;
+            mainTabControl.Items.Add(newTab);
+            //mainTabControl = subjectsTab;
             Shell.getSaveLoader().save();
         }
         
@@ -213,35 +216,38 @@ namespace Saveyour
             //When the button to delete task is pressed, find the task in the same row as the button
             Task item = (Task)sender;
             TabItem tabitem = (TabItem) mainTabControl.SelectedItem;
+            if (((TabItem)mainTabControl.SelectedItem) == AllTab)
+            {
+                taskGroupAll.Remove(item);
+                TabItem removeFromSubject = null;
+                foreach (TabItem tab in mainTabControl.Items)
+                {
+                    if (tab.Header.Equals(item.AssignmentSubject))
+                    {
 
-            ListView listview = (ListView) tabitem.Content;
-            Console.WriteLine(listview);
-            //Find the index of the item so we can delete it
-            int index = ((ListView)((TabItem)mainTabControl.SelectedItem).Content).Items.IndexOf(item);
+                        Console.WriteLine(tab.Header + " " + item.AssignmentSubject);
+                        removeFromSubject = tab;
+                    }
+                }
+                ((ObservableCollection<Task>)((ListView)removeFromSubject.Content).ItemsSource).Remove(item);
+                ((ListView)AllTab.Content).Items.Refresh();
+                Console.WriteLine("Removed!");
+                Shell.getSaveLoader().save();
+                return;
+            }
+            
+      
             //Remove the task
             ((ObservableCollection<Task>)((ListView)((TabItem)mainTabControl.SelectedItem).Content).ItemsSource).Remove(item);
             //Find the task in the All tab and remove it from there too
-            TabItem getTab = null;
-            foreach (TabItem tab in mainTabControl.Items)
-            {
-                if (tab.Header.Equals("All")){
-                    getTab = tab;
-                }
-                    
-            }
-            Task delTask = null;
-            foreach (Task task in (ObservableCollection<Task>)((ListView)getTab.Content).ItemsSource)
-            {
-                if (task.AssignmentName.Equals(item.AssignmentName))
-                {
-                    delTask = task;
-                }
-            }
+            taskGroupAll.Remove(item);
 
-            Boolean removed = ((ObservableCollection<Task>)((ListView)getTab.Content).ItemsSource).Remove(delTask);
-            //Refresh and Update List
-            ((ListView)getTab.Content).Items.Refresh();
             ((ListView)((TabItem)mainTabControl.SelectedItem).Content).Items.Refresh();
+
+            //Refresh and Update List
+            //((ListView)getTab.Content).Items.Refresh();
+
+            //((ListView)((TabItem)mainTabControl.SelectedItem).Content).Items.Refresh();
 
             Shell.getSaveLoader().save();
         }
@@ -264,9 +270,9 @@ namespace Saveyour
             String shortenedDate = setTaskWindow.getTaskDate().ToShortDateString();
             shortenedDate = shortenedDate.Remove(shortenedDate.Length - 5); 
 
-            TabItem setTab = subjectsTab.SelectedItem as TabItem;
+            TabItem setTab = mainTabControl.SelectedItem as TabItem;
             Console.WriteLine(setTab);
-            Task newTask = new Task { AssignmentName = description, AssignmentDate = date, AssignmentShortenedDate = shortenedDate };
+            Task newTask = new Task { AssignmentName = description, AssignmentDate = date, AssignmentShortenedDate = shortenedDate, AssignmentSubject = (String) setTab.Header };
 
             //Add the task to the currently selected tab by gettings its list and adding it to the observablecollection
             ObservableCollection<Task> currentList = (ObservableCollection<Task>)((ListView)setTab.Content).ItemsSource;
@@ -274,7 +280,7 @@ namespace Saveyour
                 sortAllTab(newTask,(ObservableCollection<Task>)((ListView)setTab.Content).ItemsSource);
             sortAllTab(newTask, taskGroupAll);
             ((ListView)setTab.Content).Items.Refresh();
-            mainTabControl = subjectsTab;
+            //mainTabControl = subjectsTab;
 
 
             Shell.getSaveLoader().save();
@@ -410,7 +416,7 @@ namespace Saveyour
 
         private void removeSubjectButton_Click(object sender, RoutedEventArgs e)
         {
-            if (subjectsTab.SelectedItem == AllTab)
+            if (mainTabControl.SelectedItem == AllTab)
             {
                 errorLabel.Visibility = System.Windows.Visibility.Visible;
                 TimeSpan duration = TimeSpan.FromMilliseconds(500); //
@@ -431,9 +437,9 @@ namespace Saveyour
                 newStoryBoard.Begin(errorLabel);
                 newStoryBoard.Completed += delegate { errorLabel.Visibility = System.Windows.Visibility.Hidden; };
             }
-            if (subjectsTab.SelectedItem != AllTab)
+            if (mainTabControl.SelectedItem != AllTab)
             {
-                subjectsTab.Items.Remove(subjectsTab.SelectedItem);
+                mainTabControl.Items.Remove(mainTabControl.SelectedItem);
             }
         }
     }

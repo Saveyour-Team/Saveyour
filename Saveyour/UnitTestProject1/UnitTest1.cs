@@ -14,7 +14,7 @@ namespace UnitTestProject1 {
 
     public class UnitTest1 {
 
-
+        /*
         [TestMethod]
         public void testGetShell()
         {
@@ -169,7 +169,7 @@ namespace UnitTestProject1 {
             Assert.AreEqual(name, mod.moduleID(), "Equal");
 
         }*/
-
+        /*
         //Testing Quicknote's ID method
         [TestMethod]
         public void quciknotesID()
@@ -458,7 +458,7 @@ namespace UnitTestProject1 {
         
     
     
-    
+        */
     
     
     

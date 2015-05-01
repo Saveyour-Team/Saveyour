@@ -19,10 +19,12 @@
             </Rectangle>
         </Border>
 
-        <Button x:Name="addTaskBtn" Content="Add Task" HorizontalAlignment="Center" VerticalAlignment="Top" Width="74" Height="25" Foreground="White" Background="#FF5EC0FF" Click="addTaskButton" Margin="114,21,112,0"/>
-        <Button x:Name="addWeeklyToDo" Content="Add To Weekly To Do" HorizontalAlignment="Center" VerticalAlignment="Top" Width="126" Height="25" Foreground="White" Background="#FF5EC0FF" Margin="0,51,0,0" Click="addWeeklyToDo_Click"/>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <StackPanel x:Name="AvailableDates" Margin="0,96,0,32"/>
         </ScrollViewer>
+        
+        <Button x:Name="addTaskBtn" Content="Add Task" HorizontalAlignment="Center" VerticalAlignment="Top" Width="74" Height="25" Foreground="White" Background="#FF5EC0FF" Click="addTaskButton" Margin="114,21,112,0"/>
+        <Button x:Name="addWeeklyToDo" Content="Add To Weekly To Do" HorizontalAlignment="Center" VerticalAlignment="Top" Width="126" Height="25" Foreground="White" Background="#FF5EC0FF" Margin="0,51,0,0" Click="addWeeklyToDo_Click"/>
+        
     </Grid>
 </Window>

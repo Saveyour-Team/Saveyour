@@ -89,17 +89,23 @@ namespace TaskBatch
             WeeklyInstance = Shell.getWeeklyToDo(); 
             Saveyour.Task task = WeeklyInstance.selectAddNoDateTask(e);
 
-            StackPanel taskStack = new StackPanel();
+            if (task != null)
+            {
+                StackPanel taskStack = new StackPanel();
 
-            TextBlock taskLabel = new TextBlock();
-            taskLabel.Text = task.getTitle();
-            taskLabel.Margin = new Thickness(50, 0, 0, 0);
+                TextBlock taskLabel = new TextBlock();
+                if (taskLabel != null)
+                { 
+                    taskLabel.Text = task.getTitle();
+                    taskLabel.Margin = new Thickness(50, 0, 0, 0);
 
-            taskStack.Children.Add(taskLabel);
+                    taskStack.Children.Add(taskLabel);
 
-            AvailableDates.Children.Add(taskStack);
-            tasklist.AddLast(task);
-           
+                    AvailableDates.Children.Add(taskStack);
+                    tasklist.AddLast(task);
+                }
+            }
+
         }
 
         private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)

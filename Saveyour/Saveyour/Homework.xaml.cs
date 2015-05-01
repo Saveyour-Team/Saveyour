@@ -17,6 +17,9 @@ using System.Diagnostics;
 using System.Collections.ObjectModel;
 using System.Xml;
 using System.Text.RegularExpressions;
+using System.Timers;
+using System.ComponentModel;
+using System.Windows.Media.Animation;
 
 
 namespace Saveyour
@@ -53,9 +56,11 @@ namespace Saveyour
         ObservableCollection<Task> taskGroupAll;
         ObservableCollection<Task> taskGroup;
         TabItem AllTab;
+        Storyboard newStoryBoard;
         public Homework()
         {
             InitializeComponent();
+            errorLabel.Visibility = Visibility.Hidden;
             newView = new MainViewModel();
             this.DataContext = newView;
             taskGroupAll = new ObservableCollection<Task>();
@@ -66,8 +71,8 @@ namespace Saveyour
             taskGroupAll = new ObservableCollection<Task>();
             AllTab.Content = createNewList(taskGroupAll);
             subjectsTab.Items.Add(AllTab);
-            mainTabControl = subjectsTab;
-
+            Console.WriteLine(subjectsTab);
+            newStoryBoard = new Storyboard();
             //This needs to be scalable to multiple xaml elements.
             //We need to load the information for the subjects here.
 
@@ -91,26 +96,99 @@ namespace Saveyour
 
         public String save()
         {
-            return "Not implemented yet";
+            String output = "";
+            int i = 0;
+            foreach (TabItem subject in (ItemCollection) subjectsTab.Items)
+            {
+                i++;
+                output = output + subject.Header + ":";
+                foreach (Task task in (ObservableCollection<Task>)((ListView)subject.Content).ItemsSource)
+                {
+                    output = output + task.AssignmentName + "," + task.AssignmentDate + "," + task.AssignmentShortenedDate + "\t\t";
+                }
+                output = output + "\r\t\r";
+            }
+            
+            Debug.WriteLine("Saving: " + output);
+            Debug.WriteLine(i);
+            return output;
         }
 
         public Boolean load(String data)
         {
-            //Need to de-tokenize based on String given for subject names. Delimiter is ','.
+            
+            Console.WriteLine(data);
+            Debug.WriteLine("Homework Loading: " + data);
+            String[] splitAt = { "\r\t\r" };
+            String[] splitAt2 = { ":" };
+            String[] splitAt3 = {"\t\t"};
+            String[] splitAt4 = {","};
+            String[] listOfSubjects = data.Split(splitAt, StringSplitOptions.None);
+            String[] separateTasks;
+            TabItem restoreSubject;
+            ObservableCollection<Task> restoreSource;
+            for (int i = 0; i < listOfSubjects.Length; i++)
+            {
+                if (!listOfSubjects[i].Equals(""))
+                {
+                    //Split the subject string into the Subject and Task Name
+                    separateTasks = listOfSubjects[i].Split(splitAt2, StringSplitOptions.None);
+                    if (separateTasks[0].Equals("All"))
+                    {
+                        restoreSubject = AllTab;
+                        restoreSource = taskGroupAll;
+                    }
+                    else
+                    {
+                        restoreSubject = new TabItem();
+                        restoreSource = new ObservableCollection<Task>();
 
-            /****** LOAD FLOW DOCUMENT *******/
+                    }
+                    
+                    //If there is tasks under the subject
+                    if (!string.IsNullOrWhiteSpace(separateTasks[1]))
+                    {
+                        //Split the string of all tasks into each individual task
+                        String[] restoreTasks = separateTasks[1].Split(splitAt3, StringSplitOptions.None);
+                        try
+                        {
+                            //Goes through all the tasks and adds it into an ObservableCollection<Task>
+                            for (int j = 0; j < restoreTasks.Length; j++)
+                            {
+                                if (!string.IsNullOrWhiteSpace(restoreTasks[j]))
+                                {
+                                    String[] restoreTaskInfo = restoreTasks[j].Split(splitAt4, StringSplitOptions.None);
 
-            //FileStream xamlFile = new FileStream(@"savedFiles\test.xaml", FileMode.Open, FileAccess.Read);
-            // and parse the file with the XamlReader.Load method.
-            //FlowDocument content = XamlReader.Load(xamlFile) as FlowDocument;
-            // Finally, set the Document property to the FlowDocument object that was
-            // parsed from the input file.            
-            //rightBox.Document = content;
+                                    Task newTask = new Task();
+                                    newTask.AssignmentName = restoreTaskInfo[0];
+                                    newTask.AssignmentDate = restoreTaskInfo[1];
+                                    newTask.AssignmentShortenedDate = restoreTaskInfo[2];
+                                    restoreSource.Add(newTask);
+                                }
+                            }
+                        }
+                        catch (FormatException e)
+                        {
+                            Debug.WriteLine("Invalid WeeklyToDo Task Format!");
+                        }
+                    }
+                    restoreSubject.Header = separateTasks[0];
+                    Console.WriteLine(restoreSource);
+                    restoreSubject.Content = createNewList(restoreSource);
+                    Console.WriteLine("Content = " + restoreSubject.Content);
+                    Console.WriteLine("Newly created = " + restoreSubject);
+                    if (restoreSubject != AllTab)
+                    {
+                        subjectsTab.Items.Add(restoreSubject);
+                    }
+                }
+            }
 
-            //xamlFile.Close();          
-
+            mainTabControl = subjectsTab;
+            Console.WriteLine("DONE LOADING!!! " + mainTabControl);
             return true;
         }
+
 
         public Boolean Equals(Module other)
         {
@@ -135,6 +213,7 @@ namespace Saveyour
             newTab.Content = createNewList(null);
             subjectsTab.Items.Add(newTab);
             mainTabControl = subjectsTab;
+            Shell.getSaveLoader().save();
         }
         
         public static void deleteTask(object sender)
@@ -142,16 +221,28 @@ namespace Saveyour
             Task item = (Task)sender;
             Console.Write("Item Name:");
             Console.WriteLine(item.AssignmentName);
+            Console.WriteLine(mainTabControl.SelectedItem);
             TabItem tabitem = (TabItem) mainTabControl.SelectedItem;
-            Console.WriteLine(tabitem);
+
+            Console.WriteLine("maintabcontrol = " + mainTabControl);
+            Console.WriteLine("tabitem = " +tabitem);
             ListView listview = (ListView) tabitem.Content;
             Console.WriteLine(listview);
             int index = ((ListView)((TabItem)mainTabControl.SelectedItem).Content).Items.IndexOf(item);
             Console.Write(index);
             ((ObservableCollection<Task>)((ListView)((TabItem)mainTabControl.SelectedItem).Content).ItemsSource).Remove(item);
-
+            TabItem getTab = null;
+            foreach (TabItem tab in mainTabControl.Items)
+            {
+                if (tab.Header.Equals("All")){
+                    getTab = tab;
+                }
+                    
+            }
+            ((ObservableCollection<Task>)((ListView)getTab.Content).ItemsSource).Remove(item);
             ((ListView)((TabItem)mainTabControl.SelectedItem).Content).Items.Refresh();
 
+            Shell.getSaveLoader().save();
         }
 
         private static void archiveTask(object send)
@@ -178,12 +269,16 @@ namespace Saveyour
             Task newTask = new Task { AssignmentName = description, AssignmentDate = date, AssignmentShortenedDate = shortenedDate };
 
             //((ObservableCollection<Task>)((ListView)setTab.Content).ItemsSource).Add(newTask);
-            sortAllTab(newTask,(ObservableCollection<Task>)((ListView)setTab.Content).ItemsSource);
+            ObservableCollection<Task> currentList = (ObservableCollection<Task>)((ListView)setTab.Content).ItemsSource;
+            if(currentList != taskGroupAll)
+                sortAllTab(newTask,(ObservableCollection<Task>)((ListView)setTab.Content).ItemsSource);
             sortAllTab(newTask, taskGroupAll);
             ((ListView)setTab.Content).Items.Refresh();
             mainTabControl = subjectsTab;
             //Console.WriteLine(((ListView)setTab.Content));
             //subjects[0].taskCollection.Add(newTask);
+
+            Shell.getSaveLoader().save();
 
         }
 
@@ -210,13 +305,13 @@ namespace Saveyour
             GridViewColumn dateColumn = new GridViewColumn();
             GridViewColumn editColumn = new GridViewColumn();
             GridView newGrid = new GridView();
-            nameColumn.Width = 190;
+            nameColumn.Width = 180;
             nameColumn.Header = "Assignment";
             nameColumn.DisplayMemberBinding = new Binding("AssignmentName");
             dateColumn.Width = 45;
             dateColumn.Header = "Date";
             dateColumn.DisplayMemberBinding = new Binding("AssignmentShortenedDate");
-            editColumn.Width = 35;
+            editColumn.Width = 45;
             editColumn.Header = "Edit";
             editColumn.CellTemplate = this.Resources["editColumnTemplate"] as DataTemplate;
             newGrid.Columns.Add(nameColumn);
@@ -312,6 +407,35 @@ namespace Saveyour
         {
             if (e.RightButton == MouseButtonState.Pressed || e.MiddleButton == MouseButtonState.Pressed)
                 e.Handled = true;
+        }
+
+        private void removeSubjectButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (subjectsTab.SelectedItem == AllTab)
+            {
+                errorLabel.Visibility = System.Windows.Visibility.Visible;
+                TimeSpan duration = TimeSpan.FromMilliseconds(500); //
+
+                DoubleAnimation fadeInAnimation = new DoubleAnimation() { From = 0.0, To = 1.0, Duration = new Duration(duration) };
+
+                DoubleAnimation fadeOutAnimation = new DoubleAnimation() { From = 1.0, To = 0.0, Duration = new Duration(duration) };
+                fadeOutAnimation.BeginTime = TimeSpan.FromSeconds(2);
+
+                Storyboard.SetTargetName(fadeInAnimation, errorLabel.Name);
+                Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("Opacity", 1));
+                newStoryBoard.Children.Add(fadeInAnimation);
+                newStoryBoard.Begin(errorLabel);
+
+                Storyboard.SetTargetName(fadeOutAnimation, errorLabel.Name);
+                Storyboard.SetTargetProperty(fadeOutAnimation, new PropertyPath("Opacity", 0));
+                newStoryBoard.Children.Add(fadeOutAnimation);
+                newStoryBoard.Begin(errorLabel);
+                newStoryBoard.Completed += delegate { errorLabel.Visibility = System.Windows.Visibility.Hidden; };
+            }
+            if (subjectsTab.SelectedItem != AllTab)
+            {
+                subjectsTab.Items.Remove(subjectsTab.SelectedItem);
+            }
         }
     }
 }

@@ -5,22 +5,22 @@
         Left="0" Top = "0"
 
 
-     Title="Homework" Height="402.4" Width="331.6" WindowStyle="None" Background="Transparent" AllowsTransparency="True" ResizeMode="NoResize">
+     Title="Homework" Height="504.4" Width="331.6" WindowStyle="None" Background="Transparent" AllowsTransparency="True" ResizeMode="NoResize">
     <Window.Resources>
         <DataTemplate x:Key="editColumnTemplate">
             <StackPanel Orientation="Horizontal">
                 <Button Content="X"  Command="{Binding Path=DataContext.DeleteCommand,
                       RelativeSource={RelativeSource Mode=FindAncestor,
-                                                     AncestorType=Window}}" CommandParameter="{Binding}" HorizontalAlignment="Stretch"/>
+                                                     AncestorType=Window}}" CommandParameter="{Binding}" HorizontalAlignment="Stretch" Style="{StaticResource DeleteStyle}"/>
                 <Button Content="A"  Command="{Binding Path=DataContext.ArchiveCommand,
                       RelativeSource={RelativeSource Mode=FindAncestor,
-                                                     AncestorType=Window}}" CommandParameter="{Binding}" HorizontalAlignment="Stretch"/>
+                                                     AncestorType=Window}}" CommandParameter="{Binding}" HorizontalAlignment="Stretch" Style="{StaticResource ArchiveStyle}"/>
             </StackPanel>
         </DataTemplate>
     </Window.Resources>
     <Border BorderBrush="White" BorderThickness="2,2,2,2" CornerRadius="15,15,15,15" Background="#FF44B9FF">
         <Grid x:Name="windowGrid" Margin="0,0,2.8,0.8">
-            <Rectangle x:Name="titleBar" HorizontalAlignment="Left" Height="54" Stroke="#00000000" VerticalAlignment="Top" Width="325" MouseDown="titleBar_MouseDown" RadiusY="24.5" RadiusX="24.5" Margin="0,2,0,0" Opacity="0" PreviewMouseDown="titleBar_PreviewMouseDown">
+            <Rectangle x:Name="titleBar" HorizontalAlignment="Left" Height="26" Stroke="#00000000" VerticalAlignment="Top" Width="325" MouseDown="titleBar_MouseDown" RadiusY="24.5" RadiusX="24.5" Margin="0,2,0,0" Opacity="0" PreviewMouseDown="titleBar_PreviewMouseDown">
                 <Rectangle.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FFF1FAFF" Offset="1"/>
@@ -28,12 +28,11 @@
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <Button x:Name="addSubjectButton" Content="Add Subject" HorizontalAlignment="Left" Margin="32,17,0,0" VerticalAlignment="Top" Width="80" Click="addSubjectButton_Click"/>
-            <TabControl x:Name="subjectsTab" HorizontalAlignment="Left" Height="312" Margin="10,56,0,0" VerticalAlignment="Top" Width="302"/>
-            <Button x:Name="addTaskButton" Click ="addTask" Content="Add Task" HorizontalAlignment="Left" Margin="232,7.05,0,0" VerticalAlignment="Top" Width="80"/>
-            <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Margin="73,27,0,0" Height="40" Style="{DynamicResource genericAddStyle1}"/>
-            <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Margin="128,2,0,0" Height="20" Style="{DynamicResource GenericTextStyle}"/>
-            <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="50" Margin="128,27,0,0" Style="{DynamicResource GenericPictureButtonStyle}"/>
+            <Button x:Name="addSubjectButton" Content="Add Subject" HorizontalAlignment="Left" Margin="13,456,0,0" VerticalAlignment="Top" Width="80" Click="addSubjectButton_Click" Style="{DynamicResource SubjectButtonStyle}"/>
+            <TabControl x:Name="subjectsTab" HorizontalAlignment="Left" Height="391" Margin="13,28,0,0" VerticalAlignment="Top" Width="302"/>
+            <Button x:Name="addTaskButton" Click ="addTask" Content="Add Task" HorizontalAlignment="Left" Margin="235,456,0,0" VerticalAlignment="Top" Width="80" Style="{DynamicResource TaskButtonStyle}"/>
+            <Button x:Name="removeSubjectButton" HorizontalAlignment="Left" Margin="122,456,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource RemoveSubjectStyle}" Click="removeSubjectButton_Click"/>
+            <Label x:Name="errorLabel" Content="Cannot Add Tasks to All Tab" HorizontalAlignment="Left" Margin="82,424,0,0" VerticalAlignment="Top"/>
         </Grid>
     </Border>
 </Window>

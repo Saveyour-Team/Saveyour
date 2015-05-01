@@ -78,7 +78,7 @@ namespace UnitTestProject1
 
             System.IO.Directory.CreateDirectory("savedFiles");
 
-            System.IO.File.WriteAllText(@"savedFiles\readtest", "TESTTEST");
+            System.IO.File.WriteAllText(@"savedFiles\readtest.txt", "TESTTEST");
 
             String written = ReadWrite.readStringFrom(@"readtest.txt");
             Debug.WriteLine("readtest: " + written);
